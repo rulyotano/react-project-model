@@ -1,4 +1,14 @@
-$ Scope: <num-[desc]> | Implementation: <desc>
+### sgpa-react
+##### Configurando commit-template
+#
+```sh
+$ cd sgpa-react
+$ git config commit.template .git-commit-template
+```
+>Dessa forma na hora de gerar o commit basta usar < git commit > e o tema definido acima será carregado, você deverá informar o escopo e suas implemtações. Fica à seu critério adicionar demais informações.
+Exemplo:
+```sh
+$ Scope: <...> | Implementation: <...>
 $ # Please enter the commit message for your changes. Lines starting
 $ # with '#' will be ignored, and an empty message aborts the commit.
 $ # On branch master
@@ -20,3 +30,16 @@ $ #       new file:   src/index.css
 $ #       new file:   src/index.js
 $ #       new file:   src/logo.svg
 $ #       new file:   src/registerServiceWorker.js
+```
+
+##### Intalando dependências
+#
+```sh
+$ npm install
+```
+
+##### Iniciado projeto
+#
+```sh
+$ npm start
+```
