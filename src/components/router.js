@@ -1,7 +1,7 @@
 import React from 'react'
 import {
   BrowserRouter as Router,
-  Route
+  Route, Switch
 } from 'react-router-dom'
 
 import Loadable from 'react-loadable';
@@ -22,8 +22,10 @@ const AppRouter = () => (
       <div>
         {/* Common all app things here        */}
   
-        <Route exact path="/login" component={LoginAsync}/>
-        <Route path="/" component={AppAsync}/>
+        <Switch>          
+          <Route exact path="/login" component={LoginAsync}/>
+          <Route path="/" component={AppAsync}/>
+        </Switch>
       </div>
     </Router>
   )
