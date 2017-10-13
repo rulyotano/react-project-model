@@ -1,24 +1,71 @@
 import React, { Component}  from 'react'
-import '../../styles/css/login.css';
+import '../../styles/css/_custom.css';
+import 'bootstrap-grid/dist/grid.min.css';
+import TextField from 'material-ui/TextField';
+
 
 class Login extends Component {
     state = {  }
     render() {
         return (
             <div>
-                <form className="login-container" name="login_form" noValidate>
-                    <header className="login-header">
-                        <div className="logo"></div>
-                        <h1 style={{marginLeft:'200px', width:'150px',fontSize: '30px', display:'inline', verticalAlign: 'middle', position: 'relative', color: '#fff'}}>
-                            Solinftec
-                            <sub style={{fontSize: '50%', position: 'absolute', right: '-20px', bottom: '-5px'}}>SGPA</sub>
-                        </h1>
-                    </header>
-                    <fieldset>
+                <div className="container">
+                    <div className="row">
+                        <div className="col-md-1"></div>
+                        <div className="col-md-10">
+                            <div className="login-container">
+                                <div className="login-header">
+                                    <div className="row">
+                                        <div className="col-md-2">
+                                            <div className="logo"></div>
+                                        </div>
+                                        <div className="col-md-4">
+                                            <h1 className="title">
+                                                Solinftec
+                                                <sub style={{fontSize: '50%', position: 'absolute', right: '-20px', bottom: '-15px'}}>SGPA</sub>
+                                            </h1>
 
-                    </fieldset>
-                    <footer className="login-footer"></footer>
-                </form>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div className="login-body">
+                                    <fieldset>
+                                        <section>
+                                            <TextField
+                                                hintText="Username"
+                                                floatingLabelText="Username"
+                                                id="usernameID"
+                                                name="username"
+                                                fullWidth={true}
+                                                inputStyle={{color:'white'}}
+                                                hintStyle={{color:'white'}}
+
+                                            />
+                                        </section>
+                                        <section>
+                                            <TextField
+                                                hintText="Password Field"
+                                                floatingLabelText="Password"
+                                                type="password"
+                                                fullWidth={true}
+                                                inputStyle={{color:'white'}}
+                                                hintStyle={{color:'white'}}
+                                                style={{color:'white'}}
+                                                labelColor={{color:'white'}}
+
+
+                                            />
+                                        </section>
+
+                                    </fieldset>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col-md-1"></div>
+                    </div>
+
+                </div>
             </div>
         );
     }
