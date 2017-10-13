@@ -1,9 +1,15 @@
 import React, { Component}  from 'react'
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+
+import RaisedButton from 'material-ui/RaisedButton';
+
 class TestComponent1 extends Component {
     state = {  }
     render() {
         return (
-            <div>ASdasdasd</div>
+            <MuiThemeProvider>
+                <RaisedButton label="Material UI is works" />
+            </MuiThemeProvider>
         );
     }
 }

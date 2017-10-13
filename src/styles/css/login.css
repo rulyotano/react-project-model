@@ -1,0 +1,39 @@
+html,
+body,
+body:not(.menu-on-top).desktop-detected {
+  height: 100% !important;
+  min-height: 100% !important;
+}
+body {
+  background-image: url('../img/login.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.login-container {
+  width: 500px;
+  height: 350px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 100px;
+  background: rgba(0, 0, 0, 0.5);
+}
+.login-header {
+  width: 100%;
+  height: 75px;
+  background: rgba(0, 0, 0, 0.8);
+}
+.login-footer {
+  width: 100%;
+  height: 75px;
+  background: rgba(0, 0, 0, 0.8);
+}
+.logo {
+  background-image: url('../img/logo.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-left: 150px;
+  width: 40px;
+  height: 39px;
+}
