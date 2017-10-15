@@ -1,5 +1,6 @@
 import React, { Component}  from 'react'
-import HttpService from '../../../service/http/HttpService';
+import loginService from '../../../service/login/loginService';
+import loginAuthDataService from '../../../service/login/loginAuthDataService';
 
 class DashBoard extends Component {
 
@@ -10,19 +11,30 @@ class DashBoard extends Component {
     }
 
     componentDidMount() {
-        let login = {"username": "thiago.tahara", "password": "1234"};
-        console.log(HttpService.useSgpaApiUrl());
-        HttpService.useSgpaApiUrl().post('/auth', login)
-        .then(data =>
-        {
-           this.setState({'token':data.token});
+        this.updateAuthData()
 
-        })
-        .catch(error =>
-        {
-            alert(error);
-        });
+        let authData = loginAuthDataService.getAuthData()
+        if (!authData || !authData.token){
+            loginService.login("thiago.tahara", "1234")
+            .then(data =>
+            {
+                this.updateAuthData()
+            })
+            .catch(error =>
+            {
+                alert(error);
+            });
+        }
     };
+
+    updateAuthData(){
+        let authData = loginAuthDataService.getAuthData()
+        if (authData && authData.token){
+            this.setState({'token':authData.token});
+        }else{
+            this.setState({'token': '-'});
+        }
+    }
 
     render() {
         return (

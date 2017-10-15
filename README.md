@@ -43,3 +43,13 @@ $ npm install
 ```sh
 $ npm start
 ```
+
+#### Name Norms
+Service File Name: CamelCase, eg. `helperService.js`
+Component File Name (principal or primary components, components container of other): CapitalFirst eg. `Dashboard.js`
+Stateless components, small ones: CapitalFirst starting with underscore, eg. `_LoadingComponent.js`
+Css and Less files: Lowercase divided by - eg. `font-solinftec.css`
+
+#### Services
+Try keep services as simple as possible, for instance, try allways be an js object. In most of cases it is only what is needed, a class is to much complexity for it.
+If a class is needed, for instance, http service, returns the instance, in this way doesn't need to be done by the 'users' of the service, and is like a real service.
