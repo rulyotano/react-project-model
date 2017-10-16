@@ -2,12 +2,20 @@ import React, { Component}  from 'react'
 import '../../styles/css/_custom.css';
 import 'bootstrap-grid/dist/grid.min.css';
 import TextField from 'material-ui/TextField';
+import RaisedButton from 'material-ui/RaisedButton';
 import loginService from "../../service/login/loginService";
 
+const style = {
+    input:{color:'white', height:'80%', marginLeft:'4px', marginTop:'4px'},
+    hint: {color:'white', height:'50%', marginLeft:'4px', marginTop:'12px'},
+    floatingLabel:{top:'5px'},
+    btnAcessar:{marginLeft:'111px', marginTop:'42px',backgroundColor:'inherited', height:'45px', borderRadius:'5px'}
+};
 
 class Login extends Component {
 
     state = { username:'', password:'' }
+
 
     login(){
         loginService.login(this.state.username, this.state.password);
@@ -30,9 +38,9 @@ class Login extends Component {
                                         id="usernameID"
                                         name="username"
                                         fullWidth={true}
-                                        inputStyle={{color:'white', height:'80%', marginLeft:'4px', marginTop:'4px'}}
-                                        hintStyle={{color:'white', height:'50%', marginLeft:'4px', marginTop:'12px'}}
-                                        floatingLabelStyle={{top:'5px'}}
+                                        inputStyle={style.input}
+                                        hintStyle={style.hint}
+                                        floatingLabelStyle={style.floatingLabel}
                                         onChange={(event, newValue)=>{this.setState({username:newValue})}}
                                     />
                                 </section>
@@ -47,26 +55,28 @@ class Login extends Component {
                                         floatingLabelText="Password"
                                         type="password"
                                         fullWidth={true}
-                                        inputStyle={{color:'white', height:'80%', marginLeft:'4px', marginTop:'4px'}}
-                                        hintStyle={{color:'white', height:'50%', marginLeft:'4px', marginTop:'12px'}}
-                                        floatingLabelStyle={{top:'5px'}}
+                                        inputStyle={style.input}
+                                        hintStyle={style.hint}
+                                        floatingLabelStyle={style.floatingLabel}
                                         onChange={(event, newValue)=>{this.setState({password:newValue})}}
                                     />
                                 </section>
                             </div>
                             <div className="row">
-                                <div style={{marginLeft:'111px', marginTop:'42px'}}>
-                                    <button type="button" className="btn-acessar" onClick={()=>this.login()}>ACESSAR</button>
-                                </div>
+                                <RaisedButton
+                                    label="ACESSAR"
+                                    primary={true}
+                                    buttonStyle={{ height:'45px', backgroundColor:'#0774b4', borderRadius:'5px'}}
+                                    style={style.btnAcessar}
+                                    onClick={()=>this.login()}
+                                    labelStyle={{fontWeight:'bold', top:'10px' }}
+                                >
+                                </RaisedButton>
                             </div>
 
                         </fieldset>
                     </div>
-                    {/*<div className="login-footer">*/}
-                        {/*<div className="login-field">*/}
 
-                        {/*</div>*/}
-                    {/*</div>*/}
                 </div>
             </div>
         );
