@@ -5,54 +5,80 @@ body:not(.menu-on-top).desktop-detected {
   min-height: 100% !important;
 }
 body {
-  background-image: url('../img/login.jpg');
+  background-color: black;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
 }
-.login-container {
-  width: 35%;
-  height: 350px;
+.login {
+  width: 320px;
+  height: 400px;
+  background-color: #1b1b1b;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 100px;
-  border-radius: 3px;
-  background: rgba(0, 0, 0, 0.4);
+  margin-top: 150px;
 }
 .login-header {
-  color: white;
-  width: 100%;
-  height: 60px;
-  background: rgba(0, 0, 0, 0.6);
-  padding-top: 5px;
-}
-.login-header h1 {
-  font-family: "Open Sans", Arial, Helvetica, Sans-Serif;
-  font-weight: 100;
+  width: 320px;
+  height: 70px;
+  padding-top: 30px;
+  border-radius: 5px;
+  background-color: #1b1b1b;
+  box-shadow: 0 6px 40px 0 rgba(0, 0, 0, 0.07);
 }
 .login-body {
-  color: #fff;
+  width: 320px;
+  height: 300px;
+  border-radius: 5px;
+  background-color: #272727;
+  box-shadow: 0 6px 40px 0 rgba(0, 0, 0, 0.07);
+}
+.login-body .login-field {
+  padding-top: 27px;
+}
+.login-body .login-field section {
+  margin-left: auto;
+  margin-right: auto;
+  width: 274px;
+  height: 42px;
+  border-radius: 5px 5px 0 0 ;
+  background-color: #1b1b1b;
+  box-shadow: 0 6px 40px 0 rgba(0, 0, 0, 0.07);
+}
+.login-body .login-field section .text-username {
+  height: 53px !important;
+}
+.login-body .login-field section .text-password {
+  height: 53px !important;
+}
+.login-body .login-field section label {
+  color: #eeeeee !important;
+  margin-left: 5px;
+  top: 12px;
+  opacity: 0.5;
 }
 .login-footer {
-  width: 100%;
-  height: 75px;
-  background: rgba(0, 0, 0, 0.8);
+  width: 320px;
+  height: 100px;
+  border-radius: 5px;
+  background-color: #1b1b1b;
+  box-shadow: 0px 6px 40px 0 rgba(0, 0, 0, 0.07);
 }
 .logo {
+  width: 143px;
+  height: 38px;
+  object-fit: contain;
+  margin-left: 89px;
   background-image: url('../img/logo.png');
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-  margin-left: 70px;
-  width: 40px;
-  height: 39px;
 }
-.title {
-  margin-left: 25px;
-  width: 150px;
-  font-size: 30px;
-  display: inline;
-  vertical-align: middle;
-  position: relative;
-  color: #fff;
+.btn-acessar {
+  width: 98px;
+  height: 45px;
+  border-radius: 5px;
+  background-color: #0774b4;
+  box-shadow: 0px 6px 40px 0 rgba(0, 0, 0, 0.07);
+  border: none;
+  color: white;
+  font-family: NunitoSans, serif;
+  cursor: pointer;
 }

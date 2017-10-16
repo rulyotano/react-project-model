@@ -9,62 +9,58 @@ class Login extends Component {
     render() {
         return (
             <div>
-                <div className="container">
-                    <div className="row">
-                        <div className="col-md-1"></div>
-                        <div className="col-md-10">
-                            <div className="login-container">
-                                <div className="login-header">
-                                    <div className="row">
-                                        <div className="col-md-2">
-                                            <div className="logo"></div>
-                                        </div>
-                                        <div className="col-md-4">
-                                            <h1 className="title">
-                                                Solinftec
-                                                <sub style={{fontSize: '50%', position: 'absolute', right: '-20px', bottom: '-15px'}}>SGPA</sub>
-                                            </h1>
+                <div className="login">
+                    <div className="login-header">
+                        <div className="logo"></div>
+                    </div>
+                    <div className="login-body">
+                        <fieldset>
+                            <div className="login-field">
 
-                                        </div>
-
-                                    </div>
-                                </div>
-                                <div className="login-body">
-                                    <fieldset>
-                                        <section>
-                                            <TextField
-                                                hintText="Username"
-                                                floatingLabelText="Username"
-                                                id="usernameID"
-                                                name="username"
-                                                fullWidth={true}
-                                                inputStyle={{color:'white'}}
-                                                hintStyle={{color:'white'}}
-
-                                            />
-                                        </section>
-                                        <section>
-                                            <TextField
-                                                hintText="Password Field"
-                                                floatingLabelText="Password"
-                                                type="password"
-                                                fullWidth={true}
-                                                inputStyle={{color:'white'}}
-                                                hintStyle={{color:'white'}}
-                                                style={{color:'white'}}
-                                                labelColor={{color:'white'}}
+                                <section>
+                                    <TextField
+                                        className="text-username"
+                                        floatingLabelText="Username"
+                                        id="usernameID"
+                                        name="username"
+                                        fullWidth={true}
+                                        inputStyle={{color:'white', height:'80%', marginLeft:'4px', marginTop:'4px'}}
+                                        hintStyle={{color:'white', height:'50%', marginLeft:'4px', marginTop:'12px'}}
+                                        floatingLabelStyle={{top:'5px'}}
 
 
-                                            />
-                                        </section>
+                                    />
+                                </section>
 
-                                    </fieldset>
+
+                            </div>
+                            <div className="login-field">
+                                <section>
+                                    <TextField
+                                        defaultValue=""
+                                        className="text-password"
+                                        floatingLabelText="Password"
+                                        type="password"
+                                        fullWidth={true}
+                                        inputStyle={{color:'white', height:'80%', marginLeft:'4px', marginTop:'4px'}}
+                                        hintStyle={{color:'white', height:'50%', marginLeft:'4px', marginTop:'12px'}}
+                                        floatingLabelStyle={{top:'5px'}}
+                                    />
+                                </section>
+                            </div>
+                            <div className="row">
+                                <div style={{marginLeft:'111px', marginTop:'42px'}}>
+                                    <button type="button" className="btn-acessar">ACESSAR</button>
                                 </div>
                             </div>
-                        </div>
-                        <div className="col-md-1"></div>
-                    </div>
 
+                        </fieldset>
+                    </div>
+                    {/*<div className="login-footer">*/}
+                        {/*<div className="login-field">*/}
+
+                        {/*</div>*/}
+                    {/*</div>*/}
                 </div>
             </div>
         );
