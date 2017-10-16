@@ -2,10 +2,17 @@ import React, { Component}  from 'react'
 import '../../styles/css/_custom.css';
 import 'bootstrap-grid/dist/grid.min.css';
 import TextField from 'material-ui/TextField';
+import loginService from "../../service/login/loginService";
 
 
 class Login extends Component {
-    state = {  }
+
+    state = { username:'', password:'' }
+
+    login(){
+        loginService.login(this.state.username, this.state.password);
+    }
+
     render() {
         return (
             <div>
@@ -16,7 +23,6 @@ class Login extends Component {
                     <div className="login-body">
                         <fieldset>
                             <div className="login-field">
-
                                 <section>
                                     <TextField
                                         className="text-username"
@@ -27,8 +33,7 @@ class Login extends Component {
                                         inputStyle={{color:'white', height:'80%', marginLeft:'4px', marginTop:'4px'}}
                                         hintStyle={{color:'white', height:'50%', marginLeft:'4px', marginTop:'12px'}}
                                         floatingLabelStyle={{top:'5px'}}
-
-
+                                        onChange={(event, newValue)=>{this.setState({username:newValue})}}
                                     />
                                 </section>
 
@@ -45,12 +50,13 @@ class Login extends Component {
                                         inputStyle={{color:'white', height:'80%', marginLeft:'4px', marginTop:'4px'}}
                                         hintStyle={{color:'white', height:'50%', marginLeft:'4px', marginTop:'12px'}}
                                         floatingLabelStyle={{top:'5px'}}
+                                        onChange={(event, newValue)=>{this.setState({password:newValue})}}
                                     />
                                 </section>
                             </div>
                             <div className="row">
                                 <div style={{marginLeft:'111px', marginTop:'42px'}}>
-                                    <button type="button" className="btn-acessar">ACESSAR</button>
+                                    <button type="button" className="btn-acessar" onClick={()=>this.login()}>ACESSAR</button>
                                 </div>
                             </div>
 
