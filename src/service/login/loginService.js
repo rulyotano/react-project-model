@@ -1,7 +1,7 @@
 import httpService from '../httpService'
 import languageService from '../languageService'
 import loginAuthDataService from './loginAuthDataService'
-import _ from 'lodash'
+import isEmpty from 'lodash/isEmpty'
 
 const loginError = e => { 
     // dialogsService.error(languageService.getWord("Login Error"), languageService.getWord(e));
@@ -11,7 +11,7 @@ const login = (user, password) => {
     let promise = httpService.post('/auth', { 'username': user, 'password': password })
     promise.then(response => {
             if (response.token) {
-                if (_.isEmpty(response.listaDeOpcoesDoUsuario)){
+                if (isEmpty(response.listaDeOpcoesDoUsuario)){
                     loginError(languageService.getWord("login:Your user profile is not created yet."))
                 } else {
                     loginAuthDataService.setAuthData({ 'username': user, token: response.token  })
