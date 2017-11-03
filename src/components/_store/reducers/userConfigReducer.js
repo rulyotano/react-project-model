@@ -9,11 +9,7 @@ export default (state = defaultUserConfigState, action) => {
         case 'SET_USER_CONFIG':
             if (!action.payload)
                 return state      
-            return {
-                userOptionsList: action.payload.userOptionsList,
-                userUnitsList: action.payload.userUnitsList,
-                generalParameterList: action.payload.generalParameterList
-            }
+            return {...action.payload}
         case 'CLEAR_USER_CONFIG':
             return defaultUserConfigState
         default:

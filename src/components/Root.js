@@ -12,7 +12,8 @@ import '../styles/css/font-awesome.css';
 
 import Loadable from 'react-loadable';
 import LoadingComponent from './_LoadingComponent';
-import configureStore from './configureStore'
+import store from './store';
+import PrivateRoute from './PrivateRoute'
 
 const AppAsync = Loadable({
     loader: () => import('./app/App'),
@@ -24,8 +25,6 @@ const LoginAsync = Loadable({
     loading: LoadingComponent,
 });
 
-const store = configureStore()
-
 const AppRouter = () => (
     <Provider store={store}>
         <MuiThemeProvider>
@@ -35,7 +34,7 @@ const AppRouter = () => (
 
                     <Switch>
                         <Route exact path="/login" component={LoginAsync}/>
-                        <Route path="/" component={AppAsync}/>
+                        <PrivateRoute path="/" component={AppAsync}/>
                     </Switch>
                 </div>
             </Router>

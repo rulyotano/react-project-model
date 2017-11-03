@@ -9,13 +9,9 @@ export const userInitialState = {
 export default (state = userInitialState, action) => {
     switch (action.type) {
         case 'SET_USER' :
-            return {
-                id: action.id,
-                username: action.username,
-                name: action.name,
-                state: action.state,
-                userGroup: action.userGroup
-            }   
+            if (!action.payload)
+                return state      
+            return {...action.payload}   
         case 'CLEAR_USER': {
             return userInitialState
         }
