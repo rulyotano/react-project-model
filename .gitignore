@@ -7,3 +7,5 @@
 ### NodeJS ###
 node_modules/*
 /npm-debug.log
+/src/styles/css/*.css
+/src/styles/css/*.map

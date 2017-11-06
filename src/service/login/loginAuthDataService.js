@@ -1,7 +1,7 @@
 import localStorageService from '../localStorageService'
 
-var LOGIN_DATA_STORAGE_KEY = "login_data_storage_key";
-var _authData = null;   //has the structure { 'username': , token:  }
+export const LOGIN_DATA_STORAGE_KEY = "login_data_storage_key";
+let _authData = null;   //has the structure { 'username': , token:  }
 
 export default {
     getAuthData: function(){

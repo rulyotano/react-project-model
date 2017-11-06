@@ -1,50 +1,28 @@
 import React, { Component}  from 'react'
+import { connect } from 'react-redux'
+import { get } from 'lodash'
+
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import RaisedButton from 'material-ui/RaisedButton';
+
 import loginService from '../../../service/login/loginService';
 import loginAuthDataService from '../../../service/login/loginAuthDataService';
 
-class DashBoard extends Component {
+const mapStateToProps = (state) => ({
+        token: get(state, 'auth.user.token'),
+        username: get(state, 'auth.user.username')
+    })
 
-
-    constructor() {
-        super();
-        this.state = {token:''};
-    }
-
-    componentDidMount() {
-        this.updateAuthData()
-
-        let authData = loginAuthDataService.getAuthData()
-        if (!authData || !authData.token){
-            loginService.login("thiago.tahara", "1234")
-            .then(data =>
-            {
-                this.updateAuthData()
-            })
-            .catch(error =>
-            {
-                alert(error);
-            });
-        }
-    };
-
-    updateAuthData(){
-        let authData = loginAuthDataService.getAuthData()
-        if (authData && authData.token){
-            this.setState({'token':authData.token});
-        }else{
-            this.setState({'token': '-'});
-        }
-    }
-
-    render() {
-        return (
-            <div>
-                <h1>DashBoard</h1>
-                <span>token: {this.state.token}</span>
-            </div>
+const DashBoard = ({username, token}) => (
+            <MuiThemeProvider>
+                <div>                    
+                    <h1>DashBoard</h1>
+                    <span>username: {username}</span>
+                    <br/>
+                    <span>token: {token}</span>
+                    <RaisedButton label='Logout' onClick={()=>loginService.logout()}/>
+                </div>
+            </MuiThemeProvider>
         );
-    }
-}
 
-
-export default DashBoard;
+export default connect(mapStateToProps)(DashBoard);

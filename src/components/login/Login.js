@@ -1,5 +1,6 @@
-import React, { Component}  from 'react'
-import '../../styles/css/_custom.css';
+import React, { Component }  from 'react'
+import { withRouter } from 'react-router-dom'
+import '../../styles/css/login.css';
 import 'bootstrap-grid/dist/grid.min.css';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -18,7 +19,12 @@ class Login extends Component {
 
 
     login(){
-        loginService.login(this.state.username, this.state.password);
+        loginService.login(this.state.username, this.state.password)
+                    .then(()=>this.props.history.push('/'));
+    }
+
+    componentWillUnmount(){
+        debugger;
     }
 
     render() {
@@ -83,4 +89,4 @@ class Login extends Component {
     }
 }
 
-export default Login;
+export default withRouter(Login);

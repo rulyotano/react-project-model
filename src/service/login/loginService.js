@@ -2,6 +2,8 @@ import httpService from '../httpService'
 import languageService from '../languageService'
 import loginAuthDataService from './loginAuthDataService'
 import isEmpty from 'lodash/isEmpty'
+import store from '../../components/store'
+import {setUserLogged, clearUserLogged} from '../../components/_store/actions/authActions'
 
 const loginError = e => { 
     // dialogsService.error(languageService.getWord("Login Error"), languageService.getWord(e));
@@ -19,8 +21,8 @@ const login = (user, password) => {
                     // configService.setUserUnits(response.listaDeUnidadesDoUsuario);
                     // userConfigService.setUserProfile(response.listaDeOpcoesDoUsuario);
 
-                    //TODO: Change store state to logued for making the redirect
-                    // location.href = '/';
+                    //Change store state to logued for making the redirect                    
+                    store.dispatch(setUserLogged(response.token, user)) //makes the redirect
                 }
             } else {
                 loginError(languageService.getWord("Your credentials are invalid."))
@@ -33,13 +35,12 @@ const login = (user, password) => {
 };
 
 const logout = () => {
-    let promise = httpService.post('/auth/logout', {})
-    promise.finally(function() {
+    return httpService.post('/auth/logout', {}).then(()=>{
         loginAuthDataService.clearAuthData();
         //TODO: clear data storage -> configService.clearConfigurations();
-        //TODO: Change store state to not logued for making the redirect
-    });
-    return promise
+        //Change store state to not logued for making the redirect
+        store.dispatch(clearUserLogged())
+    })
 };
 
 export default {

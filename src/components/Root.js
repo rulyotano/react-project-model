@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {Component} from 'react'
 import {
     BrowserRouter as Router,
     Route, Switch
@@ -14,6 +14,8 @@ import Loadable from 'react-loadable';
 import LoadingComponent from './_LoadingComponent';
 import store from './store';
 import PrivateRoute from './PrivateRoute'
+import loginAuthDataService from '../service/login/loginAuthDataService'
+import { setUserLogged } from './_store/actions/authActions'
 
 const AppAsync = Loadable({
     loader: () => import('./app/App'),
@@ -25,20 +27,30 @@ const LoginAsync = Loadable({
     loading: LoadingComponent,
 });
 
-const AppRouter = () => (
-    <Provider store={store}>
-        <MuiThemeProvider>
-            <Router>
-                <div>
-                    {/* Common all app things here        */}
+class AppRouter extends Component {
+    componentWillMount(){
+        let authData = loginAuthDataService.getAuthData();
+        if (authData){
+            store.dispatch(setUserLogged(authData.token, authData.username))
+        }
+    }
 
-                    <Switch>
-                        <Route exact path="/login" component={LoginAsync}/>
-                        <PrivateRoute path="/" component={AppAsync}/>
-                    </Switch>
-                </div>
-            </Router>
-        </MuiThemeProvider>
-    </Provider>
-)
+    render(){
+        return (<Provider store={store}>
+            <MuiThemeProvider>
+                <Router>
+                    <div>
+                        {/* Common all app things here        */}
+
+                        <Switch>
+                            <Route exact path="/login" component={LoginAsync}/>
+                            <PrivateRoute path="/" component={AppAsync}/>
+                        </Switch>
+                    </div>
+                </Router>
+            </MuiThemeProvider>
+        </Provider>)
+    }
+}
+
 export default AppRouter

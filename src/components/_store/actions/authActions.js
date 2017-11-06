@@ -1,7 +1,12 @@
+/**@param token {string}
+ * @param username {string}
+ */
 export const setUserLogged = (token, username)=>({
     type: 'SET_USER_LOGGED',
-    token,
-    username
+    payload: {
+        token,
+        username
+    }
 })
 
 export const clearUserLogged = ()=>({
