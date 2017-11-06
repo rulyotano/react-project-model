@@ -14,19 +14,11 @@ const style = {
 };
 
 class Login extends Component {
-
     state = { username:'', password:'' }
-
-
     login(){
         loginService.login(this.state.username, this.state.password)
                     .then(()=>this.props.history.push('/'));
     }
-
-    componentWillUnmount(){
-        debugger;
-    }
-
     render() {
         return (
             <div>

@@ -53,3 +53,8 @@ Css and Less files: Lowercase divided by - eg. `font-solinftec.css`
 #### Services
 Try keep services as simple as possible, for instance, try allways be an js object. In most of cases it is only what is needed, a class is to much complexity for it.
 If a class is needed, for instance, http service, returns the instance, in this way doesn't need to be done by the 'users' of the service, and is like a real service.
+
+#### Redux
+All flux stores are goin to be inside the components folder. The `/src/components/configureStore.js` will be a function for creating stores (this can be useful for making test), and the `/src/components/store.js` will be the particular store instance used in the real aplication.
+Inside the folder `/src/components/_store` is the base store. There will be all the common reduxers, actions and action creators. Inside the `_store` folder there will be the following file structure: folders `actions` and `reducers`, and the file `index.js`. In the file `index.js` there will be the reducer composition.
+The idea is that in each component that needed, will be a `_store` folder.
