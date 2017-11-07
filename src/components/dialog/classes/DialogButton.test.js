@@ -21,3 +21,25 @@ it("default values when isn't custom", ()=>{
         }
     })    
 })
+
+test('should have a promise prop', () => {  
+    let dialogButton = new DialogButton(DialogButtonTypes.CUSTOM, "key1", "label1", true)
+    expect(dialogButton.Promise).toBeDefined()
+    expect(dialogButton.Promise instanceof Promise).toBe(true)
+})
+
+test('should have raise action method', () => {  
+    let dialogButton = new DialogButton(DialogButtonTypes.CUSTOM, "key1", "label1", true)
+    expect(dialogButton.raiseAction).toBeDefined()
+    expect(dialogButton.raiseAction instanceof Function).toBe(true)
+})
+
+test('when raise action is executed promise is resolved with key as parameter', done => {  
+    let dialogButton = new DialogButton(DialogButtonTypes.CUSTOM, "key1", "label1", true)
+    dialogButton.Promise.then(key=>{
+        expect(key).toBe("key1")
+        done()
+    })
+    dialogButton.raiseAction()
+})
+

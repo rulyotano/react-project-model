@@ -25,6 +25,11 @@ export default class DialogButton {
             this._focused = focused
             this._key = key
         }
+
+        this._resolve = null
+        this._promise = new Promise((resolve, reject)=>{
+            this._resolve = resolve
+        })
     }
 
     /**Unique key for the dialog button. If it is a custom type, then will be the type, if it is custom button, then need to be passed*/
@@ -51,5 +56,13 @@ export default class DialogButton {
      */
     get Focused(){
         return this._focused
+    }
+
+    get Promise(){
+        return this._promise
+    }
+
+    raiseAction(){
+        this._resolve(this.Key)
     }
 }
