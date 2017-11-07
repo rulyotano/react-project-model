@@ -24,3 +24,18 @@ it('defaults values in Dialog', () => {
     expect(dialog.Buttons.length).toBe(1)
     expect(dialog.Buttons[0].Key).toBe(DialogButtonTypes.OK)
 });
+
+test('should have an id property', () => {
+    let dialog = new Dialog()
+    expect(dialog.Id).toBeDefined()
+})
+
+test('id property should be unique', () => {
+    let dialog1 = new Dialog()
+    let dialog2 = new Dialog()
+    let dialog3 = new Dialog()
+
+    expect(dialog1.Id).not.toEqual(dialog2.Id)    
+    expect(dialog2.Id).not.toEqual(dialog3.Id)    
+    expect(dialog3.Id).not.toEqual(dialog1.Id)    
+})
