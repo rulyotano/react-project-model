@@ -13,7 +13,6 @@ export class DialogComponent extends Component {
 
   onDialogClose(dialogId){
       //dispatch action for closing the dialog
-      console.log("Dialog Closed")
       this.props.closeDialog(dialogId)
   }
 
