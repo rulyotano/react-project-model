@@ -31,7 +31,7 @@ it("add dialog should insert one item after the last one", ()=>{
     expect(store.getState().dialog.dialogs).toEqual([dialog1, dialog2])    
 })
 
-it('remove dialog action should remove dialog with specified index', () => {      
+it('remove dialog action should remove dialog with specified key', () => {      
     let dialog1 = new Dialog()
     let dialog2 = new Dialog()
     store.dispatch(addDialog(dialog1))  //add dialog 1

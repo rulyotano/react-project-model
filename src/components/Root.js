@@ -16,6 +16,7 @@ import store from './store';
 import PrivateRoute from './PrivateRoute'
 import loginAuthDataService from '../service/login/loginAuthDataService'
 import { setUserLogged } from './_store/actions/authActions'
+import DialogComponent from './dialog/DialogComponent'
 
 const AppAsync = Loadable({
     loader: () => import('./app/App'),
@@ -46,6 +47,7 @@ class AppRouter extends Component {
                             <Route exact path="/login" component={LoginAsync}/>
                             <PrivateRoute path="/" component={AppAsync}/>
                         </Switch>
+                        <DialogComponent/>
                     </div>
                 </Router>
             </MuiThemeProvider>

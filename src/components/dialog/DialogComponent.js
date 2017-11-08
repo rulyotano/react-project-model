@@ -3,6 +3,8 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { get, map } from 'lodash'
 import Dialog from 'material-ui/Dialog';
+import FlatButton from 'material-ui/FlatButton';
+import {removeDialog} from './_store/actions/dialogActions'
 
 export class DialogComponent extends Component {
   static propTypes = {
@@ -10,11 +12,14 @@ export class DialogComponent extends Component {
   }
 
   onDialogClose(dialogId){
+      //dispatch action for closing the dialog
       console.log("Dialog Closed")
+      this.props.closeDialog(dialogId)
   }
 
-  onActionButton(dialogId, buttonKey){
-      
+  onActionButton(dialogId, button){
+    button.raiseAction()
+    this.onDialogClose(dialogId)
   }
 
   render() {
@@ -23,13 +28,14 @@ export class DialogComponent extends Component {
       <div>
           {
               map(dialogs, dialog=>
-                <Dialog title={dialog.Title}
+                <Dialog key={dialog.Id}
+                        title={dialog.Title}
                         modal={dialog.Modal}
                         actions={map(dialog.Buttons, btn =>(<FlatButton
                                                                     key={btn.Key}
-                                                                    label={btn.Lable}
+                                                                    label={btn.Label}
                                                                     keyboardFocused={btn.Focused}
-                                                                    onClick={this.handleClose}
+                                                                    onClick={()=>this.onActionButton(dialog.Id, btn)}
                                                                 />))}
                         onRequestClose={()=>this.onDialogClose(dialog.Id)}
                         open={true}>{dialog.Body}</Dialog>)
@@ -43,8 +49,10 @@ const mapStateToProps = (state) => ({
     dialogs: get(state, 'dialog.dialogs')  
 })
 
-const mapDispatchToProps = {
-  
-}
+const mapDispatchToProps = (dispatch) => ({
+  closeDialog(dialogId){
+    dispatch(removeDialog(dialogId))
+  }  
+})
 
 export default connect(mapStateToProps, mapDispatchToProps)(DialogComponent)
