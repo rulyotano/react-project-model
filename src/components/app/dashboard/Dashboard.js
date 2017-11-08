@@ -8,10 +8,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import loginService from '../../../service/login/loginService';
 import loginAuthDataService from '../../../service/login/loginAuthDataService';
 
-import {addDialog} from '../../dialog/_store/actions/dialogActions'
-import Dialog from '../../dialog/classes/Dialog'
-import DialogButton, {DialogButtonTypes} from '../../dialog/classes/DialogButton'
-
+import dialogService from '../../../service/dialog/dialogService'
 
 const DashBoard = ({username, token, createMockDialog}) => (
             <MuiThemeProvider>
@@ -34,17 +31,9 @@ const mapStateToProps = (state) => ({
 let testIndex = 0
 const mapDispatchToProps = (dispatch) => ({
     createMockDialog(){
-
-        let dialogButtonOk = new DialogButton(DialogButtonTypes.OK)
-        let dialogButtonCancel = new DialogButton(DialogButtonTypes.CANCEL)
-
-        let dialog = new Dialog(`title${testIndex}`, `body${testIndex++} ad adas`,false, [dialogButtonOk, dialogButtonCancel])
-
-        dialog.Promise.then(response=>{
+        dialogService.confirmOk(`title${testIndex}`, `body${testIndex++} ad adas`).then(response=>{
             console.log(`Dialog closed with ${response}`)
         })
-
-        dispatch(addDialog(dialog))
     }  
 })
 

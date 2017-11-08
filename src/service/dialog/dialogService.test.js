@@ -2,6 +2,7 @@ import configureStore from '../../components/configureStore'
 import {DialogService} from './dialogService'
 import Dialog from '../../components/dialog/classes/Dialog'
 import {DialogButtonTypes} from '../../components/dialog/classes/DialogButton'
+import {forEach, filter} from 'lodash'
 
 let store = null
 let dialogService = null
@@ -10,44 +11,116 @@ beforeEach(()=>{
     dialogService = new DialogService(store)    
 })
 
+//#region common
+const testMethodDefined = (methodName)=>{    
+    test(`should have method '${methodName}'`, () => {
+        expect(dialogService[methodName]).toBeDefined()      
+    })
+}
+
+const testAddNewDialogToStore = (methodName)=>{
+    test(`method '${methodName}'should add to store a new dialog`, () => {
+        dialogService[methodName]("title 1", "desc 1")
+        let state = store.getState()
+        expect(state.dialog.dialogs.length).toBe(1)
+        expect(state.dialog.dialogs[0] instanceof Dialog).toBe(true)
+    })
+}
+
+const testSameTitleAndBody = (methodName)=>{
+    test(`method '${methodName}'should add dialog with same title and body`, () => {
+        dialogService[methodName]("title 2", "desc 2")
+        let state = store.getState()
+        expect(state.dialog.dialogs[0].Title).toBe("title 2")
+        expect(state.dialog.dialogs[0].Body).toBe("desc 2")
+    })
+}
+
+const testAddDialogModal = (methodName)=>{
+    test(`method '${methodName}'should add dialog modal`, () => {
+        dialogService[methodName]()
+        let state = store.getState()
+        expect(state.dialog.dialogs[0].Modal).toBe(true)
+    })
+}
+
+const testHaveButtons = (methodName, buttonTypes)=>{
+    test(`method '${methodName}' should have buttons`, () => {
+        dialogService[methodName]()
+        let state = store.getState()
+        let buttons = state.dialog.dialogs[0].Buttons
+        expect(buttons.length).toBe(buttonTypes.length)
+        forEach(buttons, (btn, index) => expect(btn.Type).toBe(buttonTypes[index]));
+    })
+}
+
+const testSamePromiseResult = (methodName, buttonTypes)=>{
+    test(`method '${methodName}' should return same promise that dialog`, () => {
+        let response = dialogService[methodName]()
+        let state = store.getState()
+        expect(response).toBe(state.dialog.dialogs[0].Promise)
+    })
+}
+
+const testButtonShouldBeFocused = (methodName, buttonTypeToFocus)=>{
+    test(`method '${methodName}' should have right button focused`, () => {        
+        dialogService[methodName]()
+        let state = store.getState()
+        let buttons = state.dialog.dialogs[0].Buttons
+        let focusedButtons = filter(buttons, btn=>btn.Focused)
+        expect(focusedButtons.length).toBe(1)
+        expect(focusedButtons[0].Key).toBe(buttonTypeToFocus)
+    })
+}
+//#endregion
+
 //#region 'confirmYesNo'
-test("should have method 'confirmYesNo'", () => {
-    expect(dialogService.confirmYesNo).toBeDefined()      
-})
+testMethodDefined('confirmYesNo')
 
 //with 'title', 'desc', and yes no buttons
-test("method 'confirmYesNo'should add to store a new dialog", () => {
-    dialogService.confirmYesNo("title 1", "desc 1")
-    let state = store.getState()
-    expect(state.dialog.dialogs.length).toBe(1)
-    expect(state.dialog.dialogs[0] instanceof Dialog).toBe(true)
-})
+testAddNewDialogToStore('confirmYesNo')
 
-test("method 'confirmYesNo'should add dialog dialog with same title and body", () => {
-    dialogService.confirmYesNo("title 2", "desc 2")
-    let state = store.getState()
-    expect(state.dialog.dialogs[0].Title).toBe("title 2")
-    expect(state.dialog.dialogs[0].Body).toBe("desc 2")
-})
+testSameTitleAndBody('confirmYesNo')
 
-test("method 'confirmYesNo'should add dialog modal dialog", () => {
-    dialogService.confirmYesNo()
-    let state = store.getState()
-    expect(state.dialog.dialogs[0].Modal).toBe(true)
-})
+testAddDialogModal('confirmYesNo')
 
-test("method 'confirmYesNo'should have yes and no buttons", () => {
-    dialogService.confirmYesNo()
-    let state = store.getState()
-    let buttons = state.dialog.dialogs[0].Buttons
-    expect(buttons.length).toBe(2)
-    expect(buttons[0].Type).toBe(DialogButtonTypes.YES)
-    expect(buttons[1].Type).toBe(DialogButtonTypes.NO)
-})
+testHaveButtons('confirmYesNo', [DialogButtonTypes.YES, DialogButtonTypes.NO])
 
-test("method 'confirmYesNo'should return same promise that dialog", () => {
-    let response = dialogService.confirmYesNo()
-    let state = store.getState()
-    expect(response).toBe(state.dialog.dialogs[0].Promise)
-})
+testButtonShouldBeFocused('confirmYesNo', DialogButtonTypes.NO)
+
+testSamePromiseResult('confirmYesNo')
 //#endregion
+
+//#region confirmYesNoCancel
+testMethodDefined('confirmYesNoCancel')
+
+testAddNewDialogToStore('confirmYesNoCancel')
+
+testSameTitleAndBody('confirmYesNoCancel')
+
+testAddDialogModal('confirmYesNoCancel')
+
+testHaveButtons('confirmYesNoCancel', [DialogButtonTypes.YES, DialogButtonTypes.NO, DialogButtonTypes.CANCEL])
+
+testButtonShouldBeFocused('confirmYesNoCancel', DialogButtonTypes.CANCEL)
+
+testSamePromiseResult('confirmYesNoCancel')
+//#endregion
+
+
+//#region confirmOk
+testMethodDefined('confirmOk')
+
+testAddNewDialogToStore('confirmOk')
+
+testSameTitleAndBody('confirmOk')
+
+testAddDialogModal('confirmOk')
+
+testHaveButtons('confirmOk', [DialogButtonTypes.OK])
+
+testButtonShouldBeFocused('confirmOk', DialogButtonTypes.OK)
+
+testSamePromiseResult('confirmOk')
+//#endregion
+

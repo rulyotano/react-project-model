@@ -9,14 +9,34 @@ export class DialogService {
         this._store = storeParam
     }
 
-    confirmYesNo(title, description){
-        let buttons = [
-            new DialogButton(DialogButtonTypes.YES), 
-            new DialogButton(DialogButtonTypes.NO)
-        ]
+    _confirm(title, description, buttons){
         let dialog = new Dialog(title, description, true, buttons)
         this._store.dispatch(addDialog(dialog))
         return dialog.Promise
+    }
+
+    confirmYesNo(title, description){
+        let buttons = [
+            new DialogButton(DialogButtonTypes.YES), 
+            new DialogButton(DialogButtonTypes.NO, "", "", true)
+        ]
+        return this._confirm(title, description, buttons)
+    }
+
+    confirmYesNoCancel(title, description){    
+        let buttons = [
+            new DialogButton(DialogButtonTypes.YES), 
+            new DialogButton(DialogButtonTypes.NO),
+            new DialogButton(DialogButtonTypes.CANCEL, "", "", true)
+        ]  
+        return this._confirm(title, description, buttons)
+    }
+
+    confirmOk(title, description){    
+        let buttons = [
+            new DialogButton(DialogButtonTypes.OK, "", "", true)
+        ]  
+        return this._confirm(title, description, buttons)
     }
 }
 

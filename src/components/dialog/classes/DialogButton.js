@@ -7,22 +7,21 @@ export const DialogButtonTypes = {
 }
 
 export const DialogButtonTypesDefaults = {
-    [DialogButtonTypes.OK]: { label: "dialog:ok", focused: false },
-    [DialogButtonTypes.CANCEL]: { label: "dialog:cancel", focused: true },
-    [DialogButtonTypes.YES]: { label: "dialog:yes", focused: false },
-    [DialogButtonTypes.NO]: { label: "dialog:no", focused: true }
+    [DialogButtonTypes.OK]: { label: "dialog:ok" },
+    [DialogButtonTypes.CANCEL]: { label: "dialog:cancel" },
+    [DialogButtonTypes.YES]: { label: "dialog:yes" },
+    [DialogButtonTypes.NO]: { label: "dialog:no" }
 }
 
 export default class DialogButton {
     constructor(btnType=DialogButtonTypes.CUSTOM, key="", label="", focused=false){
         this._type = btnType
+        this._focused = focused
         if (btnType && btnType !== DialogButtonTypes.CUSTOM){         
             this._key = btnType   
             this._label = DialogButtonTypesDefaults[btnType].label
-            this._focused = DialogButtonTypesDefaults[btnType].focused
         } else {
             this._label = label
-            this._focused = focused
             this._key = key
         }
 

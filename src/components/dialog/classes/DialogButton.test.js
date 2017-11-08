@@ -14,7 +14,7 @@ it("default values when isn't custom", ()=>{
     forEach(DialogButtonTypes, (buttonType)=>{
         if (buttonType !== DialogButtonTypes.CUSTOM){            
             let dialogButton = new DialogButton(buttonType)
-            expect(dialogButton.Focused).toBe(DialogButtonTypesDefaults[buttonType].focused)
+            expect(dialogButton.Focused).toBe(false)
             expect(dialogButton.Label).toBe(DialogButtonTypesDefaults[buttonType].label)
             expect(dialogButton.Key).toBe(buttonType)
             expect(dialogButton.Type).toBe(buttonType)
