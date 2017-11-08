@@ -8,11 +8,9 @@ it('create a dialog', () => {
 });
 
 it('pass constructor params to props', () => {
-    let callback = jest.fn();
-    let dialog = new Dialog("title1", "body1", callback, false, [])
+    let dialog = new Dialog("title1", "body1", false, [])
     expect(dialog.Title).toBe("title1")
     expect(dialog.Body).toBe("body1")
-    expect(dialog.Callback).toBe(callback)
     expect(dialog.Modal).toBe(false)
     expect(dialog.Buttons).toEqual([])
 });
@@ -21,7 +19,6 @@ it('defaults values in Dialog', () => {
     let dialog = new Dialog()
     expect(dialog.Title).toBe("")
     expect(dialog.Body).toBe("")
-    expect(dialog.Callback).toBe(null)
     expect(dialog.Modal).toBe(true)
     expect(isArray(dialog.Buttons)).toBe(true)
     expect(dialog.Buttons.length).toBe(1)
@@ -43,6 +40,41 @@ test('id property should be unique', () => {
     expect(dialog3.Id).not.toEqual(dialog1.Id)    
 })
 
-test('should ', () => {
-  
+test('should have a promise prop', () => {  
+    let dialog1 = new Dialog()
+    expect(dialog1.Promise).toBeDefined()
+    expect(dialog1.Promise instanceof Promise).toBe(true)
+})
+
+test('when button is clicked should be resolved the promise of dialog with button value', 
+done => 
+{  
+    let dialogButtonOk = new DialogButton(DialogButtonTypes.OK)
+    let dialogButtonCancel = new DialogButton(DialogButtonTypes.CANCEL)
+    let dialog1 = new Dialog("title1", "body1",false, [dialogButtonOk])
+
+    dialog1.Promise.then(key=>{  
+        expect(key).toBe(DialogButtonTypes.OK)
+    })
+
+    
+    let dialog2 = new Dialog("title2", "body2",false, [dialogButtonCancel])
+    dialog2.Promise.then(key=>{  
+        expect(key).toBe(DialogButtonTypes.CANCEL)
+    })
+
+    Promise.all([dialog1, dialog2]).then(()=>{
+        done()
+    })
+
+    dialogButtonOk.raiseAction()
+    dialogButtonCancel.raiseAction()
+})
+
+test('should have error if modify buttons (all butons should be passed in constructor)', () => {  
+    expect(() => {
+        let dialog1 = new Dialog()
+        let dialogButtonOk = new DialogButton(DialogButtonTypes.OK)
+        dialog1.Buttons.push(dialogButtonOk)
+      }).toThrow();
 })
