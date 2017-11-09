@@ -9,8 +9,8 @@ export const NotificationTypes = {
 
 export const NotificationTypesDefaults = {
     [NotificationTypes.ALERT]: { color: amber500, fontColor: 'black' },
-    [NotificationTypes.NOTIFICATION]: { color: blue500, fontColor: 'black' },
-    [NotificationTypes.SUCCESS]: { color: green500, fontColor: 'black' },
+    [NotificationTypes.NOTIFICATION]: { color: blue500, fontColor: 'white' },
+    [NotificationTypes.SUCCESS]: { color: green500, fontColor: 'white' },
     [NotificationTypes.ERROR]: { color: red500, fontColor: 'white' },
 }
 
