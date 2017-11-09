@@ -10,7 +10,7 @@ import loginAuthDataService from '../../../service/login/loginAuthDataService';
 
 import dialogService from '../../../service/dialog/dialogService'
 
-const DashBoard = ({username, token, createMockDialog}) => (
+const DashBoard = ({username, token, createMockDialog, raiseMockNotification}) => (
             <MuiThemeProvider>
                 <div>                    
                     <h1>DashBoard</h1>
@@ -19,6 +19,7 @@ const DashBoard = ({username, token, createMockDialog}) => (
                     <span>token: {token}</span>
                     <RaisedButton label='Logout' onClick={()=>loginService.logout()}/>
                     <RaisedButton label='Load test dialog' onClick={createMockDialog}/>
+                    <RaisedButton label='Raise test notification' onClick={raiseMockNotification}/>
                 </div>
             </MuiThemeProvider>
         );
@@ -34,6 +35,12 @@ const mapDispatchToProps = (dispatch) => ({
         dialogService.confirmOk(`title${testIndex}`, `body${testIndex++} ad adas`).then(response=>{
             console.log(`Dialog closed with ${response}`)
         })
+    },
+    raiseMockNotification(){
+        dialogService.alert("", `Some notification in the Bottom ${testIndex++}`)
+        dialogService.error("", `Some notification in the Bottom ${testIndex++}`)
+        dialogService.success("", `Some notification in the Bottom ${testIndex++}`)
+        dialogService.notification("", `Some notification in the Bottom ${testIndex++}`)
     }  
 })
 

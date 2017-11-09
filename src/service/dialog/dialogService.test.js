@@ -1,6 +1,8 @@
 import configureStore from '../../components/configureStore'
 import {DialogService} from './dialogService'
 import Dialog from '../../components/dialog/classes/Dialog'
+import {NotificationTypes} from '../../components/dialog/classes/Notification'
+import BottomNotification from '../../components/dialog/classes/BottomNotification'
 import {DialogButtonTypes} from '../../components/dialog/classes/DialogButton'
 import {forEach, filter} from 'lodash'
 
@@ -72,6 +74,26 @@ const testButtonShouldBeFocused = (methodName, buttonTypeToFocus)=>{
         expect(focusedButtons[0].Key).toBe(buttonTypeToFocus)
     })
 }
+
+const testShouldAddBottomNotificationToStore = (methodName)=>{
+    test(`method '${methodName}'should add bottom notification to store`, () => {
+        dialogService[methodName]("title 1", "desc 1")
+        let state = store.getState()
+        expect(state.dialog.bottomNotifications.length).toBe(1)
+        expect(state.dialog.bottomNotifications[0] instanceof BottomNotification).toBe(true)
+    })
+}
+
+const testBottomNotificationSameTitleDescAndType = (methodName, type)=>{
+    test(`method '${methodName}'should add bottom notification with same title and desc`, () => {
+        dialogService[methodName]("title 2", "desc 2")
+        let state = store.getState()
+        expect(state.dialog.bottomNotifications[0].Title).toBe("title 2")
+        expect(state.dialog.bottomNotifications[0].Description).toBe("desc 2")
+        expect(state.dialog.bottomNotifications[0].Type).toBe(type)
+    })
+}
+
 //#endregion
 
 //#region 'confirmYesNo'
@@ -107,7 +129,6 @@ testButtonShouldBeFocused('confirmYesNoCancel', DialogButtonTypes.CANCEL)
 testSamePromiseResult('confirmYesNoCancel')
 //#endregion
 
-
 //#region confirmOk
 testMethodDefined('confirmOk')
 
@@ -124,3 +145,40 @@ testButtonShouldBeFocused('confirmOk', DialogButtonTypes.OK)
 testSamePromiseResult('confirmOk')
 //#endregion
 
+//#region error
+testMethodDefined('error')
+
+testShouldAddBottomNotificationToStore('error')
+
+testBottomNotificationSameTitleDescAndType('error', NotificationTypes.ERROR)
+//#endregion
+
+//#region notification
+
+testMethodDefined('notification')
+
+testShouldAddBottomNotificationToStore('notification')
+
+testBottomNotificationSameTitleDescAndType('notification', NotificationTypes.NOTIFICATION)
+
+//#endregion
+
+//#region alert
+
+testMethodDefined('alert')
+
+testShouldAddBottomNotificationToStore('alert')
+
+testBottomNotificationSameTitleDescAndType('alert', NotificationTypes.ALERT)
+
+//#endregion
+
+//#region success
+
+testMethodDefined('success')
+
+testShouldAddBottomNotificationToStore('success')
+
+testBottomNotificationSameTitleDescAndType('success', NotificationTypes.SUCCESS)
+
+//#endregion

@@ -2,7 +2,7 @@ import {ADD_DIALOG, REMOVE_DIALOG} from '../actions/dialogActions.types'
 import {ADD_BOTTOM_NOTIFICATION, REMOVE_PAST_BOTTOM_NOTIFICATION} from '../actions/bottomNotificationActions.types'
 import BottomNotification from '../../classes/BottomNotification'
 import configService from '../../../../config/configService'
-import {filter, orderBy, get, last, isEmpty} from 'lodash'
+import {filter, get, last, isEmpty, every } from 'lodash'
 import moment from 'moment'
 
 const initialState = {
@@ -19,7 +19,7 @@ export default (state = initialState, action) => {
         let dialogId = action.payload 
         return {...state, dialogs: filter(state.dialogs, d=>d.Id !== dialogId)}
     case ADD_BOTTOM_NOTIFICATION:
-            let lastNotificationTime = moment(get(last(orderBy(state.bottomNotifications)), 'TimeToClose'))
+            let lastNotificationTime = moment(get(last(state.bottomNotifications), 'TimeToClose'))
             return {
                 ...state,
                 bottomNotifications: [
@@ -28,7 +28,7 @@ export default (state = initialState, action) => {
                 ]
             }
     case REMOVE_PAST_BOTTOM_NOTIFICATION:
-            if (isEmpty(state.bottomNotifications))
+            if (isEmpty(state.bottomNotifications) || every(state.bottomNotifications, bn=>!bn.shouldClose()))
                 return state
             return {
                 ...state,
