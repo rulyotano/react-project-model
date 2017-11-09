@@ -14,8 +14,8 @@ export class LoginService {
         this._store = store
     }
 
-    _loginError() { 
-        // dialogsService.error(languageService.getWord("Login Error"), languageService.getWord(e));
+    _loginError(message) { 
+        dialogService.error("", message);
     }
 
     login(user, password){
@@ -34,11 +34,10 @@ export class LoginService {
                         this._store.dispatch(setUserLogged(response.token, user)) //makes the redirect
                     }
                 } else {
-                    this._loginError(languageService.getWord("Your credentials are invalid."))
+                    this._loginError(languageService.getWord("login:Your credentials are invalid."))
                 }
             }, response => {
-                if (response.data)
-                this._loginError(response.data.message)
+                this._loginError(languageService.getWord("login:Your credentials are invalid."))
             });
         return promise
     }
