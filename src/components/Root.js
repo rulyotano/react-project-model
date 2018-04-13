@@ -4,8 +4,9 @@ import {
     Route, Switch
 } from 'react-router-dom'
 
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import { Provider } from 'react-redux'
+import I18n from "redux-i18n"
 
 import '../styles/css/font-solinftec.css';
 import '../styles/css/font-awesome.css';
