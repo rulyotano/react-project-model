@@ -19,6 +19,7 @@ import loginAuthDataService from '../service/login/loginAuthDataService'
 import { setUserLogged } from './_store/actions/authActions'
 import DialogComponent from './common/dialog/DialogComponent'
 import BottomNotificationComponent from './common/dialog/BottomNotificationComponent'
+import translations from '../i18n'
 
 const AppAsync = Loadable({
     loader: () => import('./app/App'),
@@ -40,20 +41,22 @@ class AppRouter extends Component {
 
     render(){
         return (<Provider store={store}>
-            <MuiThemeProvider>
-                <Router>
-                    <div>
-                        {/* Common all app things here        */}
+            <I18n translations={translations} initialLang="pt-BR" fallbackLang="en-US">
+                <MuiThemeProvider>
+                    <Router>
+                        <div>
+                            {/* Common all app things here        */}
 
-                        <Switch>
-                            <Route exact path="/login" component={LoginAsync}/>
-                            <PrivateRoute path="/" component={AppAsync}/>
-                        </Switch>
-                        <DialogComponent/>
-                        <BottomNotificationComponent/>
-                    </div>
-                </Router>
-            </MuiThemeProvider>
+                            <Switch>
+                                <Route exact path="/login" component={LoginAsync}/>
+                                <PrivateRoute path="/" component={AppAsync}/>
+                            </Switch>
+                            <DialogComponent/>
+                            <BottomNotificationComponent/>
+                        </div>
+                    </Router>
+                </MuiThemeProvider>
+            </I18n>
         </Provider>)
     }
 }

@@ -23,6 +23,7 @@ export class DialogComponent extends Component {
 
   render() {
     let dialogs = this.props.dialogs
+    let {t} = this.context;
     return (
       <div>
           {
@@ -32,7 +33,7 @@ export class DialogComponent extends Component {
                         modal={dialog.Modal}
                         actions={map(dialog.Buttons, btn =>(<FlatButton
                                                                     key={btn.Key}
-                                                                    label={btn.Label}
+                                                                    label={t(btn.Label)}
                                                                     keyboardFocused={btn.Focused}
                                                                     onClick={()=>this.onActionButton(dialog.Id, btn)}
                                                                 />))}
@@ -43,9 +44,12 @@ export class DialogComponent extends Component {
     )
   }
 }
+DialogComponent.contextTypes = {
+  t: PropTypes.func.isRequired
+}
 
 const mapStateToProps = (state) => ({
-    dialogs: get(state, 'dialog.dialogs')  
+    dialogs: get(state, 'dialog.dialogs')
 })
 
 const mapDispatchToProps = (dispatch) => ({
