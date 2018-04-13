@@ -7,7 +7,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
 import Loadable from 'react-loadable'
-import LoadingComponent from '../_LoadingComponent'
+import LoadingComponent from '../common/_LoadingComponent'
 import TestComp1 from './test-comp-1/TestComp1'
 import '../../styles/css/app.css'
 

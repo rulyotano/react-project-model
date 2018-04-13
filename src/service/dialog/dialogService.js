@@ -1,9 +1,9 @@
 import store from '../../components/store'
-import {addDialog} from '../../components/dialog/_store/actions/dialogActions'
-import {addBottomNotification} from '../../components/dialog/_store/actions/bottomNotificationActions'
-import Dialog from '../../components/dialog/classes/Dialog'
-import {NotificationTypes} from '../../components/dialog/classes/Notification'
-import DialogButton, {DialogButtonTypes} from '../../components/dialog/classes/DialogButton'
+import {addDialog} from '../../components/common/dialog/_store/actions/dialogActions'
+import {addBottomNotification} from '../../components/common/dialog/_store/actions/bottomNotificationActions'
+import Dialog from '../../components/common/dialog/classes/Dialog'
+import {NotificationTypes} from '../../components/common/dialog/classes/Notification'
+import DialogButton, {DialogButtonTypes} from '../../components/common/dialog/classes/DialogButton'
 
 
 export class DialogService {
