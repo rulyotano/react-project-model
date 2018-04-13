@@ -11,13 +11,13 @@ import '../styles/css/font-solinftec.css';
 import '../styles/css/font-awesome.css';
 
 import Loadable from 'react-loadable';
-import LoadingComponent from './_LoadingComponent';
+import LoadingComponent from './common/_LoadingComponent';
 import store from './store';
 import PrivateRoute from './PrivateRoute'
 import loginAuthDataService from '../service/login/loginAuthDataService'
 import { setUserLogged } from './_store/actions/authActions'
-import DialogComponent from './dialog/DialogComponent'
-import BottomNotificationComponent from './dialog/BottomNotificationComponent'
+import DialogComponent from './common/dialog/DialogComponent'
+import BottomNotificationComponent from './common/dialog/BottomNotificationComponent'
 
 const AppAsync = Loadable({
     loader: () => import('./app/App'),
