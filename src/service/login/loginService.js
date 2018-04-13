@@ -5,7 +5,7 @@ import isEmpty from 'lodash/isEmpty'
 import store from '../../components/store'
 import {setUserLogged, clearUserLogged} from '../../components/_store/actions/authActions'
 import dialogService from '../dialog/dialogService'
-import {DialogButtonTypes} from '../../components/dialog/classes/DialogButton'
+import {DialogButtonTypes} from '../../components/common/dialog/classes/DialogButton'
 
 /**Login service */
 export class LoginService {
