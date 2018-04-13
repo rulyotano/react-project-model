@@ -1,5 +1,5 @@
 import httpService from '../httpService'
-import languageService from '../languageService'
+import languageService from '../language/languageService'
 import loginAuthDataService from './loginAuthDataService'
 import isEmpty from 'lodash/isEmpty'
 import store from '../../components/store'

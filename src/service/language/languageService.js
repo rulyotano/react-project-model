@@ -1,9 +1,13 @@
+import en from './en'
+import es from './es'
+import pt from './pt'
+
 export default {
     getLanguages(){
         return [
-            { key: 'pt', name: "Portugués" },
-            { key: 'en', name: "English" },
-            { key: 'es', name: "Español" }
+            { key: 'pt', name: "Portugués", language: pt },
+            { key: 'en', name: "English", language: en },
+            { key: 'es', name: "Español", language: es }
         ];
     },
     getWord(key){
