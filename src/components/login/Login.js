@@ -1,16 +1,15 @@
 import React, { Component }  from 'react'
 import { withRouter } from 'react-router-dom'
 import '../../styles/css/login.css';
-import 'bootstrap-grid/dist/grid.min.css';
 import TextField from 'material-ui/TextField';
-import RaisedButton from 'material-ui/RaisedButton';
+import Button from 'material-ui-next/Button';
 import loginService from "../../service/login/loginService";
 
 const style = {
     input:{color:'white', height:'80%', marginLeft:'4px', marginTop:'4px'},
     hint: {color:'white', height:'50%', marginLeft:'4px', marginTop:'12px'},
     floatingLabel:{top:'5px'},
-    btnAcessar:{marginLeft:'111px', marginTop:'42px',backgroundColor:'inherited', height:'45px', borderRadius:'5px'}
+    btnAcessar:{backgroundColor:'inherited', height:'45px', borderRadius:'5px'}
 };
 
 class Login extends Component {
@@ -60,16 +59,15 @@ class Login extends Component {
                                     />
                                 </section>
                             </div>
-                            <div className="row">
-                                <RaisedButton
-                                    label="ACESSAR"
-                                    primary={true}
-                                    buttonStyle={{ height:'45px', backgroundColor:'#0774b4', borderRadius:'5px'}}
+                            <div style={{textAlign:'center', paddingTop:'30px'}}>
+                                <Button
+                                    variant="raised"
+                                    color="primary"
+                                    buttonStyle={{ height:'45px', backgroundColor:'#0774b4', borderRadius:'5px', width:'100%'}}
                                     style={style.btnAcessar}
                                     onClick={()=>this.login()}
-                                    labelStyle={{fontWeight:'bold', top:'10px' }}
-                                >
-                                </RaisedButton>
+                                >ACESSAR
+                                </Button>
                             </div>
 
                         </fieldset>
