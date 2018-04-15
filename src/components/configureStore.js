@@ -1,4 +1,7 @@
-import { createStore } from 'redux'
+import { createStore, 
+    applyMiddleware,
+    compose } from 'redux'
+import thunk from 'redux-thunk';
 import appReducer from './_store'
 
 const reduxTools = process.env.NODE_ENV === 'production' || !window.__REDUX_DEVTOOLS_EXTENSION__ ? 
@@ -6,7 +9,7 @@ const reduxTools = process.env.NODE_ENV === 'production' || !window.__REDUX_DEVT
 
 /**This function is just for creating the store. It is good to be a function cos can be used for instance in tests*/
 const configureStore = ()=>{
-    const store = createStore(appReducer,  reduxTools())
+    const store = compose(applyMiddleware(thunk))(createStore)(appReducer,  reduxTools())
     return store
 }
 

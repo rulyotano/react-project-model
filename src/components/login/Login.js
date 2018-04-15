@@ -1,15 +1,21 @@
 import React, { Component }  from 'react'
+import PropTypes  from 'prop-types'
 import { withRouter } from 'react-router-dom'
 import '../../styles/css/login.css';
 import TextField from 'material-ui/TextField';
 import Button from 'material-ui-next/Button';
 import loginService from "../../service/login/loginService";
+import LanguagePicker from "../common/_LanguagePicker";
+import { withStyles } from 'material-ui/styles';
 
 const style = {
     input:{color:'white', height:'80%', marginLeft:'4px', marginTop:'4px'},
     hint: {color:'white', height:'50%', marginLeft:'4px', marginTop:'12px'},
     floatingLabel:{top:'5px'},
-    btnAcessar:{backgroundColor:'inherited', height:'45px', borderRadius:'5px'}
+    btnAcessar:{backgroundColor:'inherited', height:'45px', borderRadius:'5px'},
+    languagePicker: {
+        
+    }
 };
 
 class Login extends Component {
@@ -19,8 +25,12 @@ class Login extends Component {
                     .then(()=>this.props.history.push('/'));
     }
     render() {
+        const {t} = this.context;
         return (
-            <div>
+            <div className="login-container">
+                <div className="login-language-picker-container">
+                    <LanguagePicker/>
+                </div>
                 <div className="login">
                     <div className="login-header">
                         <div className="logo"></div>
@@ -31,7 +41,7 @@ class Login extends Component {
                                 <section>
                                     <TextField
                                         className="text-username"
-                                        floatingLabelText="Username"
+                                        floatingLabelText={t("login.username")}
                                         id="usernameID"
                                         name="username"
                                         fullWidth={true}
@@ -49,7 +59,7 @@ class Login extends Component {
                                     <TextField
                                         defaultValue=""
                                         className="text-password"
-                                        floatingLabelText="Password"
+                                        floatingLabelText={t("login.password")}
                                         type="password"
                                         fullWidth={true}
                                         inputStyle={style.input}
@@ -63,13 +73,12 @@ class Login extends Component {
                                 <Button
                                     variant="raised"
                                     color="primary"
-                                    buttonStyle={{ height:'45px', backgroundColor:'#0774b4', borderRadius:'5px', width:'100%'}}
+                                    // buttonStyle={{ height:'45px', backgroundColor:'#0774b4', borderRadius:'5px', width:'100%'}}
                                     style={style.btnAcessar}
-                                    onClick={()=>this.login()}
-                                >ACESSAR
+                                    onClick={()=>this.login()}>
+                                    {t("login.access")}
                                 </Button>
                             </div>
-
                         </fieldset>
                     </div>
 
@@ -77,6 +86,10 @@ class Login extends Component {
             </div>
         );
     }
+}
+
+Login.contextTypes = {
+    t: PropTypes.func.isRequired
 }
 
 export default withRouter(Login);

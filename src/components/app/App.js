@@ -8,6 +8,7 @@ import { connect } from 'react-redux'
 
 import Loadable from 'react-loadable'
 import LoadingComponent from '../common/_LoadingComponent'
+import LanguagePicker from '../common/_LanguagePicker'
 import TestComp1 from './test-comp-1/TestComp1'
 import '../../styles/css/app.css'
 
@@ -41,6 +42,7 @@ export class App extends Component {
                       <li><Link to={`${match.url}`}>Dashboard</Link></li>
                       <li><Link to={`${match.url}test-comp-1`}>Test Comp 1</Link></li>
                   </ul>
+                  <LanguagePicker/>
               </div>
               <div>
                   <Switch>                        
