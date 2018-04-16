@@ -11,16 +11,16 @@ import LoadingComponent from '../common/_LoadingComponent'
 import LanguagePicker from '../common/_LanguagePicker'
 import TestComp1 from './test-comp-1/TestComp1'
 import '../../styles/css/app.css'
+import '../../styles/css/sidebar.css'
+import Header from "./header/Header";
+import Sidebar from "./sidebar/Sidebar";
 
-const DashboardAsync = Loadable({
-    loader: () => import('./dashboard/Dashboard'),
+
+const SegmentAsync = Loadable({
+    loader: () => import('./segment/Segment'),
     loading: LoadingComponent,
   });
 
-// const TestComp1Async = Loadable({
-//     loader: () => import('./test-comp-1/TestComp1'),
-//     loading: LoadingComponent,
-//   });
 
 const mapStateToProps = (state) => ({
 })
@@ -31,23 +31,16 @@ export class App extends Component {
   static propTypes = {
   }
 
-  state = {  }
+  state = {  };
   render() {
-      let match = this.props.match
+      let {match} = this.props;
       return (
           <div>
+              <Header/>
+              <Sidebar {...this.props}/>
               <div>
-                  Side Bar
-                  <ul>
-                      <li><Link to={`${match.url}`}>Dashboard</Link></li>
-                      <li><Link to={`${match.url}test-comp-1`}>Test Comp 1</Link></li>
-                  </ul>
-                  <LanguagePicker/>
-              </div>
-              <div>
-                  <Switch>                        
-                      <Route path={`${match.url}test-comp-1`} component={TestComp1}/>
-                      <Route exact path={match.url} component={DashboardAsync}/>
+                  <Switch>
+                      <Route exact path={match.url} component={SegmentAsync}/>
                   </Switch>
               </div>
           </div>            
