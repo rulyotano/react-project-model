@@ -7,10 +7,10 @@ export const DialogButtonTypes = {
 }
 
 export const DialogButtonTypesDefaults = {
-    [DialogButtonTypes.OK]: { label: "dialog:ok" },
-    [DialogButtonTypes.CANCEL]: { label: "dialog:cancel" },
-    [DialogButtonTypes.YES]: { label: "dialog:yes" },
-    [DialogButtonTypes.NO]: { label: "dialog:no" }
+    [DialogButtonTypes.OK]: { label: "dialog.ok" },
+    [DialogButtonTypes.CANCEL]: { label: "dialog.cancel" },
+    [DialogButtonTypes.YES]: { label: "dialog.yes" },
+    [DialogButtonTypes.NO]: { label: "dialog.no" }
 }
 
 export default class DialogButton {

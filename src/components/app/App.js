@@ -8,7 +8,8 @@ import { connect } from 'react-redux'
 
 import Loadable from 'react-loadable'
 import LoadingComponent from '../common/_LoadingComponent'
-
+import LanguagePicker from '../common/_LanguagePicker'
+import TestComp1 from './test-comp-1/TestComp1'
 import '../../styles/css/app.css'
 import '../../styles/css/sidebar.css'
 import Header from "./header/Header";

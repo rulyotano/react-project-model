@@ -8,6 +8,7 @@ import { MuiThemeProvider as NewMuiThemeProvider, createMuiTheme } from 'materia
 import {MuiThemeProvider} from 'material-ui';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import { Provider } from 'react-redux'
+import I18n from "redux-i18n"
 
 import '../styles/css/font-solinftec.css';
 import '../styles/css/font-awesome.css';
@@ -20,6 +21,7 @@ import loginAuthDataService from '../service/login/loginAuthDataService'
 import { setUserLogged } from './_store/actions/authActions'
 import DialogComponent from './common/dialog/DialogComponent'
 import BottomNotificationComponent from './common/dialog/BottomNotificationComponent'
+import translations from '../i18n'
 
 const AppAsync = Loadable({
     loader: () => import('./app/App'),
@@ -48,22 +50,24 @@ class AppRouter extends Component {
 
     render(){
         return (<Provider store={store}>
-            <NewMuiThemeProvider theme={themeV1}>
-                <MuiThemeProvider muiTheme={themeV0}>
-                    <Router>
-                        <div>
-                            {/* Common all app things here        */}
+            <I18n translations={translations} initialLang="pt-BR" fallbackLang="en-US">
+                <NewMuiThemeProvider theme={themeV1}>
+                    <MuiThemeProvider muiTheme={themeV0}>
+                        <Router>
+                            <div>
+                                {/* Common all app things here        */}
 
-                            <Switch>
-                                <Route exact path="/login" component={LoginAsync}/>
-                                <PrivateRoute path="/" component={AppAsync}/>
-                            </Switch>
-                            <DialogComponent/>
-                            <BottomNotificationComponent/>
-                        </div>
-                    </Router>
-                </MuiThemeProvider>
-            </NewMuiThemeProvider>
+                                <Switch>
+                                    <Route exact path="/login" component={LoginAsync}/>
+                                    <PrivateRoute path="/" component={AppAsync}/>
+                                </Switch>
+                                <DialogComponent/>
+                                <BottomNotificationComponent/>
+                            </div>
+                        </Router>
+                    </MuiThemeProvider>
+                </NewMuiThemeProvider>
+            </I18n>
         </Provider>)
     }
 }
