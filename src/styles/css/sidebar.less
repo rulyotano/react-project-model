@@ -5,15 +5,25 @@
   height: ~"calc(100% - 50px)";
   width: 260px;
   background: linear-gradient(to right,#3a3633 93%,#2a2725 100%);
+  transition: width 0.2s linear;
 
   ul{
-    padding: 20px 0 0;
+    padding: 6px 0 0;
     margin: 0;
+    li.with-border{
+      border-top: 3px solid rgba(0, 0, 0, .09);
+    }
+    li.with-border:last-child{
+      border-bottom: 3px solid rgba(0, 0, 0, .09);
+    }
+    li.with-border:hover{
+      background-color: rgba(0,0,0,0.05);
+    }
     li{
       cursor: pointer;
       list-style-type: none;
       transition: background 0.2s;
-      padding: 8px 2px 8px 15px;
+      padding: 0 2px 8px 10px;
       svg{
         position: relative;
         top: 6px;
@@ -31,6 +41,7 @@
 
     }
     li:hover{
+
       svg{
         fill:#fff !important;
       }
