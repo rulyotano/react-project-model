@@ -1,9 +1,9 @@
 import configureStore from '../../components/configureStore'
 import {DialogService} from './dialogService'
-import Dialog from '../../components/dialog/classes/Dialog'
-import {NotificationTypes} from '../../components/dialog/classes/Notification'
-import BottomNotification from '../../components/dialog/classes/BottomNotification'
-import {DialogButtonTypes} from '../../components/dialog/classes/DialogButton'
+import Dialog from '../../components/common/dialog/classes/Dialog'
+import {NotificationTypes} from '../../components/common/dialog/classes/Notification'
+import BottomNotification from '../../components/common/dialog/classes/BottomNotification'
+import {DialogButtonTypes} from '../../components/common/dialog/classes/DialogButton'
 import {forEach, filter} from 'lodash'
 
 let store = null

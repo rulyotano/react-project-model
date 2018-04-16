@@ -58,12 +58,13 @@ export class BottomNotificationComponent extends Component {
     let message = botNot ? botNot.Description : ""
     let backColor = botNot ? NotificationTypesDefaults[botNot.Type].color : ""
     let fontColor = botNot ? NotificationTypesDefaults[botNot.Type].fontColor : ""
+    const {t} = this.context
 
     return (
       <div>
           <Snackbar open={!this.state.wasClosed && !!botNot}
                     autoHideDuration={timeNotification-500}
-                    message={message}
+                    message={t(message)}
                     onRequestClose={()=>this.handleRequestClose()}
                     bodyStyle={{ backgroundColor: backColor }}
                     contentStyle={{ color: fontColor }}
@@ -82,5 +83,9 @@ const mapDispatchToProps = dispatch => ({
         dispatch(removePassBottomNotifications())
     }  
 })
+
+BottomNotificationComponent.contextTypes = {
+  t: PropTypes.func.isRequired
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(BottomNotificationComponent)
