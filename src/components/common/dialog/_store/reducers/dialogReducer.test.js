@@ -1,4 +1,4 @@
-import configureStore from '../../../configureStore'
+import configureStore from '../../../../configureStore'
 import Dialog from '../../classes/Dialog'
 import BottomNotification from '../../classes/BottomNotification'
 import {NotificationTypes} from '../../classes/Notification'
@@ -7,7 +7,7 @@ import {addBottomNotification, removePassBottomNotifications} from '../actions/b
 import deepFreeze from 'deep-freeze'
 import {find} from 'lodash'
 import moment from 'moment'
-import configService from '../../../../config/configService'
+import configService from '../../../../../config/configService'
 
 let store = null
 
