@@ -1,0 +1,65 @@
+.segment{
+  height: 91.5%;
+  right: 0;
+  position: absolute;
+  width: 82%;
+  bottom: 0;
+  padding: 7px;
+  .container{
+
+    height: 100%;
+    width: 100%;
+    border: 1px solid #cacaca;
+    box-shadow: 0 0 3px 1px #969696;
+    transition: box-shadow 0.1s;
+
+    .container-header{
+
+      background-color: #4c4f53;
+      border-color: #45474b!important;
+      width: 100%;
+      height: 5%;
+      span.close{
+        height: 100%;
+        padding-left: 10px;
+        padding-right: 10px;
+        color: #cacaca;
+        font-size: 30px;
+        float: right;
+        border-left: 1px solid rgba(0, 0, 0, .09);
+        cursor: pointer;
+        transition: background-color 0.2s, color 0.2s;
+      }
+      .close:hover{
+        color: #fff;
+        background-color: rgba(0,0,0,0.05);
+      }
+      svg{
+        border-left: 1px solid rgba(0, 0, 0, .09);
+        float: right;
+        margin-top:6px;
+        height: 21px !important;
+        fill:#cacaca !important;
+        padding-left: 10px;
+        padding-right: 10px;
+        cursor: pointer;
+        transition: background-color 0.2s, fill 0.2s;
+      }
+      svg:hover{
+        fill: #fff !important;
+        background-color: rgba(0,0,0,0.05);
+
+      }
+
+    }
+    .container-body{
+      padding: 7px;
+      height: 93%;
+      max-height:93%;
+    }
+  }
+  .container:hover{
+    box-shadow: 0 0 1px 1px #969696;
+  }
+
+}
