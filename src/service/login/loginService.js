@@ -1,5 +1,4 @@
 import httpService from '../httpService'
-import languageService from '../language/languageService'
 import loginAuthDataService from './loginAuthDataService'
 import isEmpty from 'lodash/isEmpty'
 import store from '../../components/store'
@@ -23,7 +22,7 @@ export class LoginService {
         promise.then(response => {
                 if (response.token) {
                     if (isEmpty(response.listaDeOpcoesDoUsuario)){
-                        this._loginError(languageService.getWord("login:Your user profile is not created yet."))
+                        this._loginError("login.Your user profile is not created yet")
                     } else {
                         loginAuthDataService.setAuthData({ 'username': user, token: response.token  })
                         // configService.setGeneralParameters(response.listaDeParametrosGerais);
@@ -34,10 +33,10 @@ export class LoginService {
                         this._store.dispatch(setUserLogged(response.token, user)) //makes the redirect
                     }
                 } else {
-                    this._loginError(languageService.getWord("login:Your credentials are invalid."))
+                    this._loginError("login.Your credentials are invalid")
                 }
             }, response => {
-                this._loginError(languageService.getWord("login:Your credentials are invalid."))
+                this._loginError("login.Your credentials are invalid")
             });
         return promise
     }
