@@ -4,13 +4,16 @@ import '../../../styles/css/segment.css'
 import FullScreenIco from 'material-ui/svg-icons/navigation/fullscreen';
 import FullScreenExitIco from 'material-ui/svg-icons/navigation/fullscreen-exit';
 import {connect} from 'react-redux';
-import {setSizeToMax, setSizeToMin} from "../_store/actions/appActions";
+import {redirectToHome, setSizeToMax, setSizeToMin} from "../_store/actions/appActions";
+import {Redirect} from "react-router-dom";
 
 class Segment extends Component{
     constructor(props){
         super(props);
         this.state = {
-            isMaximized: false
+            isMaximized: props.isMaximized,
+            toHome:props.toHome,
+            isDashboard:props.isDashboard
         }
     }
 
@@ -28,19 +31,23 @@ class Segment extends Component{
             this.props.minimize();
     };
     handleClose(){
-
+        this.props.redirectToHome();
     };
 
     render(){
         let {children, title} = this.props;
-        let {isMaximized} = this.state;
+        let {isMaximized, toHome, isDashboard} = this.state;
 
+        if(toHome) {
+            this.props.minimize();
+            return (<Redirect to='/'/>);
+        }
         return(
-            <div className="segment" style={{width: isMaximized? 'calc(100% - 75px)':'calc(100% - 275px)'}}>
+            <div className="segment" style={{width: isMaximized? 'calc(100% - 58px)':'calc(100% - 275px)'}}>
                 <div className="container">
                     <div className="container-header">
-                        <h3>{title ? title:'Title'}</h3>
-                        <span className="close" onClick={()=>{this.handleClose()}}>&times;</span>
+                        <h4>{title ? title:'Title'}</h4>
+                        {isDashboard?'':<span className="close" onClick={()=>{this.handleClose()}}>&times;</span>}
                         {isMaximized ?
                             <FullScreenExitIco onClick={() => this.handleSizeWindow(false)}/>
                             :
@@ -60,7 +67,8 @@ class Segment extends Component{
 }
 
 const mapStateToProps = (state) => ({
-    isMaximized: state.app.maximized
+    isMaximized: state.app.maximized,
+    toHome: state.app.toHome
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -69,6 +77,9 @@ const mapDispatchToProps = (dispatch) => ({
     },
     minimize(){
         dispatch(setSizeToMin())
+    },
+    redirectToHome(){
+        dispatch(redirectToHome())
     }
 });
 

@@ -24,11 +24,12 @@ class Sidebar extends Component{
         let {match} = this.props;
         let {isMaximized} = this.state;
 
+
         return(
-            <div className="sidebar" style={{width:isMaximized?'60px':'260px'}}>
+            <div className="sidebar" style={{width:isMaximized?'48px':'260px'}}>
                 <ul>
-                    <li className={isMaximized? "with-border":''}><ApplicationIco/><Link to={`${match.url}`}>{isMaximized? '':'Dashboard'}</Link></li>
-                    <li className={isMaximized? "with-border":''}><LocationOnIco/><Link to={`${match.url}monitoring`}>{isMaximized? '':'Monitoring'}</Link></li>
+                    <li className={isMaximized? "with-border":''}><Link to={`${match.url}`}><ApplicationIco/>{isMaximized? '':'Dashboard'}</Link></li>
+                    <li className={isMaximized? "with-border":''}><Link to={`${match.url}monitoring`}><LocationOnIco/>{isMaximized? '':'Monitoring'}</Link></li>
                 </ul>
             </div>
         )
