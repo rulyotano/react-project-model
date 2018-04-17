@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import Segment from "../segment/Segment";
+import CollapsePanel from "../collapse-panel/CollapsePanel";
 import FilterDropDownTest from "../components-to-test/FilterDropDownTest";
 import FilterDropDownAsMultiSelectTest from "../components-to-test/FilterDropDownAsMultiSelectTest";
 
@@ -10,6 +11,7 @@ class Monitoring extends Component{
     render(){
         return(
             <Segment title="Monitoring">
+                <CollapsePanel/>
                 <div style={{width: '25%'}}>
                     <FilterDropDownTest/>
                 </div>
