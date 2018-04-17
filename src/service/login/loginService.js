@@ -42,7 +42,7 @@ export class LoginService {
     }
 
     logout() {
-        return dialogService.confirmYesNo('login:confirm_logou_title', 'login:confirm_logout_body').then(btnResult=>{
+        return dialogService.confirmYesNo('login.confirm_logou_title', 'login.confirm_logout_body').then(btnResult=>{
             if (btnResult === DialogButtonTypes.YES){                
                 return httpService.post('/auth/logout', {}).then(()=>{
                     loginAuthDataService.clearAuthData();
