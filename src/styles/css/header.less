@@ -2,8 +2,26 @@
   width: 100%;
   height: 50px;
   background: linear-gradient(to bottom,#f3f3f3,#e2e2e2);
-  position: fixed;
-  box-shadow: 1px 1px 10px #8b8b8b;
+  box-shadow: 1px 1px 10px #8b8b8b;  
+  align-items: center;
+  position: relative;
+  display: flex;
+
+  .logo {
+    height: 38px;
+    width: 50px;
+    background-image: url('../img/logo.png');
+    background-repeat: no-repeat;
+    background-position: left;
+    background-size: contain;
+    margin-left: 9px;
+  }
+
+  .logo-text{
+    text-transform: uppercase;
+    font-size: 15px;
+  }
+
   h3{
     color: #fff;
     float: left;
