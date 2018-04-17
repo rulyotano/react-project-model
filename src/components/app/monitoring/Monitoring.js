@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
-import Segment from "../segment/Segment";
-import CollapsePanel from "../collapse-panel/CollapsePanel";
-import FilterDropDownTest from "../components-to-test/FilterDropDownTest";
-import FilterDropDownAsMultiSelectTest from "../components-to-test/FilterDropDownAsMultiSelectTest";
+import Segment from "../../common/segment/Segment";
+import CollapsePanel from "../../common/collapse-panel/CollapsePanel"
+import FilterDropDownTest from "../../common/components-to-test/FilterDropDownTest";
+import FilterDropDownAsMultiSelectTest from "../../common/components-to-test/FilterDropDownAsMultiSelectTest";
 
 class Monitoring extends Component{
     onChange(item){
