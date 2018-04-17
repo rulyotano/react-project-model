@@ -1,7 +1,7 @@
 import {ADD_DIALOG, REMOVE_DIALOG} from '../actions/dialogActions.types'
 import {ADD_BOTTOM_NOTIFICATION, REMOVE_PAST_BOTTOM_NOTIFICATION} from '../actions/bottomNotificationActions.types'
 import BottomNotification from '../../classes/BottomNotification'
-import configService from '../../../../../config/configService'
+import config from '../../../../../config/config'
 import {filter, get, last, isEmpty, every } from 'lodash'
 import moment from 'moment'
 
@@ -24,7 +24,7 @@ export default (state = initialState, action) => {
                 ...state,
                 bottomNotifications: [
                     ...state.bottomNotifications, 
-                    new BottomNotification(action.payload.title, action.payload.description, action.payload.type, lastNotificationTime.add(configService.TIME_BOTTOM_NOTIFICATION, 'milliseconds'))
+                    new BottomNotification(action.payload.title, action.payload.description, action.payload.type, lastNotificationTime.add(config.TIME_BOTTOM_NOTIFICATION, 'milliseconds'))
                 ]
             }
     case REMOVE_PAST_BOTTOM_NOTIFICATION:

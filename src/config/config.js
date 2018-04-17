@@ -5,6 +5,7 @@ let prodOrDevConfigs = production ? require('./config.prod.js').default : requir
 const configService = {
     ...prodOrDevConfigs,    //dev or prod configuration    
     //rest of configuration e.g.
-    TIME_BOTTOM_NOTIFICATION: 5000  //ms
+    TIME_BOTTOM_NOTIFICATION: 5000,  //ms
+    DEFAULT_LANGUAGE: "en-us"
 }
 export default configService

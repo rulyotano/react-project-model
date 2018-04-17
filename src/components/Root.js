@@ -16,6 +16,7 @@ import '../styles/css/font-awesome.css';
 import Loadable from 'react-loadable';
 import LoadingComponent from './common/_LoadingComponent';
 import store from './store';
+import config from '../config/config';
 import PrivateRoute from './PrivateRoute'
 import loginAuthDataService from '../service/login/loginAuthDataService'
 import { setUserLogged } from './_store/actions/authActions'
@@ -53,7 +54,7 @@ class AppRouter extends Component {
 
     render(){
         return (<Provider store={store}>
-            <I18n translations={translations} initialLang="pt-BR" fallbackLang="en-US">
+            <I18n translations={translations} initialLang={config.DEFAULT_LANGUAGE} fallbackLang="en-US">
                 <NewMuiThemeProvider theme={themeV1}>
                     <MuiThemeProvider muiTheme={themeV0}>
                         <Router>

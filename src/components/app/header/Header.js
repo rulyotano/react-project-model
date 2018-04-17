@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import LanguagePicker from '../../common/_LanguagePicker';
 import loginService from '../../../service/login/loginService';
@@ -42,7 +43,7 @@ class Header extends Component{
     render(){
         const {anchorEl} = this.state;
         const open = !!anchorEl;
-        const {classes} = this.props;
+        const {classes, userInfo} = this.props;
         const {t} = this.context;
         return(
             <div className="header">
@@ -54,7 +55,7 @@ class Header extends Component{
                         aria-haspopup="true"
                         onClick={this.handleMenu}
                         color="inherit">
-                        <Avatar className={classes.avatar}>T</Avatar>
+                        <Avatar className={classes.avatar}>{userInfo.name.length ? userInfo.name[0] : '-'}</Avatar>
                     </IconButton>
 
                     <Menu id="menu-appbar" anchorEl={anchorEl}
@@ -72,7 +73,7 @@ class Header extends Component{
                             <ListItemIcon className={classes.icon}>                                
                                 <AccountCircle />
                             </ListItemIcon>
-                            <ListItemText inset primary={"Thiago Tahara"}/>
+                            <ListItemText inset primary={userInfo.name}/>
                         </MenuItem>
                         <MenuItem className={classes.menuItem} onClick={()=>loginService.logout()}>
                             <ListItemIcon className={classes.icon}>                                
@@ -92,8 +93,10 @@ Header.propTypes = {
 };
 
 Header.contextTypes = {
-    t: PropTypes.string.isRequired,
+    t: PropTypes.func,
 };
 
 
-export default withStyles(styles)(Header);
+export default connect((state)=>({
+    userInfo: state.user
+}))(withStyles(styles)(Header));
