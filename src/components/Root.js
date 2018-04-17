@@ -33,12 +33,15 @@ const LoginAsync = Loadable({
     loading: LoadingComponent,
 });
 
-const themeV1 = createMuiTheme({
-    /* theme for v1 */
-});
-const themeV0 = getMuiTheme({
-    /* theme v0.x */
-});
+const theme = {
+    palette: {
+        primary: {main: "#2d8ac3"},
+        secondary: {main: "#8cbd3e"},
+        error: {main: "#c66057"}
+    }
+}
+const themeV1 = createMuiTheme(theme);
+const themeV0 = getMuiTheme({});
 
 class AppRouter extends Component {
     componentWillMount(){
