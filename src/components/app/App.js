@@ -8,6 +8,7 @@ import { connect } from 'react-redux'
 import Loadable from 'react-loadable'
 import LoadingComponent from '../common/_LoadingComponent'
 import configService from '../../service/config/configService'
+import * as userActions from '../_store/actions/userActions'
 import '../../styles/css/app.css'
 import '../../styles/css/sidebar.css'
 import Header from "./header/Header";
@@ -26,19 +27,20 @@ const MonitoringAsync = Loadable({
 
 
 export class App extends Component {
-  constructor(){
-    super();
-
-    //load initial app config
-    configService.loadGeneralParameters();      
-    configService.loadUserProfile();      
-    configService.loadUserUnits();      
-  }
 
   static propTypes = {
   };
 
   state = {  };
+
+  componentWillMount(){
+    //load initial app config
+    configService.loadGeneralParameters();      
+    configService.loadUserProfile();      
+    configService.loadUserUnits();
+    this.props.loadUser();  
+  }
+  
   render() {
       let {match} = this.props;
       return (
@@ -59,6 +61,8 @@ export class App extends Component {
 const mapStateToProps = (state) => ({
 });
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = {
+    loadUser: userActions.loadUser
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(App)

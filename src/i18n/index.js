@@ -20,7 +20,7 @@ flatLanguagesKeys = (prevKey, object)=> {
 }
 
 export default {
-    "pt-BR": flatLanguagesKeys("", ptBr),
-    "en-US": flatLanguagesKeys("", enUs),
+    "pt-br": flatLanguagesKeys("", ptBr),
+    "en-us": flatLanguagesKeys("", enUs),
     "es": flatLanguagesKeys("", es),
 }

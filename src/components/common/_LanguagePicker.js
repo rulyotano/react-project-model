@@ -7,8 +7,8 @@ import { FormControl } from 'material-ui-next/Form';
 import Select from 'material-ui-next/Select';
 
 import languageService from '../../service/language/languageService'
+import {changeLanguage} from '../_store/actions/configActions'
 import { connect } from 'react-redux'
-import { setLanguage } from 'redux-i18n'
 import classNames from 'classnames'
 
 const ALL_LANGUAGES = languageService.availableLanguages()
@@ -53,5 +53,5 @@ LanguagePicker.propTypes = {
 export default connect(state=>({
     lang: state.i18nState.lang   
 }), dispatch=>({
-    changeLanguage: lang=>dispatch(setLanguage(lang))
+    changeLanguage: lang=> dispatch(changeLanguage(lang))
 }))(LanguagePicker)
