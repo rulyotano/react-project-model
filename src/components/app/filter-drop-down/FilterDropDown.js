@@ -5,7 +5,7 @@ import Input from 'material-ui-next/Input';
 import { withStyles } from 'material-ui-next/styles';
 import SelectWrappedComponent from "./select-wrapped/SelectWrappedComponent";
 
-const ITEM_HEIGHT = 36;
+const ITEM_HEIGHT = 60;
 const styles = theme => ({
     root: {
         flexGrow: 1,
@@ -125,13 +125,23 @@ class FilterDropDown extends Component{
         this.setState({
             id: id,
         });
-        if(this.props.onChange)
-            this.props.onChange(this.props.suggestions.find(item=>item.value === id));
+
+        if(this.props.onChange) {
+
+            if(this.props.multi){
+                let items= id.split(',').map(item=>parseInt(item));
+                items = items.map(id=> this.props.suggestions.find(item=>item.value === id))
+                this.props.onChange(items);
+
+            }else {
+                this.props.onChange(this.props.suggestions.find(item => item.value === id));
+            }
+        }
 
 
     };
     render(){
-        const { placeHolder , suggestions} = this.props;
+        const { placeHolder , suggestions, multi} = this.props;
         const { classes } = this.props;
         return (
             <div className={classes.root}>
@@ -147,6 +157,7 @@ class FilterDropDown extends Component{
                         name: 'react-select-single',
                         instanceId: 'react-select-single',
                         simpleValue: true,
+                        multi:multi?multi:false,
                         options: suggestions,
                     }}
                 />
