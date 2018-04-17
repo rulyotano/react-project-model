@@ -92,7 +92,7 @@ Header.propTypes = {
 };
 
 Header.contextTypes = {
-    t: PropTypes.string.isRequired,
+    t: PropTypes.func,
 };
 
 

@@ -7,6 +7,7 @@ import { connect } from 'react-redux'
 
 import Loadable from 'react-loadable'
 import LoadingComponent from '../common/_LoadingComponent'
+import configService from '../../service/config/configService'
 import '../../styles/css/app.css'
 import '../../styles/css/sidebar.css'
 import Header from "./header/Header";
@@ -25,6 +26,15 @@ const MonitoringAsync = Loadable({
 
 
 export class App extends Component {
+  constructor(){
+    super();
+
+    //load initial app config
+    configService.loadGeneralParameters();      
+    configService.loadUserProfile();      
+    configService.loadUserUnits();      
+  }
+
   static propTypes = {
   };
 
