@@ -19,12 +19,12 @@ const styles = {
 
 class LanguagePicker extends PureComponent {
   render() {
-    const { lang, changeLanguage } = this.props;
+    const { lang, changeLanguage, showLabel=true, ...restProps } = this.props;
     const { t } = this.context;
     const selectedLang = ALL_LANGUAGES.find(it=>it.key === lang)
     return (
-    <FormControl>
-        <InputLabel htmlFor="language">{t("languages.Language")}</InputLabel>
+    <FormControl {...restProps}>
+        {showLabel ? <InputLabel htmlFor="language">{t("languages.Language")}</InputLabel> : null} 
         <Select
           value={lang}
           onChange={e => changeLanguage(e.target.value)}
@@ -44,6 +44,10 @@ class LanguagePicker extends PureComponent {
 
 LanguagePicker.contextTypes = {
     t: PropTypes.func
+}
+
+LanguagePicker.propTypes = {
+    showLabel: PropTypes.bool
 }
 
 export default connect(state=>({
