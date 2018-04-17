@@ -3,19 +3,9 @@ import PropTypes from 'prop-types';
 import Input from 'material-ui-next/Input';
 
 import { withStyles } from 'material-ui-next/styles';
-import SelectWrapped from "./select-wrapped/SelectWrapped";
-const suggestions = [
-    { label: 'Afghanistan' },
-    { label: 'Algeria' },
-    { label: 'Brazil' },
-    { label: 'British Indian Ocean Territory' },
-    { label: 'Brunei Darussalam' },
-].map(suggestion => ({
-    value: suggestion.label,
-    label: suggestion.label,
-}));
+import SelectWrappedComponent from "./select-wrapped/SelectWrappedComponent";
 
-const ITEM_HEIGHT = 48;
+const ITEM_HEIGHT = 36;
 const styles = theme => ({
     root: {
         flexGrow: 1,
@@ -128,27 +118,29 @@ class FilterDropDown extends Component{
     constructor(props){
         super(props);
         this.state = {
-            single: null,
-            multi: null,
-            multiLabel: null
+            id: null
         }
     }
-    handleChange = name => value => {
+    handleChange = id =>{
         this.setState({
-            [name]: value,
+            id: id,
         });
+        if(this.props.onChange)
+            this.props.onChange(this.props.suggestions.find(item=>item.value === id));
+
+
     };
     render(){
-        const { children, isFocused, isSelected, onFocus } = this.props;
+        const { placeHolder , suggestions} = this.props;
         const { classes } = this.props;
         return (
             <div className={classes.root}>
                 <Input
                     fullWidth
-                    inputComponent={SelectWrapped}
-                    value={this.state.single}
-                    onChange={this.handleChange('single')}
-                    placeholder="Search a country (start with a)"
+                    inputComponent={SelectWrappedComponent}
+                    value={this.state.id}
+                    onChange={(value)=>{this.handleChange(value)}}
+                    placeholder={placeHolder?placeHolder:'Select...'}
                     id="react-select-single"
                     inputProps={{
                         classes,

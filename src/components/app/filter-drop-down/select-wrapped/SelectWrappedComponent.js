@@ -10,12 +10,12 @@ import ClearIcon from '@material-ui/icons/Clear';
 import Option from './option/Option';
 
 
-class SelectWrapped extends Component{
+class SelectWrappedComponent extends Component{
     constructor(props){
         super(props);
     }
     render(){
-        const { classes, ...other } = props;
+        const { classes, ...other } = this.props;
         return(
             <Select
                 optionComponent={Option}
@@ -53,4 +53,4 @@ class SelectWrapped extends Component{
     }
 }
 
-export default SelectWrapped;
+export default SelectWrappedComponent;
