@@ -8,7 +8,7 @@
   transition: width 0.2s linear;
 
   ul{
-    padding: 6px 0 0;
+    padding: 0;
     margin: 0;
     li.with-border{
       border-top: 3px solid rgba(0, 0, 0, .09);
@@ -48,6 +48,51 @@
       a{
         color: #ffffff !important;
 
+      }
+    }
+
+  }
+  .resize{
+    cursor: pointer;
+    background-color : #43464a;
+    height: 24px;
+    width: 31px;
+    float: right;
+    border-radius: 5px 0 0 5px;
+    padding-left: 2px;
+    margin-top:12px;
+
+    transition: background 0.2s, height 0.2s, width 0.2s;
+    .circle{
+      padding: 1px;
+      background-color: #665d5a;
+      border-radius: 50%;
+      width: 16px;
+      height: 16px;
+      margin-top: 3px;
+      margin-left: 5px;
+      svg{
+        position: relative;
+        margin-top: -3px;
+        margin-left: -5px;
+        fill: #A8A8A8 !important;
+      }
+    }
+  }
+  .resize:hover{
+    background-color :#A8A8A8;
+    height: 26px;
+    width: 35px;
+    border-left: 1px solid #2a2725;
+    border-top: 1px solid #2a2725;
+    border-bottom: 1px solid #2a2725;
+    .circle{
+      width: 18px;
+      height: 18px;
+      svg{
+        margin-left: -4px;
+        margin-top: -3px;
+        fill: #2a2725 !important;
       }
     }
   }
