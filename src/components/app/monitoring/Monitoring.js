@@ -3,6 +3,7 @@ import Segment from "../../common/segment/Segment";
 import CollapsePanel from "../../common/collapse-panel/CollapsePanel"
 import FilterDropDownTest from "../../common/components-to-test/FilterDropDownTest";
 import FilterDropDownAsMultiSelectTest from "../../common/components-to-test/FilterDropDownAsMultiSelectTest";
+import LoadingComponent from "../../common/_LoadingComponent";
 
 class Monitoring extends Component{
     onChange(item){
@@ -18,6 +19,7 @@ class Monitoring extends Component{
                 <div style={{width: '25%'}}>
                     <FilterDropDownAsMultiSelectTest/>
                 </div>
+                <LoadingComponent isLoading={true}/>
             </Segment>
         )
     }
