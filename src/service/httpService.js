@@ -14,22 +14,22 @@ class GenericHttpRequest {
             this.axios = axiosInstance;
         }
     
-        get(uri, params)
+        get(uri, params, config = {})
         {
-            return this.axios.get(uri, {params}).then(this.success)
+            return this.axios.get(uri, {params, ...config}).then(this.success)
         }
     
         post(uri, data)
         {
-            return this.axios.post(uri, data).then(this.success)
+            return this.axios.post(uri, data, {...config}).then(this.success)
         }
     
         put(uri, data) {
-            return this.axios.put(uri, data).then(this.success)
+            return this.axios.put(uri, data, {...config}).then(this.success)
         }
     
         delete(uri, params) {
-            return this.axios.delete(uri, {params}).then(this.success)
+            return this.axios.delete(uri, {params, ...config}).then(this.success)
         }
 
         success(response){
@@ -137,6 +137,13 @@ class HttpService extends GenericHttpRequest {
         return this.SGPA_INTEGRATION_SERVICE_URL_HTTP_SERVICE;
     };
 
+    useRawUrl = () =>{
+        if(!this.RAW_URL_HTTP_SERVICE)
+        {
+            this.RAW_URL_HTTP_SERVICE = new GenericHttpRequest(createAxiosInstance());
+        }
+        return this.RAW_URL_HTTP_SERVICE;
+    }
 
 }
 export default new HttpService(createAxiosInstance(config.SGPA_API_URL));

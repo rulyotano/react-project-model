@@ -1,15 +1,33 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
+import LoadingButton from '../../common/loadingButton/LoadingButton';
 import Segment from "../../common/segment/Segment";
-import CollapsePanel from "../../common/collapse-panel/CollapsePanel"
+import CollapsePanel from "../../common/collapse-panel/CollapsePanel";
 import FilterDropDownTest from "../../common/components-to-test/FilterDropDownTest";
 import FilterDropDownAsMultiSelectTest from "../../common/components-to-test/FilterDropDownAsMultiSelectTest";
 import LoadingComponent from "../../common/_LoadingComponent";
 import ToolHoverWindowTest from "../../common/components-to-test/ToolHoverWindowTest";
 
-class Monitoring extends Component{
+class Monitoring extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = { isLoading: false }
+    }
+
     onChange(item){
         console.log(item);
     }
+    onClickLoadingButton = () => {
+
+        this.setState({isLoading : true});
+
+        let teste = () => {
+            console.log("Executado");
+            this.setState({isLoading : false});
+        }
+
+        setTimeout(teste, 2000);
+    }  
     render(){
         return(
             <div>
@@ -27,15 +45,19 @@ class Monitoring extends Component{
                         <LoadingComponent isLoading={true}/>
                     </div>
 
-
+                    <LoadingButton
+                      variant="raised"
+                      color="primary"
+                      onClick={this.onClickLoadingButton}
+                      isLoading={this.state.isLoading}>
+                      Login
+                  </LoadingButton>
 
                 </Segment>
                 <ToolHoverWindowTest />
             </div>
-
         )
     }
 }
-
 
 export default Monitoring;

@@ -1,0 +1,1 @@
+export const MAP_JSON_LOADED = "MAP_JSON_LOADED";

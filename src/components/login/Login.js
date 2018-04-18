@@ -9,6 +9,7 @@ import LanguagePicker from "../common/_LanguagePicker";
 import { withStyles } from 'material-ui/styles';
 import { Field, reduxForm } from 'redux-form'
 import { TextField } from 'redux-form-material-ui'
+import LoadingButton from '../common/loadingButton/LoadingButton';
 
 const style = {
     input:{color:'white', height:'80%', marginLeft:'4px', marginTop:'4px'},
@@ -20,7 +21,7 @@ const style = {
     }
 };
 
-let LoginForm = ({t, handleSubmit, submitLogin})=>
+let LoginForm = ({t, handleSubmit, submitLogin, isLoading})=>
     (<form onSubmit={handleSubmit(data=>submitLogin(data))}>
         <div className="login">
             <div className="login-header">
@@ -56,14 +57,15 @@ let LoginForm = ({t, handleSubmit, submitLogin})=>
                         </section>
                     </div>
                     <div style={{textAlign:'center', paddingTop:'30px'}}>
-                        <Button
+                        <LoadingButton
                             variant="raised"
                             color="primary"
                             // buttonStyle={{ height:'45px', backgroundColor:'#0774b4', borderRadius:'5px', width:'100%'}}
                             style={style.btnAcessar}
-                            type="submit">
+                            type="submit"
+                            isLoading={isLoading}>
                             {t("login.access")}
-                        </Button>
+                        </LoadingButton>
                     </div>
                 </fieldset>
             </div>
@@ -73,13 +75,23 @@ let LoginForm = ({t, handleSubmit, submitLogin})=>
 
 LoginForm = reduxForm({
     form: 'loginForm'
-  })(LoginForm)
+  })(LoginForm);
 
 class Login extends Component {
-    state = { username:'', password:'' }
+    state = { isLoading: false }
+
     login(data){
+
+        this.setState({isLoading: true});
+
         loginService.login(data.username, data.password)
-                    .then(()=>this.props.history.push('/'));
+                    .then(()=>{
+                        this.setState({isLoading:false});
+                        this.props.history.push('/');
+                    })
+                    .catch(() => {
+                        this.setState({isLoading:false});
+                    })
     }
     render() {
         const {t} = this.context;
@@ -88,7 +100,7 @@ class Login extends Component {
                 <div className="login-language-picker-container">
                     <LanguagePicker/>
                 </div>
-                <LoginForm t={t} submitLogin={data=>this.login(data)}/>               
+                <LoginForm t={t} submitLogin={data=> this.login(data)} isLoading={this.state.isLoading}/>               
             </div>
         );
     }
