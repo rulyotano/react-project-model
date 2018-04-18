@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import LoadingButton from '../loadingButton/LoadingButton';
+import LoadingButton from '../../common/loadingButton/LoadingButton';
 import Segment from "../../common/segment/Segment";
-import CollapsePanel from "../../common/collapse-panel/CollapsePanel"
+import CollapsePanel from "../../common/collapse-panel/CollapsePanel";
 import FilterDropDownTest from "../../common/components-to-test/FilterDropDownTest";
 import FilterDropDownAsMultiSelectTest from "../../common/components-to-test/FilterDropDownAsMultiSelectTest";
 import LoadingComponent from "../../common/_LoadingComponent";
