@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { get, head } from 'lodash'
 import Snackbar from 'material-ui/Snackbar';
-import configService from '../../../config/configService';
+import config from '../../../config/config';
 import {removePassBottomNotifications} from './_store/actions/bottomNotificationActions';
 import {NotificationTypes, NotificationTypesDefaults} from './classes/Notification';
 
@@ -53,7 +53,7 @@ export class BottomNotificationComponent extends Component {
   }
 
   render() {
-    let timeNotification = configService.TIME_BOTTOM_NOTIFICATION
+    let timeNotification = config.TIME_BOTTOM_NOTIFICATION
     let botNot = this.state.bottomNotification
     let message = botNot ? botNot.Description : ""
     let backColor = botNot ? NotificationTypesDefaults[botNot.Type].color : ""

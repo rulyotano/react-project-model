@@ -1,4 +1,4 @@
-import configService from '../config/configService'
+import config from '../config/config'
 import loginAuthDataService from './login/loginAuthDataService'
 import loginService from './login/loginService'
 import axios from 'axios'
@@ -107,7 +107,7 @@ class HttpService extends GenericHttpRequest {
     useSgpaApiUrl = () =>{
         if(!this.SGPA_API_HTTP_SERVICE)
         {
-            this.SGPA_API_HTTP_SERVICE = new GenericHttpRequest(createAxiosInstance(configService.SGPA_API_URL));
+            this.SGPA_API_HTTP_SERVICE = new GenericHttpRequest(createAxiosInstance(config.SGPA_API_URL));
         }
         return this.SGPA_API_HTTP_SERVICE;
     };
@@ -115,7 +115,7 @@ class HttpService extends GenericHttpRequest {
     useSgpaMapApiUrl = () =>{
         if(!this.SGPA_MAP_API_URL_HTTP_SERVICE)
         {
-            this.SGPA_MAP_API_URL_HTTP_SERVICE = new GenericHttpRequest(createAxiosInstance(configService.SGPA_MAP_API_URL));
+            this.SGPA_MAP_API_URL_HTTP_SERVICE = new GenericHttpRequest(createAxiosInstance(config.SGPA_MAP_API_URL));
         }
         return this.SGPA_MAP_API_URL_HTTP_SERVICE;
     };
@@ -124,7 +124,7 @@ class HttpService extends GenericHttpRequest {
 
         if(!this.SGPA_JOURNEY_SERVICE_URL_HTTP_SERVICE)
         {
-            this.SGPA_JOURNEY_SERVICE_URL_HTTP_SERVICE = new GenericHttpRequest(createAxiosInstance(configService.SGPA_JOURNEY_SERVICE_URL));
+            this.SGPA_JOURNEY_SERVICE_URL_HTTP_SERVICE = new GenericHttpRequest(createAxiosInstance(config.SGPA_JOURNEY_SERVICE_URL));
         }
         return this.SGPA_JOURNEY_SERVICE_URL_HTTP_SERVICE;
     };
@@ -132,12 +132,12 @@ class HttpService extends GenericHttpRequest {
     useSgpaIntegrationServiceUrl = () =>{
         if(!this.SGPA_INTEGRATION_SERVICE_URL_HTTP_SERVICE)
         {
-            this.SGPA_INTEGRATION_SERVICE_URL_HTTP_SERVICE = new GenericHttpRequest(createAxiosInstance(configService.SGPA_INTEGRATION_SERVICE_URL));
+            this.SGPA_INTEGRATION_SERVICE_URL_HTTP_SERVICE = new GenericHttpRequest(createAxiosInstance(config.SGPA_INTEGRATION_SERVICE_URL));
         }
         return this.SGPA_INTEGRATION_SERVICE_URL_HTTP_SERVICE;
     };
 
 
 }
-export default new HttpService(createAxiosInstance(configService.SGPA_API_URL));
+export default new HttpService(createAxiosInstance(config.SGPA_API_URL));
 

@@ -4,8 +4,9 @@ import '../../../styles/css/segment.css'
 import FullScreenIco from 'material-ui/svg-icons/navigation/fullscreen';
 import FullScreenExitIco from 'material-ui/svg-icons/navigation/fullscreen-exit';
 import {connect} from 'react-redux';
-import {redirectToHome, setSizeToMax, setSizeToMin} from "../_store/actions/appActions";
+import {redirectToHome, setSizeToMax, setSizeToMin} from "../../app/_store/actions/appActions";
 import {Redirect} from "react-router-dom";
+import { withRouter } from 'react-router-dom'
 
 class Segment extends Component{
     constructor(props){
@@ -31,17 +32,13 @@ class Segment extends Component{
             this.props.minimize();
     };
     handleClose(){
-        this.props.redirectToHome();
+        this.props.history.push('/');
     };
 
     render(){
         let {children, title} = this.props;
-        let {isMaximized, toHome, isDashboard} = this.state;
+        let {isMaximized, isDashboard} = this.state;
 
-        if(toHome) {
-            this.props.minimize();
-            return (<Redirect to='/'/>);
-        }
         return(
             <div className="segment" style={{width: isMaximized? 'calc(100% - 58px)':'calc(100% - 275px)'}}>
                 <div className="container">
@@ -67,8 +64,7 @@ class Segment extends Component{
 }
 
 const mapStateToProps = (state) => ({
-    isMaximized: state.app.maximized,
-    toHome: state.app.toHome
+    isMaximized: state.app.maximized
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -77,12 +73,9 @@ const mapDispatchToProps = (dispatch) => ({
     },
     minimize(){
         dispatch(setSizeToMin())
-    },
-    redirectToHome(){
-        dispatch(redirectToHome())
     }
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Segment);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Segment));
 
 

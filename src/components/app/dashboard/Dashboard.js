@@ -2,7 +2,7 @@ import React, { Component}  from 'react'
 import { connect } from 'react-redux'
 import { get } from 'lodash'
 import dialogService from '../../../service/dialog/dialogService'
-import Segment from '../segment/Segment';
+import Segment from '../../common/segment/Segment';
 
 
 const DashBoard = ({username, token, createMockDialog, raiseMockNotification}) => (

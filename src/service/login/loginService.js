@@ -4,6 +4,7 @@ import isEmpty from 'lodash/isEmpty'
 import store from '../../components/store'
 import {setUserLogged, clearUserLogged} from '../../components/_store/actions/authActions'
 import dialogService from '../dialog/dialogService'
+import configService from '../config/configService'
 import {DialogButtonTypes} from '../../components/common/dialog/classes/DialogButton'
 
 /**Login service */
@@ -25,9 +26,9 @@ export class LoginService {
                         this._loginError("login.Your user profile is not created yet")
                     } else {
                         loginAuthDataService.setAuthData({ 'username': user, token: response.token  })
-                        // configService.setGeneralParameters(response.listaDeParametrosGerais);
-                        // configService.setUserUnits(response.listaDeUnidadesDoUsuario);
-                        // userConfigService.setUserProfile(response.listaDeOpcoesDoUsuario);
+                        configService.setGeneralParameters(response.listaDeParametrosGerais);
+                        configService.setUserUnits(response.listaDeUnidadesDoUsuario);
+                        configService.setUserProfile(response.listaDeOpcoesDoUsuario);
     
                         //Change store state to logued for making the redirect                    
                         this._store.dispatch(setUserLogged(response.token, user)) //makes the redirect
