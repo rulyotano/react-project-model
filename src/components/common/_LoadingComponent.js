@@ -16,7 +16,7 @@ const styles = theme => ({
   }      
 });
 
-const LoadingComponent = ({isLoading, error, classes, ...restProps}) => {  
+const LoadingComponent = ({isLoading, error, classes, pastDelay, timedOut, ...restProps}) => {  
   // Handle the loading state
   if (isLoading) {
     return <div className={classes.progressContainer} {...restProps}>
