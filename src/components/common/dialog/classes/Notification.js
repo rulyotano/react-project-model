@@ -1,4 +1,4 @@
-import {blue500, red500, amber500, green500} from 'material-ui/styles/colors.js'
+import {blue500, red300, amber500, green300} from 'material-ui/styles/colors.js'
 
 export const NotificationTypes = {
     ALERT: 'alert',
@@ -10,8 +10,8 @@ export const NotificationTypes = {
 export const NotificationTypesDefaults = {
     [NotificationTypes.ALERT]: { color: amber500, fontColor: 'black' },
     [NotificationTypes.NOTIFICATION]: { color: blue500, fontColor: 'white' },
-    [NotificationTypes.SUCCESS]: { color: green500, fontColor: 'white' },
-    [NotificationTypes.ERROR]: { color: red500, fontColor: 'white' },
+    [NotificationTypes.SUCCESS]: { color: green300, fontColor: 'white' },
+    [NotificationTypes.ERROR]: { color: red300, fontColor: 'white' },
 }
 
 export default class Notification {

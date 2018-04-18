@@ -12,6 +12,8 @@ const styles = theme => ({
     wrapper: {
         margin: theme.spacing.unit,
         position: 'relative',
+        marginLeft: 'auto',
+        marginRight: 'auto'
     },
     buttonProgress: {
         color: theme.palette.primary.light,

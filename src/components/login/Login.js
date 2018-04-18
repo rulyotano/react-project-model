@@ -78,11 +78,7 @@ LoginForm = reduxForm({
   })(LoginForm);
 
 class Login extends Component {
-
-    constructor(props){
-        super(props);
-        this.state = { username:'', password:'', isLoading: false };
-    }
+    state = { isLoading: false }
 
     login(data){
 
