@@ -75,7 +75,7 @@ let LoginForm = ({t, handleSubmit, submitLogin, isLoading})=>
 
 LoginForm = reduxForm({
     form: 'loginForm'
-  })(LoginForm).bind(this);
+  })(LoginForm);
 
 class Login extends Component {
 
@@ -92,7 +92,10 @@ class Login extends Component {
                     .then(()=>{
                         this.setState({isLoading:false});
                         this.props.history.push('/');
-                    });
+                    })
+                    .catch(() => {
+                        this.setState({isLoading:false});
+                    })
     }
     render() {
         const {t} = this.context;
