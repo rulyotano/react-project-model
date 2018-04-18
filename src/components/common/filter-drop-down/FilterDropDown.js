@@ -8,8 +8,8 @@ import SelectWrappedComponent from "./select-wrapped/SelectWrappedComponent";
 const ITEM_HEIGHT = 60;
 const styles = theme => ({
     root: {
-        flexGrow: 1,
-        height: 250,
+        flexGrow: 1
+
     },
     chip: {
         margin: theme.spacing.unit / 4,
