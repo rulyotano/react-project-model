@@ -7,6 +7,7 @@ import ArrowRight from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
 import {connect} from 'react-redux';
 import {setSizeToMax, setSizeToMin} from "../_store/actions/appActions";
 
+const CommonListItem = ({url, icon, text, isMaximized, match})=>(<li className={isMaximized? "with-border":''}><Link to={`${match.url}${url}`}>{icon}{isMaximized? '':text}</Link></li>)
 
 class Sidebar extends Component{
     constructor(props){
@@ -46,8 +47,9 @@ class Sidebar extends Component{
                 }
                 <ul style={{paddingTop:isMaximized?'15px':'30px'}}>
                     {isMaximized ? <li className="with-border" onClick={()=>{this.resize()}}><ArrowRight/></li>:''}
-                    <li className={isMaximized? "with-border":''}><Link to={`${match.url}`}><ApplicationIco/>{isMaximized? '':'Dashboard'}</Link></li>
-                    <li className={isMaximized? "with-border":''}><Link to={`${match.url}monitoring`}><LocationOnIco/>{isMaximized? '':'Monitoring'}</Link></li>
+                    <CommonListItem url="" match={match} icon={<ApplicationIco/>} text="Dashboard" isMaximized={isMaximized}/>
+                    <CommonListItem url="monitoring"  match={match}icon={<LocationOnIco/>} text="Monitoring" isMaximized={isMaximized}/>
+                    <CommonListItem url="test-map" match={match} icon={<LocationOnIco/>} text="Test Map" isMaximized={isMaximized}/>
                 </ul>
             </div>
         )
