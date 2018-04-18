@@ -6,12 +6,13 @@ import FilterDropDownTest from "../../common/components-to-test/FilterDropDownTe
 import FilterDropDownAsMultiSelectTest from "../../common/components-to-test/FilterDropDownAsMultiSelectTest";
 import LoadingComponent from "../../common/_LoadingComponent";
 import ToolHoverWindowTest from "../../common/components-to-test/ToolHoverWindowTest";
+import ColorPicker from '../../common/colorPicker/ColorPicker';
 
 class Monitoring extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { isLoading: false }
+        this.state = { isLoading: false , color: {r: '241', g: '112', b: '19', a: '1'} }
     }
 
     onChange(item){
@@ -51,7 +52,9 @@ class Monitoring extends Component {
                       onClick={this.onClickLoadingButton}
                       isLoading={this.state.isLoading}>
                       Login
-                  </LoadingButton>
+                    </LoadingButton>
+
+                    {/* <ColorPicker color={this.state.color}/> */}
 
                 </Segment>
                 <ToolHoverWindowTest />

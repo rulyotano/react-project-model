@@ -14,6 +14,7 @@
     "node-less-chokidar": "^0.1.2",
     "pbf": "^3.1.0",
     "react": "^16.3.1",
+    "react-color": "^2.14.1",
     "react-dom": "^16.3.1",
     "react-loadable": "^5.3.1",
     "react-redux": "^5.0.7",
