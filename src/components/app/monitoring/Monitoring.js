@@ -8,6 +8,7 @@ import LoadingComponent from "../../common/_LoadingComponent";
 import ToolHoverWindowTest from "../../common/components-to-test/ToolHoverWindowTest";
 import ColorPicker from '../../common/colorPicker/ColorPicker';
 import DateTimePickerTest from "../../common/components-to-test/DateTimePickerTest";
+import DateTimeRangeSelectorTest from "../../common/components-to-test/DateTimeRangeSelectorTest";
 import TextField from 'material-ui-next/TextField';
 
 class Monitoring extends Component {
@@ -45,7 +46,19 @@ class Monitoring extends Component {
         return(
             <div>
                 <Segment title="Monitoring">
+                    <div style={{width: '40%'}}>
+                        <DateTimeRangeSelectorTest useAs="v"/>
+                    </div>
                     <div style={{width: '25%'}}>
+                        <CollapsePanel/>
+                    </div>
+                    <div style={{width: '25%'}}>
+                        <CollapsePanel/>
+                    </div>
+                    <div style={{width: '25%'}}>
+                        <CollapsePanel/>
+                        <CollapsePanel/>
+                        <CollapsePanel/>
                         <CollapsePanel/>
                     </div>
                     <div style={{width: '25%'}}>

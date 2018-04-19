@@ -30,7 +30,6 @@ class DateTimePicker extends Component{
                 id={id}
                 label={!label || label === '' ? 'Data/Hora': label}
                 type="datetime-local"
-                defaultValue={!defaultValue || defaultValue === '' ? new Date().toISOString().slice(0,16): defaultValue}
                 className={classes.textField}
                 InputLabelProps={{
                     shrink: true,
