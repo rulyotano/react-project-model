@@ -15,9 +15,6 @@ const suggestions = [
 
 
 class FilterDropDownTest extends Component{
-    constructor(props){
-        super(props);
-    }
 
 
     onChange(item){

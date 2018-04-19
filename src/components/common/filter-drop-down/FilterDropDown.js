@@ -129,7 +129,7 @@ class FilterDropDown extends Component{
         if(this.props.onChange) {
 
             if(this.props.multi){
-                let items= id.split(',').map(item=>parseInt(item));
+                let items= id.split(',').map(item=>parseInt(item,10));
                 items = items.map(id=> this.props.suggestions.find(item=>item.value === id))
                 this.props.onChange(items);
 

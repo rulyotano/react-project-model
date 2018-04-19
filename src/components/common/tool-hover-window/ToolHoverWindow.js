@@ -6,7 +6,6 @@ import ArrowUp from 'material-ui/svg-icons/hardware/keyboard-arrow-up';
 import Draggable from 'react-draggable';
 import Scrollbar from 'perfect-scrollbar-react';
 import 'perfect-scrollbar-react/dist/style.min.css';
-let nextId = 0;
 
 class ToolHoverWindow extends Component{
     constructor(props){

@@ -5,7 +5,7 @@ import { get, head } from 'lodash'
 import Snackbar from 'material-ui/Snackbar';
 import config from '../../../config/config';
 import {removePassBottomNotifications} from './_store/actions/bottomNotificationActions';
-import {NotificationTypes, NotificationTypesDefaults} from './classes/Notification';
+import {NotificationTypesDefaults} from './classes/Notification';
 
 export class BottomNotificationComponent extends Component {
   static propTypes = {

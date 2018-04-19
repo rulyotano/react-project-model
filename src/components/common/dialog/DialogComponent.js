@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { get, map, isString } from 'lodash'
+import { map, isString } from 'lodash'
 import Dialog from 'material-ui/Dialog'
 import FlatButton from 'material-ui/FlatButton'
 import {removeDialog} from './_store/actions/dialogActions'
