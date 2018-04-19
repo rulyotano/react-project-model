@@ -29,7 +29,7 @@ class ColorPicker extends React.PureComponent {
                     <div className={classes.popover}>
                         <div className={classes.cover} onClick={onClose} />
                         <ChromePicker
-                            color={color.hex}
+                            color={color}
                             onChange={color => onChange(color.hex)}
                             disableAlpha={true} />
                     </div>

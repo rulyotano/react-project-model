@@ -76,7 +76,7 @@ class Monitoring extends Component {
                         <TextField type="text" value={this.state.color} readOnly={true} onClick={this.onClickColorPicker}/>  
                         <ColorPicker 
                             show={this.state.showPickColor} 
-                            color='#ff00ff'
+                            color={this.state.color}
                             onChange={this.onChangeColorPicker} 
                             onClose={this.onCloseColorPicker}/>
                     </div>
