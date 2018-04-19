@@ -7,17 +7,15 @@ import FilterDropDownAsMultiSelectTest from "../../common/components-to-test/Fil
 import LoadingComponent from "../../common/_LoadingComponent";
 import ToolHoverWindowTest from "../../common/components-to-test/ToolHoverWindowTest";
 import ColorPicker from '../../common/colorPicker/ColorPicker';
+import { ChromePicker } from 'react-color'
 
 class Monitoring extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { isLoading: false , color: {r: '241', g: '112', b: '19', a: '1'} }
+        this.state = { isLoading: false , color: '#ff0000', showPickColor: false }
     }
 
-    onChange(item){
-        console.log(item);
-    }
     onClickLoadingButton = () => {
 
         this.setState({isLoading : true});
@@ -29,6 +27,20 @@ class Monitoring extends Component {
 
         setTimeout(teste, 2000);
     }  
+
+    onChangeColorPicker = color => {
+        this.setState({color});
+    }
+
+    onCloseColorPicker = () => {
+        console.log("OnClose");
+    }
+
+    onClickColorPicker = () => {
+        this.setState({showPickColor : true});
+        console.log(this.state.color);
+    }
+
     render(){
         return(
             <div>
@@ -54,7 +66,11 @@ class Monitoring extends Component {
                       Login
                     </LoadingButton>
 
-                    {/* <ColorPicker color={this.state.color}/> */}
+                    <div>
+                        <input type="text" value={this.state.color} readOnly={true} onClick={this.onClickColorPicker}/>
+
+                        <ColorPicker show={this.state.showPickColor} color={this.state.color} onChange={this.onChangeColorPicker}/>
+                    </div>
 
                 </Segment>
                 <ToolHoverWindowTest />

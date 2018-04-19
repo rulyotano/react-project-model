@@ -1,79 +1,75 @@
-'use strict'
-
-import React from 'react'
-import { ChromePicker } from 'react-color'
+import React from 'react';
+import PropTypes from 'prop-types';
+import { ChromePicker } from 'react-color';
 import { withStyles } from 'material-ui-next/styles';
 
-const styles = theme => ({
-    'default': {
-        color: {
-            width: '36px',
-            height: '14px',
-            borderRadius: '2px',
-            //background: `rgba(${this.state.color.r}, ${this.state.color.g}, ${this.state.color.b}, ${this.state.color.a})`,
-        },
-        swatch: {
-            padding: '5px',
-            background: '#fff',
-            borderRadius: '1px',
-            boxShadow: '0 0 0 1px rgba(0,0,0,.1)',
-            display: 'inline-block',
-            cursor: 'pointer',
-        },
-        popover: {
-            position: 'absolute',
-            zIndex: '2',
-        },
-        cover: {
-            position: 'fixed',
-            top: '0px',
-            right: '0px',
-            bottom: '0px',
-            left: '0px',
-        },
+const styles = {
+    popover: {
+        position: 'absolute',
+        zIndex: '2',
     },
-});
+    cover: {
+        position: 'fixed',
+        top: '0px',
+        right: '0px',
+        bottom: '0px',
+        left: '0px',
+    },
+};
 
-class ColorPicker extends React.Component {
+class ColorPicker extends React.PureComponent {
+
     state = {
-        displayColorPicker: false,
-        color: {
-            r: '241',
-            g: '112',
-            b: '19',
-            a: '1',
-        },
-    };
-
-    handleClick = () => {
-        this.setState({ displayColorPicker: !this.state.displayColorPicker })
+        show: this.props.show,
+        onChange: this.props.onChange,
+        onClose: this.props.onClose,
+        color: this.props.color
     };
 
     handleClose = () => {
-        this.setState({ displayColorPicker: false })
+        this.setState({ show: false });
+
+        if(this.state.onClose)
+            this.state.onClose();
     };
 
     handleChange = (color) => {
-        this.setState({ color: color.rgb })
+        this.setState({ color: color.hex });
+
+        if(this.state.onChange !== null )
+            this.state.onChange(color.hex);
     };
 
+    componentWillReceiveProps(newProps){
+        this.setState(newProps)
+    }
+
     render() {
+
+        const { show, onClose, color } = this.props;
+
         return (
             <div>
-                <div style={styles.swatch} onClick={this.handleClick}>
-                    <div style={styles.color} />
-                </div>
-                {this.state.displayColorPicker ? <div style={styles.popover}>
-                    <div style={styles.cover} onClick={this.handleClose} />
-                    <ChromePicker
-                        color={this.state.color}
-                        onChange={this.handleChange}
-                        disableAlpha={true} />
-                </div> : null}
+                <div onClick={this.handleClick} />
 
-            </div>
+                {this.state.show ?
+                    <div style={styles.popover}>
+                        <div style={styles.cover} onClick={this.handleClose} />
+                        <ChromePicker
+                            color={this.state.color}
+                            onChange={this.handleChange}
+                            disableAlpha={true} />
+                    </div>
+                    : null
+                }
+            </div>                                                                                    
         )
     }
 }
+
+ColorPicker.propTypes = {
+    classes: PropTypes.object.isRequired,
+    color: PropTypes.string.isRequired,
+};
 
 export default withStyles(styles)(ColorPicker);
