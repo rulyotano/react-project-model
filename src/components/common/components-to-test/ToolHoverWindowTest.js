@@ -31,6 +31,12 @@ class ToolHoverWindowTest extends Component{
                 <CollapsePanel/>
                 <FilterDropDownTest/>
                 <FilterDropDownAsMultiSelectTest/>
+                <FilterDropDownAsMultiSelectTest/>
+                <FilterDropDownAsMultiSelectTest/>
+                <FilterDropDownAsMultiSelectTest/>
+                <FilterDropDownAsMultiSelectTest/>
+                <FilterDropDownAsMultiSelectTest/>
+                <FilterDropDownAsMultiSelectTest/>
                 <LoadingComponent isLoading={true}/>
                 <LoadingButton
                     variant="raised"
@@ -39,6 +45,42 @@ class ToolHoverWindowTest extends Component{
                     isLoading={this.state.isLoading}>
                     Login
                 </LoadingButton>
+                <LoadingButton
+                    variant="raised"
+                    color="primary"
+                    onClick={this.onClickLoadingButton}
+                    isLoading={this.state.isLoading}>
+                    Login
+                </LoadingButton>
+                <LoadingButton
+                    variant="raised"
+                    color="primary"
+                    onClick={this.onClickLoadingButton}
+                    isLoading={this.state.isLoading}>
+                    Login
+                </LoadingButton>
+                <LoadingButton
+                    variant="raised"
+                    color="primary"
+                    onClick={this.onClickLoadingButton}
+                    isLoading={this.state.isLoading}>
+                    Login
+                </LoadingButton>
+                <LoadingButton
+                    variant="raised"
+                    color="primary"
+                    onClick={this.onClickLoadingButton}
+                    isLoading={this.state.isLoading}>
+                    Login
+                </LoadingButton>
+                <LoadingButton
+                    variant="raised"
+                    color="primary"
+                    onClick={this.onClickLoadingButton}
+                    isLoading={this.state.isLoading}>
+                    Login
+                </LoadingButton>
+
             </ToolHoverWindow>
         )
     }

@@ -36,7 +36,7 @@ class ToolHoverWindow extends Component{
                     </header>
                     <div className="tool-hover-window-content" style={{ maxHeight:MaxHeight}}>
                         <Scrollbar>
-                            <div style={{width:'95%'}}>
+                            <div style={{width:'95%' ,height:'100%'}}>
                                 {this.props.children}
                             </div>
                         </Scrollbar>
