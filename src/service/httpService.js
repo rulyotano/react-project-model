@@ -11,7 +11,6 @@ class GenericHttpRequest {
     
         constructor(axiosInstance)
         {
-            debugger;
             this.axios = axiosInstance;
         }
     

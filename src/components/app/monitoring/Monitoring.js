@@ -6,6 +6,7 @@ import FilterDropDownTest from "../../common/components-to-test/FilterDropDownTe
 import FilterDropDownAsMultiSelectTest from "../../common/components-to-test/FilterDropDownAsMultiSelectTest";
 import LoadingComponent from "../../common/_LoadingComponent";
 import ToolHoverWindowTest from "../../common/components-to-test/ToolHoverWindowTest";
+import DateTimePickerTest from "../../common/components-to-test/DateTimePickerTest";
 
 class Monitoring extends Component {
 
@@ -27,7 +28,7 @@ class Monitoring extends Component {
         }
 
         setTimeout(teste, 2000);
-    }  
+    }
     render(){
         return(
             <div>
@@ -45,13 +46,18 @@ class Monitoring extends Component {
                         <LoadingComponent isLoading={true}/>
                     </div>
 
-                    <LoadingButton
-                      variant="raised"
-                      color="primary"
-                      onClick={this.onClickLoadingButton}
-                      isLoading={this.state.isLoading}>
-                      Login
-                  </LoadingButton>
+                    <div style={{width: '25%'}}>
+                        <LoadingButton
+                            variant="raised"
+                            color="primary"
+                            onClick={this.onClickLoadingButton}
+                            isLoading={this.state.isLoading}>
+                            Login
+                        </LoadingButton>
+                    </div>
+                    <div style={{width: '25%'}}>
+                        <DateTimePickerTest/>
+                    </div>
 
                 </Segment>
                 <ToolHoverWindowTest />
