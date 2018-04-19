@@ -3,8 +3,9 @@ import PropTypes from 'prop-types'
 import "../../../styles/css/tool-hover-window.css";
 import ArrowDown from 'material-ui/svg-icons/hardware/keyboard-arrow-down';
 import ArrowUp from 'material-ui/svg-icons/hardware/keyboard-arrow-up';
-import {dragElement} from './handleFunctions';
-let nextId = 0;
+import Draggable from 'react-draggable';
+import Scrollbar from 'perfect-scrollbar-react';
+import 'perfect-scrollbar-react/dist/style.min.css';
 
 class ToolHoverWindow extends Component{
     constructor(props){
@@ -14,12 +15,8 @@ class ToolHoverWindow extends Component{
             labelHeader:props.labelHeader,
             width:props.width?props.width:'320px'
         };
-        this.toolHooverRef = React.createRef();
     }
-    componentDidMount(){
-        dragElement(this.toolHooverRef.current);
-    }
-
+    
     handleState(){
         let {isOpen} = this.state;
         this.setState({isOpen:!isOpen});
@@ -28,13 +25,26 @@ class ToolHoverWindow extends Component{
     render(){
 
         let {labelHeader, isOpen, width} = this.state;
+        let height = isOpen? 'calc(95% - 100px)':'calc(95% - calc(95% - 100px) - 64px)';
+        let MaxHeight = 'calc(95% - 10px)';
         return(
-            <div className="tool-hover-window" ref={this.toolHooverRef} id={"tool-hover-window"+nextId++} style={{width:width, height: isOpen? 'calc(95% - 100px)':'calc(95% - calc(95% - 100px) - 64px)'}} draggable={true}>
-                <header>
-                    <h5>{labelHeader}</h5>
-                    {isOpen?<ArrowUp onClick={()=>{this.handleState()}}/>:<ArrowDown onClick={()=>{this.handleState()}}/>}
-                </header>
-            </div>
+            <Draggable>
+                <div className="tool-hover-window" style={{width:width, height: height}}>
+                    <header>
+                        <h5>{labelHeader}</h5>
+                        {isOpen?<ArrowUp onClick={()=>{this.handleState()}}/>:<ArrowDown onClick={()=>{this.handleState()}}/>}
+                    </header>
+                    <div className="tool-hover-window-content" style={{ maxHeight:MaxHeight}}>
+                        <Scrollbar>
+                            <div style={{width:'95%'}}>
+                                {this.props.children}
+                            </div>
+                        </Scrollbar>
+
+                    </div>
+                </div>
+
+            </Draggable>
         )
     }
 }

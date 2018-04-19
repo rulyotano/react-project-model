@@ -100,9 +100,7 @@ const configureAxios = (axiosInstance)=> {
  * Abstraction of the ~GenericHttpRequest~ for each existing url
  */
 class HttpService extends GenericHttpRequest {
-    constructor(defaultAxiosInstance) {
-        super(defaultAxiosInstance);
-    }
+
 
     useSgpaApiUrl = () =>{
         if(!this.SGPA_API_HTTP_SERVICE)

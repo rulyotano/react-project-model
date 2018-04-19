@@ -46,8 +46,6 @@ class ColorPicker extends React.PureComponent {
 
     render() {
 
-        const { show, onClose, color } = this.props;
-
         return (
             <div>
                 <div onClick={this.handleClick} />

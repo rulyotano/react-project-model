@@ -3,10 +3,8 @@ import PropTypes  from 'prop-types'
 import { withRouter } from 'react-router-dom'
 import '../../styles/css/login.css';
 // import TextField from 'material-ui/TextField';
-import Button from 'material-ui-next/Button';
 import loginService from "../../service/login/loginService";
 import LanguagePicker from "../common/_LanguagePicker";
-import { withStyles } from 'material-ui/styles';
 import { Field, reduxForm } from 'redux-form'
 import { TextField } from 'redux-form-material-ui'
 import LoadingButton from '../common/loadingButton/LoadingButton';

@@ -7,7 +7,8 @@ import FilterDropDownAsMultiSelectTest from "../../common/components-to-test/Fil
 import LoadingComponent from "../../common/_LoadingComponent";
 import ToolHoverWindowTest from "../../common/components-to-test/ToolHoverWindowTest";
 import ColorPicker from '../../common/colorPicker/ColorPicker';
-import { ChromePicker } from 'react-color'
+import DateTimePickerTest from "../../common/components-to-test/DateTimePickerTest";
+import TextField from 'material-ui-next/TextField';
 
 class Monitoring extends Component {
 
@@ -58,17 +59,22 @@ class Monitoring extends Component {
                         <LoadingComponent isLoading={true}/>
                     </div>
 
-                    <LoadingButton
-                      variant="raised"
-                      color="primary"
-                      onClick={this.onClickLoadingButton}
-                      isLoading={this.state.isLoading}>
-                      Login
-                    </LoadingButton>
+                    <div style={{width: '25%'}}>
+                        <LoadingButton
+                            variant="raised"
+                            color="primary"
+                            onClick={this.onClickLoadingButton}
+                            isLoading={this.state.isLoading}>
+                            Login
+                        </LoadingButton>
+                    </div>
 
-                    <div>
-                        <input type="text" value={this.state.color} readOnly={true} onClick={this.onClickColorPicker}/>
+                    <div style={{width: '25%'}}>
+                        <DateTimePickerTest/>
+                    </div>
 
+                    <div style={{width: '25%'}}>
+                        <TextField type="text" value={this.state.color} readOnly={true} onClick={this.onClickColorPicker}/>  
                         <ColorPicker show={this.state.showPickColor} color={this.state.color} onChange={this.onChangeColorPicker}/>
                     </div>
 

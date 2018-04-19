@@ -2,9 +2,7 @@ import React, {Component} from 'react';
 import { MenuItem } from 'material-ui-next/Menu';
 
 class Option extends Component{
-    constructor(props){
-        super(props);
-    }
+
     handleClick = event => {
         this.props.onSelect(this.props.option, event);
     };
