@@ -6,19 +6,18 @@ import FilterDropDownTest from "../../common/components-to-test/FilterDropDownTe
 import FilterDropDownAsMultiSelectTest from "../../common/components-to-test/FilterDropDownAsMultiSelectTest";
 import LoadingComponent from "../../common/_LoadingComponent";
 import ToolHoverWindowTest from "../../common/components-to-test/ToolHoverWindowTest";
+import ColorPicker from '../../common/colorPicker/ColorPicker';
 import DateTimePickerTest from "../../common/components-to-test/DateTimePickerTest";
 import DateTimeRangeSelectorTest from "../../common/components-to-test/DateTimeRangeSelectorTest";
+import TextField from 'material-ui-next/TextField';
 
 class Monitoring extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { isLoading: false }
+        this.state = { isLoading: false , color: '#ff0000', showPickColor: false }
     }
 
-    onChange(item){
-        console.log(item);
-    }
     onClickLoadingButton = () => {
 
         this.setState({isLoading : true});
@@ -29,7 +28,20 @@ class Monitoring extends Component {
         }
 
         setTimeout(teste, 2000);
+    }  
+
+    onChangeColorPicker = color => {
+        this.setState({color});
     }
+
+    onCloseColorPicker = () => {
+        this.setState({showPickColor : false});
+    }
+
+    onClickColorPicker = () => {
+        this.setState({showPickColor : true});
+    }
+
     render(){
         return(
             <div>
@@ -68,8 +80,18 @@ class Monitoring extends Component {
                             Login
                         </LoadingButton>
                     </div>
+
                     <div style={{width: '25%'}}>
                         <DateTimePickerTest/>
+                    </div>
+
+                    <div style={{width: '25%'}}>
+                        <TextField type="text" value={this.state.color} readOnly={true} onClick={this.onClickColorPicker}/>  
+                        <ColorPicker 
+                            show={this.state.showPickColor} 
+                            color={this.state.color}
+                            onChange={this.onChangeColorPicker} 
+                            onClose={this.onCloseColorPicker}/>
                     </div>
 
                 </Segment>
