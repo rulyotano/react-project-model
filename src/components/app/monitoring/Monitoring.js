@@ -34,12 +34,11 @@ class Monitoring extends Component {
     }
 
     onCloseColorPicker = () => {
-        console.log("OnClose");
+        this.setState({showPickColor : false});
     }
 
     onClickColorPicker = () => {
         this.setState({showPickColor : true});
-        console.log(this.state.color);
     }
 
     render(){
@@ -75,7 +74,11 @@ class Monitoring extends Component {
 
                     <div style={{width: '25%'}}>
                         <TextField type="text" value={this.state.color} readOnly={true} onClick={this.onClickColorPicker}/>  
-                        <ColorPicker show={this.state.showPickColor} color={this.state.color} onChange={this.onChangeColorPicker}/>
+                        <ColorPicker 
+                            show={this.state.showPickColor} 
+                            color='#ff00ff'
+                            onChange={this.onChangeColorPicker} 
+                            onClose={this.onCloseColorPicker}/>
                     </div>
 
                 </Segment>
