@@ -11,9 +11,6 @@ import Option from './option/Option';
 
 
 class SelectWrappedComponent extends Component{
-    constructor(props){
-        super(props);
-    }
     render(){
         const { classes, ...other } = this.props;
         return(

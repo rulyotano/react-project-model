@@ -21,7 +21,6 @@ class LanguagePicker extends PureComponent {
   render() {
     const { lang, changeLanguage, showLabel=true, ...restProps } = this.props;
     const { t } = this.context;
-    const selectedLang = ALL_LANGUAGES.find(it=>it.key === lang)
     return (
     <FormControl {...restProps}>
         {showLabel ? <InputLabel htmlFor="language">{t("languages.Language")}</InputLabel> : null} 

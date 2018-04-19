@@ -4,8 +4,7 @@ import '../../../styles/css/segment.css'
 import FullScreenIco from 'material-ui/svg-icons/navigation/fullscreen';
 import FullScreenExitIco from 'material-ui/svg-icons/navigation/fullscreen-exit';
 import {connect} from 'react-redux';
-import {redirectToHome, setSizeToMax, setSizeToMin} from "../../app/_store/actions/appActions";
-import {Redirect} from "react-router-dom";
+import {setSizeToMax, setSizeToMin} from "../../app/_store/actions/appActions";
 import { withRouter } from 'react-router-dom'
 
 class Segment extends Component{

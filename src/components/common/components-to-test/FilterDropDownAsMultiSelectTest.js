@@ -16,10 +16,6 @@ const suggestions = [
 
 
 class FilterDropDownAsMultiSelectTest extends Component{
-    constructor(props){
-        super(props);
-    }
-
     onChange(item){
         console.log(item);
     }
