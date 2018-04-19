@@ -5,6 +5,7 @@ import LoadingButton from "../loadingButton/LoadingButton";
 import FilterDropDownAsMultiSelectTest from "./FilterDropDownAsMultiSelectTest";
 import CollapsePanel from "../collapse-panel/CollapsePanel";
 import LoadingComponent from "../../common/_LoadingComponent";
+import DateTimeRangeSelectorTest from "./DateTimeRangeSelectorTest";
 
 class ToolHoverWindowTest extends Component{
     constructor(props){
@@ -25,6 +26,8 @@ class ToolHoverWindowTest extends Component{
     render(){
         return(
             <ToolHoverWindow isOpen={false} labelHeader="Mapa do Tempo">
+                <DateTimeRangeSelectorTest useAs="v"/>
+
                 <CollapsePanel/>
                 <FilterDropDownTest/>
                 <FilterDropDownAsMultiSelectTest/>

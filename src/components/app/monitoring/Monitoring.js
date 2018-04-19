@@ -7,6 +7,7 @@ import FilterDropDownAsMultiSelectTest from "../../common/components-to-test/Fil
 import LoadingComponent from "../../common/_LoadingComponent";
 import ToolHoverWindowTest from "../../common/components-to-test/ToolHoverWindowTest";
 import DateTimePickerTest from "../../common/components-to-test/DateTimePickerTest";
+import DateTimeRangeSelectorTest from "../../common/components-to-test/DateTimeRangeSelectorTest";
 
 class Monitoring extends Component {
 
@@ -33,6 +34,9 @@ class Monitoring extends Component {
         return(
             <div>
                 <Segment title="Monitoring">
+                    <div style={{width: '40%'}}>
+                        <DateTimeRangeSelectorTest useAs="v"/>
+                    </div>
                     <div style={{width: '25%'}}>
                         <CollapsePanel/>
                     </div>
