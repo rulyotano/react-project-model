@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@material-ui/icons": "^1.0.0-beta.42",
+    "@turf/turf": "^5.1.6",
     "axios": "^0.18.0",
     "classnames": "^2.2.5",
     "geobuf": "^3.0.0",
@@ -27,8 +28,7 @@
     "redux-form": "^7.3.0",
     "redux-form-material-ui": "^4.3.4",
     "redux-i18n": "^1.5.13",
-    "redux-thunk": "^2.2.0",
-    "turf": "^3.0.14"
+    "redux-thunk": "^2.2.0"
   },
   "devDependencies": {
     "@material-ui/codemod": "^1.0.0-beta.41",

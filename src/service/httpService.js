@@ -83,7 +83,7 @@ const configureAxios = (axiosInstance)=> {
 
         switch (response.status){
             case 401:
-                loginService.logout()
+                loginService.logout(true)
                 break
             default:
                 break
@@ -92,6 +92,13 @@ const configureAxios = (axiosInstance)=> {
         return response;
     }, error => {
         // Do something with response error
+        switch (error.response.status){
+            case 401:
+                loginService.logout(true)
+                break
+            default:
+                break
+            }
         return Promise.reject(error);
     });
 }

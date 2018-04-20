@@ -42,14 +42,23 @@ export class LoginService {
         return promise
     }
 
-    logout() {
+    logout(force = false) {
+        const exit = ()=>{
+            //TODO: clear data storage -> configService.clearConfigurations();
+            //Change store state to not logued for making the redirect
+            loginAuthDataService.clearAuthData();
+            this._store.dispatch(clearUserLogged())            
+        };
+        if (force)
+        {
+            exit();
+            return new Promise(resolve=>resolve(true));
+        }
+
         return dialogService.confirmYesNo('login.confirm_logou_title', 'login.confirm_logout_body').then(btnResult=>{
             if (btnResult === DialogButtonTypes.YES){                
                 return httpService.post('/auth/logout', {}).then(()=>{
-                    loginAuthDataService.clearAuthData();
-                    //TODO: clear data storage -> configService.clearConfigurations();
-                    //Change store state to not logued for making the redirect
-                    this._store.dispatch(clearUserLogged())
+                    exit();
                 })
             }
         })
