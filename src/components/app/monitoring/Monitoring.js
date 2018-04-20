@@ -85,8 +85,9 @@ class Monitoring extends Component {
                         <DateTimePickerTest/>
                     </div>
 
-                    <div style={{width: '25%'}}>
-                        <TextField type="text" value={this.state.color} readOnly={true} onClick={this.onClickColorPicker}/>  
+                    <div style={{width: '25%', position: 'absolute', top: "50px", left:"300px"}}>
+                        <TextField type="text" value={this.state.color} style={{color: this.state.color}} readOnly={true} onClick={this.onClickColorPicker}/>  
+                        <div style={{backgroundColor: this.state.color, height: "50px", width: "50px"}}/>  
                         <ColorPicker 
                             show={this.state.showPickColor} 
                             color={this.state.color}
