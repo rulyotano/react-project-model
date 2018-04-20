@@ -46,6 +46,9 @@ class Monitoring extends Component {
         return(
             <div>
                 <Segment title="Monitoring">
+                    <div style={{width: '25%'}}>
+                        <CollapsePanel/>
+                    </div>
                     <div style={{width: '40%'}}>
                         <DateTimeRangeSelectorTest useAs="v"/>
                     </div>
@@ -94,7 +97,33 @@ class Monitoring extends Component {
                             onChange={this.onChangeColorPicker} 
                             onClose={this.onCloseColorPicker}/>
                     </div>
-
+                    <div style={{width: '25%'}}>
+                        <DateTimePickerTest/>
+                    </div>
+                    <div style={{width: '25%'}}>
+                        <DateTimePickerTest/>
+                    </div>
+                    <div style={{width: '25%'}}>
+                        <DateTimePickerTest/>
+                    </div>
+                    <div style={{width: '25%'}}>
+                        <DateTimePickerTest/>
+                    </div>
+                    <div style={{width: '25%'}}>
+                        <DateTimePickerTest/>
+                    </div>
+                    <div style={{width: '25%'}}>
+                        <DateTimePickerTest/>
+                    </div>
+                    <div style={{width: '25%'}}>
+                        <DateTimePickerTest/>
+                    </div>
+                    <div style={{width: '25%'}}>
+                        <DateTimePickerTest/>
+                    </div>
+                    <div style={{width: '25%'}}>
+                        <DateTimePickerTest/>
+                    </div>
                 </Segment>
                 <ToolHoverWindowTest />
             </div>

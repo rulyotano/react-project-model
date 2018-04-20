@@ -6,6 +6,8 @@ import FullScreenExitIco from 'material-ui/svg-icons/navigation/fullscreen-exit'
 import {connect} from 'react-redux';
 import {setSizeToMax, setSizeToMin} from "../../app/_store/actions/appActions";
 import { withRouter } from 'react-router-dom'
+import Scrollbar from 'perfect-scrollbar-react';
+import 'perfect-scrollbar-react/dist/style.min.css';
 
 class Segment extends Component{
     constructor(props){
@@ -52,7 +54,11 @@ class Segment extends Component{
 
                     </div>
                     <div className="container-body">
-                        {children}
+                        <Scrollbar>
+                            <div style={{width:'95%' ,height:'100%'}}>
+                                {children}
+                            </div>
+                        </Scrollbar>
                     </div>
                 </div>
 
