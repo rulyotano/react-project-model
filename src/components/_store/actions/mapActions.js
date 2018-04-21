@@ -5,7 +5,7 @@ import helperService from "../../../service/httpService"
 import {mappedGeoJson, calculateCentroid, calculateArea} from "../../../service/maps/geoCalculationService"
 import config from "../../../config/config"
 import {MAP_JSON_LOADED} from "./mapActions.types"
-import {isNaN} from "lodash"
+import {isNaN, get, toLower} from "lodash"
 
 export const loadMapGeoJson = () => (dispatch)=>{
     helperService.useRawUrl().get(config.MAP_GEO_JSON_URL, undefined, { responseType: 'arraybuffer' }).then(response=>{
@@ -14,6 +14,11 @@ export const loadMapGeoJson = () => (dispatch)=>{
         const count = geoJson.features.length;
         for (let i = 0; i < count; i++) {
             const feature = geoJson.features[i];
+
+            //fix multi-polygons in some maps
+            if (toLower(get(feature, "geometry.type")) === "multipolygon")
+                feature.geometry.type = "MultiPolygon"
+
             //calculate centroid
             const centroid = calculateCentroid(feature);
 
