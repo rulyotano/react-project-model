@@ -1,4 +1,5 @@
-import React, {Component} from 'react';
+import React, {PureComponent} from 'react';
+import PropTypes from 'prop-types';
 
 import '../../../styles/css/segment.css'
 import FullScreenIco from 'material-ui/svg-icons/navigation/fullscreen';
@@ -9,23 +10,7 @@ import { withRouter } from 'react-router-dom'
 import Scrollbar from 'perfect-scrollbar-react';
 import 'perfect-scrollbar-react/dist/style.min.css';
 
-class Segment extends Component{
-    constructor(props){
-        super(props);
-        this.state = {
-            isMaximized: props.isMaximized,
-            toHome:props.toHome,
-            isDashboard:props.isDashboard
-        }
-    }
-
-    componentWillReceiveProps(newProps){
-        this.setStateFromProps(newProps)
-    }
-    setStateFromProps(newProps){
-        this.setState(newProps);
-    }
-
+class Segment extends PureComponent{
     handleSizeWindow(toMaximize){
         if(toMaximize)
             this.props.maximize();
@@ -37,15 +22,15 @@ class Segment extends Component{
     };
 
     render(){
-        let {children, title} = this.props;
-        let {isMaximized, isDashboard} = this.state;
+        let {children, title, isMaximized, isDashboard = false, useScroll = true} = this.props;
+        let {t} = this.context;
 
         return(
             <div className="segment" style={{width: isMaximized? 'calc(100% - 58px)':'calc(100% - 275px)'}}>
                 <div className="container">
                     <div className="container-header">
-                        <h4>{title ? title:'Title'}</h4>
-                        {isDashboard?'':<span className="close" onClick={()=>{this.handleClose()}}>&times;</span>}
+                        <h4>{t(title)}</h4>
+                        {isDashboard? null :<span className="close" onClick={()=>{this.handleClose()}}>&times;</span>}
                         {isMaximized ?
                             <FullScreenExitIco onClick={() => this.handleSizeWindow(false)}/>
                             :
@@ -53,12 +38,13 @@ class Segment extends Component{
                         }
 
                     </div>
-                    <div className="container-body">
+                    <div className="container-body" style={{ display: useScroll ? "flex" : "block" }}>
+                       { useScroll ?
                         <Scrollbar>
                             <div style={{width:'95%' ,height:'100%'}}>
                                 {children}
                             </div>
-                        </Scrollbar>
+                        </Scrollbar> : children }
                     </div>
                 </div>
 
@@ -68,8 +54,18 @@ class Segment extends Component{
     }
 }
 
+Segment.propsTypes = {
+    title: PropTypes.string.isRequired,
+    isDashboard: PropTypes.bool,
+    useScroll: PropTypes.bool
+}
+
+Segment.contextTypes = {
+    t: PropTypes.func.isRequired
+}
+
 const mapStateToProps = (state) => ({
-    isMaximized: state.app.maximized
+    isMaximized: state.app.maximized,
 });
 
 const mapDispatchToProps = (dispatch) => ({

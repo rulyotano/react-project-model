@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {PureComponent} from 'react';
 import {Link} from 'react-router-dom';
 import ApplicationIco from 'material-ui/svg-icons/navigation/apps';
 import LocationOnIco from 'material-ui/svg-icons/communication/location-on';
@@ -9,7 +9,7 @@ import {setSizeToMax, setSizeToMin} from "../_store/actions/appActions";
 
 const CommonListItem = ({url, icon, text, isMaximized, match})=>(<li className={isMaximized? "with-border":''}><Link to={`${match.url}${url}`}>{icon}{isMaximized? '':text}</Link></li>)
 
-class Sidebar extends Component{
+class Sidebar extends PureComponent{
     constructor(props){
         super(props);
         this.state = {
