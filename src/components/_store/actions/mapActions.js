@@ -2,7 +2,7 @@
 import Pbf from "pbf"
 import {decode} from "geobuf"
 import helperService from "../../../service/httpService"
-import {mappedGeoJson, calculateCentroid, calculateArea} from "../../../service/maps/geoCalculationService"
+import {mappedGeoJson, calculateCentroid, calculateArea, convertArea} from "../../../service/maps/geoCalculationService"
 import config from "../../../config/config"
 import {MAP_JSON_LOADED} from "./mapActions.types"
 import {isNaN, get, toLower} from "lodash"
@@ -29,7 +29,7 @@ export const loadMapGeoJson = () => (dispatch)=>{
                 ...feature.properties, 
                 latCentroid: centroid.x, 
                 lngCentroid: centroid.y,
-                area: area > 0 ? area : 
+                area: area > 0 ? convertArea(area, 'meters', 'hectares') : 
                         !isNaN(featureArea) ? featureArea : 0
             }
         }

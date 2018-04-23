@@ -16,6 +16,7 @@
     "node-less-chokidar": "^0.1.2",
     "pbf": "^3.1.0",
     "perfect-scrollbar-react": "^1.0.1",
+    "q": "^1.5.1",
     "react": "^16.3.1",
     "react-color": "^2.14.1",
     "react-dom": "^16.3.1",

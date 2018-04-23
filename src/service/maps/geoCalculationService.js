@@ -1,6 +1,7 @@
 /**Geometry Calculation Service, most common things and utils for geometry calculations */
 import {setWith} from "lodash"
 import centroid from "@turf/centroid"
+import envelope from "@turf/envelope"
 import area from "@turf/area"
 import {convertArea as turfConvertArea} from "@turf/helpers"
 import {memoize} from "lodash"
@@ -20,7 +21,7 @@ export const mappedGeoJson = (geoJson)=>{
 }
 
 export const calculateCentroid = memoize((feature) => {
-    const result = centroid(feature)
+    const result = centroid(envelope(feature))
     return {x:result.geometry.coordinates[1], y:result.geometry.coordinates[0]};
 })
 
@@ -34,7 +35,7 @@ export const convertArea = memoize((area = 0, originalUnit = "meters", finalUnit
     const originHa = originalUnit === "hectares";
     const destinationHa = finalUnit === "hectares";
     if (originHa){
-        area = area/10000
+        area = area*10000
         originalUnit = "meters"
     }
     if (destinationHa){
@@ -42,7 +43,7 @@ export const convertArea = memoize((area = 0, originalUnit = "meters", finalUnit
     }
     let result = turfConvertArea(area, originalUnit, finalUnit);
     if (destinationHa)
-        result *= 10000
+        result /= 10000
     return result
 })
 
