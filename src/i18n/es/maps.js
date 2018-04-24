@@ -8,4 +8,5 @@ export default {
     "Sector": "Sector",
     "Field": "Parcela",
     "Total Area": "Área Total",
+    "Distance": "Distancia",
 }
