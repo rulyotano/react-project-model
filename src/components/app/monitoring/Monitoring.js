@@ -59,12 +59,12 @@ class Monitoring extends Component {
                     <div style={{width: '25%'}}>
                         <CollapsePanel/>
                     </div>
-                    {/* <div style={{width: '25%'}}>
+                    <div style={{width: '25%'}}>
                         <CollapsePanel/>
                         <CollapsePanel/>
                         <CollapsePanel/>
                         <CollapsePanel/>
-                    </div> */}
+                    </div>
                     <div style={{width: '25%'}}>
                         <FilterDropDownTest/>
                     </div>
