@@ -42,7 +42,7 @@ export default class MapSelectedTalhaoesLayer extends MapCommonLayer {
     mapAdd(map){
         let mapObj = map.map;
         
-        mapObj.on('click', this._talhoesLayer.key, e => {
+        map.on('click', this._talhoesLayer.key, e => {
             let feature = e.features[0];
             if (!feature)
                 return;

@@ -9,6 +9,7 @@ import {Typography} from 'material-ui-next';
 import Map from '../../../service/maps/classes/Map';
 import MapSwitcherControl from '../../../service/maps/classes/common-controls/map-switcher-control';
 import MousePositionControl from '../../../service/maps/classes/common-controls/mouse-position-control';
+import MeasureDistanceControl from '../../../service/maps/classes/common-controls/measure-distance-control';
 import MapTalhaoesLayer from '../../../service/maps/classes/layers/common-layers/map-talhaoes-layer';
 import MapNumbersLayer from '../../../service/maps/classes/layers/common-layers/map-numbers-layer';
 import MapSelectedTalhaoLayer from '../../../service/maps/classes/layers/common-layers/map-selected-talhao-layer';
@@ -24,6 +25,7 @@ class TestMapComponent extends Component{
         this.map.on('load', ()=>{
             this.map.map.addControl(new MapSwitcherControl(this.map), "top-left")
             this.map.map.addControl(new MousePositionControl(this.map), "top-left")
+            this.map.map.addControl(new MeasureDistanceControl(this.map), "top-left")
             this.map.map.addControl(new mapboxgl.ScaleControl(), 'bottom-right')
             this.map.map.addControl(new mapboxgl.NavigationControl(), 'bottom-right')
 
