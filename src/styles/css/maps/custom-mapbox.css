@@ -1,0 +1,13 @@
+.mapboxgl-popup {
+  z-index: 1000;
+}
+.mapboxgl-popup-content h4 {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  font-size: 15px;
+}
+.mapboxgl-popup-content h5 {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  font-size: 14px;
+}

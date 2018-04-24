@@ -104,9 +104,6 @@ class Monitoring extends Component {
                     <div style={{width: '25%'}}>
                         <DateTimePickerTest/>
                     </div>
-                    {/* <div style={{width: '25%'}}>
-                        <DateTimePickerTest/>
-                    </div>
                     <div style={{width: '25%'}}>
                         <DateTimePickerTest/>
                     </div>
@@ -118,7 +115,10 @@ class Monitoring extends Component {
                     </div>
                     <div style={{width: '25%'}}>
                         <DateTimePickerTest/>
-                    </div> */}
+                    </div>
+                    <div style={{width: '25%'}}>
+                        <DateTimePickerTest/>
+                    </div> 
                     <div style={{width: '25%'}}>
                         <DateTimePickerTest/>
                     </div>
@@ -127,7 +127,7 @@ class Monitoring extends Component {
                     </div>
 
                     <div style={{width: '25%'}}>
-                        <WorkAreaSelector isHorizontal={false} />
+                        <WorkAreaSelector isHorizontal={true} />
                     </div>
                 </Segment>
                 <ToolHoverWindowTest />

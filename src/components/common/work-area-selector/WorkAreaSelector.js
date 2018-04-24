@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Field, reduxForm, change } from 'redux-form';
+import { Field, reduxForm } from 'redux-form';
 import { TextField } from 'redux-form-material-ui';
 import { withStyles } from 'material-ui-next/styles';
 import { connect } from 'react-redux';
@@ -51,7 +51,7 @@ class WorkAreaSelector extends Component {
     }
 
     render() {
-        const { classes, isHorizontal, initialValues, handleOnBlur } = this.props;
+        const { classes, isHorizontal, initialValues } = this.props;
 
         return (
             <div className={classes.wrapper} style={{ display: isHorizontal ? 'flex' : 'block' }}>
@@ -113,5 +113,10 @@ const mapStateToProps = (state) => {
         talhao: get(state, 'form.workAreaSelector.values.cdTalhao')
     }
 }
+
+
+WorkAreaSelector.propTypes = {
+    isHorizontal: PropTypes.bool.isRequired,
+};
 
 export default connect(mapStateToProps)(withStyles(styles)(WorkAreaSelector));
