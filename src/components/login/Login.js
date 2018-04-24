@@ -7,7 +7,7 @@ import loginService from "../../service/login/loginService";
 import LanguagePicker from "../common/_LanguagePicker";
 import { Field, reduxForm } from 'redux-form'
 import { TextField } from 'redux-form-material-ui'
-import LoadingButton from '../common/loadingButton/LoadingButton';
+import LoadingButton from '../common/loading-button/LoadingButton';
 
 const style = {
     input:{color:'white', height:'80%', marginLeft:'4px', marginTop:'4px'},
