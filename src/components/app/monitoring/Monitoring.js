@@ -9,6 +9,7 @@ import ColorPickerTest from '../../common/components-to-test/ColorPickerTest';
 import DateTimePickerTest from "../../common/components-to-test/DateTimePickerTest";
 import DateTimeRangeSelectorTest from "../../common/components-to-test/DateTimeRangeSelectorTest";
 import LoadingButtonTest from '../../common/components-to-test/LoadingButtonTest';
+import WorkAreaSelector from "../../common/work-area-selector/WorkAreaSelector";
 
 class Monitoring extends Component {
 
@@ -76,12 +77,16 @@ class Monitoring extends Component {
                     </div>
                     <div style={{width: '25%'}}>
                         <DateTimePickerTest/>
-                    </div>
+                    </div> 
                     <div style={{width: '25%'}}>
                         <DateTimePickerTest/>
                     </div>
                     <div style={{width: '25%'}}>
                         <DateTimePickerTest/>
+                    </div>
+
+                    <div style={{width: '25%'}}>
+                        <WorkAreaSelector isHorizontal={true} />
                     </div>
                 </Segment>
                 <ToolHoverWindowTest />
