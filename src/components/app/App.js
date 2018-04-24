@@ -66,8 +66,8 @@ export class App extends Component {
 const mapStateToProps = (state) => ({
 });
 
-const mapDispatchToProps = {
-    loadUser: userActions.loadUser
-};
+const mapDispatchToProps = (dispatch) => ({
+    loadUser: () => dispatch(userActions.loadUser())
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(App)

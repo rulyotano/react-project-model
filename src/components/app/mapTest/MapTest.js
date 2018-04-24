@@ -11,6 +11,7 @@ import MapSwitcherControl from '../../../service/maps/classes/common-controls/ma
 import MousePositionControl from '../../../service/maps/classes/common-controls/mouse-position-control';
 import MapTalhaoesLayer from '../../../service/maps/classes/layers/common-layers/map-talhaoes-layer';
 import MapNumbersLayer from '../../../service/maps/classes/layers/common-layers/map-numbers-layer';
+import MapSelectedTalhaoLayer from '../../../service/maps/classes/layers/common-layers/map-selected-talhao-layer';
 
 // import CollapsePanel from "../../common/collapse-panel/CollapsePanel"
 // import FilterDropDownTest from "../../common/components-to-test/FilterDropDownTest";
@@ -29,6 +30,7 @@ class TestMapComponent extends Component{
             const talhoes = new MapTalhaoesLayer();
             this.map.addLayer(talhoes).then(()=>{
                 this.map.addLayer(new MapNumbersLayer(talhoes))
+                this.map.addLayer(new MapSelectedTalhaoLayer(talhoes))
                 //Added talhoes
             });
         })

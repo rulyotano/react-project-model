@@ -14,7 +14,6 @@ export default class MapNumbersLayer extends MapCommonLayer {
             f=> point([f.properties.lngCentroid, f.properties.latCentroid], {
                 title: f.properties.descTalhao ? f.properties.descTalhao: f.properties.cdTalhao
             }));
-            debugger;
         return {
             id: this.key,
             type: 'symbol',

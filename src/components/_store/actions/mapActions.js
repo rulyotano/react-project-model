@@ -4,10 +4,16 @@ import {decode} from "geobuf"
 import helperService from "../../../service/httpService"
 import {mappedGeoJson, calculateCentroid, calculateArea, convertArea} from "../../../service/maps/geoCalculationService"
 import config from "../../../config/config"
-import {MAP_JSON_LOADED} from "./mapActions.types"
+import {MAP_JSON_LOADED, SELECT_MAP_FIELD, START_MAP_LOADING, ENDS_MAP_LOADING} from "./mapActions.types"
 import {isNaN, get, toLower} from "lodash"
 
-export const loadMapGeoJson = () => (dispatch)=>{
+/**Load geo json from store, if is already loaded doesn't */
+export const loadMapGeoJson = () => (dispatch, getState)=>{
+    //check for not loading twice
+    const {isLoading, mapGeoJson} = getState().map
+    if (isLoading || mapGeoJson !== null)
+        return;
+    dispatch({ type: START_MAP_LOADING })
     helperService.useRawUrl().get(config.MAP_GEO_JSON_URL, undefined, { responseType: 'arraybuffer' }).then(response=>{
         const geoJson = decode(new Pbf(response))
         //TODO: do some treatment to geo json here
@@ -36,3 +42,6 @@ export const loadMapGeoJson = () => (dispatch)=>{
         dispatch({ type: MAP_JSON_LOADED, geoJson })
     })
 }
+
+/**Select map field */
+export const selectMapField = (feature = null)=>({ type: SELECT_MAP_FIELD, feature})
