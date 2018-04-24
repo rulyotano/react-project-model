@@ -9,6 +9,7 @@ import ToolHoverWindowTest from "../../common/components-to-test/ToolHoverWindow
 import ColorPicker from '../../common/colorPicker/ColorPicker';
 import DateTimePickerTest from "../../common/components-to-test/DateTimePickerTest";
 import DateTimeRangeSelectorTest from "../../common/components-to-test/DateTimeRangeSelectorTest";
+import WorkAreaSelector from "../../common/work-area-selector/WorkAreaSelector";
 import TextField from 'material-ui-next/TextField';
 
 class Monitoring extends Component {
@@ -58,12 +59,12 @@ class Monitoring extends Component {
                     <div style={{width: '25%'}}>
                         <CollapsePanel/>
                     </div>
-                    <div style={{width: '25%'}}>
+                    {/* <div style={{width: '25%'}}>
                         <CollapsePanel/>
                         <CollapsePanel/>
                         <CollapsePanel/>
                         <CollapsePanel/>
-                    </div>
+                    </div> */}
                     <div style={{width: '25%'}}>
                         <FilterDropDownTest/>
                     </div>
@@ -103,7 +104,7 @@ class Monitoring extends Component {
                     <div style={{width: '25%'}}>
                         <DateTimePickerTest/>
                     </div>
-                    <div style={{width: '25%'}}>
+                    {/* <div style={{width: '25%'}}>
                         <DateTimePickerTest/>
                     </div>
                     <div style={{width: '25%'}}>
@@ -117,12 +118,16 @@ class Monitoring extends Component {
                     </div>
                     <div style={{width: '25%'}}>
                         <DateTimePickerTest/>
-                    </div>
+                    </div> */}
                     <div style={{width: '25%'}}>
                         <DateTimePickerTest/>
                     </div>
                     <div style={{width: '25%'}}>
                         <DateTimePickerTest/>
+                    </div>
+
+                    <div style={{width: '25%'}}>
+                        <WorkAreaSelector isHorizontal={false} />
                     </div>
                 </Segment>
                 <ToolHoverWindowTest />
