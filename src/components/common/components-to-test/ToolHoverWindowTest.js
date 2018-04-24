@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import ToolHoverWindow from "../tool-hover-window/ToolHoverWindow";
 import FilterDropDownTest from "../components-to-test/FilterDropDownTest";
-import LoadingButton from "../loadingButton/LoadingButton";
+import LoadingButton from "../loading-button/LoadingButton";
 import FilterDropDownAsMultiSelectTest from "./FilterDropDownAsMultiSelectTest";
 import CollapsePanel from "../collapse-panel/CollapsePanel";
 import LoadingComponent from "../../common/_LoadingComponent";

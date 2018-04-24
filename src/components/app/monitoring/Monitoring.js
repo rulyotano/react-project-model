@@ -1,46 +1,16 @@
 import React, { Component } from 'react';
-import LoadingButton from '../../common/loadingButton/LoadingButton';
 import Segment from "../../common/segment/Segment";
 import CollapsePanel from "../../common/collapse-panel/CollapsePanel";
 import FilterDropDownTest from "../../common/components-to-test/FilterDropDownTest";
 import FilterDropDownAsMultiSelectTest from "../../common/components-to-test/FilterDropDownAsMultiSelectTest";
 import LoadingComponent from "../../common/_LoadingComponent";
 import ToolHoverWindowTest from "../../common/components-to-test/ToolHoverWindowTest";
-import ColorPicker from '../../common/colorPicker/ColorPicker';
+import ColorPickerTest from '../../common/components-to-test/ColorPickerTest';
 import DateTimePickerTest from "../../common/components-to-test/DateTimePickerTest";
 import DateTimeRangeSelectorTest from "../../common/components-to-test/DateTimeRangeSelectorTest";
-import TextField from 'material-ui-next/TextField';
+import LoadingButtonTest from '../../common/components-to-test/LoadingButtonTest';
 
 class Monitoring extends Component {
-
-    constructor(props) {
-        super(props);
-        this.state = { isLoading: false , color: '#ff0000', showPickColor: false }
-    }
-
-    onClickLoadingButton = () => {
-
-        this.setState({isLoading : true});
-
-        let teste = () => {
-            console.log("Executado");
-            this.setState({isLoading : false});
-        }
-
-        setTimeout(teste, 2000);
-    }  
-
-    onChangeColorPicker = color => {
-        this.setState({color});
-    }
-
-    onCloseColorPicker = () => {
-        this.setState({showPickColor : false});
-    }
-
-    onClickColorPicker = () => {
-        this.setState({showPickColor : true});
-    }
 
     render(){
         return(
@@ -75,13 +45,7 @@ class Monitoring extends Component {
                     </div>
 
                     <div style={{width: '25%'}}>
-                        <LoadingButton
-                            variant="raised"
-                            color="primary"
-                            onClick={this.onClickLoadingButton}
-                            isLoading={this.state.isLoading}>
-                            Login
-                        </LoadingButton>
+                        <LoadingButtonTest />
                     </div>
 
                     <div style={{width: '25%'}}>
@@ -89,14 +53,9 @@ class Monitoring extends Component {
                     </div>
 
                     <div style={{width: '25%', position: 'absolute', top: "50px", left:"300px"}}>
-                        <TextField type="text" value={this.state.color} style={{color: this.state.color}} readOnly={true} onClick={this.onClickColorPicker}/>  
-                        <div style={{backgroundColor: this.state.color, height: "50px", width: "50px"}}/>  
-                        <ColorPicker 
-                            show={this.state.showPickColor} 
-                            color={this.state.color}
-                            onChange={this.onChangeColorPicker} 
-                            onClose={this.onCloseColorPicker}/>
+                        <ColorPickerTest />
                     </div>
+
                     <div style={{width: '25%'}}>
                         <DateTimePickerTest/>
                     </div>
