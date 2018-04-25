@@ -19,9 +19,39 @@ const styles = () => ({
     }
 });
 
+const validate = (values, props) => {
+    const errors = {}
+
+    if (values.cdTalhao) {
+        if (!values.cdFazenda)
+            errors.cdFazenda = 'Deve inserir uma fazenda';
+
+        if (!values.cdSetor)
+            errors.cdSetor = 'Deve inserir um setor';
+
+        return errors;
+    }
+
+    if (values.cdSetor) {
+        if (!values.cdFazenda)
+            errors.cdFazenda = 'Deve inserir uma fazenda';
+
+        return errors;
+    }
+
+    return errors
+}
+
+const renderField = field => (
+    <TextField
+        errorText={field.meta.error}
+        {...field} />
+)
+
 class WorkAreaSelector extends Component {
 
     handleOnBlur() {
+
         const talhaoData = store.getState().map.mapGeoJson;
 
         if (!talhaoData)
@@ -60,7 +90,7 @@ class WorkAreaSelector extends Component {
                         floatingLabelText='Fazenda'
                         id="cdFazenda"
                         fullWidth={true}
-                        component={TextField}
+                        component={renderField}
                         readOnly={initialValues.cdFazenda != null}
                     />
                 </div>
@@ -70,7 +100,7 @@ class WorkAreaSelector extends Component {
                         floatingLabelText='Setor'
                         id="cdSetor"
                         fullWidth={true}
-                        component={TextField}
+                        component={renderField}
                     />
                 </div>
 
@@ -79,7 +109,7 @@ class WorkAreaSelector extends Component {
                         floatingLabelText='Talhão'
                         id="cdTalhao"
                         fullWidth={true}
-                        component={TextField}
+                        component={renderField}
                         onBlur={() => this.handleOnBlur()}
                     />
                 </div>
@@ -89,7 +119,8 @@ class WorkAreaSelector extends Component {
 }
 
 WorkAreaSelector = reduxForm({
-    form: 'workAreaSelector'
+    form: 'workAreaSelector',
+    validate
 })(WorkAreaSelector);
 
 const mapStateToProps = (state) => {
@@ -97,10 +128,9 @@ const mapStateToProps = (state) => {
     this.getCdFazenda = () => {
         let map = get(state, 'map.mapMappedGeoJson');
 
-        if (map){
+        if (map) {
             let keys = Object.keys(map);
-
-            return keys.length === 1 ? keys[0] : null;
+            return keys.length === 1 ? keys[0] : "";
         }
 
         return null;
@@ -113,7 +143,6 @@ const mapStateToProps = (state) => {
         talhao: get(state, 'form.workAreaSelector.values.cdTalhao')
     }
 }
-
 
 WorkAreaSelector.propTypes = {
     isHorizontal: PropTypes.bool.isRequired,
