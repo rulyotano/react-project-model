@@ -7,6 +7,8 @@ import { connect } from 'react-redux';
 import { get, filter } from 'lodash';
 import store from '../../store';
 
+let t;
+
 const styles = () => ({
     input: {
         marginLeft: '5px',
@@ -24,17 +26,17 @@ const validate = (values, props) => {
 
     if (values.cdTalhao) {
         if (!values.cdFazenda)
-            errors.cdFazenda = 'Deve inserir uma fazenda';
+            errors.cdFazenda = t('workAreaSelector.FarmRequired');
 
         if (!values.cdSetor)
-            errors.cdSetor = 'Deve inserir um setor';
+            errors.cdSetor = t('workAreaSelector.SectorRequired');
 
         return errors;
     }
 
     if (values.cdSetor) {
         if (!values.cdFazenda)
-            errors.cdFazenda = 'Deve inserir uma fazenda';
+            errors.cdFazenda = t('workAreaSelector.FarmRequired');
 
         return errors;
     }
@@ -51,7 +53,6 @@ const renderField = field => (
 class WorkAreaSelector extends Component {
 
     handleOnBlur() {
-
         const talhaoData = store.getState().map.mapGeoJson;
 
         if (!talhaoData)
@@ -82,12 +83,15 @@ class WorkAreaSelector extends Component {
 
     render() {
         const { classes, isHorizontal, initialValues } = this.props;
+        t = this.context.t;
 
         return (
             <div className={classes.wrapper} style={{ display: isHorizontal ? 'flex' : 'block' }}>
                 <div className={classes.input}>
-                    <Field name="cdFazenda" type="text"
-                        floatingLabelText='Fazenda'
+                    <Field
+                        name="cdFazenda"
+                        type="text"
+                        floatingLabelText={t("workAreaSelector.Farm")}
                         id="cdFazenda"
                         fullWidth={true}
                         component={renderField}
@@ -96,8 +100,10 @@ class WorkAreaSelector extends Component {
                 </div>
 
                 <div className={classes.input}>
-                    <Field name="cdSetor" type="text"
-                        floatingLabelText='Setor'
+                    <Field
+                        name="cdSetor"
+                        type="text"
+                        floatingLabelText={t("workAreaSelector.Sector")}
                         id="cdSetor"
                         fullWidth={true}
                         component={renderField}
@@ -105,8 +111,10 @@ class WorkAreaSelector extends Component {
                 </div>
 
                 <div className={classes.input}>
-                    <Field name="cdTalhao" type="text"
-                        floatingLabelText='Talhão'
+                    <Field
+                        name="cdTalhao"
+                        type="text"
+                        floatingLabelText={t("workAreaSelector.Field")}
                         id="cdTalhao"
                         fullWidth={true}
                         component={renderField}
@@ -117,11 +125,6 @@ class WorkAreaSelector extends Component {
         )
     }
 }
-
-WorkAreaSelector = reduxForm({
-    form: 'workAreaSelector',
-    validate
-})(WorkAreaSelector);
 
 const mapStateToProps = (state) => {
 
@@ -148,4 +151,15 @@ WorkAreaSelector.propTypes = {
     isHorizontal: PropTypes.bool.isRequired,
 };
 
-export default connect(mapStateToProps)(withStyles(styles)(WorkAreaSelector));
+WorkAreaSelector.contextTypes = {
+    t: PropTypes.func
+};
+
+WorkAreaSelector = reduxForm({
+    form: 'workAreaSelector',
+    validate
+})(WorkAreaSelector);
+
+WorkAreaSelector = connect(mapStateToProps)(WorkAreaSelector);
+
+export default withStyles(styles)(WorkAreaSelector);
