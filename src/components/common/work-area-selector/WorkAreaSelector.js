@@ -82,7 +82,7 @@ class WorkAreaSelector extends Component {
     }
 
     render() {
-        const { classes, isHorizontal, initialValues } = this.props;
+        const { classes, isHorizontal = true, initialValues } = this.props;
         t = this.context.t;
 
         return (
@@ -126,7 +126,9 @@ class WorkAreaSelector extends Component {
     }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, props) => {
+
+    let {form} = props; 
 
     this.getCdFazenda = () => {
         let map = get(state, 'map.mapMappedGeoJson');
@@ -141,14 +143,15 @@ const mapStateToProps = (state) => {
 
     return {
         initialValues: { cdFazenda: this.getCdFazenda() },
-        fazenda: get(state, 'form.workAreaSelector.values.cdFazenda'),
-        setor: get(state, 'form.workAreaSelector.values.cdSetor'),
-        talhao: get(state, 'form.workAreaSelector.values.cdTalhao')
+        fazenda: get(state, 'form.' + form + '.values.cdFazenda'),
+        setor: get(state, 'form.' + form + '.values.cdSetor'),
+        talhao: get(state, 'form.' + form + '.values.cdTalhao')
     }
 }
 
 WorkAreaSelector.propTypes = {
-    isHorizontal: PropTypes.bool.isRequired,
+    form: PropTypes.string.isRequired,
+    isHorizontal: PropTypes.bool,
 };
 
 WorkAreaSelector.contextTypes = {
@@ -156,7 +159,6 @@ WorkAreaSelector.contextTypes = {
 };
 
 WorkAreaSelector = reduxForm({
-    form: 'workAreaSelector',
     validate
 })(WorkAreaSelector);
 
