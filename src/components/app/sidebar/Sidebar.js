@@ -2,6 +2,7 @@ import React, {PureComponent} from 'react';
 import {Link} from 'react-router-dom';
 import ApplicationIco from 'material-ui/svg-icons/navigation/apps';
 import LocationOnIco from 'material-ui/svg-icons/communication/location-on';
+import ChartIco from 'material-ui/svg-icons/editor/insert-chart';
 import ArrowLeft from 'material-ui/svg-icons/hardware/keyboard-arrow-left';
 import ArrowRight from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
 import {connect} from 'react-redux';
@@ -50,6 +51,7 @@ class Sidebar extends PureComponent{
                     <CommonListItem url="" match={match} icon={<ApplicationIco/>} text="Dashboard" isMaximized={isMaximized}/>
                     <CommonListItem url="monitoring"  match={match}icon={<LocationOnIco/>} text="Monitoring" isMaximized={isMaximized}/>
                     <CommonListItem url="test-map" match={match} icon={<LocationOnIco/>} text="Test Map" isMaximized={isMaximized}/>
+                    <CommonListItem url="chart" match={match} icon={<ChartIco/>} text="Chart" isMaximized={isMaximized}/>
                 </ul>
             </div>
         )
