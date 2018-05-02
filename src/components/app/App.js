@@ -30,6 +30,11 @@ const TestMapAsync = Loadable({
     loading: LoadingComponent,
 });
 
+const ChartAsync = Loadable({
+    loader: () => import('./chart/Chart'),
+    loading: LoadingComponent,
+});
+
 export class App extends Component {
 
   static propTypes = {
@@ -56,6 +61,7 @@ export class App extends Component {
                       <Route exact path={match.url} component={DashboardAsync}/>
                       <Route path={`${match.url}monitoring`} component={MonitoringAsync}/>
                       <Route path={`${match.url}test-map`} component={TestMapAsync}/>
+                      <Route path={`${match.url}chart`} component={ChartAsync}/>
                   </Switch>
               </div>
           </div>            

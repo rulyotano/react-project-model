@@ -41,7 +41,7 @@ class Segment extends PureComponent{
                     <div className="container-body" style={{ display: useScroll ? "flex" : "block" }}>
                        { useScroll ?
                         <Scrollbar>
-                            <div style={{width:'95%' ,height:'100%'}}>
+                            <div style={{width:'100%' ,height:'100%'}}>
                                 {children}
                             </div>
                         </Scrollbar> : children }
