@@ -10,6 +10,9 @@
   ul{
     padding: 0;
     margin: 0;
+    font-size: 14px;
+    font-weight: 400;
+    color: #c0bbb7 !important;
     li.with-border{
       border-top: 3px solid rgba(0, 0, 0, .09);
     }
@@ -31,6 +34,7 @@
       }
       svg:hover{
         fill:#fff !important;
+
       }
       a {
         color: #c0bbb7 !important;
@@ -38,19 +42,21 @@
         font-weight: 400;
         text-decoration: none;
       }
-
-    }
-    li:hover{
-
-      svg{
-        fill:#fff !important;
-      }
-      a{
+      a:hover{
         color: #ffffff !important;
 
       }
-    }
+      ul{
+        background: linear-gradient(to right, #403c39 93%, #383533 100%);
+        margin-left: -9px;
+        margin-top: 9px;
+        border: 1px solid #3c3937;
+      }
 
+    }
+    li:hover{
+      color: #ffffff !important;
+    }
   }
   .resize{
     cursor: pointer;
