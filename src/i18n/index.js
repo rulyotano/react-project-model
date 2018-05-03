@@ -1,6 +1,6 @@
-import enUs from './en-US'
+import enUs from './en-us'
 import es from './es'
-import ptBr from './pt-BR'
+import ptBr from './pt-br'
 import {forEach, isString} from 'lodash'
 
 let flatLanguagesKeys = null;
