@@ -1,6 +1,6 @@
-import {SET_USER_LOGGED_TYPE, CLEAR_USER_LOGGED_TYPE} from '../actions/authActions.types'
+import {SET_USER_LOGGED_TYPE, CLEAR_USER_LOGGED_TYPE, SET_REDIRECT, CLEAR_REDIRECT} from '../actions/authActions.types'
 
-export const defaultAuthState = { logged: false, user: null }
+export const defaultAuthState = { logged: false, user: null, redirect: null }
 
 export default (state = defaultAuthState, action)=>{
     switch (action.type){
@@ -8,6 +8,7 @@ export default (state = defaultAuthState, action)=>{
             if (!action.payload)
                 return state            
             return {
+                ...state,
                 logged: true,
                 user: {
                     token: action.payload.token,
@@ -15,7 +16,11 @@ export default (state = defaultAuthState, action)=>{
                 }
             }
         case CLEAR_USER_LOGGED_TYPE:
-            return defaultAuthState
+            return {...defaultAuthState, redirect: state.redirect}
+        case SET_REDIRECT:
+            return {...state, redirect: action.redirect }
+        case CLEAR_REDIRECT:
+            return {...state, redirect: null}
         default:
             return state
     }
