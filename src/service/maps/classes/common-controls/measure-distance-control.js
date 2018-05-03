@@ -8,6 +8,7 @@ import moment from 'moment'
 import translations from '../../../../i18n';
 import store from '../../../../components/store';
 import {getTranslateFunction} from 'redux-i18n';
+import {getUnits} from '../../../measureUnitsService';
 
 class MeasureDistance extends React.PureComponent{
     state = {
@@ -84,7 +85,7 @@ class MeasureDistance extends React.PureComponent{
                 //add the line string feature at the end, based in points coordinates
                 sourceGeoJson.features.push(lineString);
 
-                this.setState({ distance: round(lineDistance(lineString), 2) });
+                this.setState({ distance: lineDistance(lineString) });
             } else {
                 this.setState({ distance: null });
             }
@@ -129,9 +130,10 @@ class MeasureDistance extends React.PureComponent{
         const { lang } = this.props;
         const { distance, show } = this.state;
         const t = getTranslateFunction(translations, lang);
-        const measureUnit = "km";   //TODO: internationalize
+        const mUnit = getUnits().DISTANCE_KM;
+        const measureUnit = mUnit.unit;
         const measureDiv = ()=>(<div style={{display: 'inline-block', verticalAlign: "super", marginLeft: "5px"}}>
-            <span>{t("maps.Distance")} { distance !== null ? `${distance} ${measureUnit}` : '-'  }</span>
+            <span>{t("maps.Distance")} { distance !== null ? `${round(mUnit.f(distance), 2)} ${measureUnit}` : '-'  }</span>
         </div>)
 
         return (<div title={t('maps.Measure distances')} onClick={()=>this.onClick()} style={{height: "23px"}}>

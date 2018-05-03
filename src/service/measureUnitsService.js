@@ -1,21 +1,47 @@
-import {cloneDeep} from 'lodash'
+import {cloneDeep, forEach} from 'lodash'
+import languageService from './language/languageService'
+import store from '../components/store'
 
 const defaultFormula = value=>value;
-export const defaultUnits = {
-    DURATION: { display: "", formula: defaultFormula, formulaInverse: defaultFormula },
-    SPEED: { display: "km/h", formula: defaultFormula, formulaInverse: defaultFormula },
-    TEMPERATURE: { display: "ºC", formula: defaultFormula, formulaInverse: defaultFormula },
-    PERCENT: { display: "%", formula: defaultFormula, formulaInverse: defaultFormula },
-    MOTOR_REV: { display: "rpm", formula: defaultFormula, formulaInverse: defaultFormula },     //motor revolutions
-    UNIT: { display: "unit", formula: defaultFormula, formulaInverse: defaultFormula },
-    FUEL_PERF: { display: "l/h", formula: defaultFormula, formulaInverse: defaultFormula },     //fuel performance
-    AREA: { display: "há", formula: defaultFormula, formulaInverse: defaultFormula },
-    AREA_PERF: { display: "há/h", formula: defaultFormula, formulaInverse: defaultFormula },    //area performance
-    VOLUME_LIQ: { display: "l", formula: defaultFormula, formulaInverse: defaultFormula },      //liquid volume
-    RAIN: { display: "mm", formula: defaultFormula, formulaInverse: defaultFormula },           //rain
+const defaultUnits = {
+    DURATION: { unit: "", f: defaultFormula, formulaInverse: defaultFormula },
+    SPEED: { unit: "km/h", f: defaultFormula, formulaInverse: defaultFormula },
+    TEMPERATURE: { unit: "ºC", f: defaultFormula, formulaInverse: defaultFormula },
+    PERCENT: { unit: "%", f: defaultFormula, formulaInverse: defaultFormula },
+    MOTOR_REV: { unit: "rpm", f: defaultFormula, formulaInverse: defaultFormula },     //motor revolutions
+    UNIT: { unit: "unit", f: defaultFormula, formulaInverse: defaultFormula },
+    FUEL_PERF: { unit: "l/h", f: defaultFormula, formulaInverse: defaultFormula },     //fuel performance
+    AREA: { unit: "há", f: defaultFormula, formulaInverse: defaultFormula },
+    AREA_PERF: { unit: "há/h", f: defaultFormula, formulaInverse: defaultFormula },    //area performance
+    VOLUME_LIQ: { unit: "l", f: defaultFormula, formulaInverse: defaultFormula },      //liquid volume
+    RAIN: { unit: "mm", f: defaultFormula, formulaInverse: defaultFormula },           //rain
+    DISTANCE_M: { unit: "m", f: defaultFormula },                              //distance meters
+    DISTANCE_KM: { unit: "km", f: defaultFormula },                            //distance kilometers
+    PRESSURE: { unit: "Pa", f: defaultFormula },                               //pressure
+    VOLTAGE: { unit: "V", f: defaultFormula },         
+    TON_HA: { unit: "ton/há", f: defaultFormula },         
 };
 
-let units = cloneDeep(defaultUnits);
+const getUnitsFromLang = (langUnitsConfig) => {
+    let result = cloneDeep(defaultUnits);
+    forEach(result, (value, key) => {
+        if (langUnitsConfig[key]){            
+            const FORMULA_LANG_KEY = `${key}_FORMULA`;
+            value.unit = langUnitsConfig[key];
+            value.f = langUnitsConfig[FORMULA_LANG_KEY];
+        }
+    }); 
+    return result
+}
 
-export const getUnits = ()=>units;
+const unitsLanguageMap = {}
+languageService.availableLanguages()
+    .forEach(l=>unitsLanguageMap[l.key] = !l.customMeasureUnit ? 
+                                            cloneDeep(defaultUnits) : 
+                                            getUnitsFromLang(require(`../i18n/${l.key}/measureUnit.js`).default))
+
+export const getUnits = ()=>{
+    const lang = store.getState().i18nState.lang    
+    return unitsLanguageMap[lang]
+};
 

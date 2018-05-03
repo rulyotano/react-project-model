@@ -1,9 +1,9 @@
 export default {
     availableLanguages(){
         return [
-            { key: 'pt-br', name: "languages.Portuguese", flagClass: "flag-br"},
-            { key: 'en-us', name: "languages.English", flagClass: "flag-us" },
-            { key: 'es', name: "languages.Spanish", flagClass: "flag-es" }
+            { key: 'pt-br', name: "languages.Portuguese", flagClass: "flag-br", customMeasureUnit: false},
+            { key: 'en-us', name: "languages.English", flagClass: "flag-us", customMeasureUnit: true },
+            { key: 'es', name: "languages.Spanish", flagClass: "flag-es", customMeasureUnit: false }
         ];
     }
 };
