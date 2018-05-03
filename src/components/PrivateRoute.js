@@ -3,23 +3,48 @@ import {
   Route,
   Redirect
 } from 'react-router-dom'
+import {setRedirect, clearRedirect} from './_store/actions/authActions'
 
 import { connect } from 'react-redux'
 import { get } from 'lodash'
+import { withRouter } from 'react-router-dom'
 
+class PrivateRoute extends React.PureComponent{
+  componentWillMount(){
+    if (this.props.logged && this.props.redirect)
+    {
+      this.props.history.push(this.props.redirect);
+      this.props.clearRedirect();
+    } else if (!this.props.logged){
+      this.props.setRedirect(this.props.location.pathname + this.props.location.search)
+    }
+  }
+  componentWillReceiveProps(nextProps){
+    if (!nextProps.logged && this.props.logged){
+      this.props.setRedirect(this.props.location.pathname + this.props.location.search)
+    } else if (nextProps.logged && !this.props.logged && nextProps.redirect){
+      this.props.history.push(nextProps.redirect);
+      this.props.clearRedirect();
+    }
+  }
+  render(){
+    const { logged, component: Component, location, ...rest } = this.props;
+    return (
+      <Route {...rest} render={props => (logged ? (<Component {...props}/>) :(
+          <Redirect to={{
+            pathname: '/login',
+            state: { from: props.location }
+          }}/>
+        )
+      )}/>
+    )
+  }
+}
 
-const mapStateToProps = (state) => ({
-    logged: get(state, 'auth.logged')    
-})
-
-const PrivateRoute = ({ logged, component: Component, ...rest }) => (
-    <Route {...rest} render={props => (logged ? (<Component {...props}/>) :(
-        <Redirect to={{
-          pathname: '/login',
-          state: { from: props.location }
-        }}/>
-      )
-    )}/>
-  )
-  
-export default connect(mapStateToProps)(PrivateRoute)
+export default withRouter(connect( (state) => ({
+  logged: state.auth.logged,
+  redirect: state.auth.redirect
+}), dispatch => ({
+  setRedirect: (redirect)=>dispatch(setRedirect(redirect)),
+  clearRedirect: ()=>dispatch(clearRedirect()),
+}))(PrivateRoute));

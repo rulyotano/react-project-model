@@ -1,3 +1,5 @@
+export const REDIRECT_KEY = "redirect-url";
+
 export default {
     save (key, value) {
         if (key && value)
