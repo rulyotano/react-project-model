@@ -4,6 +4,7 @@ import store from '../../../../../components/store'
 import {getTranslateFunction} from 'redux-i18n'
 import translations from '../../../../../i18n'
 import {round} from 'lodash'
+import {getUnits} from '../../../../measureUnitsService'
 
 
 export const TALHAOES_SOURCE_ID = "talhaoes-source";
@@ -69,8 +70,10 @@ export default class MapTalhaoesLayer extends MapCommonLayer {
         let descTalhao = props.descTalhao;
 
         let descTalhaoStr = descTalhao && descTalhao !== 'null' ? `<p><h5>Desc. ${t('maps.Field')}:<small> ${descTalhao}</small></h5></p>` : '';
-        const areaUnit = "ha" //measureUnitsService.getUnits().AREA.display; TODO: fix measure units
-        const areaFormula = val=>val //measureUnitsService.getUnits().AREA.formula;  TODO: fix measure units
+        
+        const mUnit = getUnits().AREA;
+        const areaUnit = mUnit.unit;
+        const areaFormula = mUnit.f;
         const t = getTranslateFunction(translations, store.getState().i18nState.lang);
 
         return `<div>
