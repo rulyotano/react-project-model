@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import Segment from "../../common/segment/Segment";
-import ReactHighcharts from 'react-highcharts';
-
+import Chart from "../../common/chart/Chart";
 
 const config = {
     chart:{style:{"width":"100%"}},
@@ -34,18 +33,14 @@ const config = {
     ]
 };
 
-
-class Chart extends Component{
-
-
+class ChartTest extends Component{
     render(){
-
         return (
             <Segment title="Chart">
-                <ReactHighcharts config = {config}/>
+                <Chart config={config}/>
             </Segment>
         )
     }
 }
 
-export default Chart;
+export default ChartTest;
