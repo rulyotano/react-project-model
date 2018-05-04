@@ -5,6 +5,8 @@ import LocationOnIco from 'material-ui/svg-icons/communication/location-on';
 import ChartIco from 'material-ui/svg-icons/editor/insert-chart';
 import ArrowLeft from 'material-ui/svg-icons/hardware/keyboard-arrow-left';
 import ArrowRight from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
+import ExpandMore from 'material-ui/svg-icons/navigation/expand-more';
+import ExpandLess from 'material-ui/svg-icons/navigation/expand-less';
 import {connect} from 'react-redux';
 import {setSizeToMax, setSizeToMin} from "../_store/actions/appActions";
 
@@ -26,7 +28,7 @@ class CommonList extends PureComponent{
         return(
             <li className={isMaximized? "with-border":''} onClick={()=>{this.handleBox()}}>
                 {icon}{isMaximized? '':text}
-
+                {isOpen ? <ExpandLess className="expand-less"/> : <ExpandMore className="expand-more"/>}
                 {isOpen && !isMaximized ? <ul style={{paddingTop:'5px'}}>{children}</ul> :''}
 
             </li>
@@ -80,7 +82,6 @@ class Sidebar extends PureComponent{
                     <CommonList isMaximized={isMaximized} icon={<LocationOnIco/>} text="Caique" isOpen={false}>
                         <CommonListItem url="vallim"  match={match} icon={<LocationOnIco/>} text="Vallim" isMaximized={isMaximized}/>
                         <CommonListItem url="araujo"  match={match} icon={<LocationOnIco/>} text="Araujo" isMaximized={isMaximized}/>
-
                     </CommonList>
                     <CommonListItem url="test-map" match={match} icon={<LocationOnIco/>} text="Test Map" isMaximized={isMaximized}/>
                     <CommonListItem url="chart-test" match={match} icon={<ChartIco/>} text="Test Chart" isMaximized={isMaximized}/>
