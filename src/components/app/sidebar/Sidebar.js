@@ -28,7 +28,7 @@ class CommonList extends PureComponent{
         return(
             <li className={isMaximized? "with-border":''} onClick={()=>{this.handleBox()}}>
                 {icon}{isMaximized? '':text}
-                {isOpen ? <ExpandLess className="expand-less"/> : <ExpandMore className="expand-more"/>}
+                {isMaximized ? '' :isOpen ? <ExpandLess className="expand-less"/> : <ExpandMore className="expand-more"/>}
                 {isOpen && !isMaximized ? <ul style={{paddingTop:'5px'}}>{children}</ul> :''}
 
             </li>
