@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import FilterDropDown from "../filter-drop-down/FilterDropDown";
+import FilterDropDown from "../dropdown/filter-drop-down/FilterDropDown";
 
 
 let nextId = 1;
