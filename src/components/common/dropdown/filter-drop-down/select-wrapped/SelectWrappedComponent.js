@@ -16,7 +16,7 @@ class SelectWrappedComponent extends Component{
         return(
             <Select
                 optionComponent={Option}
-                noResultsText={<Typography>{'No results found'}</Typography>}
+                noResultsText={<Typography>{'No results found' /*Internationalize*/}</Typography>}
                 arrowRenderer={arrowProps => {
                     return arrowProps.isOpen ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />;
                 }}
