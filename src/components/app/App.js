@@ -30,8 +30,8 @@ const TestMapAsync = Loadable({
     loading: LoadingComponent,
 });
 
-const ChartAsync = Loadable({
-    loader: () => import('./chart/Chart'),
+const ChartTestAsync = Loadable({
+    loader: () => import('./chartTest/ChartTest'),
     loading: LoadingComponent,
 });
 
@@ -61,7 +61,7 @@ export class App extends Component {
                       <Route exact path={match.url} component={DashboardAsync}/>
                       <Route path={`${match.url}monitoring`} component={MonitoringAsync}/>
                       <Route path={`${match.url}test-map`} component={TestMapAsync}/>
-                      <Route path={`${match.url}chart`} component={ChartAsync}/>
+                      <Route path={`${match.url}chart-test`} component={ChartTestAsync}/>
                   </Switch>
               </div>
           </div>            
