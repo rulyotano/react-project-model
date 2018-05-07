@@ -10,7 +10,7 @@ const suggestions = [
     { label: 'British Indian Ocean Territory' },
     { label: 'Brunei Darussalam' },
 ].map(suggestion => ({
-    value: nextId++,
+    caiqueId: nextId++,
     label: suggestion.label,
 }));
 
@@ -22,7 +22,7 @@ class FilterDropDownAsMultiSelectTest extends Component{
 
     render(){
         return (
-            <FilterDropDown id="test-mult-id" name="test-mult-name" multi={true} suggestions={suggestions} placeHolder="Selecione Múltiplos..." onChange={this.onChange}/>
+            <FilterDropDown attrLabel="label" attrId="caiqueId" id="test-mult-id" name="test-mult-name" multi={true} suggestions={suggestions} placeHolder="Selecione Múltiplos..." onChange={this.onChange}/>
         )
     }
 }

@@ -129,17 +129,17 @@ class FilterDropDown extends Component{
 
         if(this.props.multi){
             let items= value.split(',').map(item=>parseInt(item,10));
-            items = items.map(id=> this.props.suggestions.find(item=>item.value === id));
-            this.props.onChange(items);
+            items = items.map(id=> this.props.suggestions.find(item=>item[this.props.attrId] === id));
+            this.props.onChange(items[0]? items:[]);
 
         }else {
-            this.props.onChange(this.props.suggestions.find(item => item.value === valueNumber));
+            this.props.onChange(this.props.suggestions.find(item => item[this.props.attrId] === valueNumber) || '');
         }
 
 
     };
     render(){
-        const { id, placeHolder , suggestions, multi, name} = this.props;
+        const { id, placeHolder , suggestions, multi, name, attrId, attrLabel} = this.props;
         const { classes } = this.props;
         return (
             <div className={classes.root}>
@@ -157,6 +157,8 @@ class FilterDropDown extends Component{
                         simpleValue: true,
                         multi:!!multi,
                         options: suggestions,
+                        valueKey:attrId,
+                        labelKey:attrLabel
                     }}
                 />
             </div>
@@ -170,7 +172,9 @@ FilterDropDown.propTypes = {
     suggestions:PropTypes.arrayOf(PropTypes.object).isRequired,
     multi: PropTypes.bool,
     placeHolder:PropTypes.string.isRequired,
-    onChange:PropTypes.func.isRequired
+    onChange:PropTypes.func.isRequired,
+    attrId:PropTypes.string.isRequired,
+    attrLabel:PropTypes.string.isRequired
 
 };
 
