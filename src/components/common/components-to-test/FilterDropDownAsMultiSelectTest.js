@@ -22,7 +22,7 @@ class FilterDropDownAsMultiSelectTest extends Component{
 
     render(){
         return (
-            <FilterDropDown multi={true} suggestions={suggestions} placeHolder="Selecione Múltiplos..." onChange={this.onChange}/>
+            <FilterDropDown id="test-mult-id" name="test-mult-name" multi={true} suggestions={suggestions} placeHolder="Selecione Múltiplos..." onChange={this.onChange}/>
         )
     }
 }

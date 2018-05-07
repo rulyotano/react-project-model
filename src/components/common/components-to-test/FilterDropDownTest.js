@@ -22,7 +22,7 @@ class FilterDropDownTest extends Component{
     }
 
     render(){
-        return (<FilterDropDown suggestions={suggestions} placeHolder="Selecione..." onChange={this.onChange}/>)
+        return (<FilterDropDown id="id-fd" name="teste-filter-drop-down" suggestions={suggestions} placeHolder="Selecione..." onChange={this.onChange}/>)
     }
 }
 

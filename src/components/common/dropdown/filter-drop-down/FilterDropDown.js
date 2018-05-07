@@ -118,46 +118,44 @@ class FilterDropDown extends Component{
     constructor(props){
         super(props);
         this.state = {
-            id: null
+            value: null
         }
     }
-    handleChange = id =>{
+    handleChange = value =>{
         this.setState({
-            id: id,
+            value: value,
         });
+        const valueNumber = parseInt(value,10);
 
-        if(this.props.onChange) {
+        if(this.props.multi){
+            let items= value.split(',').map(item=>parseInt(item,10));
+            items = items.map(id=> this.props.suggestions.find(item=>item.value === id));
+            this.props.onChange(items);
 
-            if(this.props.multi){
-                let items= id.split(',').map(item=>parseInt(item,10));
-                items = items.map(id=> this.props.suggestions.find(item=>item.value === id))
-                this.props.onChange(items);
-
-            }else {
-                this.props.onChange(this.props.suggestions.find(item => item.value === id));
-            }
+        }else {
+            this.props.onChange(this.props.suggestions.find(item => item.value === valueNumber));
         }
 
 
     };
     render(){
-        const { placeHolder , suggestions, multi} = this.props;
+        const { id, placeHolder , suggestions, multi, name} = this.props;
         const { classes } = this.props;
         return (
             <div className={classes.root}>
                 <Input
                     fullWidth
                     inputComponent={SelectWrappedComponent}
-                    value={this.state.id}
+                    value={this.state.value}
                     onChange={(value)=>{this.handleChange(value)}}
-                    placeholder={placeHolder?placeHolder:'Select...'}
-                    id="react-select-single"
+                    placeholder={placeHolder}
+                    id={id}
                     inputProps={{
                         classes,
-                        name: 'react-select-single',
-                        instanceId: 'react-select-single',
+                        name:name,
+                        instanceId: id,
                         simpleValue: true,
-                        multi:multi?multi:false,
+                        multi:!!multi,
                         options: suggestions,
                     }}
                 />
@@ -166,7 +164,14 @@ class FilterDropDown extends Component{
     }
 }
 FilterDropDown.propTypes = {
+    id:PropTypes.string.isRequired,
+    name:PropTypes.string.isRequired,
     classes: PropTypes.object.isRequired,
+    suggestions:PropTypes.arrayOf(PropTypes.object).isRequired,
+    multi: PropTypes.bool,
+    placeHolder:PropTypes.string.isRequired,
+    onChange:PropTypes.func.isRequired
+
 };
 
 
