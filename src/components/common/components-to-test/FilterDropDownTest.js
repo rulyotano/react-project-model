@@ -9,8 +9,8 @@ const suggestions = [
     { label: 'British Indian Ocean Territory' },
     { label: 'Brunei Darussalam' },
 ].map(suggestion => ({
-    value: nextId++,
-    label: suggestion.label,
+    idCountry: nextId++,
+    nome: suggestion.label,
 }));
 
 
@@ -22,7 +22,7 @@ class FilterDropDownTest extends Component{
     }
 
     render(){
-        return (<FilterDropDown suggestions={suggestions} placeHolder="Selecione..." onChange={this.onChange}/>)
+        return (<FilterDropDown attrLabel="nome" attrId="idCountry" id="id-fd" name="teste-filter-drop-down" suggestions={suggestions} placeHolder="Selecione..." onChange={this.onChange}/>)
     }
 }
 
