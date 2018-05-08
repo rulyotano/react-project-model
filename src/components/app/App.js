@@ -35,6 +35,11 @@ const ChartTestAsync = Loadable({
     loading: LoadingComponent,
 });
 
+const FormTestAsync = Loadable({
+    loader: () => import('./redux-form-test/FormTest'),
+    loading: LoadingComponent,
+});
+
 export class App extends Component {
 
   static propTypes = {
@@ -62,6 +67,7 @@ export class App extends Component {
                       <Route path={`${match.url}monitoring`} component={MonitoringAsync}/>
                       <Route path={`${match.url}test-map`} component={TestMapAsync}/>
                       <Route path={`${match.url}chart-test`} component={ChartTestAsync}/>
+                      <Route path={`${match.url}form-test`} component={FormTestAsync}/>
                   </Switch>
               </div>
           </div>            
