@@ -1,7 +1,9 @@
 import React ,{Component} from 'react';
 import Segment from "../../common/segment/Segment";
 import { Field, reduxForm } from 'redux-form';
-import FilterDropDown from "../../common/dropdown/filter-drop-down/FilterDropDown";
+import {
+    FilterDropDownReduxForm
+} from "../../common/dropdown/filter-drop-down/FilterDropDownReduxForm";
 
 let nextId = 1;
 const suggestions = [
@@ -15,17 +17,7 @@ const suggestions = [
     desc: suggestion.label,
 }));
 
-const renderFilterDropDown = (props) =>{
-        const{ input, suggestions, id, placeHolder, attrId, attrLabel} = props;
-        return    <FilterDropDown {...input}
-                  suggestions={suggestions}
-                  attrId={attrId}
-                  attrLabel={attrLabel}
-                  id={id}
-                  name={input.name}
-                  placeHolder={placeHolder}
-                  onChange={input.onChange} />
-};
+
 
 
 class FormTest extends Component{
@@ -41,10 +33,20 @@ class FormTest extends Component{
                        attrLabel="desc"
                        id="redux-form-filter-dropdown-id"
                        name="redux-form-filter-dropdown-name"
-                       component={renderFilterDropDown}
+                       component={FilterDropDownReduxForm}
                        suggestions={suggestions}
                        placeHolder="Selecione..."
                        />
+                   <Field
+                       attrId="id"
+                       attrLabel="desc"
+                       id="redux-form-multi-filter-dropdown-id"
+                       name="redux-form-multi-filter-dropdown-name"
+                       component={FilterDropDownReduxForm}
+                       suggestions={suggestions}
+                       multi={true}
+                       placeHolder="Selecione..."
+                   />
                </form>
            </Segment>
         )
