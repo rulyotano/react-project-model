@@ -139,8 +139,7 @@ class FilterDropDown extends Component{
 
     };
     render(){
-        const { id, placeHolder , suggestions, multi, name, attrId, attrLabel} = this.props;
-        const { classes } = this.props;
+        const { id, placeHolder , suggestions, multi, name, attrId, attrLabel, classes} = this.props;
         return (
             <div className={classes.root}>
                 <Input
