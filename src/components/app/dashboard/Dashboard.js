@@ -3,10 +3,15 @@ import { connect } from 'react-redux'
 import { get } from 'lodash'
 import dialogService from '../../../service/dialog/dialogService'
 import Segment from '../../common/segment/Segment';
+import FilterDropDownData from "../../common/dropdown/filter-drop-down/_data/FilterDropDownData";
 
 
 const DashBoard = ({username, token, createMockDialog, raiseMockNotification}) => (
-            <Segment title="Dashboard" isDashboard={true}/>
+    <Segment title="Dashboard" isDashboard={true}>
+
+        <FilterDropDownData attrId="cdOperacao" attrLabel="descOperacao" onChange={(e)=>{console.log(e)}} placeHolder="Filter drop down async" name="dropdown-async" id="dropdown-async-id" targetKey="operation"/>
+
+    </Segment>
         );
         
 const mapStateToProps = (state) => ({
