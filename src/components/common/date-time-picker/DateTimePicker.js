@@ -24,7 +24,7 @@ class DateTimePicker extends Component{
     }
 
     render(){
-        const { classes, id, label, defaultValue } = this.props;
+        const { classes, id, label } = this.props;
         return(
             <TextField
                 id={id}
