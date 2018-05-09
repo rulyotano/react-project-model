@@ -122,18 +122,17 @@ class FilterDropDown extends Component{
         }
     }
     handleChange = value =>{
+
         this.setState({
             value: value,
         });
-        const valueNumber = parseInt(value,10);
 
         if(this.props.multi){
-            let items= value.split(',').map(item=>parseInt(item,10));
-            items = items.map(id=> this.props.suggestions.find(item=>item[this.props.attrId] === id));
+            let items = value.split(',').map(id=> this.props.suggestions.find(item=>item[this.props.attrId] == id));
             this.props.onChange(items[0]? items:[]);
 
         }else {
-            this.props.onChange(this.props.suggestions.find(item => item[this.props.attrId] === valueNumber) || '');
+            this.props.onChange(this.props.suggestions.find(item => item[this.props.attrId] == value) || '');
         }
 
 
