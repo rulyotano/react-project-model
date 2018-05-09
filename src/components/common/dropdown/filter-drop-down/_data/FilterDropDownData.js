@@ -16,10 +16,11 @@ class FilterDropDownData extends Component{
         this.props.load(targetKey);
     }
     handleChange = value =>{
+        debugger;
         this.props.onChange(value);
     };
     render(){
-        const { data, isLoading, placeHolder } = this.props;
+        const { data,  isLoading, placeHolder } = this.props;
 
         return (<FilterDropDown placeHolder={isLoading?"loading":placeHolder} suggestions={data} onChange={this.handleChange} {...this.props}/>);
     }
