@@ -3,21 +3,9 @@ import { connect } from 'react-redux'
 import { get } from 'lodash'
 import dialogService from '../../../service/dialog/dialogService'
 import Segment from '../../common/segment/Segment';
-import FilterDropDownData from "../../common/dropdown/filter-drop-down/_data/FilterDropDownData";
-import FilterDropDownDataOperation from "../../common/dropdown/filter-drop-down/_data/operation/FilterDropDownDataOperation";
-import FilterDropDownDataFleet from "../../common/dropdown/filter-drop-down/_data/fleet/FilterDropDownDataFleet";
-import FilterDropDownDataState from "../../common/dropdown/filter-drop-down/_data/state/FilterDropDownDataState";
 
 
-const DashBoard = ({username, token, createMockDialog, raiseMockNotification}) => (
-    <Segment title="Dashboard" isDashboard={true}>
-
-        <FilterDropDownDataOperation id="dropdown-operation-id" name="dropdown-operation-name" onChange={(e)=>console.log(e)}/>
-        <FilterDropDownDataFleet id="dropdown-fleet-id" name="dropdown-operation-name" onChange={(e)=>console.log(e)}/>
-        <FilterDropDownDataState id="dropdown-state-id" name="dropdown-state-name" onChange={(e)=>console.log(e)}/>
-
-    </Segment>
-        );
+const DashBoard = ({username, token, createMockDialog, raiseMockNotification}) => (<Segment title="Dashboard" isDashboard={true}/>);
         
 const mapStateToProps = (state) => ({
     token: get(state, 'auth.user.token'),
