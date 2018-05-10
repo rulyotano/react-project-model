@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import TextField from 'material-ui-next/TextField';
 
@@ -114,7 +114,7 @@ const styles = theme => ({
     },
 });
 
-class FilterDropDown extends Component{
+class FilterDropDown extends PureComponent{
     constructor(props){
         super(props);
         this.state = {
@@ -180,7 +180,6 @@ FilterDropDown.propTypes = {
     attrId:PropTypes.string.isRequired,
     attrLabel:PropTypes.string.isRequired,
     label:PropTypes.string
-
 };
 
 

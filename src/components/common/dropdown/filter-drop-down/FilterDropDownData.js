@@ -1,10 +1,11 @@
 import
-    React, {Component} from 'react';
+    React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import FilterDropDown from "./FilterDropDown";
+import {isEmpty} from "lodash";
 
-class FilterDropDownData extends Component{
+class FilterDropDownData extends PureComponent{
     constructor(props){
         super(props);
         this.state = {
@@ -12,16 +13,16 @@ class FilterDropDownData extends Component{
         }
     }
     componentWillMount(){
-        let {targetKey} = this.props;
-        this.props.load(targetKey);
+        let {targetKey, data, isLoading} = this.props;
+        if (!isLoading && isEmpty(data))
+            this.props.load(targetKey);
     }
     handleChange = value =>{
         this.props.onChange(value);
     };
     render(){
-        const { data,  isLoading, placeHolder } = this.props;
-
-        return (<FilterDropDown placeHolder={isLoading?"loading":placeHolder} suggestions={data} onChange={this.handleChange} {...this.props}/>);
+        const { data,  isLoading, placeHolder, ...otherProps } = this.props;
+        return (<FilterDropDown placeHolder={isLoading?"loading":placeHolder} suggestions={data} onChange={this.handleChange} {...otherProps}/>);
     }
 }
 FilterDropDownData.propTypes = {

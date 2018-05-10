@@ -21,7 +21,8 @@ export default (name, key = null)=>{
                 return {
                     ...state,
                     data: action.data,
-                    mappedData: key ? keyBy(action.data, key) : null
+                    mappedData: key ? keyBy(action.data, key) : null,                    
+                    loading: false
                 }
             case CLEAR:
                 return defaultState
