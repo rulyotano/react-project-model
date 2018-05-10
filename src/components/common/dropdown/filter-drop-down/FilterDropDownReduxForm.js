@@ -1,8 +1,6 @@
 import React from 'react';
 import FilterDropDown from "./FilterDropDown";
-import FilterDropDownDataOperation from "./_data/operation/FilterDropDownDataOperation";
-import FilterDropDownDataFleet from "./_data/fleet/FilterDropDownDataFleet";
-import FilterDropDownDataState from "./_data/state/FilterDropDownDataState";
+import FilterDropDownData from "./FilterDropDownData";
 
 
 export const FilterDropDownReduxForm = (props) =>{
@@ -18,29 +16,17 @@ export const FilterDropDownReduxForm = (props) =>{
                               multi={!!multi}/>
 };
 
-export const FilterDropDownDataOperationReduxForm = (props) =>{
-    const{ input, id, multi} = props;
-    return    <FilterDropDownDataOperation {...input}
-                                           id={id}
-                                           name={input.name}
-                                           onChange={input.onChange}
-                                           multi={!!multi}/>
+export const FilterDropDownDataReduxForm = (props) =>{
+    const{ input, id, multi, targetKey, attrId, attrLabel, placeHolder} = props;
+    return <FilterDropDownData
+                               {...input}
+                               attrId={attrId}
+                               attrLabel={attrLabel}
+                               onChange={input.onChange}
+                               placeHolder={placeHolder}
+                               name={input.name}
+                               id={id}
+                               multi={!!multi}
+                               targetKey={targetKey}/>
 };
 
-export const FilterDropDownDataFleetReduxForm = (props) =>{
-    const{ input, id, multi} = props;
-    return    <FilterDropDownDataFleet {...input}
-                                       id={id}
-                                       name={input.name}
-                                       onChange={input.onChange}
-                                       multi={!!multi}/>
-};
-
-export const FilterDropDownDataStateReduxForm = (props) =>{
-    const{ input, id, multi} = props;
-    return    <FilterDropDownDataState {...input}
-                                       id={id}
-                                       name={input.name}
-                                       onChange={input.onChange}
-                                       multi={!!multi}/>
-};
