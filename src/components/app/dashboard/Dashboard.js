@@ -1,30 +1,56 @@
-import React  from 'react'
-import { connect } from 'react-redux'
-import { get } from 'lodash'
-import dialogService from '../../../service/dialog/dialogService'
-import Segment from '../../common/segment/Segment';
+import React, {PureComponent} from 'react';
+import Segment from "../../common/segment/Segment";
+import LoadingComponent from "../../common/_LoadingComponent";
+import MapComponent from "../../common/map/MapComponent";
+import {loadMapGeoJson} from "../../_store/actions/mapActions";
+import {connect} from 'react-redux';
 
+//maps
+import mapboxgl from 'mapbox-gl';
+import MapSwitcherControl from '../../../service/maps/classes/common-controls/map-switcher-control';
+import MousePositionControl from '../../../service/maps/classes/common-controls/mouse-position-control';
+import MeasureDistanceControl from '../../../service/maps/classes/common-controls/measure-distance-control';
+import MapTalhaoesLayer from '../../../service/maps/classes/layers/common-layers/map-talhaoes-layer';
+import MapNumbersLayer from '../../../service/maps/classes/layers/common-layers/map-numbers-layer';
+import MapSelectedTalhaoLayer from '../../../service/maps/classes/layers/common-layers/map-selected-talhao-layer';
 
-const DashBoard = ({username, token, createMockDialog, raiseMockNotification}) => (<Segment title="Dashboard" isDashboard={true}/>);
+class DashBoard extends PureComponent{
+    componentDidMount(){
+        this.props.loadMap();
+    }
+    onCreateMap(map){
+        this.map = map;
+        
+        this.map.map.addControl(new MapSwitcherControl(this.map), "top-left")
+        this.map.map.addControl(new MousePositionControl(this.map), "top-left")
+        this.map.map.addControl(new MeasureDistanceControl(this.map), "top-left")
+        this.map.map.addControl(new mapboxgl.ScaleControl(), 'bottom-right')
+        this.map.map.addControl(new mapboxgl.NavigationControl(), 'bottom-right')
+
+        const talhoes = new MapTalhaoesLayer();
+        this.map.addLayer(talhoes).then(()=>{
+            this.map.addLayer(new MapNumbersLayer(talhoes))
+            this.map.addLayer(new MapSelectedTalhaoLayer(talhoes))
+            //Added talhoes
+        });
+    }
+    render(){
+        const {mapGeoJson} = this.props;
+        return(
+            <Segment title="Dashboard" useScroll={false}>
+                <LoadingComponent isLoading={!mapGeoJson} style={{height: "100%"}}/>
+                { !!mapGeoJson ? <MapComponent onCreateMap={map=>this.onCreateMap(map)} /> : null}
+            </Segment>
+        )
+    }
+}
         
 const mapStateToProps = (state) => ({
-    token: get(state, 'auth.user.token'),
-    username: get(state, 'auth.user.username')
+    mapGeoJson: state.map.mapGeoJson
 })
 
-let testIndex = 0;
 const mapDispatchToProps = (dispatch) => ({
-    createMockDialog(){
-        dialogService.confirmOk(`title${testIndex}`, `body${testIndex++} ad adas`).then(response=>{
-            console.log(`Dialog closed with ${response}`)
-        })
-    },
-    raiseMockNotification(){
-        dialogService.alert("", `Some notification in the Bottom ${testIndex++}`)
-        dialogService.error("", `Some notification in the Bottom ${testIndex++}`)
-        dialogService.success("", `Some notification in the Bottom ${testIndex++}`)
-        dialogService.notification("", `Some notification in the Bottom ${testIndex++}`)
-    }  
+    loadMap: ()=>dispatch(loadMapGeoJson())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(DashBoard);

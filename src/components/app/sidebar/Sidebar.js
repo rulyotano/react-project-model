@@ -84,7 +84,6 @@ class Sidebar extends PureComponent{
                         <CommonListItem url="vallim"  match={match} icon={<LocationOnIco/>} text="Vallim" isMaximized={isMaximized}/>
                         <CommonListItem url="araujo"  match={match} icon={<LocationOnIco/>} text="Araujo" isMaximized={isMaximized}/>
                     </CommonList>
-                    <CommonListItem url="test-map" match={match} icon={<LocationOnIco/>} text="Test Map" isMaximized={isMaximized}/>
                     <CommonListItem url="chart-test" match={match} icon={<ChartIco/>} text="Test Chart" isMaximized={isMaximized}/>
                     <CommonListItem url="form-test" match={match} icon={<ChartIco/>} text="Form Test" isMaximized={isMaximized}/>
                 </ul>
