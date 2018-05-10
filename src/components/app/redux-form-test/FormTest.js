@@ -48,6 +48,7 @@ class FormTest extends Component{
                        placeHolder="Selecione..."/>
                    <Field
                        component={FilterDropDownDataReduxForm}
+                       label="States"
                        attrId="cdEstado"
                        attrLabel="descEstado"
                        placeHolder="Filter states"
@@ -56,6 +57,7 @@ class FormTest extends Component{
                        name="dropdown-state-name"/>
                    <Field
                        component={FilterDropDownDataReduxForm}
+                       label="Fleets"
                        attrId="cdEquipamento"
                        attrLabel="descEquipamento"
                        placeHolder="Filter fleets"
@@ -64,6 +66,7 @@ class FormTest extends Component{
                        name="dropdown-fleet-name"/>
                    <Field
                        component={FilterDropDownDataReduxForm}
+                       label="Operations"
                        attrId="cdOperacao"
                        attrLabel="descOperacao"
                        placeHolder="Filter operations"

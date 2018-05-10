@@ -4,8 +4,9 @@ import FilterDropDownData from "./FilterDropDownData";
 
 
 export const FilterDropDownReduxForm = (props) =>{
-    const{ input, suggestions, id, placeHolder, attrId, attrLabel, multi} = props;
+    const{ input, suggestions, id, placeHolder, attrId, attrLabel, multi, label} = props;
     return    <FilterDropDown {...input}
+                              label={label}
                               suggestions={suggestions}
                               attrId={attrId}
                               attrLabel={attrLabel}
@@ -17,9 +18,10 @@ export const FilterDropDownReduxForm = (props) =>{
 };
 
 export const FilterDropDownDataReduxForm = (props) =>{
-    const{ input, id, multi, targetKey, attrId, attrLabel, placeHolder} = props;
+    const{ input, id, multi, targetKey, attrId, attrLabel, label, placeHolder} = props;
     return <FilterDropDownData
                                {...input}
+                               label={label}
                                attrId={attrId}
                                attrLabel={attrLabel}
                                onChange={input.onChange}

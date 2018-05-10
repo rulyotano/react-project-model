@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import Input from 'material-ui-next/Input';
+import TextField from 'material-ui-next/TextField';
 
 import { withStyles } from 'material-ui-next/styles';
 import SelectWrappedComponent from "./select-wrapped/SelectWrappedComponent";
@@ -122,7 +122,6 @@ class FilterDropDown extends Component{
         }
     }
     handleChange = value =>{
-
         this.setState({
             value: value,
         });
@@ -138,25 +137,32 @@ class FilterDropDown extends Component{
 
     };
     render(){
-        const { id, placeHolder , suggestions, multi, name, attrId, attrLabel, classes} = this.props;
+        const { id, placeHolder , suggestions, multi, label, name, attrId, attrLabel, classes} = this.props;
         return (
             <div className={classes.root}>
-                <Input
+                <TextField
                     fullWidth
-                    inputComponent={SelectWrappedComponent}
                     value={this.state.value}
                     onChange={(value)=>{this.handleChange(value)}}
                     placeholder={placeHolder}
-                    id={id}
-                    inputProps={{
-                        classes,
-                        name:name,
-                        instanceId: id,
-                        simpleValue: true,
-                        multi:!!multi,
-                        options: suggestions,
-                        valueKey:attrId,
-                        labelKey:attrLabel
+                    name={name}
+                    label={label}
+                    InputLabelProps={{
+                        shrink: true,
+                    }}
+                    InputProps={{
+                        inputComponent:SelectWrappedComponent,
+                        inputProps:{
+                            classes,
+                            id:id,
+                            instanceId: id,
+                            simpleValue: true,
+                            multi:!!multi,
+                            options: suggestions,
+                            valueKey:attrId,
+                            labelKey:attrLabel
+
+                        },
                     }}
                 />
             </div>
@@ -172,7 +178,8 @@ FilterDropDown.propTypes = {
     placeHolder:PropTypes.string.isRequired,
     onChange:PropTypes.func.isRequired,
     attrId:PropTypes.string.isRequired,
-    attrLabel:PropTypes.string.isRequired
+    attrLabel:PropTypes.string.isRequired,
+    label:PropTypes.string
 
 };
 

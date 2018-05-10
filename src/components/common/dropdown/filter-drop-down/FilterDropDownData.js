@@ -31,7 +31,8 @@ FilterDropDownData.propTypes = {
     placeHolder:PropTypes.string.isRequired,
     onChange:PropTypes.func.isRequired,
     attrId:PropTypes.string.isRequired,
-    attrLabel:PropTypes.string.isRequired
+    attrLabel:PropTypes.string.isRequired,
+    label:PropTypes.string
 };
 const mapStateToProps = (state,props) => {
     const {d} = state;
