@@ -140,9 +140,10 @@ class FilterDropDown extends PureComponent{
         const { id, placeHolder , suggestions, multi, label, name, attrId, attrLabel, classes} = this.props;
         return (
             <div className={classes.root}>
+                {this.props.children}
                 <TextField
                     fullWidth
-                    value={this.state.value}
+                    value={ this.state.value}
                     onChange={(value)=>{this.handleChange(value)}}
                     placeholder={placeHolder}
                     name={name}
@@ -165,6 +166,7 @@ class FilterDropDown extends PureComponent{
                         },
                     }}
                 />
+
             </div>
         );
     }

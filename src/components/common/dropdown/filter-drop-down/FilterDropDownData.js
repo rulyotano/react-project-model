@@ -4,6 +4,19 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import FilterDropDown from "./FilterDropDown";
 import {isEmpty} from "lodash";
+import { CircularProgress } from 'material-ui-next/Progress';
+
+import { withStyles } from 'material-ui-next/styles';
+
+const styles = theme => ({
+    progress: {
+        positionAbsolute:true,
+        marginTop: '10px',
+        position:'absolute',
+        right:'0'
+
+    },
+});
 
 class FilterDropDownData extends PureComponent{
     constructor(props){
@@ -21,8 +34,12 @@ class FilterDropDownData extends PureComponent{
         this.props.onChange(value);
     };
     render(){
-        const { data,  isLoading, placeHolder, ...otherProps } = this.props;
-        return (<FilterDropDown placeHolder={isLoading?"loading":placeHolder} suggestions={data} onChange={this.handleChange} {...otherProps}/>);
+        const { data,  isLoading, placeHolder, classes, ...otherProps } = this.props;
+        return (
+            <FilterDropDown placeHolder={placeHolder} suggestions={data} onChange={this.handleChange} {...otherProps}>
+                {isLoading ? <CircularProgress className={classes.progress} size={40} />:''}
+            </FilterDropDown>
+        );
     }
 }
 FilterDropDownData.propTypes = {
@@ -33,8 +50,11 @@ FilterDropDownData.propTypes = {
     onChange:PropTypes.func.isRequired,
     attrId:PropTypes.string.isRequired,
     attrLabel:PropTypes.string.isRequired,
+    classes: PropTypes.object.isRequired,
     label:PropTypes.string
 };
+
+
 const mapStateToProps = (state,props) => {
     const {d} = state;
     const {targetKey} = props;
@@ -51,6 +71,6 @@ const mapDispatchToProps = (dispatch) => ({
      }
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(FilterDropDownData);
+export default  withStyles(styles)(connect(mapStateToProps, mapDispatchToProps)(FilterDropDownData));
 
 
