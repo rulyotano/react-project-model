@@ -2,7 +2,7 @@ import
     React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import FilterDropDown from "../FilterDropDown";
+import FilterDropDown from "./FilterDropDown";
 
 class FilterDropDownData extends Component{
     constructor(props){
@@ -16,7 +16,6 @@ class FilterDropDownData extends Component{
         this.props.load(targetKey);
     }
     handleChange = value =>{
-        debugger;
         this.props.onChange(value);
     };
     render(){
@@ -32,7 +31,8 @@ FilterDropDownData.propTypes = {
     placeHolder:PropTypes.string.isRequired,
     onChange:PropTypes.func.isRequired,
     attrId:PropTypes.string.isRequired,
-    attrLabel:PropTypes.string.isRequired
+    attrLabel:PropTypes.string.isRequired,
+    label:PropTypes.string
 };
 const mapStateToProps = (state,props) => {
     const {d} = state;
@@ -45,7 +45,7 @@ const mapStateToProps = (state,props) => {
 };
 const mapDispatchToProps = (dispatch) => ({
      load(targetKey){
-         let {load} = require("../../../../_store/_data/actions/"+targetKey+"Actions").default;
+         let {load} = require("../../../_store/_data/actions/"+targetKey+"Actions").default;
          dispatch(load());
      }
 });

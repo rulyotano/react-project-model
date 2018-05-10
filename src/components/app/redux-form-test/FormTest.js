@@ -2,11 +2,9 @@ import React ,{Component} from 'react';
 import Segment from "../../common/segment/Segment";
 import { Field, reduxForm } from 'redux-form';
 import {
-    FilterDropDownDataFleetReduxForm,
-    FilterDropDownDataOperationReduxForm, FilterDropDownDataStateReduxForm,
+    FilterDropDownDataReduxForm,
     FilterDropDownReduxForm
 } from "../../common/dropdown/filter-drop-down/FilterDropDownReduxForm";
-import FilterDropDownDataState from "../../common/dropdown/filter-drop-down/_data/state/FilterDropDownDataState";
 
 let nextId = 1;
 const suggestions = [
@@ -49,17 +47,32 @@ class FormTest extends Component{
                        multi={true}
                        placeHolder="Selecione..."/>
                    <Field
-                       component={FilterDropDownDataOperationReduxForm}
-                       id="dropdown-operation-id"
-                       name="dropdown-operation-name"/>
-                   <Field
-                       component={FilterDropDownDataStateReduxForm}
+                       component={FilterDropDownDataReduxForm}
+                       label="States"
+                       attrId="cdEstado"
+                       attrLabel="descEstado"
+                       placeHolder="Filter states"
+                       targetKey="state"
                        id="dropdown-state-id"
                        name="dropdown-state-name"/>
                    <Field
-                       component={FilterDropDownDataFleetReduxForm}
+                       component={FilterDropDownDataReduxForm}
+                       label="Fleets"
+                       attrId="cdEquipamento"
+                       attrLabel="descEquipamento"
+                       placeHolder="Filter fleets"
+                       targetKey="fleet"
                        id="dropdown-fleet-id"
                        name="dropdown-fleet-name"/>
+                   <Field
+                       component={FilterDropDownDataReduxForm}
+                       label="Operations"
+                       attrId="cdOperacao"
+                       attrLabel="descOperacao"
+                       placeHolder="Filter operations"
+                       targetKey="operation"
+                       id="dropdown-operation-id"
+                       name="dropdown-operation-name"/>
                </form>
            </Segment>
         )
@@ -67,6 +80,6 @@ class FormTest extends Component{
 }
 FormTest = reduxForm({
     form: 'form-test-filter-dropdown'  // a unique identifier for this form
-})(FormTest)
+})(FormTest);
 
 export default FormTest
