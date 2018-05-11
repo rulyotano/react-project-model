@@ -10,6 +10,7 @@ import DateTimePickerTest from "../../common/components-to-test/DateTimePickerTe
 import DateTimeRangeSelectorTest from "../../common/components-to-test/DateTimeRangeSelectorTest";
 import LoadingButtonTest from '../../common/components-to-test/LoadingButtonTest';
 import WorkAreaSelectorTest from "../../common/components-to-test/WorkAreaSelectorTest";
+import Typography from 'material-ui-next/Typography';
 
 class Monitoring extends Component {
 
@@ -18,22 +19,25 @@ class Monitoring extends Component {
             <div>
                 <Segment title="Monitoring">
                     <div style={{width: '25%'}}>
-                        <CollapsePanel/>
+                        <CollapsePanel title="Weather Map"/>
                     </div>
                     <div style={{width: '40%'}}>
                         <DateTimeRangeSelectorTest useAs="v"/>
                     </div>
                     <div style={{width: '25%'}}>
-                        <CollapsePanel/>
+                        <CollapsePanel title="Operation Analysis"/>
                     </div>
                     <div style={{width: '25%'}}>
-                        <CollapsePanel/>
+                        <CollapsePanel title="Test of Component"/>
                     </div>
                     <div style={{width: '25%'}}>
-                        <CollapsePanel/>
-                        <CollapsePanel/>
-                        <CollapsePanel/>
-                        <CollapsePanel/>
+                        <CollapsePanel title="Step A">
+                            <Typography>aspodkpaosd aspok dpoaskdpoask podkapo skpas kd pokaspodk aspo dpoaskpodaspo kpdaspo pask</Typography>
+
+                        </CollapsePanel>
+                        <CollapsePanel title="Step B"/>
+                        <CollapsePanel title="Step C"/>
+                        <CollapsePanel title="Step D"/>
                     </div>
                     <div style={{width: '25%'}}>
                         <FilterDropDownTest/>
