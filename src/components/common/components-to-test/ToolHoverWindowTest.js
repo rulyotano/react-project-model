@@ -28,7 +28,7 @@ class ToolHoverWindowTest extends Component{
             <ToolHoverWindow isOpen={false} labelHeader="Mapa do Tempo">
                 <DateTimeRangeSelectorTest useAs="v"/>
 
-                <CollapsePanel/>
+                <CollapsePanel title="Weather Map"/>
                 <FilterDropDownTest/>
                 <FilterDropDownAsMultiSelectTest/>
                 <FilterDropDownAsMultiSelectTest/>
