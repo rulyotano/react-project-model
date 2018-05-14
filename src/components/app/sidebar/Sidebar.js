@@ -71,7 +71,7 @@ class Sidebar extends PureComponent{
                     </div>
                 }
                 <ul style={{paddingTop:isMaximized?'15px':'30px'}}>
-                    {isMaximized ? <li className="with-border" onClick={()=>{this.resize()}}><ArrowBack/></li>:''}
+                    {isMaximized ? <li className="with-border" onClick={()=>{this.resize()}}><ArrowForward/></li>:''}
                     <CommonListItem url="" match={match} icon={<Apps/>} text="Dashboard" isMaximized={isMaximized}/>
                     <CommonListItem url="monitoring"  match={match} icon={<LocationOn/>} text="Monitoring" isMaximized={isMaximized}/>
                     <CommonList isMaximized={isMaximized} icon={<LocationOn/>} text="Close Field" isOpen={false}>    {/**TODO: i18n*/}
