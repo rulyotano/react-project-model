@@ -10,7 +10,7 @@ import DateTimePickerTest from "../../common/components-to-test/DateTimePickerTe
 import DateTimeRangeSelectorTest from "../../common/components-to-test/DateTimeRangeSelectorTest";
 import LoadingButtonTest from '../../common/components-to-test/LoadingButtonTest';
 import WorkAreaSelectorTest from "../../common/components-to-test/WorkAreaSelectorTest";
-import Typography from 'material-ui-next/Typography';
+import {Typography} from '@material-ui/core';
 
 class Monitoring extends Component {
 
