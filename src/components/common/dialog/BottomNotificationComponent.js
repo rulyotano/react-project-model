@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { get, head } from 'lodash'
-import Snackbar from 'material-ui/Snackbar';
+import {Snackbar} from '@material-ui/core';
 import config from '../../../config/config';
 import {removePassBottomNotifications} from './_store/actions/bottomNotificationActions';
 import {NotificationTypesDefaults} from './classes/Notification';

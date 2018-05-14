@@ -1,11 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from 'material-ui-next/styles';
-import ExpansionPanel, {
-    ExpansionPanelSummary,
-    ExpansionPanelDetails,
-} from 'material-ui-next/ExpansionPanel';
-import Typography from 'material-ui-next/Typography';
+import { withStyles, ExpansionPanel, ExpansionPanelSummary, ExpansionPanelDetails,
+        Typography } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 const styles = theme => ({

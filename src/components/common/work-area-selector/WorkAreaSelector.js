@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Field, reduxForm } from 'redux-form';
-import { TextField } from 'redux-form-material-ui';
-import { withStyles } from 'material-ui-next/styles';
+// import { TextField } from 'redux-form-material-ui';
+import { withStyles } from '@material-ui/core/styles';
+import { TextField } from '@material-ui/core';
 import { connect } from 'react-redux';
 import { get, filter } from 'lodash';
 import store from '../../store';

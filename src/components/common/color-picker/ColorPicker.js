@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { ChromePicker } from 'react-color';
-import { withStyles } from 'material-ui-next/styles';
+import { withStyles } from '@material-ui/core';
 
 const styles = () => ({
     popover: {

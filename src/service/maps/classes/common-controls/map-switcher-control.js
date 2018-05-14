@@ -1,6 +1,6 @@
 import React from 'react';
 import {render} from 'react-dom';
-import {Button} from 'material-ui-next';
+import {Button} from '@material-ui/core';
 import Map from '../Map';
 import translations from '../../../../i18n';
 import store from '../../../../components/store';

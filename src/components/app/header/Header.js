@@ -3,10 +3,8 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import LanguagePicker from '../../common/_LanguagePicker';
 import loginService from '../../../service/login/loginService';
-import ExitToApp from 'material-ui/svg-icons/action/exit-to-app';
-import AccountCircle from 'material-ui/svg-icons/action/account-circle';
-import {IconButton, Menu, MenuItem, Avatar, ListItemIcon, ListItemText} from 'material-ui-next';
-import { withStyles } from 'material-ui-next/styles';
+import {AccountCircle, ExitToApp} from '@material-ui/icons';
+import { withStyles, IconButton, Menu, MenuItem, Avatar, ListItemIcon, ListItemText} from '@material-ui/core';
 
 import '../../../styles/css/header.css';
 

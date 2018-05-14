@@ -27,7 +27,7 @@ Chart.propsTypes = {
 }
 
 Chart = connect((state)=>({    
-    isMaximized: state.app.maximized,
+    isMaximized: state.app._.maximized,
 }))(Chart)
 
 

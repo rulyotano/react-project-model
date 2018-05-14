@@ -4,7 +4,7 @@ import ptBr from './pt-br'
 import {forEach, isString} from 'lodash'
 
 let flatLanguagesKeys = null;
-flatLanguagesKeys = (prevKey, object)=> {    
+flatLanguagesKeys = (prevKey, object)=> {
     const keys = Object.keys(object);
     if (isString(object) || keys.length === 0)
     {
@@ -14,7 +14,7 @@ flatLanguagesKeys = (prevKey, object)=> {
     for (let i = 0; i < keys.length; i++) {
         const key = keys[i];
         forEach(flatLanguagesKeys( prevKey ? `${prevKey}.${key}` : key, object[key]), 
-            (key, value)=> result[key] = value);       
+            (value, key)=> result[key] = value);       
     }
     return result;
 }

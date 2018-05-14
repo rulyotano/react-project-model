@@ -1,10 +1,7 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 
-import { InputLabel } from 'material-ui-next/Input';
-import { MenuItem } from 'material-ui-next/Menu';
-import { FormControl } from 'material-ui-next/Form';
-import Select from 'material-ui-next/Select';
+import { InputLabel, MenuItem, Select, FormControl } from '@material-ui/core';
 
 import languageService from '../../service/language/languageService'
 import {changeLanguage} from '../_store/actions/configActions'

@@ -2,8 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { map, isString } from 'lodash'
-import Dialog from 'material-ui/Dialog'
-import FlatButton from 'material-ui/FlatButton'
+import {Dialog, Button} from '@material-ui/core'
 import {removeDialog} from './_store/actions/dialogActions'
 // import { localize } from 'redux-i18n'
 
@@ -32,7 +31,7 @@ export class DialogComponent extends Component {
                 <Dialog key={dialog.Id}
                         title={isString(dialog.Title) ? t(dialog.Title) : dialog.Title}
                         modal={dialog.Modal}
-                        actions={map(dialog.Buttons, btn =>(<FlatButton
+                        actions={map(dialog.Buttons, btn =>(<Button
                                                                     key={btn.Key}
                                                                     label={isString(btn.Label) ? t(btn.Label) : btn.Label}
                                                                     keyboardFocused={btn.Focused}

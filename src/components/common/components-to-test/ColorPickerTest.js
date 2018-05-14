@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ColorPicker from "../color-picker/ColorPicker";
-import TextField from 'material-ui-next/TextField';
+import {TextField} from '@material-ui/core';
 
 class ColorPickerTest extends Component {
 

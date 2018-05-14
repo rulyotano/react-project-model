@@ -2,13 +2,11 @@ import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 
 import '../../../styles/css/segment.css'
-import FullScreenIco from 'material-ui/svg-icons/navigation/fullscreen';
-import FullScreenExitIco from 'material-ui/svg-icons/navigation/fullscreen-exit';
+import {Fullscreen, FullscreenExit} from '@material-ui/icons';
 import {connect} from 'react-redux';
 import {setSizeToMax, setSizeToMin} from "../../app/_store/actions/appActions";
 import { withRouter } from 'react-router-dom'
 import Scrollbar from 'perfect-scrollbar-react';
-import 'perfect-scrollbar-react/dist/style.min.css';
 
 class Segment extends PureComponent{
     handleSizeWindow(toMaximize){
@@ -32,9 +30,9 @@ class Segment extends PureComponent{
                         <h4>{t(title)}</h4>
                         {isDashboard? null :<span className="close" onClick={()=>{this.handleClose()}}>&times;</span>}
                         {isMaximized ?
-                            <FullScreenExitIco onClick={() => this.handleSizeWindow(false)}/>
+                            <FullscreenExit onClick={() => this.handleSizeWindow(false)}/>
                             :
-                            <FullScreenIco onClick={() => this.handleSizeWindow(true)}/>
+                            <Fullscreen onClick={() => this.handleSizeWindow(true)}/>
                         }
 
                     </div>
@@ -65,7 +63,7 @@ Segment.contextTypes = {
 }
 
 const mapStateToProps = (state) => ({
-    isMaximized: state.app.maximized,
+    isMaximized: state.app._.maximized,
 });
 
 const mapDispatchToProps = (dispatch) => ({

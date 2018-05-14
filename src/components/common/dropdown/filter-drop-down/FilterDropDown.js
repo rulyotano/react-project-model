@@ -1,9 +1,9 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
-import TextField from 'material-ui-next/TextField';
+import {withStyles, TextField} from '@material-ui/core';
 
-import { withStyles } from 'material-ui-next/styles';
 import SelectWrappedComponent from "./select-wrapped/SelectWrappedComponent";
+import componentToReduxForm from "./componentToReduxForm";
 
 const ITEM_HEIGHT = 60;
 const styles = theme => ({
@@ -114,7 +114,20 @@ const styles = theme => ({
     },
 });
 
-class FilterDropDown extends PureComponent{
+class FilterDropDownComponent extends PureComponent{
+    static propTypes = {
+        id:PropTypes.string.isRequired,
+        name:PropTypes.string.isRequired,
+        classes: PropTypes.object.isRequired,
+        suggestions:PropTypes.arrayOf(PropTypes.object).isRequired,
+        multi: PropTypes.bool,
+        placeHolder:PropTypes.string.isRequired,
+        onChange:PropTypes.func.isRequired,
+        attrId:PropTypes.string.isRequired,
+        attrLabel:PropTypes.string.isRequired,
+        label:PropTypes.string,
+        isLoading: PropTypes.bool
+    }
     constructor(props){
         super(props);
         this.state = {
@@ -127,17 +140,18 @@ class FilterDropDown extends PureComponent{
         });
 
         if(this.props.multi){
-            let items = value.split(',').map(id=> this.props.suggestions.find(item=>item[this.props.attrId] == id));
+            let items = value.split(',').map(id=> this.props.suggestions.find(item=>item[this.props.attrId] === id));
             this.props.onChange(items[0]? items:[]);
 
         }else {
-            this.props.onChange(this.props.suggestions.find(item => item[this.props.attrId] == value) || '');
+            this.props.onChange(this.props.suggestions.find(item => item[this.props.attrId] === value) || '');
         }
 
 
     };
     render(){
-        const { id, placeHolder , suggestions, multi, label, name, attrId, attrLabel, classes} = this.props;
+        const { id, placeHolder , suggestions, multi, label, 
+            name, attrId, attrLabel, classes, isLoading} = this.props;
         return (
             <div className={classes.root}>
                 {this.props.children}
@@ -161,8 +175,8 @@ class FilterDropDown extends PureComponent{
                             multi:!!multi,
                             options: suggestions,
                             valueKey:attrId,
-                            labelKey:attrLabel
-
+                            labelKey:attrLabel,
+                            isLoading
                         },
                     }}
                 />
@@ -171,21 +185,11 @@ class FilterDropDown extends PureComponent{
         );
     }
 }
-FilterDropDown.propTypes = {
-    id:PropTypes.string.isRequired,
-    name:PropTypes.string.isRequired,
-    classes: PropTypes.object.isRequired,
-    suggestions:PropTypes.arrayOf(PropTypes.object).isRequired,
-    multi: PropTypes.bool,
-    placeHolder:PropTypes.string.isRequired,
-    onChange:PropTypes.func.isRequired,
-    attrId:PropTypes.string.isRequired,
-    attrLabel:PropTypes.string.isRequired,
-    label:PropTypes.string
-};
 
+FilterDropDownComponent = withStyles(styles)(FilterDropDownComponent);
 
+export const FilterDropDown = componentToReduxForm(FilterDropDownComponent);  //export redux form
+export default FilterDropDownComponent; //export default without redux form
 
-export default withStyles(styles)(FilterDropDown);
 
 

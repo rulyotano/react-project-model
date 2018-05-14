@@ -31,5 +31,5 @@ MapComponent.propsTypes = {
 }
 
 export default connect(state=>({
-    isMaximized: state.app.maximized,
+    isMaximized: state.app._.maximized,
 }))(MapComponent);

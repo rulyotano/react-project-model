@@ -1,12 +1,8 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types'
 import Select from 'react-select';
-import Typography from 'material-ui-next/Typography';
-import Chip from 'material-ui-next/Chip';
-import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
-import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
-import CancelIcon from '@material-ui/icons/Cancel';
-import ClearIcon from '@material-ui/icons/Clear';
+import {Typography, Chip} from '@material-ui/core';
+import {ArrowDropDown, ArrowDropUp, Cancel, Clear} from '@material-ui/icons';
 
 import Option from './option/Option';
 
@@ -20,9 +16,9 @@ class SelectWrappedComponent extends Component{
                 optionComponent={Option}
                 noResultsText={<Typography>{t('dropdown.No results found')}</Typography>}
                 arrowRenderer={arrowProps => {
-                    return arrowProps.isOpen ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />;
+                    return arrowProps.isOpen ? <ArrowDropUp /> : <ArrowDropDown />;
                 }}
-                clearRenderer={() => <ClearIcon />}
+                clearRenderer={() => <Clear />}
                 valueComponent={valueProps => {
                     const { value, children, onRemove } = valueProps;
 
@@ -38,7 +34,7 @@ class SelectWrappedComponent extends Component{
                                 tabIndex={-1}
                                 label={children}
                                 className={classes.chip}
-                                deleteIcon={<CancelIcon onTouchEnd={onDelete} />}
+                                deleteIcon={<Cancel onTouchEnd={onDelete} />}
                                 onDelete={onDelete}
                             />
                         );

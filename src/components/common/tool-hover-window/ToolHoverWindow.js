@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types'
 import "../../../styles/css/tool-hover-window.css";
-import ArrowDown from 'material-ui/svg-icons/hardware/keyboard-arrow-down';
-import ArrowUp from 'material-ui/svg-icons/hardware/keyboard-arrow-up';
+import {ArrowDropDown, ArrowDropUp} from '@material-ui/icons';
 import Draggable from 'react-draggable';
 import Scrollbar from 'perfect-scrollbar-react';
 import 'perfect-scrollbar-react/dist/style.min.css';
@@ -32,7 +31,7 @@ class ToolHoverWindow extends Component{
                 <div className="tool-hover-window" style={{width:width, height: height}}>
                     <header>
                         <h5>{labelHeader}</h5>
-                        {isOpen?<ArrowUp onClick={()=>{this.handleState()}}/>:<ArrowDown onClick={()=>{this.handleState()}}/>}
+                        {isOpen?<ArrowDropUp onClick={()=>{this.handleState()}}/>:<ArrowDropDown onClick={()=>{this.handleState()}}/>}
                     </header>
                     <div className="tool-hover-window-content" style={{ maxHeight:MaxHeight}}>
                         <Scrollbar>

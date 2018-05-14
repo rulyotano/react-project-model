@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { MenuItem } from 'material-ui-next/Menu';
+import { MenuItem } from '@material-ui/core';
 
 class Option extends Component{
 

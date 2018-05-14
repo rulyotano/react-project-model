@@ -1,10 +1,9 @@
 import React ,{Component} from 'react';
 import Segment from "../../common/segment/Segment";
 import { Field, reduxForm } from 'redux-form';
-import {
-    FilterDropDownDataReduxForm,
-    FilterDropDownReduxForm
-} from "../../common/dropdown/filter-drop-down/FilterDropDownReduxForm";
+import {FilterDropDownData} from '../../common/dropdown/filter-drop-down/FilterDropDownData'
+import {FilterDropDown} from '../../common/dropdown/filter-drop-down/FilterDropDown'
+import {DropDownOperation} from '../../common/dropdown/common/dropdown-operation'
 
 let nextId = 1;
 const suggestions = [
@@ -34,7 +33,7 @@ class FormTest extends Component{
                        attrLabel="desc"
                        id="redux-form-filter-dropdown-id"
                        name="redux-form-filter-dropdown-name"
-                       component={FilterDropDownReduxForm}
+                       component={FilterDropDown}
                        suggestions={suggestions}
                        placeHolder="Selecione..."/>
                    <Field
@@ -42,12 +41,12 @@ class FormTest extends Component{
                        attrLabel="desc"
                        id="redux-form-multi-filter-dropdown-id"
                        name="redux-form-multi-filter-dropdown-name"
-                       component={FilterDropDownReduxForm}
+                       component={FilterDropDown}
                        suggestions={suggestions}
                        multi={true}
                        placeHolder="Selecione..."/>
                    <Field
-                       component={FilterDropDownDataReduxForm}
+                       component={FilterDropDownData}
                        label="States"
                        attrId="cdEstado"
                        attrLabel="descEstado"
@@ -56,7 +55,7 @@ class FormTest extends Component{
                        id="dropdown-state-id"
                        name="dropdown-state-name"/>
                    <Field
-                       component={FilterDropDownDataReduxForm}
+                       component={FilterDropDownData}
                        label="Fleets"
                        attrId="cdEquipamento"
                        attrLabel="descEquipamento"
@@ -64,13 +63,9 @@ class FormTest extends Component{
                        targetKey="fleet"
                        id="dropdown-fleet-id"
                        name="dropdown-fleet-name"/>
+                       Modification
                    <Field
-                       component={FilterDropDownDataReduxForm}
-                       label="Operations"
-                       attrId="cdOperacao"
-                       attrLabel="descOperacao"
-                       placeHolder="Filter operations"
-                       targetKey="operation"
+                       component={DropDownOperation}
                        id="dropdown-operation-id"
                        name="dropdown-operation-name"/>
                </form>

@@ -13,6 +13,7 @@ import '../../styles/css/app.css'
 import '../../styles/css/sidebar.css'
 import Header from "./header/Header";
 import Sidebar from "./sidebar/Sidebar";
+import 'perfect-scrollbar-react/dist/style.min.css';
 
 
 const DashboardAsync = Loadable({
@@ -32,6 +33,11 @@ const ChartTestAsync = Loadable({
 
 const FormTestAsync = Loadable({
     loader: () => import('./redux-form-test/FormTest'),
+    loading: LoadingComponent,
+});
+
+const CloseFieldAsync = Loadable({
+    loader: () => import('./close-field/CloseField'),
     loading: LoadingComponent,
 });
 
@@ -62,6 +68,7 @@ export class App extends Component {
                       <Route path={`${match.url}monitoring`} component={MonitoringAsync}/>
                       <Route path={`${match.url}chart-test`} component={ChartTestAsync}/>
                       <Route path={`${match.url}form-test`} component={FormTestAsync}/>
+                      <Route path={`${match.url}close-field`} component={CloseFieldAsync}/>
                   </Switch>
               </div>
           </div>            

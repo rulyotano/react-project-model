@@ -1,7 +1,7 @@
 import React from 'react'
-import { CircularProgress } from 'material-ui-next/Progress';
-import { withStyles } from 'material-ui-next/styles';
-import { Typography } from 'material-ui-next';
+import { CircularProgress } from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
+import { Typography } from '@material-ui/core';
 import PropTypes from 'prop-types';
 
 

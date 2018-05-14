@@ -1,6 +1,5 @@
 import React,{Component} from 'react';
-import { withStyles } from 'material-ui-next/styles';
-import TextField from 'material-ui-next/TextField';
+import { withStyles, TextField } from '@material-ui/core';
 import PropTypes from 'prop-types';
 
 

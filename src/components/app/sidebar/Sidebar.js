@@ -1,12 +1,6 @@
 import React, {PureComponent} from 'react';
 import {Link} from 'react-router-dom';
-import ApplicationIco from 'material-ui/svg-icons/navigation/apps';
-import LocationOnIco from 'material-ui/svg-icons/communication/location-on';
-import ChartIco from 'material-ui/svg-icons/editor/insert-chart';
-import ArrowLeft from 'material-ui/svg-icons/hardware/keyboard-arrow-left';
-import ArrowRight from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
-import ExpandMore from 'material-ui/svg-icons/navigation/expand-more';
-import ExpandLess from 'material-ui/svg-icons/navigation/expand-less';
+import {Apps, LocationOn, MultilineChart, ArrowBack, ArrowForward, ExpandMore, ExpandLess } from '@material-ui/icons';
 import {connect} from 'react-redux';
 import {setSizeToMax, setSizeToMin} from "../_store/actions/appActions";
 
@@ -72,20 +66,20 @@ class Sidebar extends PureComponent{
                     '':
                     <div className="resize" onClick={()=>{this.resize()}}>
                         <div className="circle">
-                            <ArrowLeft/>
+                            <ArrowBack/>
                         </div>
                     </div>
                 }
                 <ul style={{paddingTop:isMaximized?'15px':'30px'}}>
-                    {isMaximized ? <li className="with-border" onClick={()=>{this.resize()}}><ArrowRight/></li>:''}
-                    <CommonListItem url="" match={match} icon={<ApplicationIco/>} text="Dashboard" isMaximized={isMaximized}/>
-                    <CommonListItem url="monitoring"  match={match} icon={<LocationOnIco/>} text="Monitoring" isMaximized={isMaximized}/>
-                    <CommonList isMaximized={isMaximized} icon={<LocationOnIco/>} text="Caique" isOpen={false}>
-                        <CommonListItem url="vallim"  match={match} icon={<LocationOnIco/>} text="Vallim" isMaximized={isMaximized}/>
-                        <CommonListItem url="araujo"  match={match} icon={<LocationOnIco/>} text="Araujo" isMaximized={isMaximized}/>
+                    {isMaximized ? <li className="with-border" onClick={()=>{this.resize()}}><ArrowBack/></li>:''}
+                    <CommonListItem url="" match={match} icon={<Apps/>} text="Dashboard" isMaximized={isMaximized}/>
+                    <CommonListItem url="monitoring"  match={match} icon={<LocationOn/>} text="Monitoring" isMaximized={isMaximized}/>
+                    <CommonList isMaximized={isMaximized} icon={<LocationOn/>} text="Close Field" isOpen={false}>    {/**TODO: i18n*/}
+                        <CommonListItem url="close-field?source=0"  match={match} icon={<LocationOn/>} text="Map" isMaximized={isMaximized}/>  {/**TODO: i18n*/}
+                        <CommonListItem url="close-field?source=1"  match={match} icon={<LocationOn/>} text="Process" isMaximized={isMaximized}/>   {/**TODO: i18n*/}
                     </CommonList>
-                    <CommonListItem url="chart-test" match={match} icon={<ChartIco/>} text="Test Chart" isMaximized={isMaximized}/>
-                    <CommonListItem url="form-test" match={match} icon={<ChartIco/>} text="Form Test" isMaximized={isMaximized}/>
+                    <CommonListItem url="chart-test" match={match} icon={<MultilineChart/>} text="Test Chart" isMaximized={isMaximized}/>
+                    <CommonListItem url="form-test" match={match} icon={<MultilineChart/>} text="Form Test" isMaximized={isMaximized}/>
                 </ul>
             </div>
         )
@@ -93,7 +87,7 @@ class Sidebar extends PureComponent{
 }
 
 const mapStateToProps = (state) => ({
-    isMaximized: state.app.maximized
+    isMaximized: state.app._.maximized
 });
 
 const mapDispatchToProps = (dispatch)=>({

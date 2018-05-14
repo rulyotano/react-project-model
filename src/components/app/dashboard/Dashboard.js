@@ -1,5 +1,5 @@
 import React, {PureComponent} from 'react';
-import Segment from "../../common/segment/Segment";
+import EmptySegment from "../../common/segment/EmptySegment";
 import LoadingComponent from "../../common/_LoadingComponent";
 import MapComponent from "../../common/map/MapComponent";
 import {loadMapGeoJson} from "../../_store/actions/mapActions";
@@ -37,10 +37,10 @@ class DashBoard extends PureComponent{
     render(){
         const {mapGeoJson} = this.props;
         return(
-            <Segment title="Dashboard" useScroll={false}>
+            <EmptySegment title="Dashboard" useScroll={false}>
                 <LoadingComponent isLoading={!mapGeoJson} style={{height: "100%"}}/>
                 { !!mapGeoJson ? <MapComponent onCreateMap={map=>this.onCreateMap(map)} /> : null}
-            </Segment>
+            </EmptySegment>
         )
     }
 }

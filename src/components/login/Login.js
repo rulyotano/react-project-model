@@ -4,10 +4,14 @@ import { withRouter } from 'react-router-dom'
 import '../../styles/css/login.css';
 // import TextField from 'material-ui/TextField';
 import loginService from "../../service/login/loginService";
+import textFieldToReduxForm from "../../service/redux-form/textFieldToReduxForm";
 import LanguagePicker from "../common/_LanguagePicker";
 import { Field, reduxForm } from 'redux-form'
-import { TextField } from 'redux-form-material-ui'
+// import { TextField } from 'redux-form-material-ui'
+import { TextField } from '@material-ui/core';
 import LoadingButton from '../common/loading-button/LoadingButton';
+
+const TextFieldRf = textFieldToReduxForm(TextField);
 
 const style = {
     input:{color:'white', height:'80%', marginLeft:'4px', marginTop:'4px'},
@@ -36,7 +40,8 @@ let LoginForm = ({t, handleSubmit, submitLogin, isLoading})=>
                                     fullWidth={true}
                                     inputStyle={style.input}
                                     hintStyle={style.hint}
-                                    floatingLabelStyle={style.floatingLabel} component={TextField}/>                            
+                                    floatingLabelStyle={style.floatingLabel} 
+                                    component={TextFieldRf}/>                            
                         </section>
 
 
@@ -51,7 +56,7 @@ let LoginForm = ({t, handleSubmit, submitLogin, isLoading})=>
                                     inputStyle={style.input}
                                     hintStyle={style.hint}
                                     floatingLabelStyle={style.floatingLabel} 
-                                    component={TextField}/>
+                                    component={TextFieldRf}/>
                         </section>
                     </div>
                     <div style={{textAlign:'center', paddingTop:'30px'}}>

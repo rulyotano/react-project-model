@@ -4,9 +4,8 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import FilterDropDown from "./FilterDropDown";
 import {isEmpty} from "lodash";
-import { CircularProgress } from 'material-ui-next/Progress';
-
-import { withStyles } from 'material-ui-next/styles';
+import { withStyles, CircularProgress } from '@material-ui/core';
+import componentToReduxForm from './componentToReduxForm';
 
 const styles = theme => ({
     progress: {
@@ -18,7 +17,19 @@ const styles = theme => ({
     },
 });
 
-class FilterDropDownData extends PureComponent{
+class FilterDropDownDataComponent extends PureComponent{
+    static propTypes = {
+        id:PropTypes.string.isRequired,
+        name:PropTypes.string.isRequired,
+        targetKey:PropTypes.string.isRequired,
+        placeHolder:PropTypes.string.isRequired,
+        onChange:PropTypes.func.isRequired,
+        attrId:PropTypes.string.isRequired,
+        attrLabel:PropTypes.string.isRequired,
+        classes: PropTypes.object.isRequired,
+        isLoading: PropTypes.bool,
+        label:PropTypes.string
+    }
     constructor(props){
         super(props);
         this.state = {
@@ -36,24 +47,12 @@ class FilterDropDownData extends PureComponent{
     render(){
         const { data,  isLoading, placeHolder, classes, ...otherProps } = this.props;
         return (
-            <FilterDropDown placeHolder={placeHolder} suggestions={data} onChange={this.handleChange} {...otherProps}>
+            <FilterDropDown placeHolder={placeHolder} suggestions={data} onChange={this.handleChange} {...otherProps} isLoading={isLoading}>
                 {isLoading ? <CircularProgress className={classes.progress} size={40} />:''}
             </FilterDropDown>
         );
     }
 }
-FilterDropDownData.propTypes = {
-    id:PropTypes.string.isRequired,
-    name:PropTypes.string.isRequired,
-    targetKey:PropTypes.string.isRequired,
-    placeHolder:PropTypes.string.isRequired,
-    onChange:PropTypes.func.isRequired,
-    attrId:PropTypes.string.isRequired,
-    attrLabel:PropTypes.string.isRequired,
-    classes: PropTypes.object.isRequired,
-    label:PropTypes.string
-};
-
 
 const mapStateToProps = (state,props) => {
     const {d} = state;
@@ -71,6 +70,7 @@ const mapDispatchToProps = (dispatch) => ({
      }
 });
 
-export default  withStyles(styles)(connect(mapStateToProps, mapDispatchToProps)(FilterDropDownData));
+FilterDropDownDataComponent = withStyles(styles)(connect(mapStateToProps, mapDispatchToProps)(FilterDropDownDataComponent));
 
-
+export const FilterDropDownData = componentToReduxForm(FilterDropDownDataComponent);  //export redux form
+export default FilterDropDownDataComponent; //export default without redux form

@@ -11,5 +11,8 @@ export default {
     login,
     maps,
     workAreaSelector,
-    dropdown
+    dropdown,
+
+    "Operation": "Operación",
+    "Filter operations": "Filtrar operaciones"
 }
