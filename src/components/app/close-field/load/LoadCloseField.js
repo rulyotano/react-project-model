@@ -6,8 +6,9 @@ import {DropDownOperation} from '../../../common/dropdown/common/dropdown-operat
 import { Field, reduxForm } from 'redux-form';
 
 import {withStyles, Button, TextField, Dialog, DialogActions,
-        DialogContent, DialogContentText, DialogTitle,
+        DialogContentText, DialogTitle,
         Typography, Grid} from '@material-ui/core';
+import DialogContent from '@material-ui/core/DialogContent';
 import Panel from '../../../common/collapse-panel/Panel';
 
 const styles = theme => ({

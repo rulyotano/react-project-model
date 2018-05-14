@@ -13,11 +13,14 @@ class SelectWrappedComponent extends Component{
         const { t } = this.context;
         return(
             <Select
+                className={"SelectWrappedComponent"}
+                classNamePrefix={"SelectWrappedComponent"}
                 optionComponent={Option}
                 noResultsText={<Typography>{t('dropdown.No results found')}</Typography>}
                 arrowRenderer={arrowProps => {
                     return arrowProps.isOpen ? <ArrowDropUp /> : <ArrowDropDown />;
-                }}
+                }}                
+                menuPortalTarget={document.getElementById('filter-drop-down-menu-container')}
                 clearRenderer={() => <Clear />}
                 valueComponent={valueProps => {
                     const { value, children, onRemove } = valueProps;
