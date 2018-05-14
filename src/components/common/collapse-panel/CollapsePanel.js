@@ -17,19 +17,16 @@ const styles = theme => ({
 });
 
 function CollapsePanel(props) {
-    const { classes } = props;
+    const { classes, title, children } = props;
     return (
         <div className={classes.root}>
 
             <ExpansionPanel >
                 <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-                    <Typography className={classes.heading}>General settings</Typography>
+                    <Typography className={classes.heading}>{title}</Typography>
                 </ExpansionPanelSummary>
                 <ExpansionPanelDetails>
-                    <Typography>
-                        Nulla facilisi. Phasellus sollicitudin nulla et quam mattis feugiat. Aliquam eget
-                        maximus est, id dignissim quam.
-                    </Typography>
+                    {children}
                 </ExpansionPanelDetails>
             </ExpansionPanel>
         </div>
@@ -38,6 +35,7 @@ function CollapsePanel(props) {
 
 CollapsePanel.propTypes = {
     classes: PropTypes.object.isRequired,
+    title:PropTypes.string.isRequired
 };
 
 export default withStyles(styles)(CollapsePanel);
