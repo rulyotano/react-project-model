@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Field, reduxForm } from 'redux-form';
-// import { TextField } from 'redux-form-material-ui';
 import { withStyles } from '@material-ui/core/styles';
 import { TextField } from '@material-ui/core';
 import { connect } from 'react-redux';
 import { get, filter } from 'lodash';
 import store from '../../store';
+import textFieldToReduxForm from '../../../service/redux-form/textFieldToReduxForm';
 
 let t;
 
@@ -45,11 +45,12 @@ const validate = (values, props) => {
     return errors
 }
 
-const renderField = field => (
-    <TextField
-        errorText={field.meta.error}
-        {...field} />
-)
+// const renderField = field => (
+//     <TextField
+//         errorText={field.meta.error}
+//         {...field} />
+// )
+const renderField = textFieldToReduxForm(TextField);
 
 class WorkAreaSelector extends Component {
 

@@ -53,7 +53,7 @@ class AppRouter extends Component {
     render(){
         return (<Provider store={store}>
             <I18n translations={translations} initialLang={config.DEFAULT_LANGUAGE} fallbackLang="en-US">                
-                <MuiThemeProvider muiTheme={themeV1}>
+                <MuiThemeProvider theme={themeV1}>
                     <Router>
                         <div>
                             {/* Common all app things here        */}

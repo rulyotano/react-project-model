@@ -25,8 +25,7 @@ function CollapsePanel(props) {
                 <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
                     <Typography className={classes.heading}>{title}</Typography>
                 </ExpansionPanelSummary>
-                <ExpansionPanelDetails>
-                    {children}
+                <ExpansionPanelDetails children={children}>
                 </ExpansionPanelDetails>
             </ExpansionPanel>
         </div>

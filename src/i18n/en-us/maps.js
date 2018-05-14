@@ -7,7 +7,6 @@ export default {
     "NOT REGISTERED": "NOT REGISTERED",
     "Farm": "Farm",
     "Sector": "Sector",
-    "Field": "Field",
     "Total Area": "Total Area",
     "Distance": "Distance",
 }

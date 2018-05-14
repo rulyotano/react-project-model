@@ -4,13 +4,15 @@ const mapError = (
       input,
       ...props
     },
-    errorProp = 'errorText'
+    hasErrorProp = 'error',
+    errorProp = 'helperText'
   ) =>
     (touched && (error || warning)
       ? {
           ...props,
           ...input,
-          [errorProp]: error || warning
+          [hasErrorProp]: !!(error || warning),
+          [errorProp]: (error || warning),
         }
       : { ...input, ...props })
   
