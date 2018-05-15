@@ -16,5 +16,7 @@ export default {
     dates,
 
     "Operation": "Operação",
-    "Filter operations": "Filtrar operações"
+    "Filter operations": "Filtrar operações",
+    "None":"Nenhum"
+
 }
