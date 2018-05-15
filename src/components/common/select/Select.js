@@ -33,7 +33,7 @@ class Select extends PureComponent{
         name: propTypes.string.isRequired,
         label: propTypes.string.isRequired,
         attrId: propTypes.string.isRequired,
-        attrDesc: propTypes.string,
+        attrLabel: propTypes.string.isRequired,
         suggestions:propTypes.arrayOf(propTypes.object).isRequired,
     };
 
@@ -43,15 +43,16 @@ class Select extends PureComponent{
         this.setState({ [attrId]: event.target.value });
 
         let filtered = suggestions.find(i=>i[this.props.attrId] === event.target.value);
-        this.props.onChange(filtered);
+        this.props.onChange(filtered || 'isEmpty');
     };
 
 
     render(){
-        const {suggestions, name, id, label, attrId="id", attrDesc="desc"} = this.props;
+        const {suggestions, name, id, label, attrId="id", attrLabel="label"} = this.props;
         const {t} = this.context;
         return(
             <div style={{width:'100%'}}>
+                {this.props.children}
                 <InputLabel>{t(label)}</InputLabel>
                 <SelectMui style={{width:'100%'}}
                     value={this.state[attrId]}
@@ -66,7 +67,7 @@ class Select extends PureComponent{
                     <MenuItem value="">
                         <em>{t('None')}</em>
                     </MenuItem>
-                    {suggestions.map(m=><MenuItem value={m[attrId]} key={m[attrId]}>{m[attrDesc]}</MenuItem>)}
+                    {suggestions.map(m=><MenuItem value={m[attrId]} key={m[attrId]}>{m[attrLabel]}</MenuItem>)}
                 </SelectMui>
             </div>
         )

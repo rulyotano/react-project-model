@@ -45,7 +45,8 @@ class FormTest extends Component{
                        id="select-simple-rf-id"
                        name="select-simple-rf--name"
                        component={SelectRF}
-                       suggestions={suggestions}/>
+                       suggestions={suggestions}
+                       label="Options"/>
                    <br/>
                    <br/>
                    <Field
