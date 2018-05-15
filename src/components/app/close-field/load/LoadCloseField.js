@@ -19,9 +19,16 @@ const styles = theme => ({
     heading: {
         fontSize: theme.typography.pxToRem(15),
         fontWeight: theme.typography.fontWeightRegular,
+        background:'linear-gradient( to bottom, #fff 15%, #f5f5f5 100%)'
     },
     content: {
-        marginTop: "5px"
+        paddingTop:'15px',
+        backgroundColor:'#f5f5f5'
+    },
+    footer:{
+        backgroundColor:'#f5f5f5',
+        margin:'0',
+        padding:'8px'
     }
 });
 
@@ -58,9 +65,9 @@ export class LoadCloseField extends PureComponent {
             // onClose={this.handleClose}
             aria-labelledby="form-dialog-title">
 
-            <DialogTitle id="form-dialog-title">Load Close Field</DialogTitle>  {/* TODO: i18n */}
-            <DialogContent>
-                <div className={classes.content}>
+            <DialogTitle className={classes.heading} id="form-dialog-title">Load Close Field</DialogTitle>  {/* TODO: i18n */}
+            <DialogContent className={classes.content}>
+                <div >
                     <form>
                         <Panel title="Select Time Range">   {/* TODO: i18n222 */}
                             <Field component={componentToReduxForm(DateTimeRangeSelector)}
@@ -97,7 +104,7 @@ export class LoadCloseField extends PureComponent {
                     </form>
                 </div>
             </DialogContent>
-            <DialogActions>
+            <DialogActions className={classes.footer}>
                 <Button color="primary">
                 Load Map        {/* TODO: i18n */}
                 </Button>
