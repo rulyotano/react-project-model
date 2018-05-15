@@ -1,9 +1,9 @@
-import React, {Component} from 'react';
+import React, {PureComponent} from 'react';
 import {Select as SelectMui} from '@material-ui/core';
 import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
 import componentToReduxForm from "../../../service/redux-form/componentToReduxForm";
-
+import propTypes from 'prop-types';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -16,7 +16,7 @@ const MenuProps = {
     },
 };
 
-class Select extends Component{
+class Select extends PureComponent{
 
     constructor(props){
         super(props);
@@ -25,6 +25,15 @@ class Select extends Component{
             [attrId]:''
         }
     }
+    static contextTypes={
+        t: propTypes.func
+    };
+    static propTypes={
+        id: propTypes.string.isRequired,
+        name: propTypes.string.isRequired,
+        label: propTypes.string.isRequired,
+        suggestions:propTypes.arrayOf(propTypes.object).isRequired,
+    };
 
     handleChange = event => {
         let {suggestions, attrId} = this.props;
@@ -38,9 +47,10 @@ class Select extends Component{
 
     render(){
         const {suggestions, attrId, name, id, label} = this.props;
+        const {t} = this.context;
         return(
             <div style={{width:'100%'}}>
-                <InputLabel>{label}</InputLabel>
+                <InputLabel>{t(label)}</InputLabel>
                 <SelectMui style={{width:'100%'}}
                     value={this.state[attrId]}
                     autoWidth={true}
@@ -52,7 +62,7 @@ class Select extends Component{
                     }}
                 >
                     <MenuItem value="">
-                        <em>None</em>
+                        <em>{t('None')}</em>
                     </MenuItem>
                     {suggestions.map(m=><MenuItem value={m.id} key={m.id}>{m.desc}</MenuItem>)}
                 </SelectMui>
@@ -60,5 +70,8 @@ class Select extends Component{
         )
     }
 }
+
+
+
 export const SelectRF = componentToReduxForm(Select);
 export default Select;
