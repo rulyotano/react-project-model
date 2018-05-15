@@ -12,6 +12,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import Panel from '../../../common/collapse-panel/Panel';
 import WorkAreaSelector from '../../../common/work-area-selector/WorkAreaSelector';
 import DateTimeRangeSelector from '../../../common/date-time-range-selector/DateTimeRangeSelector';
+import {SelectRF} from '../../../common/select/Select';
 import componentToReduxForm from '../../../../service/redux-form/componentToReduxForm';
 
 const styles = theme => ({
@@ -44,7 +45,7 @@ export class LoadCloseField extends PureComponent {
   }
 
   render() {
-    const {classes} = this.props;
+    const {classes, process} = this.props;
     const {isOpen} = this.state;
     return (
       <EmptySegment useScroll={false}>
@@ -75,10 +76,12 @@ export class LoadCloseField extends PureComponent {
                             <Grid container spacing={8}>
                                 <Grid item xs={12} sm={6}>                                
                                     <Panel title="Process">   {/* TODO: i18n */}
-                                        <Typography>
-                                            Lorem ipsum dolor sirt et yet er eyt amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
-                                            sit amet blandit leo lobortis eget.
-                                        </Typography>
+                                       <Field component={SelectRF}
+                                              suggestions={process}
+                                              label="closeField.Process"
+                                              id="process"
+                                              name="process"
+                                              attrId="id"/>
                                     </Panel>
                                 </Grid>
                                 <Grid item xs={12} sm={6}>                                
@@ -108,7 +111,7 @@ export class LoadCloseField extends PureComponent {
 }
 
 const mapStateToProps = (state) => ({
-  
+    process: state.app.closeField._.process  
 })
 
 const mapDispatchToProps = {

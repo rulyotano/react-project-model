@@ -5,6 +5,7 @@ import maps from './maps'
 import workAreaSelector from './workAreaSelector'
 import dropdown from './dropdown'
 import dates from './dates'
+import closeField from './closeField'
 
 export default {
     dialog,
@@ -14,6 +15,7 @@ export default {
     workAreaSelector,
     dropdown,
     dates,
+    closeField,
 
     "Operation": "Operación",
     "Filter operations": "Filtrar operaciones",

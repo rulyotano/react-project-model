@@ -32,6 +32,8 @@ class Select extends PureComponent{
         id: propTypes.string.isRequired,
         name: propTypes.string.isRequired,
         label: propTypes.string.isRequired,
+        attrId: propTypes.string.isRequired,
+        attrDesc: propTypes.string,
         suggestions:propTypes.arrayOf(propTypes.object).isRequired,
     };
 
@@ -46,7 +48,7 @@ class Select extends PureComponent{
 
 
     render(){
-        const {suggestions, attrId, name, id, label} = this.props;
+        const {suggestions, name, id, label, attrId="id", attrDesc="desc"} = this.props;
         const {t} = this.context;
         return(
             <div style={{width:'100%'}}>
@@ -64,7 +66,7 @@ class Select extends PureComponent{
                     <MenuItem value="">
                         <em>{t('None')}</em>
                     </MenuItem>
-                    {suggestions.map(m=><MenuItem value={m.id} key={m.id}>{m.desc}</MenuItem>)}
+                    {suggestions.map(m=><MenuItem value={m[attrId]} key={m[attrId]}>{m[attrDesc]}</MenuItem>)}
                 </SelectMui>
             </div>
         )
