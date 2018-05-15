@@ -25,7 +25,9 @@ class CommonList extends PureComponent{
                     {icon}{isMaximized? '':text}
                     {isMaximized ? '' :isOpen ? <ExpandLess className="expand-less"/> : <ExpandMore className="expand-more"/>}
                 </li>
-                {isOpen && !isMaximized ? <ul className="sub-menu" style={{paddingTop:'5px'}}>{children}</ul> :''}
+                {isOpen && !isMaximized ? <ul className="sub-menu" style={{paddingTop:'5px'}}>{children}</ul> :
+                    ''
+                }
             </div>
         )
     }
