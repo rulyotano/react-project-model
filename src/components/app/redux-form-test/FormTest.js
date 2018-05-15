@@ -4,6 +4,7 @@ import { Field, reduxForm } from 'redux-form';
 import {FilterDropDownData} from '../../common/dropdown/filter-drop-down/FilterDropDownData'
 import {FilterDropDown} from '../../common/dropdown/filter-drop-down/FilterDropDown'
 import {DropDownOperation} from '../../common/dropdown/common/dropdown-operation'
+import Select, {SelectRF} from "../../common/select/Select";
 
 let nextId = 1;
 const suggestions = [
@@ -11,6 +12,15 @@ const suggestions = [
     { label: 'Algeria' },
     { label: 'Brazil' },
     { label: 'British Indian Ocean Territory' },
+    { label: 'Brunei Darussalam' },
+    { label: 'Brunei Darussalam' },
+    { label: 'Brunei Darussalam' },
+    { label: 'Brunei Darussalam' },
+    { label: 'Brunei Darussalam' },
+    { label: 'Brunei Darussalam' },
+    { label: 'Brunei Darussalam' },
+    { label: 'Brunei Darussalam' },
+    { label: 'Brunei Darussalam' },
     { label: 'Brunei Darussalam' },
 ].map(suggestion => ({
     id: nextId++,
@@ -68,6 +78,14 @@ class FormTest extends Component{
                        component={DropDownOperation}
                        id="dropdown-operation-id"
                        name="dropdown-operation-name"/>
+                   <Field
+                       component={SelectRF}
+                       suggestions={suggestions}
+                       attrId="id"
+                       id="select-country-id"
+                       name="select-country-name"
+                       label="Options"/>
+
                </form>
            </Segment>
         )

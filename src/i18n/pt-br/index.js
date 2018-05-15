@@ -14,5 +14,7 @@ export default {
     dropdown,
 
     "Operation": "Operação",
-    "Filter operations": "Filtrar operações"
+    "Filter operations": "Filtrar operações",
+    "None":"Nenhum"
+
 }
