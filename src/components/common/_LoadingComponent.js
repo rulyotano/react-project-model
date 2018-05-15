@@ -16,11 +16,11 @@ const styles = theme => ({
   }      
 });
 
-const LoadingComponent = ({isLoading, error, classes, pastDelay, timedOut, retry, ...restProps}) => {  
+const LoadingComponent = ({isLoading, error, classes, pastDelay, timedOut, retry, size = 40, ...restProps}) => {  
   // Handle the loading state
   if (isLoading) {
     return <div className={classes.progressContainer} {...restProps}>
-      <CircularProgress className={classes.progress}/>
+      <CircularProgress size={size} className={classes.progress}/>
     </div>;
   }
   // Handle the error state
@@ -35,7 +35,8 @@ const LoadingComponent = ({isLoading, error, classes, pastDelay, timedOut, retry
 LoadingComponent.propTypes = {
     classes: PropTypes.object.isRequired,
     isLoading: PropTypes.bool,
-    error: PropTypes.bool
+    error: PropTypes.bool,
+    size: PropTypes.number
 };
 
 export default withStyles(styles)(LoadingComponent)

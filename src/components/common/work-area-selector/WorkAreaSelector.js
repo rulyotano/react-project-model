@@ -1,12 +1,14 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { Field, reduxForm } from 'redux-form';
 import { withStyles } from '@material-ui/core/styles';
-import { TextField } from '@material-ui/core';
+import { TextField, Grid } from '@material-ui/core';
 import { connect } from 'react-redux';
 import { get, filter } from 'lodash';
 import store from '../../store';
 import textFieldToReduxForm from '../../../service/redux-form/textFieldToReduxForm';
+import Loading from '../../../components/common/_LoadingComponent';
+import {loadMapGeoJson} from '../../../components/_store/actions/mapActions';
 
 let t;
 
@@ -17,8 +19,15 @@ const styles = () => ({
         width: '100%'
     },
     wrapper: {
-        marginLeft: '-5px',
-        marginRight: '-5px',
+        position: "relative",
+        width: '100%'
+        // marginLeft: '-5px',
+        // marginRight: '-5px',
+    },
+    loading: {
+        position: "absolute",
+        left: "-20px",        
+        top: "20px"
     }
 });
 
@@ -52,7 +61,11 @@ const validate = (values, props) => {
 // )
 const renderField = textFieldToReduxForm(TextField);
 
-class WorkAreaSelector extends Component {
+class WorkAreaSelector extends PureComponent {
+    componentWillMount(){
+        //load geojson if not loaded exist
+        this.props.loadGeoJson();
+    }
 
     handleOnBlur() {
         const talhaoData = store.getState().map.mapGeoJson;
@@ -84,45 +97,58 @@ class WorkAreaSelector extends Component {
     }
 
     render() {
-        const { classes, isHorizontal = true, initialValues } = this.props;
+        const { classes, isHorizontal = true, initialValues, isLoading } = this.props;
         t = this.context.t;
+        const itemSize = isHorizontal ? 4 : 12;
 
         return (
-            <div className={classes.wrapper} style={{ display: isHorizontal ? 'flex' : 'block' }}>
-                <div className={classes.input}>
-                    <Field
-                        name="cdFazenda"
-                        type="text"
-                        floatingLabelText={t("workAreaSelector.Farm")}
-                        id="cdFazenda"
-                        fullWidth={true}
-                        component={renderField}
-                        readOnly={initialValues.cdFazenda != null}
-                    />
-                </div>
+            <div className={classes.wrapper}>
+                <div className={classes.loading}><Loading size={20} isLoading={isLoading}/></div>
+                <Grid container spacing={8}>
+                    <Grid item xs={12} sm={itemSize}>
+                        <div className={classes.input}>
+                            <Field
+                                name="cdFazenda"
+                                type="text"
+                                floatingLabelText={t("workAreaSelector.Farm")}
+                                id="cdFazenda"
+                                fullWidth={true}
+                                component={renderField}
+                                readOnly={initialValues.cdFazenda != null}
+                                disabled={isLoading}
+                            />
+                        </div>
+                    </Grid>
 
-                <div className={classes.input}>
-                    <Field
-                        name="cdSetor"
-                        type="text"
-                        floatingLabelText={t("workAreaSelector.Sector")}
-                        id="cdSetor"
-                        fullWidth={true}
-                        component={renderField}
-                    />
-                </div>
+                    <Grid item xs={12} sm={itemSize}>
+                        <div className={classes.input}>
+                            <Field
+                                name="cdSetor"
+                                type="text"
+                                floatingLabelText={t("workAreaSelector.Sector")}
+                                id="cdSetor"
+                                fullWidth={true}
+                                component={renderField}
+                                disabled={isLoading}
+                            />
+                        </div>
+                    </Grid>
 
-                <div className={classes.input}>
-                    <Field
-                        name="cdTalhao"
-                        type="text"
-                        floatingLabelText={t("workAreaSelector.Field")}
-                        id="cdTalhao"
-                        fullWidth={true}
-                        component={renderField}
-                        onBlur={() => this.handleOnBlur()}
-                    />
-                </div>
+                    <Grid item xs={12} sm={itemSize}>
+                        <div className={classes.input}>
+                            <Field
+                                name="cdTalhao"
+                                type="text"
+                                floatingLabelText={t("workAreaSelector.Field")}
+                                id="cdTalhao"
+                                fullWidth={true}
+                                component={renderField}
+                                onBlur={() => this.handleOnBlur()}
+                                disabled={isLoading}
+                            />
+                        </div>
+                    </Grid>
+                </Grid>
             </div>
         )
     }
@@ -133,23 +159,27 @@ const mapStateToProps = (state, props) => {
     let {form} = props; 
 
     this.getCdFazenda = () => {
-        let map = get(state, 'map.mapMappedGeoJson');
-
-        if (map) {
-            let keys = Object.keys(map);
-            return keys.length === 1 ? keys[0] : "";
-        }
-
+        let map = state.map.mapMappedGeoJson;
+        if (!map)
+            return null;
+        let keys = Object.keys(map);
+        if (keys.length === 1)
+            return keys[0];
         return null;
     }
 
     return {
         initialValues: { cdFazenda: this.getCdFazenda() },
-        fazenda: get(state, 'form.' + form + '.values.cdFazenda'),
-        setor: get(state, 'form.' + form + '.values.cdSetor'),
-        talhao: get(state, 'form.' + form + '.values.cdTalhao')
+        fazenda: get(state, `form.${form}.values.cdFazenda`),
+        setor: get(state, `form.${form}.values.cdSetor`),
+        talhao: get(state, `form.${form}.values.cdTalhao`),
+        isLoading: state.map.isLoading
     }
 }
+
+const mapDispatchToProps = (dispatch)=>({
+    loadGeoJson: ()=>dispatch(loadMapGeoJson())
+})
 
 WorkAreaSelector.propTypes = {
     form: PropTypes.string.isRequired,
@@ -161,9 +191,10 @@ WorkAreaSelector.contextTypes = {
 };
 
 WorkAreaSelector = reduxForm({
-    validate
+    validate,
+    enableReinitialize: true
 })(WorkAreaSelector);
 
-WorkAreaSelector = connect(mapStateToProps)(WorkAreaSelector);
+WorkAreaSelector = connect(mapStateToProps, mapDispatchToProps)(WorkAreaSelector);
 
 export default withStyles(styles)(WorkAreaSelector);

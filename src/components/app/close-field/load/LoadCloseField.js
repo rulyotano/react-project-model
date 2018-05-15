@@ -10,6 +10,7 @@ import {withStyles, Button, TextField, Dialog, DialogActions,
         Typography, Grid} from '@material-ui/core';
 import DialogContent from '@material-ui/core/DialogContent';
 import Panel from '../../../common/collapse-panel/Panel';
+import WorkAreaSelector from '../../../common/work-area-selector/WorkAreaSelector';
 
 const styles = theme => ({
     heading: {
@@ -28,14 +29,23 @@ export class LoadCloseField extends PureComponent {
     // prop: PropTypes
   }
 
+  state = {
+      isOpen: true
+  }
+
+  closeModal(){
+      this.setState({isOpen: false})
+  }
+
   render() {
     const {classes} = this.props;
+    const {isOpen} = this.state;
     return (
       <EmptySegment useScroll={false}>
           Load Close Field
 
         <Dialog
-            open={true}
+            open={isOpen}
             fullWidth={true}
             maxWidth='md'
             // onClose={this.handleClose}
@@ -53,10 +63,7 @@ export class LoadCloseField extends PureComponent {
                         </Panel>
 
                         <Panel title="Production Place">   {/* TODO: i18n */}
-                            <Typography>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
-                                sit amet blandit leo lobortis eget.
-                            </Typography>
+                            <WorkAreaSelector form="load-close-field-form-production-place"/>
                         </Panel>
 
                         <div>
@@ -71,9 +78,9 @@ export class LoadCloseField extends PureComponent {
                                 </Grid>
                                 <Grid item xs={12} sm={6}>                                
                                     <Panel title="Operation">   {/* TODO: i18n */}
-                                    <Field component={DropDownOperation}
-                                           id="operation"
-                                           name="operation"/>
+                                        <Field component={DropDownOperation}
+                                            id="operation"
+                                            name="operation"/>
                                     </Panel>
                                 </Grid>
                             </Grid>
@@ -85,7 +92,7 @@ export class LoadCloseField extends PureComponent {
                 <Button color="primary">
                 Load Map        {/* TODO: i18n */}
                 </Button>
-                <Button color="primary">
+                <Button color="primary" onClick={()=>this.closeModal()}>
                 Cancel          {/* TODO: i18n */}
                 </Button>
             </DialogActions>
