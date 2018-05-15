@@ -19,14 +19,16 @@ const styles = theme => ({
     heading: {
         fontSize: theme.typography.pxToRem(15),
         fontWeight: theme.typography.fontWeightRegular,
-        background:'linear-gradient( to bottom, #fff 15%, #f5f5f5 100%)'
+        background:'linear-gradient( to bottom, #fff 92%, #ddd 100%)'
     },
     content: {
         paddingTop:'15px',
-        backgroundColor:'#f5f5f5'
+        // backgroundColor:'#f5f5f5',
+
+
     },
     footer:{
-        backgroundColor:'#f5f5f5',
+        background:'linear-gradient( to top, #fff 88%, #ddd 100%)',
         margin:'0',
         padding:'8px'
     }

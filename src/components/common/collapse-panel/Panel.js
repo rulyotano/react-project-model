@@ -8,6 +8,9 @@ const styles = theme => ({
         fontSize: theme.typography.pxToRem(15),
         fontWeight: theme.typography.fontWeightRegular,
     },
+    panel:{
+        border:'1px solid #ddd'
+    }
 });
 
 export class Panel extends PureComponent {
@@ -19,7 +22,7 @@ export class Panel extends PureComponent {
   render() {
     const { classes, title = null, children } = this.props;
     return (
-        <ExpansionPanel expanded={true}>
+        <ExpansionPanel className={classes.panel} expanded={true}>
             {title ? <ExpansionPanelSummary>
                 <Typography className={classes.heading}>{title}</Typography>
             </ExpansionPanelSummary> : null}
