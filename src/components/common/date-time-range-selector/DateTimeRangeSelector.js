@@ -1,16 +1,37 @@
-import React, {Component} from "react";
+import React, {PureComponent} from "react";
 import "../../../styles/css/date-time-range-selector.css";
 import DateTimePicker from '../date-time-picker/DateTimePicker';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 
-class DateTimeRangeSelector extends Component{
+class DateTimeRangeSelector extends PureComponent{
+    static propTypes = {
+        useAs:PropTypes.oneOf(["h", "v"]),
+        labelInitial:PropTypes.string,
+        labelFinal:PropTypes.string,
+        onChange: PropTypes.func.isRequired,
+        value: PropTypes.shape({
+            initialDateTime: PropTypes.object,
+            finalDateTime: PropTypes.object
+          })
+    }
+    static contextTypes = {
+        t: PropTypes.func.isRequired
+    }
+
     constructor(props){
         super(props);
 
+        const initialDateTime = props.value && props.value.initialDateTime || moment().startOf("day").toDate()
+        const finalDateTime = props.value && props.value.finalDateTime || moment().endOf("day").toDate()
         this.state = {
-            initialDateTime:props.initialDateTime?props.initialDateTime:'',
-            finalDateTime:props.finalDateTime?props.finalDateTime:''
+            initialDateTime:initialDateTime,
+            finalDateTime:finalDateTime
         }
+    }
+    componentDidMount(){
+        const {initialDateTime, finalDateTime} = this.state
+        this.props.onChange({initialDateTime, finalDateTime});
     }
     onInitialChange(initialDateTime){
         this.setState({initialDateTime});
@@ -23,25 +44,29 @@ class DateTimeRangeSelector extends Component{
 
 
     render(){
-        const {useAs, labelInitial, labelFinal} = this.props;
+        const {initialDateTime, finalDateTime} = this.state;
+        let stateValue = {initialDateTime, finalDateTime};
+        const {useAs, labelInitial, labelFinal, value=stateValue} = this.props;
+        const {t} = this.context;
         let className = 'date-time-range-selector-';
         className+= useAs?useAs:'h';
         return(
             <div className={className}>
                 <div className="date-time-box left">
-                    <DateTimePicker id="date-time-left" label={labelInitial?labelInitial:'Data inicial'} onChange={(e)=>this.onInitialChange(e)}/>
+                    <DateTimePicker id="date-time-left" 
+                        label={labelInitial?labelInitial:t('dates.Initial Date')} 
+                        onChange={(e)=>this.onInitialChange(e)}
+                        value={value.initialDateTime}/>
                 </div>
                 <div className="date-time-box right">
-                    <DateTimePicker id="date-time-right" label={labelFinal?labelFinal:'Data final'} onChange={(e)=>this.onFinalChange(e)}/>
+                    <DateTimePicker id="date-time-right" 
+                        label={labelFinal?labelFinal:t('dates.Final Date')} 
+                        onChange={(e)=>this.onFinalChange(e)}                        
+                        value={value.finalDateTime}/>
                 </div>
             </div>
         )
     }
 }
 
-DateTimeRangeSelector.propTypes = {
-    useAs:PropTypes.string,
-    labelInitial:PropTypes.string,
-    labelFinal:PropTypes.string
-};
 export default DateTimeRangeSelector;

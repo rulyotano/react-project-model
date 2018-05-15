@@ -4,6 +4,7 @@ import login from './login'
 import maps from './maps'
 import workAreaSelector from './workAreaSelector'
 import dropdown from './dropdown'
+import dates from './dates'
 
 export default {
     dialog,
@@ -12,6 +13,7 @@ export default {
     maps,
     workAreaSelector,
     dropdown,
+    dates,
 
     "Operation": "Operação",
     "Filter operations": "Filtrar operações"

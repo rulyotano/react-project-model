@@ -1,6 +1,8 @@
-import React,{Component} from 'react';
+import React,{PureComponent} from 'react';
 import { withStyles, TextField } from '@material-ui/core';
 import PropTypes from 'prop-types';
+import {isDate} from 'lodash';
+import moment from 'moment';
 
 
 const styles = theme => ({
@@ -14,16 +16,32 @@ const styles = theme => ({
 });
 
 
-class DateTimePicker extends Component{
+class DateTimePicker extends PureComponent{
+    static propTypes = {
+        value:PropTypes.object,
+        label:PropTypes.string,
+        id:PropTypes.string.isRequired,
+        onChange:PropTypes.func.isRequired
+    }
+
+    state = {
+        value: ""
+    }
     onChange(e){
-        if(e.target.value === "")
-            this.props.onChange('isEmpty');
-        else
-            this.props.onChange(new Date(e.target.value));
+        let value = e.target.value;
+        if(value === "")
+            this.props.onChange(null);
+        else{
+            this.props.onChange(new Date(value));
+        }
+        this.setState({ value });
     }
 
     render(){
-        const { classes, id, label } = this.props;
+        const { classes, id, label, value = this.state.value } = this.props;
+        let fValue = value;
+        if (isDate(fValue))
+            fValue = moment(fValue).format(moment.HTML5_FMT.DATETIME_LOCAL_SECONDS)
         return(
             <TextField
                 id={id}
@@ -33,18 +51,12 @@ class DateTimePicker extends Component{
                 InputLabelProps={{
                     shrink: true,
                 }}
-                onChange={(value)=>{this.onChange(value)}}
+                value={fValue}
+                onChange={(e)=>{this.onChange(e)}}
             />
         )
 
     }
 }
-
-DateTimePicker.propTypes = {
-    defaultValue:PropTypes.string,
-    label:PropTypes.string,
-    id:PropTypes.string.isRequired
-};
-
 
 export default withStyles(styles)(DateTimePicker);

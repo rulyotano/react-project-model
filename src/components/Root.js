@@ -21,6 +21,7 @@ import { setUserLogged } from './_store/actions/authActions'
 import DialogComponent from './common/dialog/DialogComponent'
 import BottomNotificationComponent from './common/dialog/BottomNotificationComponent'
 import translations from '../i18n'
+import defaultTheme from './defaultTheme'
 
 const AppAsync = Loadable({
     loader: () => import('./app/App'),
@@ -32,15 +33,7 @@ const LoginAsync = Loadable({
     loading: LoadingComponent,
 });
 
-const theme = {
-    palette: {
-        primary: {main: "#2d8ac3"},
-        secondary: {main: "#8cbd3e"},
-        error: {main: "#c66057"}
-    }
-}
-const themeV1 = createMuiTheme(theme);
-// const themeV0 = getMuiTheme({});
+const themeV1 = createMuiTheme(defaultTheme);
 
 class AppRouter extends Component {
     componentWillMount(){

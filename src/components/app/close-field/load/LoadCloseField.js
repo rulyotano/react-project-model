@@ -11,6 +11,8 @@ import {withStyles, Button, TextField, Dialog, DialogActions,
 import DialogContent from '@material-ui/core/DialogContent';
 import Panel from '../../../common/collapse-panel/Panel';
 import WorkAreaSelector from '../../../common/work-area-selector/WorkAreaSelector';
+import DateTimeRangeSelector from '../../../common/date-time-range-selector/DateTimeRangeSelector';
+import componentToReduxForm from '../../../../service/redux-form/componentToReduxForm';
 
 const styles = theme => ({
     heading: {
@@ -37,6 +39,10 @@ export class LoadCloseField extends PureComponent {
       this.setState({isOpen: false})
   }
 
+  onDateRangeChanged(value){
+      console.log(value);
+  }
+
   render() {
     const {classes} = this.props;
     const {isOpen} = this.state;
@@ -55,11 +61,10 @@ export class LoadCloseField extends PureComponent {
             <DialogContent>
                 <div className={classes.content}>
                     <form>
-                        <Panel title="Select Time Range">   {/* TODO: i18n */}
-                            <Typography>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
-                                sit amet blandit leo lobortis eget.
-                            </Typography>
+                        <Panel title="Select Time Range">   {/* TODO: i18n222 */}
+                            <Field component={componentToReduxForm(DateTimeRangeSelector)}
+                                    id="dateRange"
+                                    name="dateRange"/>
                         </Panel>
 
                         <Panel title="Production Place">   {/* TODO: i18n */}
@@ -71,7 +76,7 @@ export class LoadCloseField extends PureComponent {
                                 <Grid item xs={12} sm={6}>                                
                                     <Panel title="Process">   {/* TODO: i18n */}
                                         <Typography>
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
+                                            Lorem ipsum dolor sirt et yet er eyt amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
                                             sit amet blandit leo lobortis eget.
                                         </Typography>
                                     </Panel>
