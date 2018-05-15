@@ -68,14 +68,8 @@ class Select extends PureComponent{
                 <InputLabel htmlFor={id}>{t(label)}</InputLabel>
                 <SelectMui className={classes.fullWidth}
                     value={this.state.value}
-                    autoWidth={true}
                     MenuProps={MenuProps}
                     input={<Input id={id} name={name} onChange={e=>this.handleChange(e)}/>}>
-                     {/* inputProps={{
-                         onChange:this.handleChange,
-                         name,
-                         id
-                     }}> */}
                     <MenuItem value="">
                         <em>{t('None')}</em>
                     </MenuItem>

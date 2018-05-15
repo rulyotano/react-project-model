@@ -1,8 +1,6 @@
 import React, {Component} from 'react';
 import ToolHoverWindow from "../tool-hover-window/ToolHoverWindow";
-import FilterDropDownTest from "../components-to-test/FilterDropDownTest";
 import LoadingButton from "../loading-button/LoadingButton";
-import FilterDropDownAsMultiSelectTest from "./FilterDropDownAsMultiSelectTest";
 import CollapsePanel from "../collapse-panel/CollapsePanel";
 import LoadingComponent from "../../common/_LoadingComponent";
 import DateTimeRangeSelectorTest from "./DateTimeRangeSelectorTest";
@@ -29,14 +27,6 @@ class ToolHoverWindowTest extends Component{
                 <DateTimeRangeSelectorTest useAs="v"/>
 
                 <CollapsePanel title="Weather Map"/>
-                <FilterDropDownTest/>
-                <FilterDropDownAsMultiSelectTest/>
-                <FilterDropDownAsMultiSelectTest/>
-                <FilterDropDownAsMultiSelectTest/>
-                <FilterDropDownAsMultiSelectTest/>
-                <FilterDropDownAsMultiSelectTest/>
-                <FilterDropDownAsMultiSelectTest/>
-                <FilterDropDownAsMultiSelectTest/>
                 <LoadingComponent isLoading={true}/>
                 <LoadingButton
                     variant="raised"

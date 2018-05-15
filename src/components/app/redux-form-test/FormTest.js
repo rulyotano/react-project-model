@@ -1,10 +1,7 @@
 import React ,{Component} from 'react';
 import Segment from "../../common/segment/Segment";
 import { Field, reduxForm } from 'redux-form';
-import {FilterDropDownData} from '../../common/dropdown/filter-drop-down/FilterDropDownData'
-import {FilterDropDown} from '../../common/dropdown/filter-drop-down/FilterDropDown'
-import {DropDownOperation} from '../../common/dropdown/common/dropdown-operation'
-import Select, {SelectRF} from "../../common/select/Select";
+import {SelectRF} from "../../common/select/Select";
 import {SelectDataRF} from "../../common/select/SelectData";
 
 let nextId = 1;
@@ -66,7 +63,7 @@ class FormTest extends Component{
     }
 }
 FormTest = reduxForm({
-    form: 'form-test-filter-dropdown'  // a unique identifier for this form
+    form: 'form-redux-selectF'  // a unique identifier for this form
 })(FormTest);
 
 export default FormTest

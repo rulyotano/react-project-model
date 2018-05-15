@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import Segment from "../../common/segment/Segment";
 import CollapsePanel from "../../common/collapse-panel/CollapsePanel";
-import FilterDropDownTest from "../../common/components-to-test/FilterDropDownTest";
-import FilterDropDownAsMultiSelectTest from "../../common/components-to-test/FilterDropDownAsMultiSelectTest";
 import LoadingComponent from "../../common/_LoadingComponent";
 import ToolHoverWindowTest from "../../common/components-to-test/ToolHoverWindowTest";
 import ColorPickerTest from '../../common/components-to-test/ColorPickerTest';
@@ -38,12 +36,6 @@ class Monitoring extends Component {
                         <CollapsePanel title="Step B"/>
                         <CollapsePanel title="Step C"/>
                         <CollapsePanel title="Step D"/>
-                    </div>
-                    <div style={{width: '25%'}}>
-                        <FilterDropDownTest/>
-                    </div>
-                    <div style={{width: '25%'}}>
-                        <FilterDropDownAsMultiSelectTest/>
                     </div>
                     <div style={{width: '25%'}}>
                         <LoadingComponent isLoading={true}/>
