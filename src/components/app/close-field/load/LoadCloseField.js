@@ -2,7 +2,6 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import EmptySegment from "../../../common/segment/EmptySegment";
-import {DropDownOperation} from '../../../common/dropdown/common/dropdown-operation'
 import { Field, reduxForm } from 'redux-form';
 
 import {withStyles, Button, TextField, Dialog, DialogActions,
@@ -87,9 +86,9 @@ export class LoadCloseField extends PureComponent {
                                 </Grid>
                                 <Grid item xs={12} sm={6}>                                
                                     <Panel>   {/* TODO: i18n */}
-                                        <Field component={DropDownOperation}
-                                            id="operation"
-                                            name="operation"/>
+                                        {/*<Field component={DropDownOperation}*/}
+                                            {/*id="operation"*/}
+                                            {/*name="operation"/>*/}
                                     </Panel>
                                 </Grid>
                             </Grid>
