@@ -5,6 +5,7 @@ import {FilterDropDownData} from '../../common/dropdown/filter-drop-down/FilterD
 import {FilterDropDown} from '../../common/dropdown/filter-drop-down/FilterDropDown'
 import {DropDownOperation} from '../../common/dropdown/common/dropdown-operation'
 import Select, {SelectRF} from "../../common/select/Select";
+import {SelectDataRF} from "../../common/select/SelectData";
 
 let nextId = 1;
 const suggestions = [
@@ -41,49 +42,19 @@ class FormTest extends Component{
                    <Field
                        attrId="id"
                        attrLabel="desc"
-                       id="redux-form-filter-dropdown-id"
-                       name="redux-form-filter-dropdown-name"
-                       component={FilterDropDown}
-                       suggestions={suggestions}
-                       placeHolder="Selecione..."/>
+                       id="select-simple-rf-id"
+                       name="select-simple-rf--name"
+                       component={SelectRF}
+                       suggestions={suggestions}/>
+                   <br/>
+                   <br/>
                    <Field
-                       attrId="id"
-                       attrLabel="desc"
-                       id="redux-form-multi-filter-dropdown-id"
-                       name="redux-form-multi-filter-dropdown-name"
-                       component={FilterDropDown}
-                       suggestions={suggestions}
-                       multi={true}
-                       placeHolder="Selecione..."/>
-                   <Field
-                       component={FilterDropDownData}
-                       label="States"
-                       attrId="cdEstado"
-                       attrLabel="descEstado"
-                       placeHolder="Filter states"
-                       targetKey="state"
-                       id="dropdown-state-id"
-                       name="dropdown-state-name"/>
-                   <Field
-                       component={FilterDropDownData}
-                       label="Fleets"
+                       component={SelectDataRF}
                        attrId="cdEquipamento"
                        attrLabel="descEquipamento"
-                       placeHolder="Filter fleets"
+                       id="select-data-fleet-id"
+                       name="select-data-fleet-name"
                        targetKey="fleet"
-                       id="dropdown-fleet-id"
-                       name="dropdown-fleet-name"/>
-                       Modification
-                   <Field
-                       component={DropDownOperation}
-                       id="dropdown-operation-id"
-                       name="dropdown-operation-name"/>
-                   <Field
-                       component={SelectRF}
-                       suggestions={suggestions}
-                       attrId="id"
-                       id="select-country-id"
-                       name="select-country-name"
                        label="Options"/>
 
                </form>
