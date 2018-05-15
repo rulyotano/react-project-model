@@ -4,7 +4,9 @@ import PropTypes from 'prop-types';
 import {isDate} from 'lodash';
 import moment from 'moment';
 
+import Datetime from "react-datetime";
 
+import "../../../styles/css/react-datetime.css"
 const styles = theme => ({
     container: {
         display: 'flex',
@@ -43,16 +45,9 @@ class DateTimePicker extends PureComponent{
         if (isDate(fValue))
             fValue = moment(fValue).format(moment.HTML5_FMT.DATETIME_LOCAL_SECONDS)
         return(
-            <TextField
-                id={id}
-                label={!label || label === '' ? 'Data/Hora': label}
-                type="datetime-local"
-                className={classes.textField}
-                InputLabelProps={{
-                    shrink: true,
-                }}
-                value={fValue}
-                onChange={(e)=>{this.onChange(e)}}
+
+            <Datetime
+                inputProps={{ placeholder: "Datetime Picker Here" }}
             />
         )
 
