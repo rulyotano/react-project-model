@@ -87,7 +87,7 @@ class Select extends PureComponent{
     }
 }
 
+Select = withStyles(styles)(Select);
 
-
-export const SelectRF = componentToReduxForm(withStyles(styles)(Select));
+export const SelectRF = componentToReduxForm(Select);
 export default Select;

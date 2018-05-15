@@ -46,7 +46,9 @@ class FormTest extends Component{
                        name="select-simple-rf--name"
                        component={SelectRF}
                        suggestions={suggestions}
-                       label="Options"/>
+                       label="Options"
+                       error={true}
+                       helperText="Operation Error"/>
                    <br/>
                    <br/>
                    <Field
