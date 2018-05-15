@@ -13,16 +13,16 @@ const styles = theme => ({
 export class Panel extends PureComponent {
   static propTypes = {
     classes: PropTypes.object.isRequired,
-    title: PropTypes.oneOfType([ PropTypes.string, PropTypes.element ]).isRequired,    
+    title: PropTypes.oneOfType([ PropTypes.string, PropTypes.element ]),    
   }
 
   render() {
-    const { classes, title, children } = this.props;
+    const { classes, title = null, children } = this.props;
     return (
         <ExpansionPanel expanded={true}>
-            <ExpansionPanelSummary>
+            {title ? <ExpansionPanelSummary>
                 <Typography className={classes.heading}>{title}</Typography>
-            </ExpansionPanelSummary>
+            </ExpansionPanelSummary> : null}
             <ExpansionPanelDetails children={children}>
             </ExpansionPanelDetails>
         </ExpansionPanel>

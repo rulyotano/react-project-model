@@ -75,17 +75,18 @@ export class LoadCloseField extends PureComponent {
                         <div>
                             <Grid container spacing={8}>
                                 <Grid item xs={12} sm={6}>                                
-                                    <Panel title="Process">   {/* TODO: i18n */}
+                                    <Panel>   {/* TODO: i18n */}
                                        <Field component={SelectRF}
                                               suggestions={process}
                                               label="closeField.Process"
-                                              id="process"
+                                              id="process-input"
                                               name="process"
-                                              attrId="id"/>
+                                              attrId="id"
+                                              attrLabel="desc"/>
                                     </Panel>
                                 </Grid>
                                 <Grid item xs={12} sm={6}>                                
-                                    <Panel title="Operation">   {/* TODO: i18n */}
+                                    <Panel>   {/* TODO: i18n */}
                                         <Field component={DropDownOperation}
                                             id="operation"
                                             name="operation"/>

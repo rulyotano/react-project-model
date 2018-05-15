@@ -10,7 +10,7 @@ class DateTimeRangeSelector extends PureComponent{
         labelInitial:PropTypes.string,
         labelFinal:PropTypes.string,
         onChange: PropTypes.func.isRequired,
-        value: PropTypes.shape({
+        initialValue: PropTypes.shape({
             initialDateTime: PropTypes.object,
             finalDateTime: PropTypes.object
           })
@@ -22,8 +22,8 @@ class DateTimeRangeSelector extends PureComponent{
     constructor(props){
         super(props);
 
-        const initialDateTime = props.value && props.value.initialDateTime || moment().startOf("day").toDate()
-        const finalDateTime = props.value && props.value.finalDateTime || moment().endOf("day").toDate()
+        const initialDateTime = props.initialValue && props.initialValue.initialDateTime || moment().startOf("day").toDate()
+        const finalDateTime = props.initialValue && props.initialValue.finalDateTime || moment().endOf("day").toDate()
         this.state = {
             initialDateTime:initialDateTime,
             finalDateTime:finalDateTime
