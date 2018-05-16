@@ -12,6 +12,7 @@ import Panel from '../../../common/collapse-panel/Panel';
 import WorkAreaSelector from '../../../common/work-area-selector/WorkAreaSelector';
 import DateTimeRangeSelector from '../../../common/date-time-range-selector/DateTimeRangeSelector';
 import {SelectRF} from '../../../common/select/Select';
+import {OperationSelect} from '../../../common/select/common/OperationSelect';
 import componentToReduxForm from '../../../../service/redux-form/componentToReduxForm';
 
 const styles = theme => ({
@@ -95,9 +96,10 @@ export class LoadCloseField extends PureComponent {
                                 </Grid>
                                 <Grid item xs={12} sm={6}>                                
                                     <Panel>   {/* TODO: i18n */}
-                                        {/*<Field component={DropDownOperation}*/}
-                                            {/*id="operation"*/}
-                                            {/*name="operation"/>*/}
+                                        <Field component={OperationSelect}
+                                            id="operation"
+                                            label="Operation"
+                                            name="operation"/>
                                     </Panel>
                                 </Grid>
                             </Grid>
