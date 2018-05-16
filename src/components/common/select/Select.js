@@ -43,6 +43,7 @@ class Select extends PureComponent{
         label: propTypes.string.isRequired,
         attrId: propTypes.string.isRequired,
         attrLabel: propTypes.string,
+        joinIdLabel: propTypes.bool,
         error: propTypes.bool,  //if has error
         helperText: propTypes.string,  //text error
         suggestions:propTypes.arrayOf(propTypes.object).isRequired,
@@ -57,10 +58,14 @@ class Select extends PureComponent{
         // let filtered = suggestions.find(i=>i[this.props.attrId] === event.target.value);
         this.props.onChange(value);
     };
+    getDescription = item =>{
+        const {attrId ="id", attrLabel="label", joinIdLabel = false} = this.props;
+        return joinIdLabel ? item[attrId] + ' - ' + item[attrLabel]:item[attrLabel];
+    };
 
 
     render(){
-        const { classes, suggestions, name, id, label, attrId="id", attrLabel="label",
+        const { classes, suggestions, name, id, label, attrId="id",
                 error = false, helperText = "" } = this.props;
         const {t} = this.context;
         return(
@@ -73,7 +78,7 @@ class Select extends PureComponent{
                     <MenuItem value="">
                         <em>{t('None')}</em>
                     </MenuItem>
-                    {suggestions.map(m=><MenuItem value={m[attrId]} key={m[attrId]}>{m[attrLabel]}</MenuItem>)}
+                    {suggestions.map(m=><MenuItem value={m[attrId]} key={m[attrId]}>{this.getDescription(m)}</MenuItem>)}
                 </SelectMui>                
                 {error ? <FormHelperText>{helperText}</FormHelperText> : null}
             </FormControl>

@@ -55,7 +55,8 @@ class FormTest extends Component{
                        id="select-data-fleet-id"
                        name="select-data-fleet-name"
                        targetKey="fleet"
-                       label="Options"/>
+                       label="Options"
+                       joinIdLabel={true}/>
 
                </form>
            </Segment>
