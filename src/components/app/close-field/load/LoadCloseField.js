@@ -8,13 +8,17 @@ import {withStyles, Button, TextField, Dialog, DialogActions,
         DialogContentText, DialogTitle,
         Typography, Grid} from '@material-ui/core';
 import DialogContent from '@material-ui/core/DialogContent';
+import { withRouter } from 'react-router-dom'
 import Panel from '../../../common/collapse-panel/Panel';
 import WorkAreaSelector from '../../../common/work-area-selector/WorkAreaSelector';
 import DateTimeRangeSelector from '../../../common/date-time-range-selector/DateTimeRangeSelector';
 import {SelectRF} from '../../../common/select/Select';
 import {OperationSelect} from '../../../common/select/common/OperationSelect';
+import LoadingButton from '../../../common/loading-button/LoadingButton';
 import componentToReduxForm from '../../../../service/redux-form/componentToReduxForm';
+import {load} from './_store/actions/closeFieldLoadActions';
 
+const FORM_ID = "load-close-field-form";
 const styles = theme => ({
     heading: {
         fontSize: theme.typography.pxToRem(15),
@@ -53,8 +57,14 @@ export class LoadCloseField extends PureComponent {
       console.log(value);
   }
 
+  load(){
+      const {handleSubmit, load, match, history} = this.props
+      handleSubmit(
+          data=>load(data, match.params.source*1, history.push))();      
+  }
+
   render() {
-    const {classes, process} = this.props;
+    const {classes, process, isLoading} = this.props;
     const {isOpen} = this.state;
     return (
       <EmptySegment useScroll={false}>
@@ -70,7 +80,7 @@ export class LoadCloseField extends PureComponent {
             <DialogTitle className={classes.heading} id="form-dialog-title">Load Close Field</DialogTitle>  {/* TODO: i18n */}
             <DialogContent className={classes.content}>
                 <div >
-                    <form>
+                    <form onSubmit={()=>this.load()}>
                         <Panel title="Select Time Range">   {/* TODO: i18n222 */}
                             <Field component={componentToReduxForm(DateTimeRangeSelector)}
                                     id="dateRange"
@@ -78,7 +88,7 @@ export class LoadCloseField extends PureComponent {
                         </Panel>
 
                         <Panel title="Production Place">   {/* TODO: i18n */}
-                            <WorkAreaSelector form="load-close-field-form-production-place"/>
+                            <WorkAreaSelector form={FORM_ID}/>
                         </Panel>
 
                         <div>
@@ -108,9 +118,9 @@ export class LoadCloseField extends PureComponent {
                 </div>
             </DialogContent>
             <DialogActions className={classes.footer}>
-                <Button color="primary">
+                <LoadingButton isLoading={isLoading} color="primary" onClick={()=>this.load()}>
                 Load Map        {/* TODO: i18n */}
-                </Button>
+                </LoadingButton>
                 <Button color="primary" onClick={()=>this.closeModal()}>
                 Cancel          {/* TODO: i18n */}
                 </Button>
@@ -122,15 +132,16 @@ export class LoadCloseField extends PureComponent {
 }
 
 const mapStateToProps = (state) => ({
-    process: state.app.closeField._.process  
+    isLoading: state.app.closeField.load.loading,
+    process: state.app.closeField._.process
 })
 
-const mapDispatchToProps = {
-  
-}
+const mapDispatchToProps = (dispatch) =>({
+    load: (data, source, pushUrl)=>dispatch(load(data, source, pushUrl))  
+})
 
 LoadCloseField = reduxForm({
-    form: 'load-close-field-form'
+    form: FORM_ID
 })(LoadCloseField);
 
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(LoadCloseField))
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(LoadCloseField)))

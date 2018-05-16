@@ -1,0 +1,4 @@
+export const START_LOADING = 'CLOSE_FIELD_START_LOADING';
+export const LOADED = 'CLOSE_FIELD_LOADED';
+
+

@@ -1,6 +1,7 @@
 import React, {PureComponent} from 'react';
 import {Link} from 'react-router-dom';
-import {Apps, LocationOn, MultilineChart, ArrowBack, ArrowForward, ExpandMore, ExpandLess } from '@material-ui/icons';
+import {Apps, LocationOn, MultilineChart, ArrowBack, ArrowForward, ExpandMore, ExpandLess,
+Home } from '@material-ui/icons';
 import {connect} from 'react-redux';
 import {setSizeToMax, setSizeToMin} from "../_store/actions/appActions";
 
@@ -74,11 +75,11 @@ class Sidebar extends PureComponent{
                 }
                 <ul style={{paddingTop:isMaximized?'15px':'30px'}}>
                     {isMaximized ? <li className="with-border" onClick={()=>{this.resize()}}><ArrowForward/></li>:''}
-                    <CommonListItem url="" match={match} icon={<Apps/>} text="Dashboard" isMaximized={isMaximized}/>
+                    <CommonListItem url="" match={match} icon={<Home/>} text="Home" isMaximized={isMaximized}/>{/**TODO: i18n*/}
                     <CommonListItem url="monitoring"  match={match} icon={<LocationOn/>} text="Monitoring" isMaximized={isMaximized}/>
                     <CommonList isMaximized={isMaximized} icon={<LocationOn/>} text="Close Field" isOpen={false}>    {/**TODO: i18n*/}
-                        <CommonListItem url="close-field?source=0"  match={match} icon={<LocationOn/>} text="Map" isMaximized={isMaximized}/>  {/**TODO: i18n*/}
-                        <CommonListItem url="close-field?source=1"  match={match} icon={<LocationOn/>} text="Process" isMaximized={isMaximized}/>   {/**TODO: i18n*/}
+                        <CommonListItem url="close-field/0"  match={match} icon={<LocationOn/>} text="Map" isMaximized={isMaximized}/>  {/**TODO: i18n*/}
+                        <CommonListItem url="close-field/1"  match={match} icon={<LocationOn/>} text="Process" isMaximized={isMaximized}/>   {/**TODO: i18n*/}
                     </CommonList>
                     <CommonListItem url="chart-test" match={match} icon={<MultilineChart/>} text="Test Chart" isMaximized={isMaximized}/>
                     <CommonListItem url="form-test" match={match} icon={<MultilineChart/>} text="Form Test" isMaximized={isMaximized}/>

@@ -7,6 +7,8 @@ import {
   } from 'react-router-dom'
 import Loadable from 'react-loadable'
 import LoadingComponent from '../../common/_LoadingComponent'
+import urlJoin from 'url-join'
+import ROUTES from './routes'
 
 const LoadCloseFieldAsync = Loadable({
     loader: () => import('./load/LoadCloseField'),
@@ -29,11 +31,14 @@ export class CloseField extends PureComponent {
 
   render() {
     let {match} = this.props;
+    ROUTES.BASE = match.url;
+    ROUTES.MAP = urlJoin(match.url,"map");
+    ROUTES.PROCESS = urlJoin(match.url,"process");
     return (
         <Switch>
-            <Route exact path={match.url} component={LoadCloseFieldAsync}/>
-            <Route path={`${match.url}/map`} component={MapCloseFieldAsync}/>
-            <Route path={`${match.url}/process`} component={ProcessCloseFieldAsync}/>
+            <Route exact path={urlJoin(ROUTES.BASE, "/:source(0|1)")} component={LoadCloseFieldAsync}/>
+            <Route path={ROUTES.MAP} component={MapCloseFieldAsync}/>
+            <Route path={ROUTES.PROCESS} component={ProcessCloseFieldAsync}/>
         </Switch>
     )
   }
