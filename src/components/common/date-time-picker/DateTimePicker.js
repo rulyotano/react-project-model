@@ -3,7 +3,7 @@ import { withStyles, TextField } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import {isDate} from 'lodash';
 import moment from 'moment';
-import {isString} from 'lodash';
+import {isString, debounce} from 'lodash';
 import TetheredDateTime from './TetheredDateTime';
 
 import Datetime from "react-datetime";
@@ -31,6 +31,7 @@ class DateTimePicker extends PureComponent{
     state = {
         value: ""
     }
+    dOnChange = debounce(this.onChange, 300)
     onChange(mDate){
         let value = isString(mDate) ? null : mDate.toDate();
         this.props.onChange(value);
@@ -46,7 +47,7 @@ class DateTimePicker extends PureComponent{
 
             <TetheredDateTime
                 closeOnSelect={true}
-                onChange={v=>this.onChange(v)}                
+                onChange={v=>this.dOnChange(v)}                
                 value={fValue}
                 input={true}
                 inputProps={{ 
