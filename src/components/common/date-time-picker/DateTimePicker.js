@@ -50,9 +50,9 @@ class DateTimePicker extends PureComponent{
                 onChange={v=>this.dOnChange(v)}                
                 value={fValue}
                 input={true}
-                inputProps={{ 
-                    id:id,
-                    placeholder:!label || label === '' ? 'Data/Hora': label,
+                label={label}
+                inputProps={{
+                    id
                 }}
             />
         )

@@ -3,8 +3,9 @@ import DateTime from 'react-datetime'
 import CalendarContainer from 'react-datetime/src/CalendarContainer'
 import TetherComponent from 'react-tether'
 import classNames from 'classnames'
-import {isString} from 'lodash'
-import {withStyles} from '@material-ui/core'
+import {isString, isObject} from 'lodash'
+import {withStyles, TextField} from '@material-ui/core'
+import {isMoment} from 'moment'
 
 const styles = {
     '@global':{
@@ -26,19 +27,27 @@ class TetheredDateTime extends DateTime {
             children = [];
 
         if (this.props.input) {
-            const props = {
-                key: 'i',
-                type: 'text',
-                className: 'form-control',
+            const inputProps = {
                 onFocus: this.openCalendar,
-                onChange: this.onInputChange,
                 onKeyDown: this.onInputKey,
-                value: this.state.inputValue,
                 ...this.props.inputProps
             };
 
+            const iValue = this.state.inputValue;
+            const textFieldProps = {
+                onChange: this.onInputChange,
+                label: this.props.label,
+                fullWidth: true,
+                helperText: this.props.helperText,
+                error: this.props.error,
+                value: !iValue ? "" : isObject(iValue) ? iValue.toString() : iValue,
+            }
+
             children = [
-                <input {...props} />
+                <TextField key='i' {...textFieldProps} InputProps={
+                    {
+                        inputProps: {...inputProps}
+                    }}/>
             ];
         } else {
             className += ' rdtStatic';

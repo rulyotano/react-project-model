@@ -5,7 +5,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Input from '@material-ui/core/Input';
 import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
-import {withStyles} from '@material-ui/core';
+import {withStyles, CircularProgress} from '@material-ui/core';
 import componentToReduxForm from "../../../service/redux-form/componentToReduxForm";
 import propTypes from 'prop-types';
 
@@ -23,7 +23,13 @@ const MenuProps = {
 const styles = {
     fullWidth: {
         width:'100%'
-    }
+    },
+    progress: {
+        marginTop: '23px',
+        position:'absolute',
+        right:'50%'
+
+    },
 }
 
 class Select extends PureComponent{
@@ -44,6 +50,7 @@ class Select extends PureComponent{
         attrId: propTypes.string.isRequired,
         attrLabel: propTypes.string,
         joinIdLabel: propTypes.bool,
+        isLoading: propTypes.bool,
         error: propTypes.bool,  //if has error
         helperText: propTypes.string,  //text error
         suggestions:propTypes.arrayOf(propTypes.object).isRequired,
@@ -66,7 +73,7 @@ class Select extends PureComponent{
 
     render(){
         const { classes, suggestions, name, id, label, attrId="id",
-                error = false, helperText = "" } = this.props;
+                isLoading=false, error = false, helperText = "" } = this.props;
         const {t} = this.context;
         return(
             <FormControl className={classes.fullWidth} error={error}>
@@ -80,7 +87,8 @@ class Select extends PureComponent{
                     </MenuItem>
                     {suggestions.map(m=><MenuItem value={m[attrId]} key={m[attrId]}>{this.getDescription(m)}</MenuItem>)}
                 </SelectMui>                
-                {error ? <FormHelperText>{helperText}</FormHelperText> : null}
+                {error ? <FormHelperText>{helperText}</FormHelperText> : null}                
+                {isLoading ? <CircularProgress className={classes.progress} size={20} />:''}
             </FormControl>
         )
     }

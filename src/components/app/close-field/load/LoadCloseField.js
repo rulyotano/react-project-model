@@ -109,7 +109,8 @@ export class LoadCloseField extends PureComponent {
                                         <Field component={OperationSelect}
                                             id="operation"
                                             label="Operation"
-                                            name="operation"/>
+                                            name="operation"
+                                            joinIdLabel={true}/>
                                     </Panel>
                                 </Grid>
                             </Grid>
