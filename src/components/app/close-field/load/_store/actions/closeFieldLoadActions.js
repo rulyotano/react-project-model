@@ -1,6 +1,6 @@
 
 
-import {START_LOADING, LOADED} from "./closeFieldLoadActions.types";
+import {START_LOADING, LOADED, SHOW} from "./closeFieldLoadActions.types";
 import httpService from "../../../../../../service/httpService";
 import ROUTES from "../../../routes";
 
@@ -27,3 +27,5 @@ export const load = (params, source, pushUrl)=> (dispatch, getState)=>{
     //     dispatch({type: LOADED, data: response});
     // });    
 };
+
+export const show = (show)=>({type: SHOW, show})

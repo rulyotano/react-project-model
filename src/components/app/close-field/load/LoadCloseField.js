@@ -16,7 +16,7 @@ import {SelectRF} from '../../../common/select/Select';
 import {OperationSelect} from '../../../common/select/common/OperationSelect';
 import LoadingButton from '../../../common/loading-button/LoadingButton';
 import componentToReduxForm from '../../../../service/redux-form/componentToReduxForm';
-import {load} from './_store/actions/closeFieldLoadActions';
+import {load, show} from './_store/actions/closeFieldLoadActions';
 
 const FORM_ID = "load-close-field-form";
 const styles = theme => ({
@@ -45,12 +45,12 @@ export class LoadCloseField extends PureComponent {
     // prop: PropTypes
   }
 
-  state = {
-      isOpen: true
+  componentDidMount(){
+      this.props.show();
   }
 
   closeModal(){
-      this.setState({isOpen: false})
+      this.props.hide()
   }
 
   onDateRangeChanged(value){
@@ -64,14 +64,16 @@ export class LoadCloseField extends PureComponent {
   }
 
   render() {
-    const {classes, process, isLoading} = this.props;
-    const {isOpen} = this.state;
+    const {classes, process, isLoading, open, show, hide} = this.props;
     return (
       <EmptySegment useScroll={false}>
-          Load Close Field
+        
+        <Button color="primary" onClick={()=>show()}>
+            Load Close Field          {/* TODO: i18n */}
+        </Button>
 
         <Dialog
-            open={isOpen}
+            open={open}
             fullWidth={true}
             maxWidth='md'
             // onClose={this.handleClose}
@@ -134,11 +136,14 @@ export class LoadCloseField extends PureComponent {
 
 const mapStateToProps = (state) => ({
     isLoading: state.app.closeField.load.loading,
+    open: state.app.closeField.load.show,
     process: state.app.closeField._.process
 })
 
 const mapDispatchToProps = (dispatch) =>({
-    load: (data, source, pushUrl)=>dispatch(load(data, source, pushUrl))  
+    load: (data, source, pushUrl)=>dispatch(load(data, source, pushUrl)),
+    show: ()=>dispatch(show(true)),
+    hide: ()=>dispatch(show(false)),
 })
 
 LoadCloseField = reduxForm({

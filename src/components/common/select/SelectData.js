@@ -4,18 +4,7 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import Select from "./Select";
 import {isEmpty} from "lodash";
-import { withStyles, CircularProgress } from '@material-ui/core';
 import componentToReduxForm from "../../../service/redux-form/componentToReduxForm";
-
-const styles = theme => ({
-    progress: {
-        positionAbsolute:true,
-        marginTop: '10px',
-        position:'absolute',
-        right:'0'
-
-    },
-});
 
 class SelectDataComponent extends PureComponent{
     static propTypes = {
@@ -24,7 +13,6 @@ class SelectDataComponent extends PureComponent{
         targetKey:PropTypes.string.isRequired,
         attrId:PropTypes.string.isRequired,
         attrLabel:PropTypes.string.isRequired,
-        classes: PropTypes.object.isRequired,
         isLoading: PropTypes.bool,
         label:PropTypes.string
     };
@@ -45,11 +33,9 @@ class SelectDataComponent extends PureComponent{
         this.props.onChange(value);
     };
     render(){
-        const { data,  isLoading, classes, ...otherProps } = this.props;
+        const { data, ...otherProps } = this.props;
         return (
-            <Select suggestions={data} onChange={this.handleChange} {...otherProps}>
-                {isLoading ? <CircularProgress className={classes.progress} size={40} />:''}
-            </Select>
+            <Select suggestions={data} onChange={this.handleChange} {...otherProps}/>
         );
     }
 }
@@ -70,7 +56,7 @@ const mapDispatchToProps = (dispatch) => ({
     }
 });
 
-SelectDataComponent = withStyles(styles)(connect(mapStateToProps, mapDispatchToProps)(SelectDataComponent));
+SelectDataComponent = connect(mapStateToProps, mapDispatchToProps)(SelectDataComponent);
 
 export const SelectDataRF = componentToReduxForm(SelectDataComponent);  //export redux form
 export default SelectDataComponent; //export default without redux form

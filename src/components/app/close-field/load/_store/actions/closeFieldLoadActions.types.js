@@ -1,4 +1,5 @@
 export const START_LOADING = 'CLOSE_FIELD_START_LOADING';
+export const SHOW = 'CLOSE_FIELD_SHOW';
 export const LOADED = 'CLOSE_FIELD_LOADED';
 
 
