@@ -1,5 +1,6 @@
-import map from './map'
+
 export default {
+    "Load_Map": "Load Map",
     "Close_Field_Map": "Close Field Map",
-    map
+    "Close_Field": "Close Field",
 }

@@ -1,3 +1,5 @@
+import map from './map'
 export default {
-    Process: "Process"
+    Process: "Process",
+    map
 }
