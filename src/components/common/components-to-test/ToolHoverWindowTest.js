@@ -22,8 +22,17 @@ class ToolHoverWindowTest extends Component{
         setTimeout(teste, 2000);
     }
     render(){
-        return(
-            <ToolHoverWindow isOpen={false} labelHeader="Mapa do Tempo">
+        const footer = (<div>
+            <LoadingButton
+                    variant="raised"
+                    color="primary"
+                    onClick={this.onClickLoadingButton}
+                    isLoading={this.state.isLoading}>
+                    Login
+                </LoadingButton>
+        </div>);
+        return (
+            <ToolHoverWindow isOpen={false} labelHeader="Mapa do Tempo" footer={footer}>
                 <DateTimeRangeSelectorTest useAs="v"/>
 
                 <CollapsePanel title="Weather Map"/>

@@ -1,12 +1,47 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types'
 import "../../../styles/css/tool-hover-window.css";
+import {withStyles} from '@material-ui/core';
 import {ArrowDropDown, ArrowDropUp} from '@material-ui/icons';
 import Draggable from 'react-draggable';
 import Scrollbar from 'perfect-scrollbar-react';
+import classNames from 'classnames';
 import 'perfect-scrollbar-react/dist/style.min.css';
 
+const styles = theme =>({
+    "@global":{
+        ".scrollbar-wrapper":{
+            height: "100%"
+        }
+    },
+    container: {
+        position: "relative"
+    },
+    footer: {
+        bottom: '0',
+        position: 'absolute'
+    },
+    bodyContainer: {
+        position: "relative"
+    },
+    scrollBarContainer: {
+        width: '100%',
+        position: "relative"
+    },
+    contentContainer: {
+        padding: "5px"
+    }
+})
+
 class ToolHoverWindow extends Component{
+    static propTypes = {
+        isOpen: PropTypes.bool,
+        labelHeader:PropTypes.string.isRequired,
+        width:PropTypes.string,
+        footer:PropTypes.element,
+        footerHeight:PropTypes.string
+    }
+
     constructor(props){
         super(props);
         this.state={
@@ -24,22 +59,31 @@ class ToolHoverWindow extends Component{
     render(){
 
         let {labelHeader, isOpen, width} = this.state;
-        let height = isOpen? 'calc(95% - 100px)':'calc(95% - calc(95% - 100px) - 64px)';
-        let MaxHeight = 'calc(95% - 10px)';
+        const {classes, footer, footerHeight = "50px"} = this.props;
+        const hasFooter = !!footer;
+        let height = isOpen? 'calc(95% - 100px)':'36px';
+        let MaxHeight = 'calc(100% - 36px)';
+        let scrollHeight = hasFooter ? `calc(100% - ${footerHeight})` : "100%";
+        const footerElement = hasFooter ? <div className={classes.footer} style={{width:'100%' ,height:footerHeight}}>
+                {footer}
+            </div> : null;
         return(
             <Draggable>
-                <div className="tool-hover-window" style={{width:width, height: height}}>
+                <div className={classNames("tool-hover-window", classes.container)} 
+                     style={{width:width, height: height}}>
                     <header>
                         <h5>{labelHeader}</h5>
                         {isOpen?<ArrowDropUp onClick={()=>{this.handleState()}}/>:<ArrowDropDown onClick={()=>{this.handleState()}}/>}
                     </header>
-                    <div className="tool-hover-window-content" style={{ maxHeight:MaxHeight}}>
-                        <Scrollbar>
-                            <div style={{width:'95%' ,height:'100%'}}>
-                                {this.props.children}
-                            </div>
-                        </Scrollbar>
-
+                    <div className={classNames("tool-hover-window-content", classes.bodyContainer)} style={{ height:MaxHeight}}>
+                        <div className={classes.scrollBarContainer} style={{height: scrollHeight}}>
+                            <Scrollbar>
+                                <div className={classes.contentContainer}>
+                                    {this.props.children}
+                                </div>
+                            </Scrollbar>
+                        </div>                            
+                        {footerElement}
                     </div>
                 </div>
 
@@ -47,11 +91,5 @@ class ToolHoverWindow extends Component{
         )
     }
 }
-ToolHoverWindow.propTypes = {
-    isOpen: PropTypes.bool,
-    labelHeader:PropTypes.string.isRequired,
-    width:PropTypes.string
 
-};
-
-export default ToolHoverWindow;
+export default withStyles(styles)(ToolHoverWindow);

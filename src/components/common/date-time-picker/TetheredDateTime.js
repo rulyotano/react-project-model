@@ -5,7 +5,6 @@ import TetherComponent from 'react-tether'
 import classNames from 'classnames'
 import {isString, isObject} from 'lodash'
 import {withStyles, TextField} from '@material-ui/core'
-import {isMoment} from 'moment'
 
 const styles = {
     '@global':{
