@@ -15,10 +15,11 @@ import Header from "./header/Header";
 import Sidebar from "./sidebar/Sidebar";
 import 'perfect-scrollbar-react/dist/style.min.css';
 import urlJoin from 'url-join';
+import ROUTES from './routeNames';
 
 
-const DashboardAsync = Loadable({
-    loader: () => import('./dashboard/Dashboard'),
+const HomeAsync = Loadable({
+    loader: () => import('./home/Home'),
     loading: LoadingComponent,
 });
 
@@ -59,17 +60,22 @@ export class App extends Component {
   
   render() {
       let {match} = this.props;
+      ROUTES.BASE = match.url;
+      ROUTES.MONITORING = urlJoin(match.url,"monitoring");
+      ROUTES.CHART_TEST = urlJoin(match.url,"chart-test");
+      ROUTES.FORM_TEST = urlJoin(match.url,"form-test");
+      ROUTES.CLOSE_FIELD = urlJoin(match.url,"close-field");
       return (
           <div>
               <Header/>
               <Sidebar {...this.props}/>
               <div>
                   <Switch>
-                      <Route exact path={match.url} component={DashboardAsync}/>
-                      <Route path={urlJoin(match.url,"monitoring")} component={MonitoringAsync}/>
-                      <Route path={urlJoin(match.url,"chart-test")} component={ChartTestAsync}/>
-                      <Route path={urlJoin(match.url,"form-test")} component={FormTestAsync}/>
-                      <Route path={urlJoin(match.url,"close-field")} component={CloseFieldAsync}/>
+                      <Route exact path={ROUTES.BASE} component={HomeAsync}/>
+                      <Route path={ROUTES.MONITORING} component={MonitoringAsync}/>
+                      <Route path={ROUTES.CHART_TEST} component={ChartTestAsync}/>
+                      <Route path={ROUTES.FORM_TEST} component={FormTestAsync}/>
+                      <Route path={ROUTES.CLOSE_FIELD} component={CloseFieldAsync}/>
                   </Switch>
               </div>
           </div>            

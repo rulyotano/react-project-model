@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import EmptySegment from "../../../common/segment/EmptySegment";
-import { Field, reduxForm } from 'redux-form';
+import { Field, FormSection, reduxForm } from 'redux-form';
 
 import {withStyles, Button, TextField, Dialog, DialogActions,
         DialogContentText, DialogTitle,
@@ -90,7 +90,9 @@ export class LoadCloseField extends PureComponent {
                         </Panel>
 
                         <Panel title="Production Place">   {/* TODO: i18n */}
-                            <WorkAreaSelector form={FORM_ID}/>
+                            <FormSection name="productionPlace">
+                                <WorkAreaSelector form={`${FORM_ID}-production-place`}/>
+                            </FormSection>
                         </Panel>
 
                         <div>

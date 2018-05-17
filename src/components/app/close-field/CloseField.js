@@ -8,7 +8,7 @@ import {
 import Loadable from 'react-loadable'
 import LoadingComponent from '../../common/_LoadingComponent'
 import urlJoin from 'url-join'
-import ROUTES from './routes'
+import ROUTES from './routesNames'
 
 const LoadCloseFieldAsync = Loadable({
     loader: () => import('./load/LoadCloseField'),

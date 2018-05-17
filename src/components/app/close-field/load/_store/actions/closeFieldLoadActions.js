@@ -2,7 +2,7 @@
 
 import {START_LOADING, LOADED, SHOW} from "./closeFieldLoadActions.types";
 import httpService from "../../../../../../service/httpService";
-import ROUTES from "../../../routes";
+import ROUTES from "../../../routesNames";
 
 export const load = (params, source, pushUrl)=> (dispatch, getState)=>{
     const state = getState();
