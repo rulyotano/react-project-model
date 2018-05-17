@@ -6,6 +6,7 @@ import Select from "./Select";
 import {isEmpty} from "lodash";
 import componentToReduxForm from "../../../service/redux-form/componentToReduxForm";
 
+
 class SelectDataComponent extends PureComponent{
     static propTypes = {
         id:PropTypes.string.isRequired,
