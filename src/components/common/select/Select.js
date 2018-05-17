@@ -8,6 +8,9 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import {withStyles, CircularProgress, TextField} from '@material-ui/core';
 import componentToReduxForm from "../../../service/redux-form/componentToReduxForm";
 import propTypes from 'prop-types';
+import {Search} from '@material-ui/icons';
+import InputAdornment from '@material-ui/core/InputAdornment';
+
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -15,8 +18,7 @@ const MenuProps = {
     PaperProps: {
         style: {
             maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-            width: 250,
-            paddingTop:'0px !important'
+            width: 250
         },
     },
 };
@@ -96,8 +98,9 @@ class Select extends PureComponent{
                     <SelectMui className={classes.fullWidth}
                                value={this.state.value}
                                MenuProps={MenuProps}
+                               id={id}
                                input={<Input id={id} name={name} onChange={e=>this.handleChange(e)}/>}>
-                        <MenuItem style={{marginTop:'-8px'}}>
+                        <MenuItem style={{marginTop:'-8px', paddingLeft:'4px', paddingRight:'25px'}}>
                             <TextField id="search"
                                        autoFocus={true}
                                        name="search-name"
@@ -105,6 +108,13 @@ class Select extends PureComponent{
                                        onChange={(event)=>{this.setState({criterion:event.target.value})}}
                                        placeholder={t('Keep typing')}
                                        onClick={e=>{e.stopPropagation()}}
+                                       InputProps={{
+                                           startAdornment: (
+                                               <InputAdornment position="start">
+                                                   <Search />
+                                               </InputAdornment>
+                                           ),
+                                       }}
                             />
                         </MenuItem>
                         <MenuItem value="">
