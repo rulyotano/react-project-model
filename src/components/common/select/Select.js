@@ -18,7 +18,8 @@ const MenuProps = {
     PaperProps: {
         style: {
             maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-            width: 250
+            width: 250,
+            transform: 'translate3d(0, 0, 0)',
         },
     },
 };
