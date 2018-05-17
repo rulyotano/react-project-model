@@ -92,44 +92,40 @@ class Select extends PureComponent{
         const {t} = this.context;
 
         return(
-            <div>
-
-                <FormControl className={classes.fullWidth} error={error}>
-                    <InputLabel htmlFor={id}>{t(label)}</InputLabel>
-                    <SelectMui className={classes.fullWidth}
-                               value={this.state.value}
-                               MenuProps={MenuProps}
-                               id={id}
-                               input={<Input id={id} name={name} onChange={e=>this.handleChange(e)}/>}>
-                        <MenuItem style={{marginTop:'-8px', paddingLeft:'4px', paddingRight:'25px'}}>
-                            <TextField id="search"
-                                       autoFocus={true}
-                                       name="search-name"
-                                       fullWidth={true}
-                                       onChange={(event)=>{this.setState({criterion:event.target.value})}}
-                                       placeholder={t('Keep typing')}
-                                       onClick={e=>{e.stopPropagation()}}
-                                       InputProps={{
-                                           startAdornment: (
-                                               <InputAdornment position="start">
-                                                   <Search />
-                                               </InputAdornment>
-                                           ),
-                                       }}
-                            />
-                        </MenuItem>
-                        <MenuItem value="">
-                            <em>{t('None')}</em>
-                        </MenuItem>
-                        {suggestions
-                            .filter(f=> this.getFilteredItems(f))
-                            .map(m=><MenuItem value={m[attrId]} key={m[attrId]}>{this.getDescription(m)}</MenuItem>)}
-                    </SelectMui>
-                    {error ? <FormHelperText>{helperText}</FormHelperText> : null}
-                    {isLoading ? <CircularProgress className={classes.progress} size={20} />:''}
-                </FormControl>
-
-            </div>
+            <FormControl className={classes.fullWidth} error={error}>
+                <InputLabel htmlFor={id}>{t(label)}</InputLabel>
+                <SelectMui className={classes.fullWidth}
+                           value={this.state.value}
+                           MenuProps={MenuProps}
+                           id={id}
+                           input={<Input id={id} name={name} onChange={e=>this.handleChange(e)}/>}>
+                    <MenuItem style={{marginTop:'-8px', paddingLeft:'4px', paddingRight:'25px'}}>
+                        <TextField id="search"
+                                   autoFocus={true}
+                                   name="search-name"
+                                   fullWidth={true}
+                                   onChange={(event)=>{this.setState({criterion:event.target.value})}}
+                                   placeholder={t('Keep typing')}
+                                   onClick={e=>{e.stopPropagation()}}
+                                   InputProps={{
+                                       startAdornment: (
+                                           <InputAdornment position="start">
+                                               <Search />
+                                           </InputAdornment>
+                                       ),
+                                   }}
+                        />
+                    </MenuItem>
+                    <MenuItem value="">
+                        <em>{t('None')}</em>
+                    </MenuItem>
+                    {suggestions
+                        .filter(f=> this.getFilteredItems(f))
+                        .map(m=><MenuItem value={m[attrId]} key={m[attrId]}>{this.getDescription(m)}</MenuItem>)}
+                </SelectMui>
+                {error ? <FormHelperText>{helperText}</FormHelperText> : null}
+                {isLoading ? <CircularProgress className={classes.progress} size={20} />:''}
+            </FormControl>
 
         )
     }
