@@ -5,7 +5,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Input from '@material-ui/core/Input';
 import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
-import {withStyles, CircularProgress} from '@material-ui/core';
+import {withStyles, CircularProgress, TextField} from '@material-ui/core';
 import componentToReduxForm from "../../../service/redux-form/componentToReduxForm";
 import propTypes from 'prop-types';
 
@@ -16,6 +16,7 @@ const MenuProps = {
         style: {
             maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
             width: 250,
+            paddingTop:'0px !important'
         },
     },
 };
@@ -37,7 +38,8 @@ class Select extends PureComponent{
     constructor(props){
         super(props);
         this.state ={
-            value:''
+            value:'',
+            criterion:''
         }
     }
     static contextTypes={
@@ -69,27 +71,55 @@ class Select extends PureComponent{
         const {attrId ="id", attrLabel="label", joinIdLabel = false} = this.props;
         return joinIdLabel ? item[attrId] + ' - ' + item[attrLabel]:item[attrLabel];
     };
+    getFilteredItems = item =>{
+
+        const {criterion} = this.state;
+        if(criterion === "")
+            return true;
+        let textToMatch = this.getDescription(item).toLowerCase();
+        return textToMatch.includes(criterion.toLowerCase());
+
+
+    };
 
 
     render(){
         const { classes, suggestions, name, id, label, attrId="id",
-                isLoading=false, error = false, helperText = "" } = this.props;
+                isLoading=false, error = false, helperText = ""} = this.props;
         const {t} = this.context;
+
         return(
-            <FormControl className={classes.fullWidth} error={error}>
-                <InputLabel htmlFor={id}>{t(label)}</InputLabel>
-                <SelectMui className={classes.fullWidth}
-                    value={this.state.value}
-                    MenuProps={MenuProps}
-                    input={<Input id={id} name={name} onChange={e=>this.handleChange(e)}/>}>
-                    <MenuItem value="">
-                        <em>{t('None')}</em>
-                    </MenuItem>
-                    {suggestions.map(m=><MenuItem value={m[attrId]} key={m[attrId]}>{this.getDescription(m)}</MenuItem>)}
-                </SelectMui>                
-                {error ? <FormHelperText>{helperText}</FormHelperText> : null}                
-                {isLoading ? <CircularProgress className={classes.progress} size={20} />:''}
-            </FormControl>
+            <div>
+
+                <FormControl className={classes.fullWidth} error={error}>
+                    <InputLabel htmlFor={id}>{t(label)}</InputLabel>
+                    <SelectMui className={classes.fullWidth}
+                               value={this.state.value}
+                               MenuProps={MenuProps}
+                               input={<Input id={id} name={name} onChange={e=>this.handleChange(e)}/>}>
+                        <MenuItem style={{marginTop:'-8px'}}>
+                            <TextField id="search"
+                                       autoFocus={true}
+                                       name="search-name"
+                                       fullWidth={true}
+                                       onChange={(event)=>{this.setState({criterion:event.target.value})}}
+                                       placeholder={t('Keep typing')}
+                                       onClick={e=>{e.stopPropagation()}}
+                            />
+                        </MenuItem>
+                        <MenuItem value="">
+                            <em>{t('None')}</em>
+                        </MenuItem>
+                        {suggestions
+                            .filter(f=> this.getFilteredItems(f))
+                            .map(m=><MenuItem value={m[attrId]} key={m[attrId]}>{this.getDescription(m)}</MenuItem>)}
+                    </SelectMui>
+                    {error ? <FormHelperText>{helperText}</FormHelperText> : null}
+                    {isLoading ? <CircularProgress className={classes.progress} size={20} />:''}
+                </FormControl>
+
+            </div>
+
         )
     }
 }
