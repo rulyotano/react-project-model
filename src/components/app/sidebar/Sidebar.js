@@ -1,7 +1,7 @@
 import React, {PureComponent} from 'react';
 import {Link} from 'react-router-dom';
 import {Apps, LocationOn, MultilineChart, ArrowBack, ArrowForward, ExpandMore, ExpandLess,
-Home } from '@material-ui/icons';
+Home, FormatShapes } from '@material-ui/icons';
 import {connect} from 'react-redux';
 import {setSizeToMax, setSizeToMin} from "../_store/actions/appActions";
 import ROUTES from "../routeNames";
@@ -79,7 +79,7 @@ class Sidebar extends PureComponent{
                     {isMaximized ? <li className="with-border" onClick={()=>{this.resize()}}><ArrowForward/></li>:''}
                     <CommonListItem url={ROUTES.BASE} icon={<Home/>} text="Home" isMaximized={isMaximized}/>{/**TODO: i18n*/}
                     <CommonListItem url={ROUTES.MONITORING} icon={<LocationOn/>} text="Monitoring" isMaximized={isMaximized}/>
-                    <CommonList isMaximized={isMaximized} icon={<LocationOn/>} text="Close Field" isOpen={false}>    {/**TODO: i18n*/}
+                    <CommonList isMaximized={isMaximized} icon={<FormatShapes/>} text="Close Field" isOpen={false}>    {/**TODO: i18n*/}
                         <CommonListItem url={urlJoin(ROUTES.CLOSE_FIELD, CLOSE_FIELD_MAP_KEY)} icon={<LocationOn/>} text="Map" isMaximized={isMaximized}/>  {/**TODO: i18n*/}
                         <CommonListItem url={urlJoin(ROUTES.CLOSE_FIELD, CLOSE_FIELD_PROCESS_KEY)} icon={<LocationOn/>} text="Process" isMaximized={isMaximized}/>   {/**TODO: i18n*/}
                     </CommonList>
