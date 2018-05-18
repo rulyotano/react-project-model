@@ -88,7 +88,7 @@ class Select extends PureComponent{
 
     render(){
         const { classes, suggestions, name, id, label, attrId="id",
-                isLoading=false, error = false, helperText = ""} = this.props;
+                isLoading=false, error = false, helperText = "", hasSearchInput = false} = this.props;
         const {t} = this.context;
 
         return(
@@ -99,23 +99,29 @@ class Select extends PureComponent{
                            MenuProps={MenuProps}
                            id={id}
                            input={<Input id={id} name={name} onChange={e=>this.handleChange(e)}/>}>
-                    <MenuItem style={{marginTop:'-8px', paddingLeft:'4px'}}>
+                    {hasSearchInput ? <MenuItem style={{marginTop: '-8px', paddingLeft: '4px'}}>
                         <TextField id="search"
                                    autoFocus={true}
                                    name="search-name"
                                    fullWidth={true}
-                                   onChange={(event)=>{this.setState({criterion:event.target.value})}}
+                                   onChange={(event) => {
+                                       this.setState({criterion: event.target.value})
+                                   }}
                                    placeholder={t('Keep typing')}
-                                   onClick={e=>{e.stopPropagation()}}
+                                   onClick={e => {
+                                       e.stopPropagation()
+                                   }}
                                    InputProps={{
                                        startAdornment: (
                                            <InputAdornment position="start">
-                                               <Search />
+                                               <Search/>
                                            </InputAdornment>
                                        ),
                                    }}
                         />
-                    </MenuItem>
+                    </MenuItem>:
+                        ''
+                    }
                     <MenuItem value="">
                         <em>{t('None')}</em>
                     </MenuItem>
