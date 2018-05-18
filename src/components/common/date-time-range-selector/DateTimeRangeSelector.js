@@ -42,7 +42,6 @@ class DateTimeRangeSelector extends PureComponent{
         this.props.onChange({initialDateTime:this.state.initialDateTime,finalDateTime});
     }
 
-
     render(){
         const {initialDateTime, finalDateTime} = this.state;
         let stateValue = {initialDateTime, finalDateTime};

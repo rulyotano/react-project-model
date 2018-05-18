@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { get } from 'lodash'
 import EmptySegment from "../../../common/segment/EmptySegment";
 import { Field, FormSection, reduxForm } from 'redux-form';
 
@@ -20,6 +21,7 @@ import {load, show} from './_store/actions/closeFieldLoadActions';
 import {clear} from './_store/actions/closeFieldLoadActions'
 
 const FORM_ID = "load-close-field-form";
+const FORM_WORK_AREA_ID = `${FORM_ID}-production-place`;
 const styles = theme => ({
     heading: {
         fontSize: theme.typography.pxToRem(15),
@@ -38,6 +40,8 @@ const styles = theme => ({
         padding:'8px'
     }
 });
+
+const DateTimeRangeSelectorRf = componentToReduxForm(DateTimeRangeSelector);
 
 /** Load modal for closing a field */
 export class LoadCloseField extends PureComponent {
@@ -62,9 +66,9 @@ export class LoadCloseField extends PureComponent {
   }
 
   load(){
-      const {handleSubmit, load, match, history} = this.props
+      const {handleSubmit, load, match, history, workAreaData} = this.props
       handleSubmit(
-          data=>load(data, match.params.source, history.push))();      
+          data=>load({...data, ...workAreaData}, match.params.source, history.push))();      
   }
 
   render() {
@@ -88,14 +92,14 @@ export class LoadCloseField extends PureComponent {
                 <div >
                     <form onSubmit={()=>this.load()}>
                         <Panel title="Select Time Range">   {/* TODO: i18n222 */}
-                            <Field component={componentToReduxForm(DateTimeRangeSelector)}
+                            <Field component={DateTimeRangeSelectorRf}
                                     id="dateRange"
                                     name="dateRange"/>
                         </Panel>
 
                         <Panel title="Production Place">   {/* TODO: i18n */}
                             <FormSection name="productionPlace">
-                                <WorkAreaSelector form={`${FORM_ID}-production-place`}/>
+                                <WorkAreaSelector form={FORM_WORK_AREA_ID}/>
                             </FormSection>
                         </Panel>
 
@@ -143,7 +147,8 @@ export class LoadCloseField extends PureComponent {
 const mapStateToProps = (state) => ({
     isLoading: state.app.closeField.load.loading,
     open: state.app.closeField.load.show,
-    process: state.app.closeField._.process
+    process: state.app.closeField._.process,
+    workAreaData: get(state, `form.${FORM_WORK_AREA_ID}.values`)
 })
 
 const mapDispatchToProps = (dispatch) =>({

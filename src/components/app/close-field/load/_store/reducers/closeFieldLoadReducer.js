@@ -1,4 +1,4 @@
-import {START_LOADING, LOADED, SHOW, CLEAR} from "../actions/closeFieldLoadActions.types";
+import {START_LOADING, LOAD_ERROR, SHOW, CLEAR} from "../actions/closeFieldLoadActions.types";
 import {CLEAR as CLEAR_CLOSE_FIELD} from "../../../_store/actions/closeFieldActions.types";
 import {LOAD as MAP_LOAD} from "../../../map/_store/actions/closeFieldMapActions.types"
 import {LOAD as PROCESS_LOAD} from "../../../process/_store/actions/closeFieldProcessActions.types"
@@ -20,6 +20,9 @@ export default (state = initialState, action) => {
 
   case SHOW:
     return { ...state, show: action.show }
+
+  case LOAD_ERROR: 
+    return { ...state, loading: false}
 
   case CLEAR:
   case CLEAR_CLOSE_FIELD:

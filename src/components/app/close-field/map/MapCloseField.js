@@ -2,8 +2,12 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { withStyles } from '@material-ui/core'
+import { Redirect } from "react-router-dom";
+import urlJoin from "url-join";
 import EmptySegment from "../../../common/segment/EmptySegment";
 import MapCloseFieldMenu from "./MapCloseFieldMenu";
+import routesNames from "../routesNames";
+import MAP_KEY from "./KEY";
 
 //maps
 import mapboxgl from 'mapbox-gl';
@@ -54,7 +58,11 @@ export class MapCloseField extends PureComponent {
 }
 
   render() {
-    const {mapGeoJson, classes} = this.props;
+    const {mapGeoJson, classes, loaded} = this.props;
+
+    if (!loaded)
+      return <Redirect to={urlJoin(routesNames.BASE, MAP_KEY)}/>
+
     //TODO: redirect to load from map if data not loaded
     const map = <div className={classes.fullHeight}>
       <MapComponent onCreateMap={map=>this.onCreateMap(map)} />
@@ -71,7 +79,8 @@ export class MapCloseField extends PureComponent {
 }
 
 const mapStateToProps = (state) => ({
-  mapGeoJson: state.map.mapGeoJson  
+  mapGeoJson: state.map.mapGeoJson,  
+  loaded: state.app.closeField.map.data.length > 0
 })
 
 const mapDispatchToProps = (dispatch) => ({
