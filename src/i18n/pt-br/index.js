@@ -20,6 +20,11 @@ export default {
     "Operation": "Operação",
     "Filter operations": "Filtrar operações",
     "None":"Nenhum",
-    "Keep typing":"Continue digitando"
+    "Keep typing":"Continue digitando",
+    "Close Field":"Fechar Talhão",
+    "Home":"Início",
+    "Map":"Mapa",
+    "Process":"Processo",
+    "Dashboard":"Painel de Controle"
 
 }

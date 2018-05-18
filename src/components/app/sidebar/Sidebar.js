@@ -1,13 +1,14 @@
 import React, {PureComponent} from 'react';
 import {Link} from 'react-router-dom';
 import {Apps, LocationOn, MultilineChart, ArrowBack, ArrowForward, ExpandMore, ExpandLess,
-Home } from '@material-ui/icons';
+Home, FormatShapes } from '@material-ui/icons';
 import {connect} from 'react-redux';
 import {setSizeToMax, setSizeToMin} from "../_store/actions/appActions";
 import ROUTES from "../routeNames";
 import urlJoin from "url-join";
 import CLOSE_FIELD_MAP_KEY from "../close-field/map/KEY";
 import CLOSE_FIELD_PROCESS_KEY from "../close-field/process/KEY";
+import propTypes from 'prop-types';
 
 
 class CommonList extends PureComponent{
@@ -17,6 +18,7 @@ class CommonList extends PureComponent{
             isOpen:props.isOpen
         }
     }
+
     handleBox(){
         let {isOpen} = this.state;
         this.setState({isOpen:!isOpen});
@@ -48,6 +50,10 @@ class Sidebar extends PureComponent{
             isMaximized:props.isMaximized
         }
     }
+    static contextTypes={
+        t: propTypes.func
+    };
+
     componentWillReceiveProps(newProps){
         this.setStateFromProps(newProps)
     }
@@ -64,6 +70,7 @@ class Sidebar extends PureComponent{
 
     render(){
         let {isMaximized} = this.state;
+        const {t} = this.context;
 
         return(
             <div className="sidebar" style={{width:isMaximized?'48px':'260px'}}>
@@ -77,14 +84,14 @@ class Sidebar extends PureComponent{
                 }
                 <ul style={{paddingTop:isMaximized?'15px':'30px'}}>
                     {isMaximized ? <li className="with-border" onClick={()=>{this.resize()}}><ArrowForward/></li>:''}
-                    <CommonListItem url={ROUTES.BASE} icon={<Home/>} text="Home" isMaximized={isMaximized}/>{/**TODO: i18n*/}
-                    <CommonListItem url={ROUTES.MONITORING} icon={<LocationOn/>} text="Monitoring" isMaximized={isMaximized}/>
-                    <CommonList isMaximized={isMaximized} icon={<LocationOn/>} text="Close Field" isOpen={false}>    {/**TODO: i18n*/}
-                        <CommonListItem url={urlJoin(ROUTES.CLOSE_FIELD, CLOSE_FIELD_MAP_KEY)} icon={<LocationOn/>} text="Map" isMaximized={isMaximized}/>  {/**TODO: i18n*/}
-                        <CommonListItem url={urlJoin(ROUTES.CLOSE_FIELD, CLOSE_FIELD_PROCESS_KEY)} icon={<LocationOn/>} text="Process" isMaximized={isMaximized}/>   {/**TODO: i18n*/}
+                    <CommonListItem url={ROUTES.BASE} icon={<Home/>} text={t("Home")} isMaximized={isMaximized}/>
+                    {/*<CommonListItem url={ROUTES.MONITORING} icon={<LocationOn/>} text="Monitoring" isMaximized={isMaximized}/>*/}
+                    <CommonList isMaximized={isMaximized} icon={<FormatShapes/>} text={t("Close Field")} isOpen={false}>
+                        <CommonListItem url={urlJoin(ROUTES.CLOSE_FIELD, CLOSE_FIELD_MAP_KEY)} icon={<LocationOn/>} text={t("Map")} isMaximized={isMaximized}/>
+                        <CommonListItem url={urlJoin(ROUTES.CLOSE_FIELD, CLOSE_FIELD_PROCESS_KEY)} icon={<LocationOn/>} text={t("Process")} isMaximized={isMaximized}/>
                     </CommonList>
-                    <CommonListItem url={ROUTES.CHART_TEST} icon={<MultilineChart/>} text="Test Chart" isMaximized={isMaximized}/>
-                    <CommonListItem url={ROUTES.FORM_TEST} icon={<MultilineChart/>} text="Form Test" isMaximized={isMaximized}/>
+                    {/*<CommonListItem url={ROUTES.CHART_TEST} icon={<MultilineChart/>} text="Test Chart" isMaximized={isMaximized}/>*/}
+                    {/*<CommonListItem url={ROUTES.FORM_TEST} icon={<MultilineChart/>} text="Form Test" isMaximized={isMaximized}/>*/}
                 </ul>
             </div>
         )
