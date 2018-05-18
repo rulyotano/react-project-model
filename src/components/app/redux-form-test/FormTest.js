@@ -56,6 +56,7 @@ class FormTest extends Component{
                        name="select-data-fleet-name"
                        targetKey="fleet"
                        label="Options"
+                       hasSearchInput={true}
                        joinIdLabel={true}/>
 
                </form>
