@@ -17,6 +17,7 @@ import {OperationSelect} from '../../../common/select/common/OperationSelect';
 import LoadingButton from '../../../common/loading-button/LoadingButton';
 import componentToReduxForm from '../../../../service/redux-form/componentToReduxForm';
 import {load, show} from './_store/actions/closeFieldLoadActions';
+import {clear} from './_store/actions/closeFieldLoadActions'
 
 const FORM_ID = "load-close-field-form";
 const styles = theme => ({
@@ -48,6 +49,9 @@ export class LoadCloseField extends PureComponent {
   componentDidMount(){
       this.props.show();
   }
+  componentWillUnmount(){
+    this.props.clear();
+  }
 
   closeModal(){
       this.props.hide()
@@ -60,7 +64,7 @@ export class LoadCloseField extends PureComponent {
   load(){
       const {handleSubmit, load, match, history} = this.props
       handleSubmit(
-          data=>load(data, match.params.source*1, history.push))();      
+          data=>load(data, match.params.source, history.push))();      
   }
 
   render() {
@@ -146,6 +150,7 @@ const mapDispatchToProps = (dispatch) =>({
     load: (data, source, pushUrl)=>dispatch(load(data, source, pushUrl)),
     show: ()=>dispatch(show(true)),
     hide: ()=>dispatch(show(false)),
+    clear: ()=>dispatch(clear()),
 })
 
 LoadCloseField = reduxForm({

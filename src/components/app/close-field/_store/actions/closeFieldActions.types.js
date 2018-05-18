@@ -1,0 +1,1 @@
+export const CLEAR = "CLOSE_FIELD_CLEAR";

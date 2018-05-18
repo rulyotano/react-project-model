@@ -1,2 +1,2 @@
-import loadCloseFieldReducer  from './reducers/loadCloseFieldReducer'
-export default loadCloseFieldReducer
+import closeFieldLoadReducer  from './reducers/closeFieldLoadReducer'
+export default closeFieldLoadReducer

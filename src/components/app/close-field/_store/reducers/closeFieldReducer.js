@@ -1,3 +1,4 @@
+import {CLEAR} from '../actions/closeFieldActions.types'
 import config, {CLIENT_TYPE_CANE, CLIENT_TYPE_GRAIN} from '../../../../../config/config'
 
 const caneProcess = [
@@ -23,7 +24,9 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
-  default:
-    return state
+    case CLEAR:
+      return initialState;
+    default:
+        return state
   }
 }

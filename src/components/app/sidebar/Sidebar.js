@@ -6,6 +6,8 @@ import {connect} from 'react-redux';
 import {setSizeToMax, setSizeToMin} from "../_store/actions/appActions";
 import ROUTES from "../routeNames";
 import urlJoin from "url-join";
+import CLOSE_FIELD_MAP_KEY from "../close-field/map/KEY";
+import CLOSE_FIELD_PROCESS_KEY from "../close-field/process/KEY";
 
 
 class CommonList extends PureComponent{
@@ -78,8 +80,8 @@ class Sidebar extends PureComponent{
                     <CommonListItem url={ROUTES.BASE} icon={<Home/>} text="Home" isMaximized={isMaximized}/>{/**TODO: i18n*/}
                     <CommonListItem url={ROUTES.MONITORING} icon={<LocationOn/>} text="Monitoring" isMaximized={isMaximized}/>
                     <CommonList isMaximized={isMaximized} icon={<LocationOn/>} text="Close Field" isOpen={false}>    {/**TODO: i18n*/}
-                        <CommonListItem url={urlJoin(ROUTES.CLOSE_FIELD, "0")} icon={<LocationOn/>} text="Map" isMaximized={isMaximized}/>  {/**TODO: i18n*/}
-                        <CommonListItem url={urlJoin(ROUTES.CLOSE_FIELD, "1")} icon={<LocationOn/>} text="Process" isMaximized={isMaximized}/>   {/**TODO: i18n*/}
+                        <CommonListItem url={urlJoin(ROUTES.CLOSE_FIELD, CLOSE_FIELD_MAP_KEY)} icon={<LocationOn/>} text="Map" isMaximized={isMaximized}/>  {/**TODO: i18n*/}
+                        <CommonListItem url={urlJoin(ROUTES.CLOSE_FIELD, CLOSE_FIELD_PROCESS_KEY)} icon={<LocationOn/>} text="Process" isMaximized={isMaximized}/>   {/**TODO: i18n*/}
                     </CommonList>
                     <CommonListItem url={ROUTES.CHART_TEST} icon={<MultilineChart/>} text="Test Chart" isMaximized={isMaximized}/>
                     <CommonListItem url={ROUTES.FORM_TEST} icon={<MultilineChart/>} text="Form Test" isMaximized={isMaximized}/>

@@ -16,6 +16,7 @@ import MeasureDistanceControl from '../../../../service/maps/classes/common-cont
 import MapTalhaoesLayer from '../../../../service/maps/classes/layers/common-layers/map-talhaoes-layer';
 import MapNumbersLayer from '../../../../service/maps/classes/layers/common-layers/map-numbers-layer';
 import MapSelectedTalhaoLayer from '../../../../service/maps/classes/layers/common-layers/map-selected-talhao-layer';
+import {clear} from './_store/actions/closeFieldMapActions';
 
 const styles = theme => ({
   fullHeight: {
@@ -30,6 +31,9 @@ export class MapCloseField extends PureComponent {
   }
   componentDidMount(){
       this.props.loadMap();
+  }
+  componentWillUnmount(){
+    this.props.clear();
   }
   
   onCreateMap(map){
@@ -71,7 +75,8 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  loadMap: ()=>dispatch(loadMapGeoJson())
+  loadMap: ()=>dispatch(loadMapGeoJson()),
+  clear: ()=>dispatch(clear())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(MapCloseField))

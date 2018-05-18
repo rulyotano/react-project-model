@@ -24,7 +24,7 @@ export class MapCloseFieldMenu extends PureComponent {
     const {isOpen} = this.state;
     const {classes} = this.props;
     const {t} = this.context;
-    const footer = (<Grid container>
+    const footer = (<Grid container spacing={8}>
         <Grid item md="6"><LoadingButton>{t("closeField.map.Load_Map")}</LoadingButton></Grid>
         <Grid item md="6"><LoadingButton>{t("closeField.map.Close_Field")}</LoadingButton></Grid>        
     </Grid>)

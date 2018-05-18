@@ -1,2 +1,2 @@
-import processCloseFieldReducer  from './reducers/processCloseFieldReducer'
-export default processCloseFieldReducer
+import closeFieldProcessReducer  from './reducers/closeFieldProcessReducer'
+export default closeFieldProcessReducer

@@ -1,2 +1,2 @@
-import mapCloseFieldReducer  from './reducers/mapCloseFieldReducer'
-export default mapCloseFieldReducer
+import closeFieldMapReducer  from './reducers/closeFieldMapReducer'
+export default closeFieldMapReducer
