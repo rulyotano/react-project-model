@@ -78,13 +78,13 @@ class Sidebar extends PureComponent{
                 <ul style={{paddingTop:isMaximized?'15px':'30px'}}>
                     {isMaximized ? <li className="with-border" onClick={()=>{this.resize()}}><ArrowForward/></li>:''}
                     <CommonListItem url={ROUTES.BASE} icon={<Home/>} text="Home" isMaximized={isMaximized}/>{/**TODO: i18n*/}
-                    <CommonListItem url={ROUTES.MONITORING} icon={<LocationOn/>} text="Monitoring" isMaximized={isMaximized}/>
+                    {/*<CommonListItem url={ROUTES.MONITORING} icon={<LocationOn/>} text="Monitoring" isMaximized={isMaximized}/>*/}
                     <CommonList isMaximized={isMaximized} icon={<FormatShapes/>} text="Close Field" isOpen={false}>    {/**TODO: i18n*/}
                         <CommonListItem url={urlJoin(ROUTES.CLOSE_FIELD, CLOSE_FIELD_MAP_KEY)} icon={<LocationOn/>} text="Map" isMaximized={isMaximized}/>  {/**TODO: i18n*/}
                         <CommonListItem url={urlJoin(ROUTES.CLOSE_FIELD, CLOSE_FIELD_PROCESS_KEY)} icon={<LocationOn/>} text="Process" isMaximized={isMaximized}/>   {/**TODO: i18n*/}
                     </CommonList>
-                    <CommonListItem url={ROUTES.CHART_TEST} icon={<MultilineChart/>} text="Test Chart" isMaximized={isMaximized}/>
-                    <CommonListItem url={ROUTES.FORM_TEST} icon={<MultilineChart/>} text="Form Test" isMaximized={isMaximized}/>
+                    {/*<CommonListItem url={ROUTES.CHART_TEST} icon={<MultilineChart/>} text="Test Chart" isMaximized={isMaximized}/>*/}
+                    {/*<CommonListItem url={ROUTES.FORM_TEST} icon={<MultilineChart/>} text="Form Test" isMaximized={isMaximized}/>*/}
                 </ul>
             </div>
         )
