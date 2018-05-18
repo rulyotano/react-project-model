@@ -99,7 +99,7 @@ class Select extends PureComponent{
                            MenuProps={MenuProps}
                            id={id}
                            input={<Input id={id} name={name} onChange={e=>this.handleChange(e)}/>}>
-                    <MenuItem style={{marginTop:'-8px', paddingLeft:'4px', paddingRight:'25px'}}>
+                    <MenuItem style={{marginTop:'-8px', paddingLeft:'4px'}}>
                         <TextField id="search"
                                    autoFocus={true}
                                    name="search-name"
