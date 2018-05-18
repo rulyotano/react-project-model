@@ -20,4 +20,5 @@ export default {
     "Operation": "Operación",
     "Filter operations": "Filtrar operaciones",
     "None":"Ningún",
+    "Keep typing":"Sigue escribiendo",
 }
