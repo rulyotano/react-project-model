@@ -6,6 +6,7 @@ const FleetSelectComponent = (props)=>
     <SelectData {...props}
                 attrId="cdEquipamento"
                 attrLabel="descEquipamento"
-                targetKey="fleet"/>
+                targetKey="fleet"
+                hasSearchInput={true}/>
 export const FleetSelect = componentToReduxForm(FleetSelectComponent);
 export default FleetSelectComponent;

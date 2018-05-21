@@ -6,6 +6,7 @@ const StateSelectComponent = (props)=>
     <SelectData {...props}
                 attrId="cdEstado"
                 attrLabel="descEstado"
-                targetKey="state"/>
+                targetKey="state"
+                hasSearchInput={true}/>
 export const StateSelect = componentToReduxForm(StateSelectComponent);
 export default StateSelectComponent;
