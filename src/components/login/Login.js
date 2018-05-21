@@ -12,10 +12,10 @@ import { TextField } from '@material-ui/core';
 import LoadingButton from '../common/loading-button/LoadingButton';
 
 const TextFieldRf = textFieldToReduxForm(TextField);
-
+//caique
 const style = {
-    input:{color:'white', height:'80%', marginLeft:'4px', marginTop:'4px'},
-    hint: {color:'white', height:'50%', marginLeft:'4px', marginTop:'12px'},
+    input:{color:'white', height:'80%'},
+    hint: {color:'white', height:'50%'},
     floatingLabel:{top:'5px'},
     btnAcessar:{backgroundColor:'inherited', height:'45px', borderRadius:'5px'},
     languagePicker: {
