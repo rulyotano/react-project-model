@@ -21,10 +21,10 @@ export default {
     "Filter operations": "Filtrar operaciones",
     "None":"Ningún",
     "Keep typing":"Sigue escribiendo",
+    "calendarLocale":"es",
     "Close Field":"Cerrar el Campo",
     "Home":"Inicio",
     "Map":"Mapa",
     "Process":"proceso",
-    "Dashboard":"Tablero"
-
+    "Dashboard":"Tablero",
 }

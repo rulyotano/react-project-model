@@ -21,9 +21,10 @@ export default {
     "Filter operations": "Filter operations",
     "None":"None",
     "Keep typing":"Keep typing",
+    "calendarLocale":"en-us",
     "Close Field":"Close Field",
     "Home":"Home",
     "Map":"Map",
     "Process":"Process",
-    "Dashboard":"Dashboard"
+    "Dashboard":"Dashboard",
 }
