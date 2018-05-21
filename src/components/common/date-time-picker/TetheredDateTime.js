@@ -1,10 +1,11 @@
 import React from 'react';
-import DateTime from 'react-datetime'
-import CalendarContainer from 'react-datetime/src/CalendarContainer'
-import TetherComponent from 'react-tether'
-import classNames from 'classnames'
-import {isString, isObject} from 'lodash'
-import {withStyles, TextField} from '@material-ui/core'
+import DateTime from 'react-datetime';
+import CalendarContainer from 'react-datetime/src/CalendarContainer';
+import TetherComponent from 'react-tether';
+import classNames from 'classnames';
+import {isString, isObject} from 'lodash';
+import {withStyles, TextField} from '@material-ui/core';
+
 
 const styles = {
     '@global':{
@@ -19,6 +20,7 @@ const styles = {
 }
 
 class TetheredDateTime extends DateTime {
+
     render() {
         let className = isString(this.props.className) ?
                             classNames('rdt', this.props.className):

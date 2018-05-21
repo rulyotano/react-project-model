@@ -21,4 +21,5 @@ export default {
     "Filter operations": "Filtrar operaciones",
     "None":"Ningún",
     "Keep typing":"Sigue escribiendo",
+    "calendarLocale":"es",
 }

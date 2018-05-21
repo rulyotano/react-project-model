@@ -20,6 +20,7 @@ export default {
     "Operation": "Operação",
     "Filter operations": "Filtrar operações",
     "None":"Nenhum",
-    "Keep typing":"Continue digitando"
+    "Keep typing":"Continue digitando",
+    "calendarLocale":"pt-br",
 
 }
