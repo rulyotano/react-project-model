@@ -22,4 +22,9 @@ export default {
     "None":"Ningún",
     "Keep typing":"Sigue escribiendo",
     "calendarLocale":"es",
+    "Close Field":"Cerrar el Campo",
+    "Home":"Inicio",
+    "Map":"Mapa",
+    "Process":"proceso",
+    "Dashboard":"Tablero",
 }

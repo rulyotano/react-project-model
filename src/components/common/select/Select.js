@@ -103,6 +103,7 @@ class Select extends PureComponent{
                         <TextField id="search"
                                    autoFocus={true}
                                    name="search-name"
+                                   value={this.state.criterion}
                                    fullWidth={true}
                                    onChange={(event) => {
                                        this.setState({criterion: event.target.value})

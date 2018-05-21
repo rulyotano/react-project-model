@@ -22,5 +22,9 @@ export default {
     "None":"Nenhum",
     "Keep typing":"Continue digitando",
     "calendarLocale":"pt-br",
-
+    "Close Field":"Fechar Talhão",
+    "Home":"Início",
+    "Map":"Mapa",
+    "Process":"Processo",
+    "Dashboard":"Painel de Controle",
 }
