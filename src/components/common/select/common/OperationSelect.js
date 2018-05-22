@@ -7,6 +7,7 @@ const OperationSelectComponent = (props)=>
             attrId="cdOperacao"
             attrLabel="descOperacao"
             targetKey="operation"
+            multiple={true}
             hasSearchInput={true}/>
 export const OperationSelect = componentToReduxForm(OperationSelectComponent);
 export default OperationSelectComponent;
