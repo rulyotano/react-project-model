@@ -24,7 +24,7 @@ export const getFormat = (format)=>{
     if (format === DATE_FORMATS_KEYS.SERVER_DATE || format === DATE_FORMATS_KEYS.SERVER_DATE_MIN)
         return DATE_FORMATS[format];
     const t = getTranslateFunction(i18n, store.getState().i18nState.lang);
-    return t(`dates.${DATE_FORMATS[format]}`);
+    return t(`dates.${format}`);
 }
 
 // Converts a Date object to an array

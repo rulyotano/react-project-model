@@ -6,6 +6,7 @@ import ToolHoverWindow from '../../../common/tool-hover-window/ToolHoverWindow'
 import LoadingButton from '../../../common/loading-button/LoadingButton'
 import {initializeVariables} from './_store/actions/closeFieldMapActions'
 import MapCloseFieldVariableDropdown from './MapCloseFieldVariableDropdown'
+import MapCloseFieldRangeTable from './MapCloseFieldRangeTable'
 import Panel from '../../../common/collapse-panel/Panel'
 
 const styles = {
@@ -37,10 +38,16 @@ export class MapCloseFieldMenu extends PureComponent {
     return (
         <ToolHoverWindow isOpen={isOpen} 
                 labelHeader={t("closeField.map.Close_Field_Map")} 
-                footer={footer}>
+                footer={footer}
+                width="400px">
 
           <Panel>
             <MapCloseFieldVariableDropdown/>
+          </Panel>
+
+          {/* TODO: i18n */}
+          <Panel title={"Ranges"}>
+            <MapCloseFieldRangeTable/>
           </Panel>
 
 

@@ -8,6 +8,24 @@ import {LOAD as MAP_LOAD} from "../../../map/_store/actions/closeFieldMapActions
 import {LOAD as PROCESS_LOAD} from "../../../process/_store/actions/closeFieldProcessActions.types";
 import moment from 'moment'
 
+const processMapData = (data)=>{
+    const count = data.length;
+    for (let i = 0; i < count; i++) {
+        const item = data[i];
+
+        item.vlLatitudeInicial = parseFloat(item.vlLatitudeInicial);
+        item.vlLongitudeInicial = parseFloat(item.vlLongitudeInicial);
+        item.vlLatitudeFinal = parseFloat(item.vlLatitudeFinal);
+        item.vlLongitudeFinal = parseFloat(item.vlLongitudeFinal);
+
+        //convert date from the new format
+        const SERVER_DATA_FORMAT = getFormat(DATE_FORMATS_KEYS.SERVER_DATE);
+        item.dtHrLocalInicial = moment(item.dtHrLocalInicial, SERVER_DATA_FORMAT).valueOf();
+        item.dtHrLocalFinal = moment(item.dtHrLocalFinal, SERVER_DATA_FORMAT).valueOf();        
+    }
+    return data;
+}
+
 export const load = (data, source, pushUrl)=> (dispatch, getState)=>{    
     const LOAD_ACTION_TYPE = source === MAP_KEY ? MAP_LOAD : 
                              source === PROCESS_KEY ? PROCESS_LOAD : null;
@@ -47,7 +65,7 @@ export const load = (data, source, pushUrl)=> (dispatch, getState)=>{
     }
 
     httpService.useSgpaMapApiUrl().post("mapaAnalitico", params).then(response=>{        
-        dispatch({type: LOAD_ACTION_TYPE, data: response.listaDeRetorno});
+        dispatch({type: LOAD_ACTION_TYPE, data: processMapData(response.listaDeRetorno)});
         pushUrl(source === MAP_KEY ? ROUTES.MAP : source === PROCESS_KEY ? ROUTES.PROCESS : "");
     }, e=> dispatch({type: LOAD_ERROR}));
 
