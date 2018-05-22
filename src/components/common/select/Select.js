@@ -41,8 +41,8 @@ class Select extends PureComponent{
     constructor(props){
         super(props);
         this.state ={
-            value:'',
-            criterion:''
+            value:props.multiple ? []:'',
+            criterion:'',
         }
     }
     static contextTypes={
@@ -62,12 +62,9 @@ class Select extends PureComponent{
     };
 
     handleChange = event => {
-        let {suggestions, attrId} = this.props;
-
-        const value = event.target.value;
+        let value = event.target.value;
         this.setState({ value });
 
-        // let filtered = suggestions.find(i=>i[this.props.attrId] === event.target.value);
         this.props.onChange(value);
     };
     getDescription = item =>{
@@ -80,7 +77,7 @@ class Select extends PureComponent{
         if(criterion === "")
             return true;
         let textToMatch = this.getDescription(item).toLowerCase();
-        return textToMatch.includes(criterion.toLowerCase());
+        return textToMatch.includes(criterion.toLowerCase())? '':'none';
 
 
     };
@@ -88,7 +85,7 @@ class Select extends PureComponent{
 
     render(){
         const { classes, suggestions, name, id, label, attrId="id",
-                isLoading=false, error = false, helperText = "", hasSearchInput = false} = this.props;
+                isLoading=false, error = false, helperText = "", hasSearchInput = false, multiple =false} = this.props;
         const {t} = this.context;
 
         return(
@@ -97,8 +94,11 @@ class Select extends PureComponent{
                 <SelectMui className={classes.fullWidth}
                            value={this.state.value}
                            MenuProps={MenuProps}
+                           multiple={multiple}
                            id={id}
-                           input={<Input id={id} name={name} onChange={e=>this.handleChange(e)}/>}>
+                           input={<Input id={id} name={name} onChange={e=>this.handleChange(e)}/>}
+
+                >
                     {hasSearchInput ? <MenuItem style={{marginTop: '-8px', paddingLeft: '4px'}}>
                         <TextField id="search"
                                    autoFocus={true}
@@ -123,12 +123,9 @@ class Select extends PureComponent{
                     </MenuItem>:
                         ''
                     }
-                    <MenuItem value="">
-                        <em>{t('None')}</em>
-                    </MenuItem>
+                    {multiple ? '':<MenuItem value=""><em>{t('None')}</em></MenuItem>}
                     {suggestions
-                        .filter(f=> this.getFilteredItems(f))
-                        .map(m=><MenuItem value={m[attrId]} key={m[attrId]}>{this.getDescription(m)}</MenuItem>)}
+                        .map(m=><MenuItem value={m[attrId]} key={m[attrId]} style={{display:this.getFilteredItems(m)}}>{this.getDescription(m)}</MenuItem>)}
                 </SelectMui>
                 {error ? <FormHelperText>{helperText}</FormHelperText> : null}
                 {isLoading ? <CircularProgress className={classes.progress} size={20} />:''}
