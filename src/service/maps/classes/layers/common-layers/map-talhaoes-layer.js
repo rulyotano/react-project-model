@@ -61,6 +61,7 @@ export default class MapTalhaoesLayer extends MapCommonLayer {
 
     /** Default click on talhao string */
     static talhaoDefaultString(feature, customTxt = ""){
+        const t = getTranslateFunction(translations, store.getState().i18nState.lang);
         let props = feature.properties;
         let fazenda = props.cdFazenda;
         let setor = props.cdZona;
@@ -74,7 +75,6 @@ export default class MapTalhaoesLayer extends MapCommonLayer {
         const mUnit = getUnits().AREA;
         const areaUnit = mUnit.unit;
         const areaFormula = mUnit.f;
-        const t = getTranslateFunction(translations, store.getState().i18nState.lang);
 
         return `<div>
                     <h4>${t('maps.Map of Field')}</h4>

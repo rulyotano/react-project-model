@@ -41,8 +41,8 @@ class Select extends PureComponent{
     constructor(props){
         super(props);
         this.state ={
-            value:props.multiple ? []:'',
-            criterion:'',
+            value:this.props.initialValue || (multiple ? []:''),
+            criterion:''
         }
     }
     static contextTypes={
@@ -59,6 +59,8 @@ class Select extends PureComponent{
         error: propTypes.bool,  //if has error
         helperText: propTypes.string,  //text error
         suggestions:propTypes.arrayOf(propTypes.object).isRequired,
+        onChange:propTypes.func,
+        initialValue:propTypes.any,
     };
 
     handleChange = event => {
