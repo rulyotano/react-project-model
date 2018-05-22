@@ -6,7 +6,6 @@ import MAP_KEY from "../../../map/KEY";
 import PROCESS_KEY from "../../../process/KEY";
 import {LOAD as MAP_LOAD} from "../../../map/_store/actions/closeFieldMapActions.types";
 import {LOAD as PROCESS_LOAD} from "../../../process/_store/actions/closeFieldProcessActions.types";
-import { push } from 'react-router-redux'
 import moment from 'moment'
 
 export const load = (data, source, pushUrl)=> (dispatch, getState)=>{    

@@ -22,8 +22,8 @@ class DateTimeRangeSelector extends PureComponent{
     constructor(props){
         super(props);
 
-        const initialDateTime = props.initialValue && props.initialValue.initialDateTime || moment().startOf("day").toDate()
-        const finalDateTime = props.initialValue && props.initialValue.finalDateTime || moment().endOf("day").toDate()
+        const initialDateTime = (props.initialValue && props.initialValue.initialDateTime) || moment().startOf("day").toDate()
+        const finalDateTime = (props.initialValue && props.initialValue.finalDateTime) || moment().endOf("day").toDate()
         this.state = {
             initialDateTime:initialDateTime,
             finalDateTime:finalDateTime
