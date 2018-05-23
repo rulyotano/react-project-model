@@ -2,11 +2,10 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { Field, reduxForm } from 'redux-form';
 import { withStyles } from '@material-ui/core/styles';
-import { TextField, Grid } from '@material-ui/core';
+import { TextField, Grid, FormHelperText, FormControl } from '@material-ui/core';
 import { connect } from 'react-redux';
-import { get, filter } from 'lodash';
-import store from '../../store';
-import textFieldToReduxForm from '../../../service/redux-form/textFieldToReduxForm';
+import { get, filter, isFunction, isString } from 'lodash';
+import componentToReduxForm from '../../../service/redux-form/componentToReduxForm';
 import Loading from '../../../components/common/_LoadingComponent';
 import {loadMapGeoJson} from '../../../components/_store/actions/mapActions';
 
@@ -21,8 +20,6 @@ const styles = () => ({
     wrapper: {
         position: "relative",
         width: '100%'
-        // marginLeft: '-5px',
-        // marginRight: '-5px',
     },
     loading: {
         position: "absolute",
@@ -31,73 +28,107 @@ const styles = () => ({
     }
 });
 
-const validate = (values, props) => {
-    const errors = {}
 
-    if (values.cdTalhao) {
-        if (!values.cdFazenda)
-            errors.cdFazenda = t('workAreaSelector.FarmRequired');
-
-        if (!values.cdSetor)
-            errors.cdSetor = t('workAreaSelector.SectorRequired');
-
-        return errors;
+class WorkAreaSelectorComponent extends PureComponent {
+    state = {
+        farm: "",
+        sector: "",
+        field: "",
     }
+    static propTypes = {
+        value: PropTypes.oneOfType([
+            PropTypes.string,
+            PropTypes.shape({
+                farm: PropTypes.string, 
+                sector: PropTypes.string, 
+                field: PropTypes.string
+            })
+        ]),
+        onChange: PropTypes.func,
+        isHorizontal: PropTypes.bool,
+        error: PropTypes.bool,
+        helperText: PropTypes.string,
+        readOnly: PropTypes.bool
+    };    
+    static contextTypes = {
+        t: PropTypes.func
+    };
 
-    if (values.cdSetor) {
-        if (!values.cdFazenda)
-            errors.cdFazenda = t('workAreaSelector.FarmRequired');
-
-        return errors;
-    }
-
-    return errors
-}
-
-// const renderField = field => (
-//     <TextField
-//         errorText={field.meta.error}
-//         {...field} />
-// )
-const renderField = textFieldToReduxForm(TextField);
-
-class WorkAreaSelector extends PureComponent {
     componentWillMount(){
         //load geojson if not loaded exist
         this.props.loadGeoJson();
     }
+    componentDidMount(){
+        this.stateFromProps(this.props);
+    }
+
+    componentWillReceiveProps(newProps){
+        this.stateFromProps(newProps);
+    }
+
+    stateFromProps(props){
+        if (props.value)
+        {
+            let value = {};
+            if (!isString(props.value))
+                value = props.value;
+            this.setStateValues(value);
+        }
+        if (props.defaultFarm){
+            this.setStateValues({farm: props.defaultFarm});
+        }
+    }
+
+    setStateValues({farm, sector, field}){
+        const newState = {};
+        if (farm !== undefined)
+            newState.farm = farm;
+        if (sector !== undefined)
+            newState.sector = sector;
+        if (field !== undefined)
+            newState.field = field;
+        this.setState(newState, ()=> {            
+            if (isFunction(this.props.onChange))
+                this.props.onChange({
+                    farm: this.state.farm,
+                    sector: this.state.sector,
+                    field: this.state.field
+                })
+        });
+    }
 
     handleOnBlur() {
-        const talhaoData = store.getState().map.mapGeoJson;
+        const {mapGeoJson} = this.props;
 
-        if (!talhaoData)
+        if (!mapGeoJson)
             return;
 
-        let { fazenda, setor, talhao } = this.props;
+        let { farm, sector, field } = this.state;
 
-        if (!talhaoData || !talhao || (!!fazenda && !!setor))
+        if (!field || (!!farm && !!sector))
             return;
 
-        var matches = filter(talhaoData.features, f => f.properties.cdTalhao === talhao
-            && (!fazenda || fazenda === f.properties.cdFazenda)
-            && (!setor || setor === f.properties.cdZona));
+        var matches = filter(mapGeoJson.features, f => f.properties.cdTalhao === field
+            && (!farm || farm === f.properties.cdFazenda)
+            && (!sector || sector === f.properties.cdZona));
 
         if (matches.length !== 1)
             return;
 
-        if (fazenda !== matches[0].properties.cdFazenda) {
-            fazenda = matches[0].properties.cdFazenda;
+        if (farm !== matches[0].properties.cdFazenda) {
+            farm = matches[0].properties.cdFazenda;
         }
-        if (setor !== matches[0].properties.cdZona) {
-            setor = matches[0].properties.cdZona;
+        if (sector !== matches[0].properties.cdZona) {
+            sector = matches[0].properties.cdZona;
         }
-
-        this.props.change('cdFazenda', fazenda);
-        this.props.change('cdSetor', setor);
+        this.setStateValues({farm, sector})
     }
 
     render() {
-        const { classes, isHorizontal = true, initialValues, isLoading } = this.props;
+        const { classes, isHorizontal = true, isLoading,
+                error, helperText, readOnly,
+                defaultFarm } = this.props;
+        let { farm, sector, field } = this.state;
         t = this.context.t;
         const itemSize = isHorizontal ? 4 : 12;
 
@@ -107,47 +138,51 @@ class WorkAreaSelector extends PureComponent {
                 <Grid container spacing={8}>
                     <Grid item xs={12} sm={itemSize}>
                         <div className={classes.input}>
-                            <Field
-                                name="cdFazenda"
-                                type="text"
-                                floatingLabelText={t("workAreaSelector.Farm")}
-                                id="cdFazenda"
+                            <TextField type="text" 
+                                label={t("workAreaSelector.Farm")}
+                                id="farm"
+                                name="farm"
                                 fullWidth={true}
-                                component={renderField}
-                                readOnly={initialValues.cdFazenda != null}
+                                inputProps={{readOnly: readOnly || !!defaultFarm }}
                                 disabled={isLoading}
-                            />
+                                value={farm}    
+                                onChange={(e)=>this.setStateValues({farm: e.target.value})}/>
                         </div>
                     </Grid>
 
                     <Grid item xs={12} sm={itemSize}>
                         <div className={classes.input}>
-                            <Field
-                                name="cdSetor"
-                                type="text"
-                                floatingLabelText={t("workAreaSelector.Sector")}
-                                id="cdSetor"
+                            <TextField type="text" 
+                                label={t("workAreaSelector.Sector")}
+                                id="sector"
+                                name="sector"
                                 fullWidth={true}
-                                component={renderField}
+                                inputProps={{readOnly: readOnly }}
                                 disabled={isLoading}
-                            />
+                                value={sector}
+                                onChange={(e)=>this.setStateValues({sector: e.target.value})}/>
                         </div>
                     </Grid>
 
                     <Grid item xs={12} sm={itemSize}>
-                        <div className={classes.input}>
-                            <Field
-                                name="cdTalhao"
-                                type="text"
-                                floatingLabelText={t("workAreaSelector.Field")}
-                                id="cdTalhao"
+                        <div className={classes.input}>                        
+                            <TextField type="text" 
+                                label={t("workAreaSelector.Field")}
+                                id="field"
+                                name="field"
                                 fullWidth={true}
-                                component={renderField}
-                                onBlur={() => this.handleOnBlur()}
+                                inputProps={{readOnly: readOnly }}
                                 disabled={isLoading}
-                            />
+                                value={field}
+                                onChange={(e)=>this.setStateValues({field: e.target.value})}
+                                onBlur={()=>this.handleOnBlur()}/>
                         </div>
                     </Grid>
+                    { error ? <Grid item sm={12}>
+                        <FormControl>
+                            <FormHelperText error={true}>{helperText}</FormHelperText>
+                        </FormControl>
+                    </Grid> : null}
                 </Grid>
             </div>
         )
@@ -155,13 +190,11 @@ class WorkAreaSelector extends PureComponent {
 }
 
 const mapStateToProps = (state, props) => {
-
-    let {form} = props; 
-
-    this.getCdFazenda = () => {
+    const getDefaultFarm = () => {
         let map = state.map.mapMappedGeoJson;
         if (!map)
             return null;
+
         let keys = Object.keys(map);
         if (keys.length === 1)
             return keys[0];
@@ -169,10 +202,9 @@ const mapStateToProps = (state, props) => {
     }
 
     return {
-        initialValues: { cdFazenda: this.getCdFazenda() },
-        fazenda: get(state, `form.${form}.values.cdFazenda`),
-        setor: get(state, `form.${form}.values.cdSetor`),
-        talhao: get(state, `form.${form}.values.cdTalhao`),
+        mapMappedGeoJson: state.map.mapMappedGeoJson,
+        mapGeoJson: state.map.mapGeoJson,
+        defaultFarm: getDefaultFarm(),
         isLoading: state.map.isLoading
     }
 }
@@ -181,20 +213,7 @@ const mapDispatchToProps = (dispatch)=>({
     loadGeoJson: ()=>dispatch(loadMapGeoJson())
 })
 
-WorkAreaSelector.propTypes = {
-    form: PropTypes.string.isRequired,
-    isHorizontal: PropTypes.bool,
-};
+WorkAreaSelectorComponent = withStyles(styles)(connect(mapStateToProps, mapDispatchToProps)(WorkAreaSelectorComponent))
 
-WorkAreaSelector.contextTypes = {
-    t: PropTypes.func
-};
-
-WorkAreaSelector = reduxForm({
-    validate,
-    enableReinitialize: true
-})(WorkAreaSelector);
-
-WorkAreaSelector = connect(mapStateToProps, mapDispatchToProps)(WorkAreaSelector);
-
-export default withStyles(styles)(WorkAreaSelector);
+export const WorkAreaSelector = componentToReduxForm(WorkAreaSelectorComponent);
+export default WorkAreaSelectorComponent;

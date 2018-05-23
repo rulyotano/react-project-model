@@ -20,6 +20,7 @@ import MeasureDistanceControl from '../../../../service/maps/classes/common-cont
 import MapTalhaoesLayer from '../../../../service/maps/classes/layers/common-layers/map-talhaoes-layer';
 import MapNumbersLayer from '../../../../service/maps/classes/layers/common-layers/map-numbers-layer';
 import MapSelectedTalhaoLayer from '../../../../service/maps/classes/layers/common-layers/map-selected-talhao-layer';
+import CloseTalhaoMapVariable from './layers/close-talhao-map-variables-layer';
 import {clear} from './_store/actions/closeFieldMapActions';
 
 const styles = theme => ({
@@ -39,6 +40,18 @@ export class MapCloseField extends PureComponent {
   componentWillUnmount(){
     this.props.clear();
   }
+
+  componentWillReceiveProps(newProps){
+    if (newProps.mapData !== this.props.mapData)
+    {
+      //repaint the map variables
+      this.onMapDataUpdated(newProps.mapData);
+    }
+  }
+
+  onMapDataUpdated(mapData){
+    this.linesLayer.updateLayerData(mapData);
+  }
   
   onCreateMap(map){
     this.map = map;
@@ -53,9 +66,10 @@ export class MapCloseField extends PureComponent {
     this.map.addLayer(talhoes).then(()=>{
         this.map.addLayer(new MapNumbersLayer(talhoes))
         this.map.addLayer(new MapSelectedTalhaoLayer(talhoes))
-        //Added talhoes
+        this.linesLayer = new CloseTalhaoMapVariable(talhoes);
+        this.map.addLayer(this.linesLayer);
     });
-}
+  }
 
   render() {
     const {mapGeoJson, classes, loaded} = this.props;
@@ -80,7 +94,8 @@ export class MapCloseField extends PureComponent {
 
 const mapStateToProps = (state) => ({
   mapGeoJson: state.map.mapGeoJson,  
-  loaded: state.app.closeField.map.data.length > 0
+  loaded: state.app.closeField.map.data.length > 0,
+  mapData: state.app.closeField.map.mapData,
 })
 
 const mapDispatchToProps = (dispatch) => ({

@@ -26,13 +26,13 @@ const styles = theme => ({
 class LoadingButton extends Component {
 
     render() {
-        const { classes, isLoading, children, ...restProps} = this.props;
+        const { classes, isLoading, disabled, children, ...restProps} = this.props;
 
         return (
             <div className={classes.root}>
                 <div className={classes.wrapper}>
                     <Button {...restProps}
-                        disabled={isLoading}>
+                        disabled={isLoading || disabled}>
                         {children}
                     </Button>
                     {isLoading && <CircularProgress size={24} className={classes.buttonProgress} />}
