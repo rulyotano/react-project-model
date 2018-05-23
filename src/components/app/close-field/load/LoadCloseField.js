@@ -11,7 +11,8 @@ import {withStyles, Button, TextField, Dialog, DialogActions,
 import DialogContent from '@material-ui/core/DialogContent';
 import { withRouter } from 'react-router-dom'
 import Panel from '../../../common/collapse-panel/Panel';
-import WorkAreaSelector from '../../../common/work-area-selector/WorkAreaSelector';
+import {WorkAreaSelector} from '../../../common/work-area-selector/WorkAreaSelector';
+import wAreaSelValidate from '../../../common/work-area-selector/workAreaSelector.validate';
 import DateTimeRangeSelector from '../../../common/date-time-range-selector/DateTimeRangeSelector';
 import {SelectRF} from '../../../common/select/Select';
 import {OperationSelect} from '../../../common/select/common/OperationSelect';
@@ -98,9 +99,10 @@ export class LoadCloseField extends PureComponent {
                         </Panel>
 
                         <Panel title="Production Place">   {/* TODO: i18n */}
-                            <FormSection name="productionPlace">
-                                <WorkAreaSelector form={FORM_WORK_AREA_ID}/>
-                            </FormSection>
+                            <Field component={WorkAreaSelector}
+                                    id="productionPlace"
+                                    name="productionPlace"
+                                    validate={wAreaSelValidate}/>
                         </Panel>
 
                         <div>

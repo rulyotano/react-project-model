@@ -1,3 +1,9 @@
+import store from '../../components/store'
+import i18n from '../../i18n'
+import {getTranslateFunction} from 'redux-i18n'
+
+export const getLanguageFunction = ()=>getTranslateFunction(i18n, store.getState().i18nState.lang);
+
 export default {
     availableLanguages(){
         return [
