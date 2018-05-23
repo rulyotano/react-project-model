@@ -70,7 +70,7 @@ class ToolHoverWindow extends Component{
         return(
             <Draggable>
                 <div className={classNames("tool-hover-window", classes.container)} 
-                     style={{width:width, height: height}}>
+                     style={{width:width, height: height, zIndex:'10'}}>
                     <header>
                         <h5>{labelHeader}</h5>
                         {isOpen?<ArrowDropUp onClick={()=>{this.handleState()}}/>:<ArrowDropDown onClick={()=>{this.handleState()}}/>}
@@ -80,7 +80,7 @@ class ToolHoverWindow extends Component{
                             <Scrollbar>
                                 <div className={classes.contentContainer}>
                                     {this.props.children}
-                                </div>
+                               \ </div>
                             </Scrollbar>
                         </div>                            
                         {footerElement}
