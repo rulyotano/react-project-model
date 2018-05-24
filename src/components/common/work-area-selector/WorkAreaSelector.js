@@ -30,11 +30,6 @@ const styles = () => ({
 
 
 class WorkAreaSelectorComponent extends PureComponent {
-    state = {
-        farm: "",
-        sector: "",
-        field: "",
-    }
     static propTypes = {
         value: PropTypes.oneOfType([
             PropTypes.string,
@@ -43,7 +38,7 @@ class WorkAreaSelectorComponent extends PureComponent {
                 sector: PropTypes.string, 
                 field: PropTypes.string
             })
-        ]),
+        ]).isRequired,
         onChange: PropTypes.func,
         isHorizontal: PropTypes.bool,
         error: PropTypes.bool,
@@ -59,51 +54,46 @@ class WorkAreaSelectorComponent extends PureComponent {
         this.props.loadGeoJson();
     }
     componentDidMount(){
-        this.stateFromProps(this.props);
+        this.setStateValues({farm: this.props.defaultFarm || ""});
     }
 
     componentWillReceiveProps(newProps){
-        this.stateFromProps(newProps);
-    }
-
-    stateFromProps(props){
-        if (props.value)
-        {
-            let value = {};
-            if (!isString(props.value))
-                value = props.value;
-            this.setStateValues(value);
-        }
-        if (props.defaultFarm){
-            this.setStateValues({farm: props.defaultFarm});
+        if (newProps.defaultFarm && newProps.defaultFarm !== this.props.defaultFarm){
+            this.setStateValues({farm: newProps.defaultFarm});            
         }
     }
 
     setStateValues({farm, sector, field}){
-        const newState = {};
-        if (farm !== undefined)
-            newState.farm = farm;
-        if (sector !== undefined)
-            newState.sector = sector;
-        if (field !== undefined)
-            newState.field = field;
-        this.setState(newState, ()=> {            
-            if (isFunction(this.props.onChange))
+        if (isFunction(this.props.onChange))
                 this.props.onChange({
-                    farm: this.state.farm,
-                    sector: this.state.sector,
-                    field: this.state.field
+                    farm: farm === undefined ? this.props.value.farm : farm,
+                    sector: sector === undefined ? this.props.value.sector : sector,
+                    field: field === undefined ? this.props.value.field : field
                 })
-        });
+        // const newState = {};
+        // if (farm !== undefined)
+        //     newState.farm = farm;
+        // if (sector !== undefined)
+        //     newState.sector = sector;
+        // if (field !== undefined)
+        //     newState.field = field;
+        // this.setState(newState, ()=> {            
+        //     if (isFunction(this.props.onChange))
+        //         this.props.onChange({
+        //             farm: this.state.farm,
+        //             sector: this.state.sector,
+        //             field: this.state.field
+        //         })
+        // });
     }
 
     handleOnBlur() {
-        const {mapGeoJson} = this.props;
+        const {mapGeoJson, value} = this.props;
 
-        if (!mapGeoJson)
+        if (!mapGeoJson || !value || isString(value))
             return;
 
-        let { farm, sector, field } = this.state;
+        let { farm, sector, field } = value;
 
         if (!field || (!!farm && !!sector))
             return;
@@ -127,8 +117,8 @@ class WorkAreaSelectorComponent extends PureComponent {
     render() {
         const { classes, isHorizontal = true, isLoading,
                 error, helperText, readOnly,
-                defaultFarm } = this.props;
-        let { farm, sector, field } = this.state;
+                defaultFarm, value } = this.props;
+        let { farm = "", sector = "", field = "" } = value && !isString(value) ? value : {};
         t = this.context.t;
         const itemSize = isHorizontal ? 4 : 12;
 
@@ -145,7 +135,8 @@ class WorkAreaSelectorComponent extends PureComponent {
                                 fullWidth={true}
                                 inputProps={{readOnly: readOnly || !!defaultFarm }}
                                 disabled={isLoading}
-                                value={farm}    
+                                value={farm}
+                                error={error}
                                 onChange={(e)=>this.setStateValues({farm: e.target.value})}/>
                         </div>
                     </Grid>
@@ -160,6 +151,7 @@ class WorkAreaSelectorComponent extends PureComponent {
                                 inputProps={{readOnly: readOnly }}
                                 disabled={isLoading}
                                 value={sector}
+                                error={error}
                                 onChange={(e)=>this.setStateValues({sector: e.target.value})}/>
                         </div>
                     </Grid>
@@ -173,7 +165,8 @@ class WorkAreaSelectorComponent extends PureComponent {
                                 fullWidth={true}
                                 inputProps={{readOnly: readOnly }}
                                 disabled={isLoading}
-                                value={field}
+                                value={field} 
+                                error={error}
                                 onChange={(e)=>this.setStateValues({field: e.target.value})}
                                 onBlur={()=>this.handleOnBlur()}/>
                         </div>
