@@ -47,6 +47,9 @@ export class MapCloseField extends PureComponent {
       //repaint the map variables
       this.onMapDataUpdated(newProps.mapData);
     }
+    if (newProps.fieldSelected){
+      this.selectedField.selectExternal(newProps.fieldSelected);
+    }
   }
 
   onMapDataUpdated(mapData){
@@ -65,7 +68,8 @@ export class MapCloseField extends PureComponent {
     const talhoes = new MapTalhaoesLayer();
     this.map.addLayer(talhoes).then(()=>{
         this.map.addLayer(new MapNumbersLayer(talhoes))
-        this.map.addLayer(new MapSelectedTalhaoLayer(talhoes))
+        this.selectedField = new MapSelectedTalhaoLayer(talhoes);
+        this.map.addLayer(this.selectedField);
         this.linesLayer = new CloseTalhaoMapVariable(talhoes);
         this.map.addLayer(this.linesLayer);
     });
@@ -96,6 +100,7 @@ const mapStateToProps = (state) => ({
   mapGeoJson: state.map.mapGeoJson,  
   loaded: state.app.closeField.map.data.length > 0,
   mapData: state.app.closeField.map.mapData,
+  fieldSelected: state.map.selected
 })
 
 const mapDispatchToProps = (dispatch) => ({

@@ -40,7 +40,9 @@ export default class MapSelectedTalhaoesLayer extends MapCommonLayer {
      * @param map {Map} map class instance
      * @return {Promise}*/
     mapAdd(map){
+        this._map = map;
         let mapObj = map.map;
+
         
         map.on('click', this._talhoesLayer.key, e => {
             let feature = e.features[0];
@@ -67,5 +69,14 @@ export default class MapSelectedTalhaoesLayer extends MapCommonLayer {
         });
 
         return super.mapAdd(map);
+    }
+
+    //
+    selectExternal(feature){
+        if (!feature)
+            return;
+        const mapObj = this._map.map;
+        const { cdFazenda: farm, cdZona: sector, cdTalhao: field } = feature.properties
+        mapObj.setFilter(this.key, getFilter(farm, sector, field));        
     }
 }

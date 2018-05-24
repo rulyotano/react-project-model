@@ -1,4 +1,4 @@
-import {MAP_JSON_LOADED, SET_MAPPED_MAP_JSON,
+import {MAP_JSON_LOADED,
         SELECT_MAP_FIELD, START_MAP_LOADING } from "../actions/mapActions.types"
 import {mappedGeoJson} from "../../../service/maps/geoCalculationService"
 

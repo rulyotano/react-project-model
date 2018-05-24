@@ -1,7 +1,7 @@
 import React, {PureComponent} from 'react';
 import {Link} from 'react-router-dom';
 import {Apps, LocationOn, MultilineChart, ArrowBack, ArrowForward, ExpandMore, ExpandLess,
-Home, FormatShapes } from '@material-ui/icons';
+Home, FormatShapes, LineStyle } from '@material-ui/icons';
 import {connect} from 'react-redux';
 import {setSizeToMax, setSizeToMin} from "../_store/actions/appActions";
 import ROUTES from "../routeNames";
@@ -88,7 +88,7 @@ class Sidebar extends PureComponent{
                     {/*<CommonListItem url={ROUTES.MONITORING} icon={<LocationOn/>} text="Monitoring" isMaximized={isMaximized}/>*/}
                     <CommonList isMaximized={isMaximized} icon={<FormatShapes/>} text={t("Close Field")} isOpen={false}>
                         <CommonListItem url={urlJoin(ROUTES.CLOSE_FIELD, CLOSE_FIELD_MAP_KEY)} icon={<LocationOn/>} text={t("Map")} isMaximized={isMaximized}/>
-                        <CommonListItem url={urlJoin(ROUTES.CLOSE_FIELD, CLOSE_FIELD_PROCESS_KEY)} icon={<LocationOn/>} text={t("Process")} isMaximized={isMaximized}/>
+                        <CommonListItem url={urlJoin(ROUTES.CLOSE_FIELD, CLOSE_FIELD_PROCESS_KEY)} icon={<LineStyle/>} text={t("Process")} isMaximized={isMaximized}/>
                     </CommonList>
                     {/*<CommonListItem url={ROUTES.CHART_TEST} icon={<MultilineChart/>} text="Test Chart" isMaximized={isMaximized}/>*/}
                     {/*<CommonListItem url={ROUTES.FORM_TEST} icon={<MultilineChart/>} text="Form Test" isMaximized={isMaximized}/>*/}

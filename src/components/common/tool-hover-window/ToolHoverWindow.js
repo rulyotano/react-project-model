@@ -56,6 +56,10 @@ class ToolHoverWindow extends Component{
         this.setState({isOpen:!isOpen});
     }
 
+    stopPropagation(e){
+        e.stopPropagation();
+    }
+
     render(){
 
         let {labelHeader, isOpen, width} = this.state;
@@ -75,12 +79,13 @@ class ToolHoverWindow extends Component{
                         <h5>{labelHeader}</h5>
                         {isOpen?<ArrowDropUp onClick={()=>{this.handleState()}}/>:<ArrowDropDown onClick={()=>{this.handleState()}}/>}
                     </header>
-                    <div className={classNames("tool-hover-window-content", classes.bodyContainer)} style={{ height:MaxHeight}}>
+                    <div className={classNames("tool-hover-window-content", classes.bodyContainer)} style={{ height:MaxHeight}}
+                         onMouseDown={e=>this.stopPropagation(e)}>
                         <div className={classes.scrollBarContainer} style={{height: scrollHeight}}>
                             <Scrollbar>
                                 <div className={classes.contentContainer}>
                                     {this.props.children}
-                               \ </div>
+                                 </div>
                             </Scrollbar>
                         </div>                            
                         {footerElement}
