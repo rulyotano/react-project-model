@@ -58,8 +58,13 @@ class WorkAreaSelectorComponent extends PureComponent {
     }
 
     componentWillReceiveProps(newProps){
-        if (newProps.defaultFarm && newProps.defaultFarm !== this.props.defaultFarm){
+        if (newProps.defaultFarm !== this.props.defaultFarm){
             this.setStateValues({farm: newProps.defaultFarm});            
+        } 
+        //else if has new value, and new farm is empty, and already has default farm, then use the default farm as value farm
+        else if (newProps.value !== this.props.value 
+            && (!newProps.value || !newProps.value.farm) && this.props.defaultFarm){
+                this.setStateValues({...newProps.value, farm: this.props.defaultFarm});     
         }
     }
 

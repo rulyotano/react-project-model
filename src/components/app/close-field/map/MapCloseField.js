@@ -47,7 +47,7 @@ export class MapCloseField extends PureComponent {
       //repaint the map variables
       this.onMapDataUpdated(newProps.mapData);
     }
-    if (newProps.fieldSelected){
+    if (newProps.fieldSelected !== undefined){
       this.selectedField.selectExternal(newProps.fieldSelected);
     }
   }

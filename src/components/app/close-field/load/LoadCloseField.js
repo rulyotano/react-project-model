@@ -20,6 +20,8 @@ import LoadingButton from '../../../common/loading-button/LoadingButton';
 import componentToReduxForm from '../../../../service/redux-form/componentToReduxForm';
 import {load, show} from './_store/actions/closeFieldLoadActions';
 import {clear} from './_store/actions/closeFieldLoadActions'
+import MAP_KEY from '../map/KEY'
+import PROCESS_KEY from '../process/KEY'
 
 const FORM_ID = "load-close-field-form";
 const FORM_WORK_AREA_ID = `${FORM_ID}-production-place`;
@@ -58,6 +60,12 @@ export class LoadCloseField extends PureComponent {
     this.props.clear();
   }
 
+  componentWillReceiveProps(newProps){
+      if (newProps.match.params.source !== this.props.match.params.source){
+        this.props.show();
+      }
+  }
+
   closeModal(){
       this.props.hide()
   }
@@ -67,18 +75,22 @@ export class LoadCloseField extends PureComponent {
   }
 
   load(){
-      const {handleSubmit, load, match, history, workAreaData} = this.props
+      const {handleSubmit, load, match, history} = this.props
       handleSubmit(
-          data=>load({...data, ...workAreaData}, match.params.source, history.push))();      
+          data=>load({...data, ...data.productionPlace}, match.params.source, history.push))();      
   }
 
   render() {
-    const {classes, process, isLoading, open, show, hide} = this.props;
+    const {classes, process, isLoading, open, show, hide,
+            match } = this.props;
+    const loadText = match.params.source === MAP_KEY ? "Load Close Field from Map" : /* TODO: i18n */
+                       match.params.source === PROCESS_KEY ? "Load Close Field from Process" : /* TODO: i18n */
+                       "";
     return (
       <EmptySegment useScroll={false}>
         
         <Button color="primary" onClick={()=>show()}>
-            Load Close Field          {/* TODO: i18n */}
+            {loadText}
         </Button>
 
         <Dialog
@@ -88,11 +100,11 @@ export class LoadCloseField extends PureComponent {
             // onClose={this.handleClose}
             aria-labelledby="form-dialog-title">
 
-            <DialogTitle className={classes.heading} id="form-dialog-title">Load Close Field</DialogTitle>  {/* TODO: i18n */}
+            <DialogTitle className={classes.heading} id="form-dialog-title">{loadText}</DialogTitle>  {/* TODO: i18n */}
             <DialogContent className={classes.content}>
                 <div >
                     <form onSubmit={()=>this.load()}>
-                        <Panel title="Select Time Range">   {/* TODO: i18n222 */}
+                        <Panel title="Select Time Range">   {/* TODO: i18n */}
                             <Field component={DateTimeRangeSelectorRf}
                                     id="dateRange"
                                     name="dateRange"/>
@@ -134,7 +146,7 @@ export class LoadCloseField extends PureComponent {
             </DialogContent>
             <DialogActions className={classes.footer}>
                 <LoadingButton isLoading={isLoading} color="primary" onClick={()=>this.load()}>
-                Load Map        {/* TODO: i18n */}
+                Load        {/* TODO: i18n */}
                 </LoadingButton>
                 <Button color="primary" onClick={()=>this.closeModal()}>
                 Cancel          {/* TODO: i18n */}
@@ -149,8 +161,7 @@ export class LoadCloseField extends PureComponent {
 const mapStateToProps = (state) => ({
     isLoading: state.app.closeField.load.loading,
     open: state.app.closeField.load.show,
-    process: state.app.closeField._.process,
-    workAreaData: get(state, `form.${FORM_WORK_AREA_ID}.values`)
+    process: state.app.closeField._.process
 })
 
 const mapDispatchToProps = (dispatch) =>({

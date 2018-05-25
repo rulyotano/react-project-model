@@ -25,6 +25,7 @@ const LoadingComponent = ({isLoading, error, classes, pastDelay, timedOut, retry
   }
   // Handle the error state
   else if (error) {
+    console.log(error);
     return <div {...restProps}><Typography>Sorry, there was a problem loading the page.</Typography></div>;
   }
   else {
@@ -35,7 +36,7 @@ const LoadingComponent = ({isLoading, error, classes, pastDelay, timedOut, retry
 LoadingComponent.propTypes = {
     classes: PropTypes.object.isRequired,
     isLoading: PropTypes.bool,
-    error: PropTypes.bool,
+    error: PropTypes.any,
     size: PropTypes.number
 };
 

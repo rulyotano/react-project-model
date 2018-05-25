@@ -33,7 +33,7 @@ export class MapCloseFieldMenu extends PureComponent {
 
   componentWillReceiveProps(newProps){
     const {fieldSelected: fs} = newProps;
-    if (fs !== undefined && fs !== this.props.fieldSelected){
+    if (fs !== this.props.fieldSelected){
       this.setState({workAreaValue: fs ? 
         { farm: fs.cdFazenda, sector: fs.cdZona, field: fs.cdTalhao } : 
         { farm: "", sector: "", field: "" }
@@ -46,8 +46,7 @@ export class MapCloseFieldMenu extends PureComponent {
       const {mapMapped} = this.props;
       if (mapMapped && value){
         const feature = get(mapMapped, `${value.farm}.${value.sector}.${value.field}`)
-        if (feature)
-          mapService.setSelectedField(feature)
+        mapService.setSelectedField(feature)
       }
     })
   }

@@ -73,9 +73,11 @@ export default class MapSelectedTalhaoesLayer extends MapCommonLayer {
 
     //
     selectExternal(feature){
-        if (!feature)
-            return;
         const mapObj = this._map.map;
+        if (!feature){
+            mapObj.setFilter(this.key, getFilter())
+            return;
+        }
         const { cdFazenda: farm, cdZona: sector, cdTalhao: field } = feature.properties
         mapObj.setFilter(this.key, getFilter(farm, sector, field));        
     }
