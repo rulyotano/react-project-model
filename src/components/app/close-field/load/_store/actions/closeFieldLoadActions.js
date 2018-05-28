@@ -7,6 +7,7 @@ import MAP_KEY from "../../../map/KEY";
 import PROCESS_KEY from "../../../process/KEY";
 import {LOAD as MAP_LOAD} from "../../../map/_store/actions/closeFieldMapActions.types";
 import {LOAD as PROCESS_LOAD} from "../../../process/_store/actions/closeFieldProcessActions.types";
+import {setLoadedFilters} from "../../../_store/actions/closeFieldActions";
 import moment from 'moment'
 import {isEmpty} from 'lodash'
 
@@ -50,13 +51,13 @@ export const load = (data, source, pushUrl)=> (dispatch, getState)=>{
     //     pushUrl(source === MAP_KEY ? ROUTES.MAP : source === PROCESS_KEY ? ROUTES.PROCESS : "");
     // }, 1000);
 
-    const {dateRange, farm: fazenda, sector: zona, field: talhao, ...restData} = data;
+    const {dateRange, farm, sector, field, ...restData} = data;
     const params = {
         parametrosPaginacao:{paginaAtual: 1},
         tipoDeMapa: 1,
-        fazenda,
-        zona,
-        talhao,
+        fazenda: farm || undefined,
+        zona: sector || undefined,
+        talhao: field || undefined,
         // source,
         // ...restData
     }
@@ -66,6 +67,7 @@ export const load = (data, source, pushUrl)=> (dispatch, getState)=>{
         if (dateRange.finalDateTime){params.dataHoraFinal = moment(dateRange.finalDateTime).format(DATE_SERVER_FORMAT) }
     }
 
+    //TODO: make request for load data
     httpService.useSgpaMapApiUrl().post("mapaAnalitico", params).then(response=>{
         if (isEmpty(response.listaDeRetorno))
         {
@@ -73,17 +75,21 @@ export const load = (data, source, pushUrl)=> (dispatch, getState)=>{
             dispatch({type: LOAD_ERROR});
             return;
         }      
+        //set loaded data
         dispatch({type: LOAD_ACTION_TYPE, data: processMapData(response.listaDeRetorno)});
+        //set loaded filters
+
+        dispatch(setLoadedFilters({
+            initialDate: moment(dateRange.initialDateTime), 
+            finalDate: moment(dateRange.finalDateTime), 
+            farm, sector, field,
+            process: data.process, 
+            operations: data.operation
+        }));
+
+        //redirect to route
         pushUrl(source === MAP_KEY ? ROUTES.MAP : source === PROCESS_KEY ? ROUTES.PROCESS : "");
     }, e=> dispatch({type: LOAD_ERROR}));
-
-    //TODO: make request for load data
-    // httpService.get("load-close-field-data", {
-    //     ...params,
-    //     source
-    // }).then(response=>{        
-    //     dispatch({type: LOADED, data: response});
-    // });    
 };
 
 export const show = (show)=>({type: SHOW, show});

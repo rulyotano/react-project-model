@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { get } from 'lodash'
 import EmptySegment from "../../../common/segment/EmptySegment";
-import { Field, FormSection, reduxForm } from 'redux-form';
+import { Field, reduxForm } from 'redux-form';
 
 import {withStyles, Button, TextField, Dialog, DialogActions,
         DialogContentText, DialogTitle,
@@ -23,8 +23,6 @@ import {clear} from './_store/actions/closeFieldLoadActions'
 import MAP_KEY from '../map/KEY'
 import PROCESS_KEY from '../process/KEY'
 
-const FORM_ID = "load-close-field-form";
-const FORM_WORK_AREA_ID = `${FORM_ID}-production-place`;
 const styles = theme => ({
     heading: {
         fontSize: theme.typography.pxToRem(15),
@@ -172,7 +170,7 @@ const mapDispatchToProps = (dispatch) =>({
 })
 
 LoadCloseField = reduxForm({
-    form: FORM_ID
+    form: "load-close-field-form"
 })(LoadCloseField);
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(LoadCloseField)))

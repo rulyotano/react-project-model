@@ -1,4 +1,4 @@
-import {CLEAR} from '../actions/closeFieldActions.types'
+import {CLEAR, SET_LOADED_FILTERS} from '../actions/closeFieldActions.types'
 import config, {CLIENT_TYPE_CANE, CLIENT_TYPE_GRAIN} from '../../../../../config/config'
 
 const caneProcess = [
@@ -19,13 +19,19 @@ const grainProcess = [
 
 const initialState = {
     process: config.CLIENT_TYPE === CLIENT_TYPE_CANE ? caneProcess :
-             config.CLIENT_TYPE === CLIENT_TYPE_GRAIN ? grainProcess : []
+             config.CLIENT_TYPE === CLIENT_TYPE_GRAIN ? grainProcess : [],
+    loadedFilters: {
+        initialDate: null, finalDate: null, process: null, operations: null,
+        farm: null, sector: null, field: null
+    }
 }
 
 export default (state = initialState, action) => {
   switch (action.type) {
     case CLEAR:
       return initialState;
+    case SET_LOADED_FILTERS:
+        return {...state, loadedFilters: action.filters};
     default:
         return state
   }

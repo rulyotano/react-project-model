@@ -3,11 +3,12 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import EmptySegment from "../../../common/segment/EmptySegment";
 import {clear} from "./_store/actions/closeFieldProcessActions";
-import { withStyles } from '@material-ui/core'
+import { withStyles, Button } from '@material-ui/core'
 import { Redirect } from "react-router-dom";
 import urlJoin from "url-join";
 import routesNames from "../routesNames";
 import PROCESS_KEY from "./KEY";
+import CloseFieldModal from "../close-modal/CloseFieldModal";
 
 const styles = theme => ({
 })
@@ -17,20 +18,29 @@ export class ProcessCloseField extends PureComponent {
   static propTypes = {
     // prop: PropTypes
   }
+  state = {
+    open: false
+  }
 
   componentWillUnmount(){
     this.props.clear();
   }
 
+  closeField(){
+    this.setState({open: true})
+  }
+
   render() {
     const {classes, loaded} = this.props;
+    const {open} = this.state;
     
     if (!loaded)
       return <Redirect to={urlJoin(routesNames.BASE, PROCESS_KEY)}/>
 
     return (
       <EmptySegment useScroll={false}>
-          From Process
+          <Button onClick={()=>this.closeField()}>Close Field</Button>
+          <CloseFieldModal open={open}/>
       </EmptySegment>
     )
   }
