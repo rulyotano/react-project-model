@@ -6,6 +6,7 @@ import workAreaSelector from './workAreaSelector'
 import dropdown from './dropdown'
 import dates from './dates'
 import closeField from './closeField'
+import pagination from './pagination'
 
 export default {
     dialog,
@@ -16,7 +17,7 @@ export default {
     dropdown,
     dates,
     closeField,
-
+    pagination,
     "Operation": "Operação",
     "Filter operations": "Filtrar operações",
     "None":"Nenhum",
@@ -27,4 +28,5 @@ export default {
     "Map":"Mapa",
     "Process":"Processo",
     "Dashboard":"Painel de Controle",
+    "of":"de"
 }

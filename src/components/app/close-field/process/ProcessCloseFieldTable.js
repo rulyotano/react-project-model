@@ -15,7 +15,7 @@ const styles = theme => ({
     table: {
         maxHeight: 250,
         border:"1px solid #ddd",
-        boxShadow:'1px 1px 5px 1px #3a36337d'
+        boxShadow:'1px 1px 2px 1px #ddd'
     },
 });
 const columns = [
@@ -58,12 +58,16 @@ const data = [
 
 
 class ProcessCloseFieldTable extends PureComponent{
+    constructor(props){
+        super(props);
+        this.state = {
+            rowIdSelected:null,
+            page:0,
+            rowsPerPage:window.innerHeight<=600 ? 8: window.innerHeight<= 768 ? 11:16
+        }
+    }
     static contextTypes = {
         t: PropTypes.func,
-    };
-    state = {
-        rowIdSelected:null,
-        page:0,
     };
     selectRow(event , rowIdSelected){
         this.setState({rowIdSelected});
@@ -72,20 +76,16 @@ class ProcessCloseFieldTable extends PureComponent{
         const {rowIdSelected} = this.state;
         return rowId === rowIdSelected;
     };
-    handleChangePage(){
-
-    };
-    handleChangeRowsPerPage(){
-
+    handleChangePage(event, page){
+        this.setState({ page });
     };
 
     render(){
 
-        const { classes } = this.props;
-        const { page } = this.state;
+        const { classes, children } = this.props;
+        const { page, rowsPerPage } = this.state;
         const { t } = this.context;
 
-        const rowsPerPage =  window.innerHeight<=600 ? 8: window.innerHeight<= 768 ? 11:16;
         const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
 
         return(
@@ -105,10 +105,31 @@ class ProcessCloseFieldTable extends PureComponent{
                     )}
                     {emptyRows > 0 && (
                         <TableRow style={{ height: 48 * emptyRows }}>
-                            <TableCell colSpan={6} />
+                            <TableCell colSpan={columns.length} />
                         </TableRow>
                     )}
                 </TableBody>
+                <TableFooter>
+                    <TableRow>
+                        <TableCell colSpan={6}>
+                            {children &&(
+                                children
+                            )}
+                        </TableCell>
+                        <TablePagination
+                            component={TableCell}
+                            labelDisplayedRows={({ from, to, count }) => `${from}-${to} ${t('of')} ${count}`}
+                            rowsPerPageOptions={[]}
+                            count={data.length}
+                            rowsPerPage={rowsPerPage}
+                            page={page}
+                            backIconButtonProps={{'aria-label': t('Previous Page'),}}
+                            nextIconButtonProps={{'aria-label': t('Next Page'),}}
+                            onChangePage={(event, page)=>this.handleChangePage(event, page)}
+                        />
+
+                    </TableRow>
+                </TableFooter>
             </Table>
         )
     }
