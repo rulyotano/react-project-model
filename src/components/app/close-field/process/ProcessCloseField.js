@@ -42,13 +42,12 @@ export class ProcessCloseField extends PureComponent {
       <EmptySegment useScroll={false}>
         <Grid container spacing={16}>
           <Grid item xs={12}>
-            <ProcessCloseFieldTable>
-              <Grid item xs={12} sm={6} md={3}>
-                <Button onClick={()=>this.closeField()}>Close Field</Button>
-              </Grid>
-            </ProcessCloseFieldTable>
+            <ProcessCloseFieldTable/>
           </Grid>
 
+          <Grid item xs={12} sm={6} md={3}>
+            <Button style={{width:'100%'}} onClick={()=>this.closeField()}>Close Field</Button>
+          </Grid>
 
         </Grid>
 

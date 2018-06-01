@@ -81,7 +81,7 @@ class ProcessCloseFieldTable extends PureComponent{
 
     render(){
 
-        const { classes, children } = this.props;
+        const { classes } = this.props;
         const { page } = this.state;
         const { t } = this.context;
 
@@ -109,16 +109,6 @@ class ProcessCloseFieldTable extends PureComponent{
                         </TableRow>
                     )}
                 </TableBody>
-                {children &&(
-                    <TableFooter>
-                        <TableRow>
-                            <TableCell colSpan={12}>{children}</TableCell>
-                        </TableRow>
-                    </TableFooter>
-                )}
-
-
-
             </Table>
         )
     }
