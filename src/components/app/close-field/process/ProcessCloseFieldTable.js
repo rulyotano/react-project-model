@@ -69,7 +69,8 @@ class ProcessCloseFieldTable extends PureComponent{
     static contextTypes = {
         t: PropTypes.func,
     };
-    selectRow(event , rowIdSelected){
+    selectRow(event , idSelected){
+        const rowIdSelected = this.state.rowIdSelected === idSelected ? null:idSelected;
         this.setState({rowIdSelected});
     };
     isSelected(rowId){
@@ -83,7 +84,7 @@ class ProcessCloseFieldTable extends PureComponent{
     render(){
 
         const { classes, children } = this.props;
-        const { page, rowsPerPage } = this.state;
+        const { page, rowsPerPage, rowIdSelected } = this.state;
         const { t } = this.context;
 
         const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
@@ -112,7 +113,7 @@ class ProcessCloseFieldTable extends PureComponent{
                 <TableFooter>
                     <TableRow>
                         <TableCell colSpan={6}>
-                            {children &&(
+                            {children && rowIdSelected > 0 &&(
                                 children
                             )}
                         </TableCell>
