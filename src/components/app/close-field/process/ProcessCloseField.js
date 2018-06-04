@@ -20,7 +20,7 @@ export class ProcessCloseField extends PureComponent {
     // prop: PropTypes
   }
   state = {
-    open: false
+    showCloseFieldModal: false
   }
 
   componentWillUnmount(){
@@ -28,12 +28,16 @@ export class ProcessCloseField extends PureComponent {
   }
 
   closeField(){
-    this.setState({open: true})
+    this.setState({showCloseFieldModal: true})
+  }
+
+  onCloseFieldModalClose(){
+    this.setState({showCloseFieldModal: false})
   }
 
   render() {
     const {classes, loaded} = this.props;
-    const {open} = this.state;
+    const {showCloseFieldModal} = this.state;
     
     if (!loaded)
       return <Redirect to={urlJoin(routesNames.BASE, PROCESS_KEY)}/>
@@ -51,7 +55,11 @@ export class ProcessCloseField extends PureComponent {
         </Grid>
 
 
-        <CloseFieldModal open={open}/>
+        <CloseFieldModal open={showCloseFieldModal}
+                        farm={"1"}
+                        sector={"1"}
+                        field={"1"}
+                        closeModal={()=>this.onCloseFieldModalClose()}/>
       </EmptySegment>
     )
   }

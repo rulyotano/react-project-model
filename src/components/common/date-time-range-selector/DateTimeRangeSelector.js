@@ -10,6 +10,7 @@ class DateTimeRangeSelector extends PureComponent{
         labelInitial:PropTypes.string,
         labelFinal:PropTypes.string,
         onChange: PropTypes.func.isRequired,
+        timeFormat: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
         initialValue: PropTypes.shape({
             initialDateTime: PropTypes.object,
             finalDateTime: PropTypes.object
@@ -45,7 +46,8 @@ class DateTimeRangeSelector extends PureComponent{
     render(){
         const {initialDateTime, finalDateTime} = this.state;
         let stateValue = {initialDateTime, finalDateTime};
-        const {useAs, labelInitial, labelFinal, value=stateValue} = this.props;
+        const {useAs, labelInitial, labelFinal, value=stateValue,
+            timeFormat} = this.props;
         const {t} = this.context;
         let className = 'date-time-range-selector-';
         className+= useAs?useAs:'h';
@@ -55,13 +57,15 @@ class DateTimeRangeSelector extends PureComponent{
                     <DateTimePicker id="date-time-left" 
                         label={labelInitial?labelInitial:t('dates.Initial Date')} 
                         onChange={(e)=>this.onInitialChange(e)}
-                        value={value.initialDateTime}/>
+                        value={value.initialDateTime}
+                        timeFormat={timeFormat}/>
                 </div>
                 <div className="date-time-box right">
                     <DateTimePicker id="date-time-right" 
                         label={labelFinal?labelFinal:t('dates.Final Date')} 
                         onChange={(e)=>this.onFinalChange(e)}                        
-                        value={value.finalDateTime}/>
+                        value={value.finalDateTime}
+                        timeFormat={timeFormat}/>
                 </div>
             </div>
         )

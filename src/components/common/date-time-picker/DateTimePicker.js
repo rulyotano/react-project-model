@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import {isDate} from 'lodash';
 import {isString, debounce} from 'lodash';
 import TetheredDateTime from './TetheredDateTime';
+import componentToReduxForm from '../../../service/redux-form/componentToReduxForm';
 
 import moment from 'moment';
 import 'moment/locale/pt-br';
@@ -22,12 +23,13 @@ const styles = theme => ({
 });
 
 
-class DateTimePicker extends PureComponent{
+class DateTimePickerComponent extends PureComponent{
     static propTypes = {
         value:PropTypes.object,
         label:PropTypes.string,
         id:PropTypes.string.isRequired,
-        onChange:PropTypes.func.isRequired
+        onChange:PropTypes.func.isRequired,
+        timeFormat: PropTypes.oneOfType([PropTypes.bool, PropTypes.string])
     };
     static contextTypes = {
         t: PropTypes.func,
@@ -46,7 +48,8 @@ class DateTimePicker extends PureComponent{
 
     render(){
 
-        const { classes, id, label, value = this.state.value } = this.props;
+        const { classes, id, label, value = this.state.value,
+            timeFormat } = this.props;
         const {t} = this.context;
 
 
@@ -63,6 +66,7 @@ class DateTimePicker extends PureComponent{
                 value={fValue}
                 input={true}
                 label={label}
+                timeFormat={timeFormat}
                 inputProps={{
                     id
                 }}
@@ -71,5 +75,5 @@ class DateTimePicker extends PureComponent{
 
     }
 }
-
-export default withStyles(styles)(DateTimePicker);
+export const DateTimePicker = componentToReduxForm(DateTimePickerComponent);
+export default withStyles(styles)(DateTimePickerComponent);

@@ -22,6 +22,7 @@ import MapNumbersLayer from '../../../../service/maps/classes/layers/common-laye
 import MapSelectedTalhaoLayer from '../../../../service/maps/classes/layers/common-layers/map-selected-talhao-layer';
 import CloseTalhaoMapVariable from './layers/close-talhao-map-variables-layer';
 import {clear} from './_store/actions/closeFieldMapActions';
+import CloseFieldModal from "../close-modal/CloseFieldModal";
 
 const styles = theme => ({
   fullHeight: {
@@ -33,6 +34,10 @@ const styles = theme => ({
 export class MapCloseField extends PureComponent {
   static propTypes = {
     // prop: PropTypes
+  }
+  state = {
+    showCloseFieldModal: false,
+    wArea: null
   }
   componentDidMount(){
       this.props.loadMap();
@@ -75,22 +80,37 @@ export class MapCloseField extends PureComponent {
     });
   }
 
+  onCloseFieldClick(wArea){
+    this.setState({wArea, showCloseFieldModal: true})
+  }
+
+  onCloseFieldModalClose(){
+    this.setState({showCloseFieldModal: false})
+  }
+
   render() {
     const {mapGeoJson, classes, loaded} = this.props;
-
+    const {showCloseFieldModal, wArea} = this.state;
+    
     if (!loaded)
       return <Redirect to={urlJoin(routesNames.BASE, MAP_KEY)}/>
 
     //TODO: redirect to load from map if data not loaded
     const map = <div className={classes.fullHeight}>
       <MapComponent onCreateMap={map=>this.onCreateMap(map)} />
-      <MapCloseFieldMenu/>
+      <MapCloseFieldMenu onCloseFieldClick={(wArea)=>this.onCloseFieldClick(wArea)}/>      
+      {!!wArea ? <CloseFieldModal 
+                    open={showCloseFieldModal} 
+                    farm={wArea.farm}
+                    sector={wArea.sector}
+                    field={wArea.field}
+                    closeModal={()=>this.onCloseFieldModalClose()}/> : null}
     </div>
 
     return (
       <EmptySegment useScroll={false}>
         <LoadingComponent className={classes.fullHeight} isLoading={!mapGeoJson}/>
-                { !!mapGeoJson ? map : null}
+                { !!mapGeoJson ? map : null}                
       </EmptySegment>
     )
   }

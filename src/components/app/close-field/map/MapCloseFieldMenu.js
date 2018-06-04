@@ -18,7 +18,7 @@ const styles = {
 
 export class MapCloseFieldMenu extends PureComponent {
   static propTypes = {
-    // prop: PropTypes
+    onCloseFieldClick: PropTypes.func.isRequired
   }
   static contextTypes = {
     t: PropTypes.func.isRequired
@@ -43,7 +43,7 @@ export class MapCloseFieldMenu extends PureComponent {
 
   onFieldChange(value){
     this.setState({workAreaValue: value}, ()=>{
-      const {mapMapped} = this.props;
+      const {mapMapped, onCloseFieldClick} = this.props;
       if (mapMapped && value){
         const feature = get(mapMapped, `${value.farm}.${value.sector}.${value.field}`)
         mapService.setSelectedField(feature)
@@ -53,11 +53,12 @@ export class MapCloseFieldMenu extends PureComponent {
 
   render() {
     const {isOpen, workAreaValue} = this.state;
-    const {classes, paintMap, canPaintMap, fieldSelected: fs} = this.props;
+    const {classes, paintMap, canPaintMap, fieldSelected: fs,
+            onCloseFieldClick} = this.props;
     const {t} = this.context;
     const footer = (<Grid container spacing={8}>
         <Grid item md={6}><LoadingButton disabled={!canPaintMap}  onClick={()=>paintMap()}>{t("closeField.map.Load_Map")}</LoadingButton></Grid>
-        <Grid item md={6}><LoadingButton disabled={!fs}  >{t("closeField.map.Close_Field")}</LoadingButton></Grid>        
+        <Grid item md={6}><LoadingButton disabled={!fs} onClick={()=>onCloseFieldClick(workAreaValue)} >{t("closeField.map.Close_Field")}</LoadingButton></Grid>        
     </Grid>)
     return (
         <ToolHoverWindow isOpen={isOpen} 
@@ -76,7 +77,7 @@ export class MapCloseFieldMenu extends PureComponent {
           
           {/* TODO: i18n */}
           <Panel title={"Work Area"}>
-            <WorkAreaSelector onChange={(value)=>this.onFieldChange(value)} value={workAreaValue} isHorizontal={false}/>
+            <WorkAreaSelector onChange={(value)=>this.onFieldChange(value)} value={workAreaValue}/>
           </Panel>
 
 

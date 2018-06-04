@@ -10,6 +10,7 @@ import componentToReduxForm from "../../../service/redux-form/componentToReduxFo
 import propTypes from 'prop-types';
 import {Search} from '@material-ui/icons';
 import InputAdornment from '@material-ui/core/InputAdornment';
+import {isArray} from 'lodash';
 
 
 const ITEM_HEIGHT = 48;
@@ -41,7 +42,6 @@ class Select extends PureComponent{
     constructor(props){
         super(props);
         this.state ={
-            value:this.props.initialValue || (this.props.multiple ? []:''),
             criterion:''
         }
     }
@@ -55,12 +55,14 @@ class Select extends PureComponent{
         attrId: propTypes.string.isRequired,
         attrLabel: propTypes.string,
         joinIdLabel: propTypes.bool,
+        isRequired: propTypes.bool,
         isLoading: propTypes.bool,
         error: propTypes.bool,  //if has error
         helperText: propTypes.string,  //text error
         suggestions:propTypes.arrayOf(propTypes.object).isRequired,
         onChange:propTypes.func,
         initialValue:propTypes.any,
+        value: propTypes.any
     };
 
     handleChange = event => {
@@ -71,30 +73,35 @@ class Select extends PureComponent{
     };
     getDescription = item =>{
         const {attrId ="id", attrLabel="label", joinIdLabel = false} = this.props;
-        return joinIdLabel ? item[attrId] + ' - ' + item[attrLabel]:item[attrLabel];
+        const {t} = this.context;
+        const text = t(item[attrLabel]); 
+        return joinIdLabel ? item[attrId] + ' - ' + text:text;
     };
     getFilteredItems = item =>{
-
         const {criterion} = this.state;
         if(criterion === "")
             return true;
         let textToMatch = this.getDescription(item).toLowerCase();
         return textToMatch.includes(criterion.toLowerCase())? '':'none';
-
-
     };
 
 
     render(){
         const { classes, suggestions, name, id, label, attrId="id",
-                isLoading=false, error = false, helperText = "", hasSearchInput = false, multiple =false} = this.props;
+                isLoading=false, error = false, helperText = "", 
+                hasSearchInput = false, multiple =false,
+                isRequired = false, value} = this.props;
         const {t} = this.context;
+
+        let renderValue = value !== undefined ? value : (multiple ? [] : "")
+        if (multiple && !isArray(renderValue))
+            renderValue = [];
 
         return(
             <FormControl className={classes.fullWidth} error={error}>
                 <InputLabel htmlFor={id}>{t(label)}</InputLabel>
                 <SelectMui className={classes.fullWidth}
-                           value={this.state.value}
+                           value={renderValue}
                            MenuProps={MenuProps}
                            multiple={multiple}
                            id={id}
@@ -122,10 +129,9 @@ class Select extends PureComponent{
                                        ),
                                    }}
                         />
-                    </MenuItem>:
-                        ''
+                    </MenuItem> : null
                     }
-                    {multiple ? '':<MenuItem value=""><em>{t('None')}</em></MenuItem>}
+                    { (multiple || isRequired) ? null : <MenuItem value=""><em>{t('None')}</em></MenuItem>}
                     {suggestions
                         .map(m=><MenuItem value={m[attrId]} key={m[attrId]} style={{display:this.getFilteredItems(m)}}>{this.getDescription(m)}</MenuItem>)}
                 </SelectMui>
