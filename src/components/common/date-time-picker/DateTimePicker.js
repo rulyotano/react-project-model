@@ -25,7 +25,7 @@ const styles = theme => ({
 
 class DateTimePickerComponent extends PureComponent{
     static propTypes = {
-        value:PropTypes.object,
+        value:PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
         label:PropTypes.string,
         id:PropTypes.string.isRequired,
         onChange:PropTypes.func.isRequired,
@@ -55,7 +55,7 @@ class DateTimePickerComponent extends PureComponent{
 
         let fValue = value;
         if (!isDate(fValue))
-            fValue = moment(fValue).toDate()
+            fValue = null;
         return(
 
             <TetheredDateTime
