@@ -22,11 +22,26 @@ export const initializeVariables = () => (dispatch, getState)=>{
     });
 }
 
-export const paintMap = () => (dispatch, getState) => {
+/**Filter the data */
+export const filterData = (filters, data)=>{
+    let result = data;
+    if (filters !== undefined){
+        if (filters.workArea !== undefined){
+            const wa = filters.workArea;
+            let filterFn = (item)=> (wa.farm ? item.cdFazendaInicial === wa.farm : true) &&
+                                    (wa.sector ? item.cdZonaInicial === wa.sector : true) &&
+                                    (wa.field ? item.cdTalhaoInicial === wa.field : true);
+            result = data.filter(filterFn);
+        }
+    }
+    return result;
+}
+
+export const paintMap = (filters) => (dispatch, getState) => {
     let mapData = [];
     const state = getState();
     const variable = state.app.closeField.map.selected.variable;
-    const data = state.app.closeField.map.data;
+    const data = filterData(filters, state.app.closeField.map.data);
     if (!variable)
         return;
     mapData = variable.selectedRangeGroup.groupedElements(data);

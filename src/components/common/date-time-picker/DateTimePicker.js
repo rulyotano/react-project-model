@@ -49,7 +49,7 @@ class DateTimePickerComponent extends PureComponent{
     render(){
 
         const { classes, id, label, value = this.state.value,
-            timeFormat } = this.props;
+            timeFormat, ...otherProps } = this.props;
         const {t} = this.context;
 
 
@@ -58,7 +58,7 @@ class DateTimePickerComponent extends PureComponent{
             fValue = null;
         return(
 
-            <TetheredDateTime
+            <TetheredDateTime {...otherProps}
                 locale={t('calendarLocale')}
                 timeConstraints={ {minutes: { step: 5 }}}
                 closeOnSelect={true}

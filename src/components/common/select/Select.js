@@ -61,7 +61,6 @@ class Select extends PureComponent{
         helperText: propTypes.string,  //text error
         suggestions:propTypes.arrayOf(propTypes.object).isRequired,
         onChange:propTypes.func,
-        initialValue:propTypes.any,
         value: propTypes.any
     };
 

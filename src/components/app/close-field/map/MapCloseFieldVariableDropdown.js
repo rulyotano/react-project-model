@@ -5,21 +5,20 @@ import { connect } from 'react-redux'
 import Select from '../../../common/select/Select'
 import {setVariable} from './_store/actions/closeFieldMapActions'
 
-const MapCloseFieldVariableDropdown = ({items, initialValue, 
+const MapCloseFieldVariableDropdown = ({value, 
                 variables, onChange}) => (<Select
     id="map-close-field-variable"
     name="closeFieldMapVariable"
     label="Variables"   /*TODO: i18n*/
     attrId="name"    
     attrLabel="name"
-    suggestions={items}
+    suggestions={variables}
     onChange={(name)=>onChange(find(variables, v=>v.name === name))}
-    initialValue={initialValue}
+    value={value ? value.name : undefined}
 />)
 
 const mapStateToProps = (state) => ({
-    items: state.app.closeField.map.variables,
-    initialValue: state.app.closeField.map.selected.variable,
+    value: state.app.closeField.map.selected.variable,
     variables: state.app.closeField.map.variables,
 })
 

@@ -14,6 +14,7 @@ import {DateTimePicker} from '../../../common/date-time-picker/DateTimePicker';
 import WorkAreaSelector from '../../../common/work-area-selector/WorkAreaSelector';
 import * as processTypes from '../../../../service/close-field/processTypes'
 import {get, find} from "lodash";
+import {presence} from "redux-form-validators";
 
 const FORM_NAME = "close-field-form";
         
@@ -38,7 +39,8 @@ const PlantingDate = ({t})=><Field name="plantingDate"
                                 id="plantingDate" 
                                 label={t("closeField.closeModal.Planting Date")}
                                 component={DateTimePicker}
-                                timeFormat={false}/>
+                                timeFormat={false}
+                                validate={presence() }/>
 
 export class CloseFieldModal extends PureComponent {
   static propTypes = {
@@ -56,6 +58,9 @@ static contextTypes = {
   submit(){
     const {handleSubmit} = this.props;
     //TODO:
+    handleSubmit((data)=>{
+        console.log(data)
+    })();
   }  
 
   render() {
@@ -63,7 +68,7 @@ static contextTypes = {
         initialProcess, isCane, formProcess,
         farm, sector, field, closeModal = ()=>{} } = this.props;
     const {t} = this.context;
-    let isClosing = true;
+    let isClosing = false;  //TODO:
     return (
       <Dialog open={open}
               fullWidth={true}
