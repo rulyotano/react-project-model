@@ -8,12 +8,14 @@ import {getTranslateFunction} from 'redux-i18n';
 export const DATE_FORMATS_KEYS = {
     SERVER_DATE: "SERVER_DATE",
     SERVER_DATE_MIN: "SERVER_DATE_MIN",
+    SHORT_DATE_TIME_FORMAT: "SHORT_DATE_TIME_FORMAT",
     SHORT_DATE_TIME_FORMAT_WITH_MINUTES: "SHORT_DATE_TIME_FORMAT_WITH_MINUTES",
 }
 
 const DATE_FORMATS = {
     [DATE_FORMATS_KEYS.SERVER_DATE]: "DDMMYYYYHHmmss",
     [DATE_FORMATS_KEYS.SERVER_DATE_MIN]: "DDMMYYYY",
+    [DATE_FORMATS_KEYS.SHORT_DATE_TIME_FORMAT]: "DD/MM/YY",
     [DATE_FORMATS_KEYS.SHORT_DATE_TIME_FORMAT_WITH_MINUTES]: "DD/MM/YY HH:mm",
 }
 
@@ -27,19 +29,16 @@ export const getFormat = (format)=>{
     return t(`dates.${format}`);
 }
 
-// Converts a Date object to an array
-export const convertDateToDateTimeArray = date => {
-    let ano = date.getFullYear();
-    let mes = date.getMonth() + 1;
-    let dia = date.getDate();
-    let hora = date.getHours();
-    let min = date.getMinutes();
-    let sec = date.getSeconds();
-    return [ano, mes, dia, hora, min, sec];
+/** Converts a moment Date to an array*/
+export const toServerArray = mDate => {
+    const result = mDate.toArray();
+    result[1]++;
+    return result;
 };
 
-export const convertDateTimeArrayToMoment = (datetimeArray) => {  
-    const tArray = _.assign(_.fill(new Array(6), 0), datetimeArray);
-    tArray[1]--;
-    return moment(datetimeArray);
+/**convert from server array to moment*/
+export const fromServerArray = (serverDateArray) => {  
+    const dateArray = [...serverDateArray];
+    dateArray[1]--;    
+    return moment(dateArray);
 };

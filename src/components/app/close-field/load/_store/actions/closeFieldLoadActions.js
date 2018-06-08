@@ -1,6 +1,6 @@
 import {START_LOADING, LOAD_ERROR, SHOW, CLEAR} from "./closeFieldLoadActions.types";
 import httpService from "../../../../../../service/httpService";
-import {getFormat, DATE_FORMATS_KEYS} from "../../../../../../service/dateService";
+import {getFormat, DATE_FORMATS_KEYS, fromServerArray} from "../../../../../../service/dateService";
 import dialogService from "../../../../../../service/dialog/dialogService";
 import ROUTES from "../../../routesNames";
 import MAP_KEY from "../../../map/KEY";
@@ -9,8 +9,9 @@ import {LOAD as MAP_LOAD} from "../../../map/_store/actions/closeFieldMapActions
 import {LOAD as PROCESS_LOAD} from "../../../process/_store/actions/closeFieldProcessActions.types";
 import {setLoadedFilters} from "../../../_store/actions/closeFieldActions";
 import moment from 'moment'
-import {isEmpty} from 'lodash'
+import {isEmpty, random, chain, round} from 'lodash'
 
+/**TODO: remove or change on production */
 const processMapData = (data)=>{
     const count = data.length;
     for (let i = 0; i < count; i++) {
@@ -29,27 +30,35 @@ const processMapData = (data)=>{
     return data;
 }
 
-export const load = (data, source, pushUrl)=> (dispatch, getState)=>{    
-    const LOAD_ACTION_TYPE = source === MAP_KEY ? MAP_LOAD : 
-                             source === PROCESS_KEY ? PROCESS_LOAD : null;
-    if (!LOAD_ACTION_TYPE)
-        return;
+/**TODO: Change to right server data mapping */
+const processProcessData = (data)=>{
+    const groupFn = (it)=>`${it.process}.${it.farm}.${it.sector}.${it.field}`;
+    const groupRowValues = (items, groupFn) => 
+                                chain(items).map(groupFn)
+                                .groupBy().keys().join(', ').value();
+                                
+    const DATE_FORMAT = getFormat(DATE_FORMATS_KEYS.SHORT_DATE_TIME_FORMAT);
 
+    return chain(data).groupBy(groupFn).map((items, key)=>({
+        key,
+        process: items[0].process,      
+        operations: groupRowValues(items, it=>it.operation),
+        fieldText: `${items[0].farm}.${items[0].sector}.${items[0].field}`,
+        farm: items[0].farm,
+        sector: items[0].sector,
+        field: items[0].field,
+        fieldArea:  round(items[0].fieldArea, 2),
+        machineArea: chain(items).sumBy(it=>it.machineArea).round(2).value(),
+        date: groupRowValues(items, it=>fromServerArray(it.date).format(DATE_FORMAT)),
+        state: "Active"
+    })).value();
+}
+
+export const load = (data, source, pushUrl)=> (dispatch, getState)=>{
     const state = getState();
     if (state.app.closeField.load.loading)
         return;
     dispatch({type: START_LOADING});
-
-    // console.log(params)
-
-    // setTimeout(() => {
-
-    //     dispatch({
-    //         type: LOAD_ACTION_TYPE,
-    //         data: [ {id: "1", name: "test item"} ]
-    //     });
-    //     pushUrl(source === MAP_KEY ? ROUTES.MAP : source === PROCESS_KEY ? ROUTES.PROCESS : "");
-    // }, 1000);
 
     const {dateRange, farm, sector, field, ...restData} = data;
     const params = {
@@ -67,30 +76,72 @@ export const load = (data, source, pushUrl)=> (dispatch, getState)=>{
         if (dateRange.finalDateTime){params.dataHoraFinal = moment(dateRange.finalDateTime).format(DATE_SERVER_FORMAT) }
     }
 
-    //TODO: make request for load data
-    httpService.useSgpaMapApiUrl().post("mapaAnalitico", params).then(response=>{
-        if (isEmpty(response.listaDeRetorno))
-        {
-            dialogService.notification("", "Response with no data.") //TODO: i18n
-            dispatch({type: LOAD_ERROR});
-            return;
-        }      
-        //set loaded data
-        dispatch({type: LOAD_ACTION_TYPE, data: processMapData(response.listaDeRetorno)});
-        //set loaded filters
-
-        dispatch(setLoadedFilters({
-            initialDate: moment(dateRange.initialDateTime), 
-            finalDate: moment(dateRange.finalDateTime), 
-            farm, sector, field,
-            process: data.process, 
-            operations: data.operation
-        }));
-
-        //redirect to route
-        pushUrl(source === MAP_KEY ? ROUTES.MAP : source === PROCESS_KEY ? ROUTES.PROCESS : "");
-    }, e=> dispatch({type: LOAD_ERROR}));
+    if (source === MAP_KEY){
+        loadMap(params, data, pushUrl, dispatch);                
+    } else if (source === PROCESS_KEY){
+        loadProcess(params, data, pushUrl, dispatch);
+    }
 };
+
+export const loadMap = (params, data, pushUrl, dispatch) => {
+    const {dateRange, farm, sector, field} = data;
+    httpService.useSgpaMapApiUrl().post("mapaAnalitico", params)
+        .then(response=>{
+            if (isEmpty(response.listaDeRetorno))
+            {
+                dialogService.notification("", "Response with no data.") //TODO: i18n
+                dispatch({type: LOAD_ERROR});
+                return;
+            }      
+            //set loaded data
+            dispatch({type: MAP_LOAD, data: processMapData(response.listaDeRetorno)});
+            //set loaded filters
+
+            dispatch(setLoadedFilters({
+                initialDate: moment(dateRange.initialDateTime), 
+                finalDate: moment(dateRange.finalDateTime), 
+                farm, sector, field,
+                process: data.process, 
+                operations: data.operation
+            }));
+
+            //redirect to route
+            pushUrl(ROUTES.MAP);
+        }, e=> dispatch({type: LOAD_ERROR}));
+}
+
+export const loadProcess = (params, data, pushUrl, dispatch) => {
+    setTimeout(() => {
+        const data = getMockProcessData();
+        dispatch({
+            type: PROCESS_LOAD,
+            data: processProcessData(data)
+        });
+        pushUrl(ROUTES.PROCESS);
+    }, 1000);
+}
+
+/**TODO: remove on production */
+const getMockProcessData = ()=> {
+    const result = [];
+    const now = moment().valueOf();
+    const startOfYear = moment().startOf('year').valueOf();
+    for (let i = 0; i < 150; i++) {
+        const dateArray = moment(random(startOfYear, now)).toArray();
+        dateArray[1]++;
+        result.push({
+            process: random(0, 10),                        
+            operation: random(0, 100),                        
+            farm: random(1, 2),                        
+            sector: random(1, 10),                        
+            field: random(1, 20),                        
+            fieldArea: random(50, 300, true),                        
+            machineArea: random(5, 20, true),                        
+            date: dateArray,
+        });
+    }
+    return result;
+}
 
 export const show = (show)=>({type: SHOW, show});
 

@@ -43,17 +43,12 @@ export class ProcessCloseField extends PureComponent {
       return <Redirect to={urlJoin(routesNames.BASE, PROCESS_KEY)}/>
 
     return (
-      <EmptySegment useScroll={false}>
-        <Grid container spacing={16}>
-          <Grid item xs={12}>
-            <ProcessCloseFieldTable>
-              <Grid item xs={12} sm={6} md={3}>
-                <Button style={{width:'100%'}} onClick={()=>this.closeField()}>Close Field</Button>
-              </Grid>
-            </ProcessCloseFieldTable>
+      <EmptySegment useScroll={false}>        
+        <ProcessCloseFieldTable>
+          <Grid item xs={12} sm={6} md={3}>
+            <Button style={{width:'100%'}} onClick={()=>this.closeField()}>Close Field</Button>
           </Grid>
-        </Grid>
-
+        </ProcessCloseFieldTable>
 
         <CloseFieldModal open={showCloseFieldModal}
                         farm={"1"}
