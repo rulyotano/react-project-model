@@ -5,11 +5,13 @@ import { withStyles } from '@material-ui/core/styles';
 import ReactTable from "react-table";
 import 'react-table/react-table.css';
 import {isFunction} from 'lodash';
+import Scrollbar from 'perfect-scrollbar-react';
+import classNames from 'classnames';
 
 // import {Table, TableHead, TableRow, TableBody,
 //     TableCell, TableFooter, TablePagination} from '@material-ui/core';
 
-const styles = theme => ({
+const styles = theme => ({    
     table: {
         border:"1px solid #ddd",
         boxShadow:'1px 1px 2px 1px #ddd',
@@ -27,6 +29,8 @@ const styles = theme => ({
         color: theme.palette.primary.contrastText
     }
 });
+
+const CustomTbodyComponent = (props)=><div {...props} className={classNames("rt-tbody", props.className || [])}><Scrollbar>{props.children}</Scrollbar></div>
 
 class DataTable extends PureComponent {
     static propTypes = {
@@ -114,6 +118,7 @@ class DataTable extends PureComponent {
                 }}
                 data={data}
                 columns={this._columnsFromHeaderConfig()}
+                className="-striped -highlight"
                 getTdProps={(state, rowInfo, column, instance) => {
                     if (!rowInfo)
                         return {};
@@ -128,6 +133,7 @@ class DataTable extends PureComponent {
                             className: selected ? classes.selectedRow : undefined
                         };
                     }}
+                TbodyComponent={CustomTbodyComponent}
             />
         </div>
 
