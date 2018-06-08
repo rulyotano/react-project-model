@@ -7,6 +7,7 @@ import dropdown from './dropdown'
 import dates from './dates'
 import closeField from './closeField'
 import pagination from './pagination'
+import dataGrid from './dataGrid'
 
 export default {
     dialog,
@@ -18,6 +19,7 @@ export default {
     dates,
     closeField,
     pagination,
+    dataGrid,
     "Operation": "Operation",
     "Filter operations": "Filter operations",
     "None":"None",

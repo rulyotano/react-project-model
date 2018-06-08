@@ -1,9 +1,13 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import {Table, TableHead, TableRow, TableBody,
-    TableCell, TableFooter, TablePagination} from '@material-ui/core';
+
+import ReactTable from "react-table";
+import 'react-table/react-table.css';
 import {isFunction} from 'lodash';
+
+// import {Table, TableHead, TableRow, TableBody,
+//     TableCell, TableFooter, TablePagination} from '@material-ui/core';
 
 const styles = theme => ({
     table: {
@@ -13,11 +17,14 @@ const styles = theme => ({
         width: "calc(100% - 2px)"
     },
     tableWrapper:{
-        overflowY: 'auto',
         height: '100%'
     },
     tableRow:{
         maxHeight:'48px !important'
+    },
+    selectedRow:{
+        backgroundColor: theme.palette.primary.light,
+        color: theme.palette.primary.contrastText
     }
 });
 
@@ -42,6 +49,10 @@ class DataTable extends PureComponent {
     state = {
         selection: {}
     }
+
+    // shouldComponentUpdate(props){
+        
+    // }
 
     _getRowKey(it){
         const {rowKey} = this.props;
@@ -70,18 +81,57 @@ class DataTable extends PureComponent {
 
         if (isFunction(onSelectionChanged))
             onSelectionChanged(result);
-    }    
+    }
+
+    _columnsFromHeaderConfig(){
+        return this.props.headerConfig.map(h=>({
+            Header: h.content,
+            accessor: h.key
+        }));
+    }
+
+    _texts(){
+        const { t } = this.context;
+        return {
+            previousText: t("dataGrid.previous"),
+            nextText: t("dataGrid.next"),
+            loadingText: t("dataGrid.loading"),
+            noDataText: t("dataGrid.noData"),
+            pageText: t("dataGrid.page"),
+            ofText: t("dataGrid.of"),
+            rowsText: t("dataGrid.rows"),
+        }
+    }
 
     render(){
-        const { t } = this.context;
-        const { classes, headerConfig, data=[] } = this.props;
         const { selection } = this.state;
-
-        const pagedData = data;
-
+        const { classes, data=[] } = this.props;
+        const texts = this._texts();
         return <div className={classes.tableWrapper}>
+            <ReactTable {...texts}
+                style={{
+                    height: "100%"
+                }}
+                data={data}
+                columns={this._columnsFromHeaderConfig()}
+                getTdProps={(state, rowInfo, column, instance) => {
+                    if (!rowInfo)
+                        return {};
+                    const selected = !!selection[this._getRowKey(rowInfo.original)];
+                    return {
+                            onClick: (e, handleOriginal) => {
+                                this.onRowClick(rowInfo.original)
+                                if (handleOriginal) {
+                                    handleOriginal();
+                                }
+                            },
+                            className: selected ? classes.selectedRow : undefined
+                        };
+                    }}
+            />
+        </div>
 
-        <Table className={classes.table} component="div">
+        {/* <Table className={classes.table} component="div">
             <TableHead component="div">
                 <TableRow component="div">
                     {headerConfig.map(h=><TableCell component="div" key={h.key} numeric={h.isNumeric}>{h.content}</TableCell> )}
@@ -99,7 +149,7 @@ class DataTable extends PureComponent {
                             {headerConfig.map(col=><TableCell component="div" numeric={col.isNumeric} key={col.key}>{it[col.key]}</TableCell>)}
                         </TableRow>)
                 }
-            </TableBody>
+            </TableBody> */}
             {/* <TableFooter>
                 <TableRow>
                     <TablePagination
@@ -117,8 +167,7 @@ class DataTable extends PureComponent {
 
                 </TableRow>
             </TableFooter> */}
-        </Table>
-    </div>
+        {/* </Table> */}
     }
 }
 
