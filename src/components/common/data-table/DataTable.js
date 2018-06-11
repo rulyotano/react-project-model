@@ -7,11 +7,18 @@ import 'react-table/react-table.css';
 import {isFunction} from 'lodash';
 import Scrollbar from 'perfect-scrollbar-react';
 import classNames from 'classnames';
+import {TablePagination} from '@material-ui/core';
+import moment from 'moment';
 
 // import {Table, TableHead, TableRow, TableBody,
 //     TableCell, TableFooter, TablePagination} from '@material-ui/core';
 
-const styles = theme => ({    
+const styles = theme => ({  
+    "@global":{
+        ".rt-th:focus": {
+            outline: "none"
+        }
+    },  
     table: {
         border:"1px solid #ddd",
         boxShadow:'1px 1px 2px 1px #ddd',
@@ -27,10 +34,78 @@ const styles = theme => ({
     selectedRow:{
         backgroundColor: theme.palette.primary.light,
         color: theme.palette.primary.contrastText
+    },
+    tHead:{
+        height: "56px"
+    },
+    tHeadCell:{
+        padding: "4px 56px 4px 24px !important",
+        textAlign: "left",
+        // borderBottom: "1px solid rgba(224, 224, 224, 1)",
+        color: "rgba(0, 0, 0, 0.54)",
+        fontSize: "0.75rem",
+        fontWeight: "500",
+        fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+    },
+    verticalMiddleContainer: {
+        display: "flex",
+        justifyContent: "center",
+        flexDirection: "column"
+    },
+    numberCell:{
+        textAlign: "right !important"
+    },
+    tableRow:{
+        height: "48px"
+    },
+    tDataCell: {
+        fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+        borderSpacing: "0",
+        borderCollapse: "collapse",
+        padding: "4px 56px 4px 24px !important",
+        fontSize: "0.8125rem",
+        fontWeight: "400",
+        textAlign: "left",
+    },
+    paginationSelect:{
+        paddingRight: "22px"
     }
 });
 
+const CustomTablePagination = ({pages, page, pageSize, 
+                    previousText, nextText, onPageChange, onPageSizeChange,
+                    pageSizeOptions,
+                    count, t, classes })=> {
+    return <TablePagination
+                classes={{select: classes.paginationSelect}}
+                component="div"
+                count={count}
+                rowsPerPage={pageSize}
+                rowsPerPageOptions={pageSizeOptions}
+                page={page}
+                backIconButtonProps={{
+                'aria-label': previousText,
+                }}
+                nextIconButtonProps={{
+                'aria-label': nextText,
+                }}
+                onChangePage={(e, p)=>onPageChange(p)}
+                onChangeRowsPerPage={(e)=>onPageSizeChange(1*e.target.value)}
+                labelRowsPerPage={t('dataGrid.rowPerPage')}
+                labelDisplayedRows={({ from, to, count }) => `${from}-${to} ${t('dataGrid.of')} ${count}`}
+            />
+}
+
 const CustomTbodyComponent = (props)=><div {...props} className={classNames("rt-tbody", props.className || [])}><Scrollbar>{props.children}</Scrollbar></div>
+
+export const commonSortMethods = {
+    number: (a, b)=>{
+        return a - b;
+    },
+    moment: (a, b)=>{
+        return (a || moment()).valueOf() - (b || moment()).valueOf()
+    }
+}
 
 class DataTable extends PureComponent {
     static propTypes = {
@@ -44,7 +119,8 @@ class DataTable extends PureComponent {
         //row selection
         onSelectionChanged: PropTypes.func,
         multiSelect: PropTypes.bool,
-        rowKey: PropTypes.any
+        rowKey: PropTypes.any,
+        showPagination: PropTypes.bool
     }
     static contextTypes = {
         t: PropTypes.func,
@@ -66,7 +142,7 @@ class DataTable extends PureComponent {
     }
 
     onRowClick(it){
-        const {onSelectionChanged, multiSelect, headerConfig} = this.props;
+        const {onSelectionChanged, multiSelect} = this.props;
         const {selection} = this.state;
         const key = this._getRowKey(it);
 
@@ -90,7 +166,10 @@ class DataTable extends PureComponent {
     _columnsFromHeaderConfig(){
         return this.props.headerConfig.map(h=>({
             Header: h.content,
-            accessor: h.key
+            accessor: h.key,
+            isNumeric: h.isNumeric,
+            sortMethod: h.sortMethod !== undefined ? h.sortMethod :
+                        h.isNumeric ? commonSortMethods.number : undefined
         }));
     }
 
@@ -109,16 +188,31 @@ class DataTable extends PureComponent {
 
     render(){
         const { selection } = this.state;
-        const { classes, data=[] } = this.props;
+        const { classes, data=[], showPagination = true } = this.props;
+        const { t } = this.context;
         const texts = this._texts();
         return <div className={classes.tableWrapper}>
             <ReactTable {...texts}
                 style={{
                     height: "100%"
                 }}
+                pageSize={!showPagination ? data.length : undefined}
                 data={data}
                 columns={this._columnsFromHeaderConfig()}
                 className="-striped -highlight"
+                showPagination={showPagination}
+                getTheadProps={(state, rowInfo, column, instance)=>({
+                    className: classNames(classes.tHead)
+                })}
+                getTheadThProps={(state, rowInfo, column, instance)=>({
+                    className: classNames(classes.verticalMiddleContainer, 
+                                    classes.tHeadCell, 
+                                    column.isNumeric ? classes.numberCell : null)
+                })}
+                getTrProps={(state, rowInfo, column, instance)=>({
+                        className: classNames(classes.tableRow)
+                    })
+                }
                 getTdProps={(state, rowInfo, column, instance) => {
                     if (!rowInfo)
                         return {};
@@ -130,50 +224,21 @@ class DataTable extends PureComponent {
                                     handleOriginal();
                                 }
                             },
-                            className: selected ? classes.selectedRow : undefined
+                            className: classNames(selected ? classes.selectedRow : undefined,
+                                classes.verticalMiddleContainer, 
+                                classes.tDataCell,
+                                column.isNumeric ? classes.numberCell : null,                                
+                            )
                         };
                     }}
                 TbodyComponent={CustomTbodyComponent}
+                PaginationComponent={(props) => 
+                        <CustomTablePagination {...props} 
+                                            classes={classes}
+                                            count={data.length} 
+                                            t={t}/>}
             />
-        </div>
-
-        {/* <Table className={classes.table} component="div">
-            <TableHead component="div">
-                <TableRow component="div">
-                    {headerConfig.map(h=><TableCell component="div" key={h.key} numeric={h.isNumeric}>{h.content}</TableCell> )}
-                </TableRow>
-            </TableHead>
-            <TableBody component="div">
-                {
-                    pagedData.map(it=>
-                        <TableRow key={this._getRowKey(it)}
-                                component="div"
-                                hover 
-                                onClick={() => this.onRowClick(it)}
-                                selected={selection[this._getRowKey(it)]}
-                                className={classes.tableRow}>
-                            {headerConfig.map(col=><TableCell component="div" numeric={col.isNumeric} key={col.key}>{it[col.key]}</TableCell>)}
-                        </TableRow>)
-                }
-            </TableBody> */}
-            {/* <TableFooter>
-                <TableRow>
-                    <TablePagination
-                        component={TableCell}
-                        style={{position:"absolute", right:0}}
-                        labelDisplayedRows={({ from, to, count }) => `${from}-${to} ${t('of')} ${count}`}
-                        rowsPerPageOptions={[]}
-                        count={data.length}
-                        rowsPerPage={rowsPerPage}
-                        page={page}
-                        backIconButtonProps={{'aria-label': t('Previous Page')}}
-                        nextIconButtonProps={{'aria-label': t('Next Page')}}
-                        onChangePage={(event, page)=>this.handleChangePage(event, page)}
-                    />
-
-                </TableRow>
-            </TableFooter> */}
-        {/* </Table> */}
+        </div>        
     }
 }
 

@@ -24,7 +24,7 @@ const MapCloseFieldAsync = Loadable({
 });
 
 const ProcessCloseFieldAsync = Loadable({
-    loader: () => import('./process/ProcessCloseField'),
+    loader: () => import('./process/ProcessCloseFieldContainer'),
     loading: LoadingComponent,
 });
 

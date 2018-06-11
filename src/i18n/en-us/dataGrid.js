@@ -5,5 +5,6 @@ export default {
     noData: 'No data found',
     page: 'Page',    
     of: 'of',
-    rows: 'rows'
+    rows: 'rows',
+    rowPerPage: "Rows per page:"
 }

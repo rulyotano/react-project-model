@@ -1,17 +1,7 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import { connect } from 'react-redux';
-import { forEach, isNaN, head } from 'lodash';
 import DataTable from '../../../common/data-table/DataTable';
-
-// import Table from '@material-ui/core/Table';
-// import TableHead from '@material-ui/core/TableHead';
-// import TableRow from '@material-ui/core/TableRow';
-// import TableBody from '@material-ui/core/TableBody';
-// import TableCell from '@material-ui/core/TableCell';
-// import TableFooter from '@material-ui/core/TableFooter';
-// import TablePagination from '@material-ui/core/TablePagination';
 
 const styles = theme => ({
 
@@ -23,9 +13,8 @@ class ProcessCloseFieldTable extends PureComponent{
     }
     static propTypes = {
         classes: PropTypes.object.isRequired,
-    }
-    state = {
-        rowIdSelected:null,
+        data: PropTypes.array.isRequired,
+        onSelectionChange: PropTypes.func
     }
 
     _getHeaderConfig(){
@@ -45,7 +34,9 @@ class ProcessCloseFieldTable extends PureComponent{
     }
 
     _onItemSelectionChanged(selection){
-
+        const {onSelectionChange} = this.props;
+        if (onSelectionChange !== undefined)
+            onSelectionChange(selection);
     }
 
     render(){
@@ -61,8 +52,4 @@ class ProcessCloseFieldTable extends PureComponent{
     }
 }
 
-const mapStateToProps = (state) => ({
-    data: state.app.closeField.process.data,
-});
-
-export default connect(mapStateToProps)(withStyles(styles)(ProcessCloseFieldTable));
+export default withStyles(styles)(ProcessCloseFieldTable);
