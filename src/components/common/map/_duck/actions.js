@@ -1,10 +1,10 @@
 
 import Pbf from "pbf"
 import {decode} from "geobuf"
-import helperService from "../../../service/httpService"
-import {mappedGeoJson, calculateCentroid, calculateArea, convertArea} from "../../../service/maps/geoCalculationService"
-import config from "../../../config/config"
-import {MAP_JSON_LOADED, SELECT_MAP_FIELD, START_MAP_LOADING, ENDS_MAP_LOADING} from "./mapActions.types"
+import helperService from "../../../../service/httpService"
+import {mappedGeoJson, calculateCentroid, calculateArea, convertArea} from "../../../../service/maps/geoCalculationService"
+import config from "../../../../config/config"
+import {MAP_JSON_LOADED, SELECT_MAP_FIELD, START_MAP_LOADING} from "./types"
 import {isNaN, get, toLower} from "lodash"
 
 /**Load geo json from store, if is already loaded doesn't */

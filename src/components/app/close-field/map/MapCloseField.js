@@ -13,7 +13,7 @@ import MAP_KEY from "./KEY";
 import mapboxgl from 'mapbox-gl';
 import LoadingComponent from "../../../common/_LoadingComponent";
 import MapComponent from "../../../common/map/MapComponent";
-import {loadMapGeoJson} from "../../../_store/actions/mapActions";
+import {loadMapGeoJson} from "../../../common/map/_duck/actions";
 import MapSwitcherControl from '../../../../service/maps/classes/common-controls/map-switcher-control';
 import MousePositionControl from '../../../../service/maps/classes/common-controls/mouse-position-control';
 import MeasureDistanceControl from '../../../../service/maps/classes/common-controls/measure-distance-control';

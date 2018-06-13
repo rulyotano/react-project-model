@@ -1,5 +1,5 @@
 import createDataActionsTypes from './createDataActions.types'
-import httpService from '../../../../service/httpService'
+import httpService from '../../../service/httpService'
 export default (name="", loadUrl="")=> {
     const { START_LOADING, LOADED, CLEAR, ERROR } = createDataActionsTypes(name);
     return {

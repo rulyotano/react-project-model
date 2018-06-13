@@ -1,6 +1,6 @@
 import {MAP_JSON_LOADED,
-        SELECT_MAP_FIELD, START_MAP_LOADING } from "../actions/mapActions.types"
-import {mappedGeoJson} from "../../../service/maps/geoCalculationService"
+        SELECT_MAP_FIELD, START_MAP_LOADING } from "./types"
+import {mappedGeoJson} from "../../../../service/maps/geoCalculationService"
 
 const initialState = {
     mapGeoJson: null,

@@ -1,4 +1,4 @@
-import {SET_USER_TYPE, CLEAR_USER_TYPE} from '../actions/userActions.types'
+import {SET_USER_TYPE, CLEAR_USER_TYPE} from './types'
 
 export const userInitialState = {
     id: null,

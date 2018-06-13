@@ -1,5 +1,5 @@
 import {SET_USER_LOGGED_TYPE, CLEAR_USER_LOGGED_TYPE, 
-    SET_REDIRECT, CLEAR_REDIRECT} from './authActions.types'
+    SET_REDIRECT, CLEAR_REDIRECT} from './types'
 
 /**@param token {string}
  * @param username {string}

@@ -7,7 +7,6 @@ import { ConnectedRouter } from "react-router-redux";
 
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core';
 import { Provider } from 'react-redux'
-import I18n from "redux-i18n"
 
 import '../styles/css/font-solinftec.css';
 import '../styles/css/font-awesome.css';
@@ -18,14 +17,15 @@ import store, {history} from './store';
 import config from '../config/config';
 import PrivateRoute from './PrivateRoute'
 import loginAuthDataService from '../service/login/loginAuthDataService'
-import { setUserLogged } from './_store/actions/authActions'
+import { setUserLogged } from './common/auth/_duck/actions'
 import DialogComponent from './common/dialog/DialogComponent'
 import BottomNotificationComponent from './common/dialog/BottomNotificationComponent'
 import translations from '../i18n'
 import defaultTheme from './defaultTheme'
+import I18n from "redux-i18n"
 
-const AppAsync = Loadable({
-    loader: () => import('./app/App'),
+const AppAsync = Loadable({   
+    loader: () => import('./app'),
     loading: LoadingComponent,
 });
 
@@ -46,7 +46,7 @@ class AppRouter extends Component {
 
     render(){
         return (<Provider store={store}>
-            <I18n translations={translations} initialLang={config.DEFAULT_LANGUAGE} fallbackLang="en-US">                
+            <I18n translations={translations} initialLang={config.DEFAULT_LANGUAGE} fallbackLang="en-us">                
                 <MuiThemeProvider theme={themeV1}>
                     <ConnectedRouter history={history}>
                         <div>

@@ -1,9 +1,6 @@
 import {combineReducers} from 'redux'
-import createDataReducer from './reducers/createDataReducer'
-
-export const OPERATION = "operation";
-export const FLEET = "fleet";
-export const STATE = "state";
+import createDataReducer from '../createDataReducer'
+import {OPERATION, FLEET, STATE} from './types'
 
 export default combineReducers({
     [OPERATION]: createDataReducer(OPERATION, "cdOperacao"),

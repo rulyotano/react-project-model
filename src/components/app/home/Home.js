@@ -2,7 +2,7 @@ import React, {PureComponent} from 'react';
 import EmptySegment from "../../common/segment/EmptySegment";
 import LoadingComponent from "../../common/_LoadingComponent";
 import MapComponent from "../../common/map/MapComponent";
-import {loadMapGeoJson} from "../../_store/actions/mapActions";
+import {loadMapGeoJson} from "../../common/map/_duck/actions";
 import {connect} from 'react-redux';
 
 //maps

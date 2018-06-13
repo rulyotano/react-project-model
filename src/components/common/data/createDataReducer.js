@@ -1,5 +1,5 @@
 import {keyBy} from 'lodash'
-import createDataActionsTypes from '../actions/createDataActions.types'
+import createDataActionsTypes from './createDataActions.types'
 
 /**returns a function that creates a reducer */
 export default (name, key = null)=>{

@@ -1,5 +1,5 @@
 import store from '../../components/store';
-import {selectMapField} from '../../components/_store/actions/mapActions';
+import {selectMapField} from '../../components/common/map/_duck/actions';
 
 export const fieldToString = (feature = null)=>{
     if (!feature)

@@ -8,7 +8,7 @@ import { connect } from 'react-redux'
 import Loadable from 'react-loadable'
 import LoadingComponent from '../common/_LoadingComponent'
 import configService from '../../service/config/configService'
-import * as userActions from '../_store/actions/userActions'
+import * as userActions from '../common/user/_duck/actions'
 import '../../styles/css/app.css'
 import '../../styles/css/sidebar.css'
 import Header from "./header/Header";
@@ -61,7 +61,11 @@ export class App extends Component {
   }
   
   render() {
-      let {match} = this.props;
+      let {match, loaded} = this.props;
+
+      if (!loaded)
+        return <LoadingComponent isLoading={true}/>
+
       ROUTES.BASE = match.url;
       ROUTES.MONITORING = urlJoin(match.url,"monitoring");
       ROUTES.CHART_TEST = urlJoin(match.url,"chart-test");
@@ -86,6 +90,7 @@ export class App extends Component {
 }
 
 const mapStateToProps = (state) => ({
+    loaded: !!state.app
 });
 
 const mapDispatchToProps = (dispatch) => ({

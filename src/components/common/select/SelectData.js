@@ -5,6 +5,7 @@ import {connect} from 'react-redux';
 import Select from "./Select";
 import {isEmpty} from "lodash";
 import componentToReduxForm from "../../../service/redux-form/componentToReduxForm";
+import {getAction} from "../../common/data/_duck/actions";
 
 
 class SelectDataComponent extends PureComponent{
@@ -52,7 +53,7 @@ const mapStateToProps = (state,props) => {
 };
 const mapDispatchToProps = (dispatch) => ({
     load(targetKey){
-        let {load} = require("../../_store/_data/actions/"+targetKey+"Actions").default;
+        let {load} = getAction(targetKey);
         dispatch(load());
     }
 });

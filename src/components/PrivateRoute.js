@@ -3,7 +3,7 @@ import {
   Route,
   Redirect
 } from 'react-router-dom'
-import {setRedirect, clearRedirect} from './_store/actions/authActions'
+import {setRedirect, clearRedirect} from './common/auth/_duck/actions'
 
 import { connect } from 'react-redux'
 import { get } from 'lodash'

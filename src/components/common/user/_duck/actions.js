@@ -1,5 +1,5 @@
-import {SET_USER_TYPE, CLEAR_USER_TYPE} from './userActions.types'
-import httpService from '../../../service/httpService'
+import {SET_USER_TYPE, CLEAR_USER_TYPE} from './types'
+import httpService from '../../../../service/httpService'
 import {get} from 'lodash'
 
 const USER_REQUEST_URL = (userLogin)=>`/user/byUsername/${userLogin}`;;

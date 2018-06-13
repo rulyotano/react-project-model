@@ -1,4 +1,4 @@
-import {SET_USER_LOGGED_TYPE, CLEAR_USER_LOGGED_TYPE, SET_REDIRECT, CLEAR_REDIRECT} from '../actions/authActions.types'
+import {SET_USER_LOGGED_TYPE, CLEAR_USER_LOGGED_TYPE, SET_REDIRECT, CLEAR_REDIRECT} from './types'
 
 export const defaultAuthState = { logged: false, user: null, redirect: null }
 

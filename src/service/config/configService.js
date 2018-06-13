@@ -1,5 +1,5 @@
 import store from '../../components/store';
-import * as configActions from '../../components/_store/actions/configActions';
+import * as configActions from '../../components/common/config/_duck/actions';
 import localStorageService from '../localStorageService';
 import {isEmpty, get} from 'lodash';
 import {setLanguage} from "redux-i18n"

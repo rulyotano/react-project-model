@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import { get, filter, isFunction, isString } from 'lodash';
 import componentToReduxForm from '../../../service/redux-form/componentToReduxForm';
 import Loading from '../../../components/common/_LoadingComponent';
-import {loadMapGeoJson} from '../../../components/_store/actions/mapActions';
+import {loadMapGeoJson} from '../../common/map/_duck/actions';
 
 let t;
 
