@@ -23,25 +23,27 @@ const HomeAsync = Loadable({
     loading: LoadingComponent,
 });
 
-const MonitoringAsync = Loadable({
-    loader: () => import('./monitoring/Monitoring'),
-    loading: LoadingComponent,
-});
-
-const ChartTestAsync = Loadable({
-    loader: () => import('./chartTest/ChartTest'),
-    loading: LoadingComponent,
-});
-
-const FormTestAsync = Loadable({
-    loader: () => import('./redux-form-test/FormTest'),
-    loading: LoadingComponent,
-});
-
 const CloseFieldAsync = Loadable({
     loader: () => import('./close-field/CloseField'),
     loading: LoadingComponent,
 });
+
+//#region Mock Tests
+// const MonitoringAsync = Loadable({
+//     loader: () => import('._mockTests/monitoring/Monitoring'),
+//     loading: LoadingComponent,
+// });
+
+// const ChartTestAsync = Loadable({
+//     loader: () => import('./_mockTests/chartTest/ChartTest'),
+//     loading: LoadingComponent,
+// });
+
+// const FormTestAsync = Loadable({
+//     loader: () => import('./_mockTests/redux-form-test/FormTest'),
+//     loading: LoadingComponent,
+// });
+//#endregion
 
 export class App extends Component {
 
@@ -72,9 +74,9 @@ export class App extends Component {
               <div>
                   <Switch>
                       <Route exact path={ROUTES.BASE} component={HomeAsync}/>
-                      <Route path={ROUTES.MONITORING} component={MonitoringAsync}/>
+                      {/* <Route path={ROUTES.MONITORING} component={MonitoringAsync}/>
                       <Route path={ROUTES.CHART_TEST} component={ChartTestAsync}/>
-                      <Route path={ROUTES.FORM_TEST} component={FormTestAsync}/>
+                      <Route path={ROUTES.FORM_TEST} component={FormTestAsync}/> */}
                       <Route path={ROUTES.CLOSE_FIELD} component={CloseFieldAsync}/>
                   </Switch>
               </div>

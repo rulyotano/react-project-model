@@ -3,7 +3,7 @@ import createDataActionsTypes from '../actions/createDataActions.types'
 
 /**returns a function that creates a reducer */
 export default (name, key = null)=>{
-    const {START_LOADING, LOADED,  CLEAR} = createDataActionsTypes(name);
+    const {START_LOADING, LOADED,  CLEAR, ERROR} = createDataActionsTypes(name);
     const defaultState = {
         data: null,
         mappedData: null,
@@ -25,7 +25,12 @@ export default (name, key = null)=>{
                     loading: false
                 }
             case CLEAR:
-                return defaultState
+                return defaultState;
+            case ERROR:
+                console.log('====================================');
+                console.log(action.error);
+                console.log('====================================');
+                return defaultState;
             default:
                 return state
         }

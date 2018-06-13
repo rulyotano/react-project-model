@@ -10,6 +10,7 @@ import {LOAD as PROCESS_LOAD} from "../../../process/_store/actions/closeFieldPr
 import {setLoadedFilters} from "../../../_store/actions/closeFieldActions";
 import moment from 'moment'
 import {isEmpty, random, chain, round} from 'lodash'
+import { routerActions } from "react-router-redux";
 
 /**TODO: remove or change on production */
 const processMapData = (data)=>{
@@ -54,7 +55,7 @@ const processProcessData = (data)=>{
     })).value();
 }
 
-export const load = (data, source, pushUrl)=> (dispatch, getState)=>{
+export const load = (data, source)=> (dispatch, getState)=>{
     const state = getState();
     if (state.app.closeField.load.loading)
         return;
@@ -77,13 +78,13 @@ export const load = (data, source, pushUrl)=> (dispatch, getState)=>{
     }
 
     if (source === MAP_KEY){
-        loadMap(params, data, pushUrl, dispatch);                
+        loadMap(params, data, dispatch);                
     } else if (source === PROCESS_KEY){
-        loadProcess(params, data, pushUrl, dispatch);
+        loadProcess(params, data, dispatch);
     }
 };
 
-export const loadMap = (params, data, pushUrl, dispatch) => {
+export const loadMap = (params, data, dispatch) => {
     const {dateRange, farm, sector, field} = data;
     httpService.useSgpaMapApiUrl().post("mapaAnalitico", params)
         .then(response=>{
@@ -106,18 +107,18 @@ export const loadMap = (params, data, pushUrl, dispatch) => {
             }));
 
             //redirect to route
-            pushUrl(ROUTES.MAP);
+            dispatch(routerActions.push(ROUTES.MAP));
         }, e=> dispatch({type: LOAD_ERROR}));
 }
 
-export const loadProcess = (params, data, pushUrl, dispatch) => {
+export const loadProcess = (params, data, dispatch) => {
     setTimeout(() => {
         const data = getMockProcessData();
         dispatch({
             type: PROCESS_LOAD,
             data: processProcessData(data)
         });
-        pushUrl(ROUTES.PROCESS);
+        dispatch(routerActions.push(ROUTES.PROCESS));
     }, 1000);
 }
 

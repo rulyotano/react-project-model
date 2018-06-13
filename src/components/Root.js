@@ -3,6 +3,7 @@ import {
     BrowserRouter as Router,
     Route, Switch
 } from 'react-router-dom'
+import { ConnectedRouter } from "react-router-redux";
 
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core';
 import { Provider } from 'react-redux'
@@ -13,7 +14,7 @@ import '../styles/css/font-awesome.css';
 
 import Loadable from 'react-loadable';
 import LoadingComponent from './common/_LoadingComponent';
-import store from './store';
+import store, {history} from './store';
 import config from '../config/config';
 import PrivateRoute from './PrivateRoute'
 import loginAuthDataService from '../service/login/loginAuthDataService'
@@ -47,7 +48,7 @@ class AppRouter extends Component {
         return (<Provider store={store}>
             <I18n translations={translations} initialLang={config.DEFAULT_LANGUAGE} fallbackLang="en-US">                
                 <MuiThemeProvider theme={themeV1}>
-                    <Router>
+                    <ConnectedRouter history={history}>
                         <div>
                             {/* Common all app things here        */}
 
@@ -58,7 +59,7 @@ class AppRouter extends Component {
                             <DialogComponent/>
                             <BottomNotificationComponent/>
                         </div>
-                    </Router>
+                    </ConnectedRouter>
                 </MuiThemeProvider>                
             </I18n>
         </Provider>)

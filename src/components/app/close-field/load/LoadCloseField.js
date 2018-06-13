@@ -73,9 +73,9 @@ export class LoadCloseField extends PureComponent {
   }
 
   load(){
-      const {handleSubmit, load, match, history} = this.props
+      const {handleSubmit, load, match} = this.props
       handleSubmit(
-          data=>load({...data, ...data.productionPlace}, match.params.source, history.push))();      
+          data=>load({...data, ...data.productionPlace}, match.params.source))();      
   }
 
   render() {
@@ -163,7 +163,7 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) =>({
-    load: (data, source, pushUrl)=>dispatch(load(data, source, pushUrl)),
+    load: (data, source)=>dispatch(load(data, source)),
     show: ()=>dispatch(show(true)),
     hide: ()=>dispatch(show(false)),
     clear: ()=>dispatch(clear()),
