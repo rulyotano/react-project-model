@@ -1,8 +1,10 @@
-import {SET_SIZE_TO_MAX, SET_SIZE_TO_MIN} from "../actions/appActions.types";
+import {SET_SIZE_TO_MAX, SET_SIZE_TO_MIN} from "./types";
+import {combineReducers} from 'redux'
+import closeField from '../close-field/_store';
 
 export const defaultSegmentState = { maximized: false };
 
-export default (state = defaultSegmentState, action)=>{
+const appReducer = (state = defaultSegmentState, action)=>{
     switch (action.type){
         case SET_SIZE_TO_MAX:
             return {
@@ -16,3 +18,8 @@ export default (state = defaultSegmentState, action)=>{
             return state
     }
 }
+
+export default combineReducers({
+    _: appReducer,
+    closeField
+});

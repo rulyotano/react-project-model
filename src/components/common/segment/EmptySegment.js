@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 
 import '../../../styles/css/segment.css'
 import {connect} from 'react-redux';
-import {setSizeToMax, setSizeToMin} from "../../app/_store/actions/appActions";
 import { withRouter } from 'react-router-dom'
 import Scrollbar from 'perfect-scrollbar-react';
+import { getIsMaximized } from "../../app/_duck/selectors";
 
 class EmptySegment extends PureComponent{
     render(){
@@ -30,7 +30,7 @@ EmptySegment.propsTypes = {
 }
 
 const mapStateToProps = (state) => ({
-    isMaximized: state.app._.maximized,
+    isMaximized: getIsMaximized(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({    

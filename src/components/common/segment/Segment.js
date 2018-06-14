@@ -4,7 +4,8 @@ import PropTypes from 'prop-types';
 import '../../../styles/css/segment.css'
 import {Fullscreen, FullscreenExit} from '@material-ui/icons';
 import {connect} from 'react-redux';
-import {setSizeToMax, setSizeToMin} from "../../app/_store/actions/appActions";
+import {setSizeToMax, setSizeToMin} from "../../app/_duck/actions";
+import { getIsMaximized } from "../../app/_duck/selectors";
 import { withRouter } from 'react-router-dom'
 import Scrollbar from 'perfect-scrollbar-react';
 
@@ -63,7 +64,7 @@ Segment.contextTypes = {
 }
 
 const mapStateToProps = (state) => ({
-    isMaximized: state.app._.maximized,
+    isMaximized: getIsMaximized(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

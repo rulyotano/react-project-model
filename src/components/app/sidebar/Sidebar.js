@@ -3,7 +3,8 @@ import {Link} from 'react-router-dom';
 import {Apps, LocationOn, MultilineChart, ArrowBack, ArrowForward, ExpandMore, ExpandLess,
 Home, FormatShapes, LineStyle } from '@material-ui/icons';
 import {connect} from 'react-redux';
-import {setSizeToMax, setSizeToMin} from "../_store/actions/appActions";
+import { setSizeToMax, setSizeToMin } from "../_duck/actions";
+import { getIsMaximized } from "../_duck/selectors";
 import ROUTES from "../routeNames";
 import urlJoin from "url-join";
 import CLOSE_FIELD_MAP_KEY from "../close-field/map/KEY";
@@ -99,7 +100,7 @@ class Sidebar extends PureComponent{
 }
 
 const mapStateToProps = (state) => ({
-    isMaximized: state.app._.maximized
+    isMaximized: getIsMaximized(state)
 });
 
 const mapDispatchToProps = (dispatch)=>({
