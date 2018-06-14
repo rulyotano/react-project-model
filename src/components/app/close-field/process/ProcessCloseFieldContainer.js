@@ -2,7 +2,8 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import EmptySegment from "../../../common/segment/EmptySegment";
-import {clear} from "./_store/actions/closeFieldProcessActions";
+import {clear} from "./_duck/actions";
+import {getData, createGetIsLoaded} from "./_duck/selectors";
 import { withStyles, Button, Toolbar } from '@material-ui/core'
 import { Redirect } from "react-router-dom";
 import urlJoin from "url-join";
@@ -78,9 +79,11 @@ export class ProcessCloseField extends PureComponent {
   }
 }
 
+const getIsLoaded = createGetIsLoaded()
+
 const mapStateToProps = (state) => ({
-  loaded: state.app.closeField.process.data.length > 0,
-  data: state.app.closeField.process.data,
+  loaded: getIsLoaded(state),
+  data: getData(state),
 })
 
 const mapDispatchToProps = (dispatch) => ({

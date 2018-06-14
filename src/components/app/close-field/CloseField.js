@@ -7,7 +7,7 @@ import {
   } from 'react-router-dom'
 import Loadable from 'react-loadable'
 import LoadingComponent from '../../common/_LoadingComponent'
-import {clear} from './_store/actions/closeFieldActions'
+import {clear} from './_duck/actions'
 import urlJoin from 'url-join'
 import ROUTES from './routesNames'
 import MAP_KEY from './map/KEY'

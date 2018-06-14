@@ -2,10 +2,12 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { get } from 'lodash'
-import { withStyles, Button, Grid } from '@material-ui/core'
+import { withStyles, Grid } from '@material-ui/core'
 import ToolHoverWindow from '../../../common/tool-hover-window/ToolHoverWindow'
 import LoadingButton from '../../../common/loading-button/LoadingButton'
-import {initializeVariables, paintMap} from './_store/actions/closeFieldMapActions'
+import {initializeVariables, paintMap} from './_duck/actions'
+import {getSelectedVariable} from './_duck/selectors'
+import {getSelectedProperties, getMappedGeoJson} from '../../../common/map/_duck/selectors'
 import MapCloseFieldVariableDropdown from './MapCloseFieldVariableDropdown'
 import MapCloseFieldRangeTable from './MapCloseFieldRangeTable'
 import WorkAreaSelector from '../../../common/work-area-selector/WorkAreaSelector'
@@ -97,12 +99,12 @@ export class MapCloseFieldMenu extends PureComponent {
 }
 
 const mapStateToProps = (state) => {
-  const selectedVariable = state.app.closeField.map.selected.variable;
+  const selectedVariable = getSelectedVariable(state);
   return {
-    mapMapped: state.map.mapMappedGeoJson,
+    mapMapped: getMappedGeoJson(state),
     canPaintMap: !!selectedVariable,
     selectedVariable,
-    fieldSelected: get(state, "map.selected.properties")
+    fieldSelected: getSelectedProperties(state)
   }
 }
 

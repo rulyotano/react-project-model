@@ -1,5 +1,4 @@
 import React, { PureComponent } from 'react'
-import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { withStyles } from '@material-ui/core'
 import { Redirect } from "react-router-dom";
@@ -14,6 +13,7 @@ import mapboxgl from 'mapbox-gl';
 import LoadingComponent from "../../../common/_LoadingComponent";
 import MapComponent from "../../../common/map/MapComponent";
 import {loadMapGeoJson} from "../../../common/map/_duck/actions";
+import {getMapGeoJson, getSelected} from "../../../common/map/_duck/selectors";
 import MapSwitcherControl from '../../../../service/maps/classes/common-controls/map-switcher-control';
 import MousePositionControl from '../../../../service/maps/classes/common-controls/mouse-position-control';
 import MeasureDistanceControl from '../../../../service/maps/classes/common-controls/measure-distance-control';
@@ -21,7 +21,8 @@ import MapTalhaoesLayer from '../../../../service/maps/classes/layers/common-lay
 import MapNumbersLayer from '../../../../service/maps/classes/layers/common-layers/map-numbers-layer';
 import MapSelectedTalhaoLayer from '../../../../service/maps/classes/layers/common-layers/map-selected-talhao-layer';
 import CloseTalhaoMapVariable from './layers/close-talhao-map-variables-layer';
-import {clear} from './_store/actions/closeFieldMapActions';
+import {clear} from './_duck/actions';
+import {getMapData, createGetMapIsLoaded} from './_duck/selectors';
 import CloseFieldModal from "../close-modal/CloseFieldModal";
 
 const styles = theme => ({
@@ -116,11 +117,13 @@ export class MapCloseField extends PureComponent {
   }
 }
 
+const getMapIsLoaded = createGetMapIsLoaded();
+
 const mapStateToProps = (state) => ({
-  mapGeoJson: state.map.mapGeoJson,  
-  loaded: state.app.closeField.map.data.length > 0,
-  mapData: state.app.closeField.map.mapData,
-  fieldSelected: state.map.selected
+  mapGeoJson: getMapGeoJson(state),  
+  loaded: getMapIsLoaded(state),
+  mapData: getMapData(state),
+  fieldSelected: getSelected(state)
 })
 
 const mapDispatchToProps = (dispatch) => ({

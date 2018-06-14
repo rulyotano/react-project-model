@@ -1,7 +1,7 @@
-import {START_LOADING, LOAD_ERROR, SHOW, CLEAR} from "../actions/closeFieldLoadActions.types";
-import {CLEAR as CLEAR_CLOSE_FIELD} from "../../../_store/actions/closeFieldActions.types";
-import {LOAD as MAP_LOAD} from "../../../map/_store/actions/closeFieldMapActions.types"
-import {LOAD as PROCESS_LOAD} from "../../../process/_store/actions/closeFieldProcessActions.types"
+import {START_LOADING, LOAD_ERROR, SHOW, CLEAR} from "./types";
+import {CLEAR as CLEAR_CLOSE_FIELD} from "../../_duck/types";
+import {LOAD as MAP_LOAD} from "../../map/_duck/types"
+import {LOAD as PROCESS_LOAD} from "../../process/_duck/types"
 
 const initialState = {
   loading: false,

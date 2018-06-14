@@ -1,5 +1,5 @@
-import {LOAD, CLEAR} from '../actions/closeFieldProcessActions.types'
-import {CLEAR as CLEAR_CLOSE_FIELD} from '../../../_store/actions/closeFieldActions.types'
+import {LOAD, CLEAR} from './types'
+import {CLEAR as CLEAR_CLOSE_FIELD} from '../../_duck/types'
 const initialState = {
   data: []
 }

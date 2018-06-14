@@ -1,7 +1,7 @@
 import {LOAD, CLEAR, SET_VARIABLES,
   SET_VARIABLE, SET_VARIABLE_RANGE,
-  PAINT_MAP} from '../actions/closeFieldMapActions.types'
-import {CLEAR as CLEAR_CLOSE_FIELD} from '../../../_store/actions/closeFieldActions.types'
+  PAINT_MAP} from './types'
+import {CLEAR as CLEAR_CLOSE_FIELD} from '../../_duck/types'
 const initialState = {
   data: [],
   variables: [],

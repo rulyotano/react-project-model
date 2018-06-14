@@ -1,13 +1,13 @@
-import {START_LOADING, LOAD_ERROR, SHOW, CLEAR} from "./closeFieldLoadActions.types";
-import httpService from "../../../../../../service/httpService";
-import {getFormat, DATE_FORMATS_KEYS, fromServerArray} from "../../../../../../service/dateService";
-import dialogService from "../../../../../../service/dialog/dialogService";
-import ROUTES from "../../../routesNames";
-import MAP_KEY from "../../../map/KEY";
-import PROCESS_KEY from "../../../process/KEY";
-import {LOAD as MAP_LOAD} from "../../../map/_store/actions/closeFieldMapActions.types";
-import {LOAD as PROCESS_LOAD} from "../../../process/_store/actions/closeFieldProcessActions.types";
-import {setLoadedFilters} from "../../../_store/actions/closeFieldActions";
+import {START_LOADING, LOAD_ERROR, SHOW, CLEAR} from "./types";
+import httpService from "../../../../../service/httpService";
+import {getFormat, DATE_FORMATS_KEYS, fromServerArray} from "../../../../../service/dateService";
+import dialogService from "../../../../../service/dialog/dialogService";
+import ROUTES from "../../routesNames";
+import MAP_KEY from "../../map/KEY";
+import PROCESS_KEY from "../../process/KEY";
+import {LOAD as MAP_LOAD} from "../../map/_duck/types";
+import {LOAD as PROCESS_LOAD} from "../../process/_duck/types";
+import {setLoadedFilters} from "../../_duck/actions";
 import moment from 'moment'
 import {isEmpty, random, chain, round} from 'lodash'
 import { routerActions } from "react-router-redux";
@@ -112,12 +112,23 @@ export const loadMap = (params, data, dispatch) => {
 }
 
 export const loadProcess = (params, data, dispatch) => {
+    const {dateRange, farm, sector, field} = data;
+    
     setTimeout(() => {
-        const data = getMockProcessData();
+        const resultData = getMockProcessData();
         dispatch({
             type: PROCESS_LOAD,
-            data: processProcessData(data)
+            data: processProcessData(resultData)
         });
+
+        dispatch(setLoadedFilters({
+            initialDate: moment(dateRange.initialDateTime), 
+            finalDate: moment(dateRange.finalDateTime), 
+            farm, sector, field,
+            process: data.process, 
+            operations: data.operation
+        }));
+
         dispatch(routerActions.push(ROUTES.PROCESS));
     }, 1000);
 }

@@ -1,6 +1,6 @@
 import {SET_SIZE_TO_MAX, SET_SIZE_TO_MIN} from "./types";
 import {combineReducers} from 'redux'
-import closeField from '../close-field/_store';
+import closeField from '../close-field/_duck/reducers';
 
 export const defaultSegmentState = { maximized: false };
 

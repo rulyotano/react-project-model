@@ -1,7 +1,12 @@
-import {CLEAR, SET_LOADED_FILTERS} from '../actions/closeFieldActions.types'
-import config, {CLIENT_TYPE_CANE, CLIENT_TYPE_GRAIN} from '../../../../../config/config'
-import * as processTypes from '../../../../../service/close-field/processTypes'
+import {CLEAR, SET_LOADED_FILTERS} from './types'
+import config, {CLIENT_TYPE_CANE, CLIENT_TYPE_GRAIN} from '../../../../config/config'
+import * as processTypes from '../../../../service/close-field/processTypes'
+import load from '../load/_duck/reducers'
+import map from '../map/_duck/reducers'
+import processReducer from '../process/_duck/reducers'
+import {combineReducers} from 'redux'
 
+//#region mock data
 const process = {
     cane: [
         { id: 0, desc: "closeField.process.Mechanized cane cut", type: processTypes.CANE_CUT }
@@ -31,18 +36,20 @@ const cultures = {
     ]
 }
 
+//#endregion
+
 const initialState = {
-    process: config.CLIENT_TYPE === CLIENT_TYPE_CANE ? process.cane :
-             config.CLIENT_TYPE === CLIENT_TYPE_GRAIN ? process.grain : [],
-    cultures: config.CLIENT_TYPE === CLIENT_TYPE_CANE ? cultures.cane :
-             config.CLIENT_TYPE === CLIENT_TYPE_GRAIN ? cultures.grain : [],
-    loadedFilters: {
-        initialDate: null, finalDate: null, process: null, operations: null,
-        farm: null, sector: null, field: null
-    }
+  process: config.CLIENT_TYPE === CLIENT_TYPE_CANE ? process.cane :
+           config.CLIENT_TYPE === CLIENT_TYPE_GRAIN ? process.grain : [],
+  cultures: config.CLIENT_TYPE === CLIENT_TYPE_CANE ? cultures.cane :
+           config.CLIENT_TYPE === CLIENT_TYPE_GRAIN ? cultures.grain : [],
+  loadedFilters: {
+      initialDate: null, finalDate: null, process: null, operations: null,
+      farm: null, sector: null, field: null
+  }
 }
 
-export default (state = initialState, action) => {
+const closeFieldReducer = (state = initialState, action) => {
   switch (action.type) {
     case CLEAR:
       return initialState;
@@ -52,3 +59,11 @@ export default (state = initialState, action) => {
         return state
   }
 }
+
+export default combineReducers({
+    _: closeFieldReducer,
+    load,
+    map,
+    process: processReducer
+})
+

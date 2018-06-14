@@ -18,10 +18,11 @@ import {SelectRF} from '../../../common/select/Select';
 import {OperationSelect} from '../../../common/select/common/OperationSelect';
 import LoadingButton from '../../../common/loading-button/LoadingButton';
 import componentToReduxForm from '../../../../service/redux-form/componentToReduxForm';
-import {load, show} from './_store/actions/closeFieldLoadActions';
-import {clear} from './_store/actions/closeFieldLoadActions'
-import MAP_KEY from '../map/KEY'
-import PROCESS_KEY from '../process/KEY'
+import {load, show, clear} from './_duck/actions';
+import {getLoading, getShow} from './_duck/selectors';
+import {getProcess} from '../_duck/selectors';
+import MAP_KEY from '../map/KEY';
+import PROCESS_KEY from '../process/KEY';
 
 const styles = theme => ({
     heading: {
@@ -157,9 +158,9 @@ export class LoadCloseField extends PureComponent {
 }
 
 const mapStateToProps = (state) => ({
-    isLoading: state.app.closeField.load.loading,
-    open: state.app.closeField.load.show,
-    process: state.app.closeField._.process
+    isLoading: getLoading(state),
+    open: getShow(state),
+    process: getProcess(state)
 })
 
 const mapDispatchToProps = (dispatch) =>({

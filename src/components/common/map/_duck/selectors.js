@@ -1,8 +1,12 @@
-import { createSelector } from "reselect";
+// import { createSelector } from "reselect";
 
-// export const getA = (state)=>state.placestofind.aValue
+export const getSelected = (state)=> state.map.selected
 
-// export const getB = (state)=>state.placestofind.bValue
+export const getSelectedProperties = (state)=> state.map.selected && state.map.selected.properties
+
+export const getMappedGeoJson = (state)=> state.map.mapMappedGeoJson
+
+export const getMapGeoJson = (state)=> state.map.mapGeoJson
 
 //export const createSomeReselectSelector = () =>
 //     createSelector([

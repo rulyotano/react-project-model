@@ -3,7 +3,8 @@ import PropTypes from 'prop-types'
 import {find} from 'lodash'
 import { connect } from 'react-redux'
 import Select from '../../../common/select/Select'
-import {setVariable} from './_store/actions/closeFieldMapActions'
+import {setVariable} from './_duck/actions'
+import {getSelectedVariable, getVariables} from './_duck/selectors'
 
 const MapCloseFieldVariableDropdown = ({value, 
                 variables, onChange}) => (<Select
@@ -18,8 +19,8 @@ const MapCloseFieldVariableDropdown = ({value,
 />)
 
 const mapStateToProps = (state) => ({
-    value: state.app.closeField.map.selected.variable,
-    variables: state.app.closeField.map.variables,
+    value: getSelectedVariable(state),
+    variables: getVariables(state)
 })
 
 const mapDispatchToProps = (dispatch, getState) => ({

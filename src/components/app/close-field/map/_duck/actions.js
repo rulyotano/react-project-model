@@ -1,8 +1,7 @@
 import {CLEAR, SET_VARIABLE, SET_VARIABLE_RANGE, SET_VARIABLES,
-    PAINT_MAP} from './closeFieldMapActions.types'
-import TimeRangeVariable from '../../../../../../service/maps/variables/vars/TimeRangeVariable'
-import FleetVariable from '../../../../../../service/maps/variables/vars/FleetVariable'
-import {delay} from 'lodash'
+    PAINT_MAP} from './types'
+import TimeRangeVariable from '../../../../../service/maps/variables/vars/TimeRangeVariable'
+import FleetVariable from '../../../../../service/maps/variables/vars/FleetVariable'
 
 export const clear = ()=>({type: CLEAR}) 
 
