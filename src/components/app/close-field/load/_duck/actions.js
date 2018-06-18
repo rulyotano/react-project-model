@@ -2,9 +2,12 @@ import {START_LOADING, LOAD_ERROR, SHOW, CLEAR} from "./types";
 import httpService from "../../../../../service/httpService";
 import {getFormat, DATE_FORMATS_KEYS, fromServerArray} from "../../../../../service/dateService";
 import dialogService from "../../../../../service/dialog/dialogService";
-import ROUTES from "../../routesNames";
-import MAP_KEY from "../../map/KEY";
-import PROCESS_KEY from "../../process/KEY";
+import closeFieldUrl from "../../routesNames";
+import closeFieldMapUrl from "../../map/routesNames";
+import closeFieldProcessUrl from "../../process/routesNames";
+import {urlJoin} from "../../../../../service/helperService";
+import {PreloadKey as MAP_KEY} from "../../map/routesNames";
+import {PreloadKey as PROCESS_KEY} from "../../process/routesNames";
 import {LOAD as MAP_LOAD} from "../../map/_duck/types";
 import {LOAD as PROCESS_LOAD} from "../../process/_duck/types";
 import {setLoadedFilters} from "../../_duck/actions";
@@ -107,7 +110,7 @@ export const loadMap = (params, data, dispatch) => {
             }));
 
             //redirect to route
-            dispatch(routerActions.push(ROUTES.MAP));
+            dispatch(routerActions.push(urlJoin("/", closeFieldUrl, closeFieldMapUrl)));
         }, e=> dispatch({type: LOAD_ERROR}));
 }
 
@@ -129,7 +132,7 @@ export const loadProcess = (params, data, dispatch) => {
             operations: data.operation
         }));
 
-        dispatch(routerActions.push(ROUTES.PROCESS));
+        dispatch(routerActions.push(urlJoin("/", closeFieldUrl, closeFieldProcessUrl)));
     }, 1000);
 }
 

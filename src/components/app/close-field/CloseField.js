@@ -1,32 +1,16 @@
 import React, { PureComponent } from 'react'
-import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import {
-    Route,
-    Switch
-  } from 'react-router-dom'
-import Loadable from 'react-loadable'
-import LoadingComponent from '../../common/_LoadingComponent'
+import { Route, Switch  } from 'react-router-dom'
 import {clear} from './_duck/actions'
-import urlJoin from 'url-join'
-import ROUTES from './routesNames'
-import MAP_KEY from './map/KEY'
-import PROCESS_KEY from './process/KEY'
+import {urlJoin} from '../../../service/helperService'
+import closeField from './routesNames'
+import mapUrl, {PreloadKey as MAP_KEY} from './map/routesNames'
+import processUrl, {PreloadKey as PROCESS_KEY} from './process/routesNames'
+import loadable from '../../common/loadable'
 
-const LoadCloseFieldAsync = Loadable({
-    loader: () => import('./load/LoadCloseField'),
-    loading: LoadingComponent,
-});
-
-const MapCloseFieldAsync = Loadable({
-    loader: () => import('./map/MapCloseField'),
-    loading: LoadingComponent,
-});
-
-const ProcessCloseFieldAsync = Loadable({
-    loader: () => import('./process/ProcessCloseFieldContainer'),
-    loading: LoadingComponent,
-});
+const LoadCloseFieldAsync = loadable(() => import('./load/LoadCloseField'));
+const MapCloseFieldAsync = loadable(() => import('./map/MapCloseField'));
+const ProcessCloseFieldAsync = loadable(() => import('./process/ProcessCloseFieldContainer'));
 
 export class CloseField extends PureComponent {
   static propTypes = {
@@ -38,14 +22,14 @@ export class CloseField extends PureComponent {
   
   render() {
     let {match} = this.props;
-    ROUTES.BASE = match.url;
-    ROUTES.MAP = urlJoin(match.url,"map");
-    ROUTES.PROCESS = urlJoin(match.url,"process");
+    const base = match.path;
+    const maps = urlJoin(base, mapUrl);
+    const process = urlJoin(base, processUrl);
     return (
         <Switch>
-            <Route exact path={urlJoin(ROUTES.BASE, `/:source(${MAP_KEY}|${PROCESS_KEY})`)} component={LoadCloseFieldAsync}/>
-            <Route path={ROUTES.MAP} component={MapCloseFieldAsync}/>
-            <Route path={ROUTES.PROCESS} component={ProcessCloseFieldAsync}/>
+            <Route exact path={`${base}/:source(${MAP_KEY}|${PROCESS_KEY})`} component={LoadCloseFieldAsync}/>
+            <Route path={maps} component={MapCloseFieldAsync}/>
+            <Route path={process} component={ProcessCloseFieldAsync}/>
         </Switch>
     )
   }

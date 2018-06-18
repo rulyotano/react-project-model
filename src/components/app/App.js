@@ -5,7 +5,6 @@ import {
 } from 'react-router-dom'
 import { connect } from 'react-redux'
 
-import Loadable from 'react-loadable'
 import LoadingComponent from '../common/_LoadingComponent'
 import configService from '../../service/config/configService'
 import * as userActions from '../common/user/_duck/actions'
@@ -14,36 +13,17 @@ import '../../styles/css/sidebar.css'
 import Header from "./header/Header";
 import Sidebar from "./sidebar/Sidebar";
 import 'perfect-scrollbar-react/dist/style.min.css';
-import urlJoin from 'url-join';
-import ROUTES from './routeNames';
+import {urlJoin} from '../../service/helperService';
+// import ROUTES from './routeNames';
+import loadable from '../common/loadable'
+import closeFieldUrl from './close-field/routesNames'
+import layerComparisonUrl from './field-layers-comparison/routesNames'
+import homeUrl from './home/routeNames'
 
 
-const HomeAsync = Loadable({
-    loader: () => import('./home/Home'),
-    loading: LoadingComponent,
-});
-
-const CloseFieldAsync = Loadable({
-    loader: () => import('./close-field/CloseField'),
-    loading: LoadingComponent,
-});
-
-//#region Mock Tests
-// const MonitoringAsync = Loadable({
-//     loader: () => import('._mockTests/monitoring/Monitoring'),
-//     loading: LoadingComponent,
-// });
-
-// const ChartTestAsync = Loadable({
-//     loader: () => import('./_mockTests/chartTest/ChartTest'),
-//     loading: LoadingComponent,
-// });
-
-// const FormTestAsync = Loadable({
-//     loader: () => import('./_mockTests/redux-form-test/FormTest'),
-//     loading: LoadingComponent,
-// });
-//#endregion
+const HomeAsync = loadable(() => import('./home/Home'));
+const CloseFieldAsync = loadable(() => import('./close-field/CloseField'));
+const FieldLayersComparisonAsync = loadable(() => import('./field-layers-comparison/FieldLayersComparisonContainer'));
 
 export class App extends Component {
 
@@ -66,22 +46,19 @@ export class App extends Component {
       if (!loaded)
         return <LoadingComponent isLoading={true}/>
 
-      ROUTES.BASE = match.url;
-      ROUTES.MONITORING = urlJoin(match.url,"monitoring");
-      ROUTES.CHART_TEST = urlJoin(match.url,"chart-test");
-      ROUTES.FORM_TEST = urlJoin(match.url,"form-test");
-      ROUTES.CLOSE_FIELD = urlJoin(match.url,"close-field");
+      const base = match.path;
+      const home = urlJoin(base, homeUrl);
+      const closeField = urlJoin(base, closeFieldUrl);
+      const layerComparison = urlJoin(base, layerComparisonUrl)
       return (
           <div>
               <Header/>
               <Sidebar {...this.props}/>
               <div>
                   <Switch>
-                      <Route exact path={ROUTES.BASE} component={HomeAsync}/>
-                      {/* <Route path={ROUTES.MONITORING} component={MonitoringAsync}/>
-                      <Route path={ROUTES.CHART_TEST} component={ChartTestAsync}/>
-                      <Route path={ROUTES.FORM_TEST} component={FormTestAsync}/> */}
-                      <Route path={ROUTES.CLOSE_FIELD} component={CloseFieldAsync}/>
+                      <Route exact path={home} component={HomeAsync}/>
+                      <Route path={closeField} component={CloseFieldAsync}/>
+                      <Route path={layerComparison} component={FieldLayersComparisonAsync}/>
                   </Switch>
               </div>
           </div>            

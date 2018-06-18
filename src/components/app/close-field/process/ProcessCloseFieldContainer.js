@@ -6,9 +6,9 @@ import {clear} from "./_duck/actions";
 import {getData, createGetIsLoaded} from "./_duck/selectors";
 import { withStyles, Button, Toolbar } from '@material-ui/core'
 import { Redirect } from "react-router-dom";
-import urlJoin from "url-join";
+import {urlJoin} from "../../../../service/helperService";
 import routesNames from "../routesNames";
-import PROCESS_KEY from "./KEY";
+import {PreloadKey as PROCESS_KEY} from "./routesNames";
 import CloseFieldModal from "../close-modal/CloseFieldModal";
 import ProcessCloseFieldTable from "./ProcessCloseFieldTableComponent";
 import {keys, values} from "lodash";
@@ -55,7 +55,7 @@ export class ProcessCloseField extends PureComponent {
     const {showCloseFieldModal, selected} = this.state;
     
     if (!loaded)
-      return <Redirect to={urlJoin(routesNames.BASE, PROCESS_KEY)}/>
+      return <Redirect to={urlJoin("/", routesNames, PROCESS_KEY)}/>
 
     return (
       <EmptySegment useScroll={false}>

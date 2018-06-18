@@ -1,14 +1,17 @@
 import React, {PureComponent} from 'react';
 import {Link} from 'react-router-dom';
-import {Apps, LocationOn, MultilineChart, ArrowBack, ArrowForward, ExpandMore, ExpandLess,
+import {LocationOn, ArrowBack, ArrowForward, ExpandMore, ExpandLess,
 Home, FormatShapes, LineStyle } from '@material-ui/icons';
 import {connect} from 'react-redux';
 import { setSizeToMax, setSizeToMin } from "../_duck/actions";
 import { getIsMaximized } from "../_duck/selectors";
-import ROUTES from "../routeNames";
-import urlJoin from "url-join";
-import CLOSE_FIELD_MAP_KEY from "../close-field/map/KEY";
-import CLOSE_FIELD_PROCESS_KEY from "../close-field/process/KEY";
+import { LoadMap as closeFieldLoadMapUrl, 
+    LoadProcess as closeFieldLoadProcessUrl } from "../close-field/routesNames";
+import layerComparisonUrl, { PreviewModalToTable as comparisonPreviewModalToTable, 
+    PreviewModalToComparison as comparisonPreviewModalToComparison } from "../field-layers-comparison/routesNames";
+import layerComparisonCompareUrl from "../field-layers-comparison/layers-comparison/routesNames";
+import layerComparisonTableUrl from "../field-layers-comparison/preview-table/routesNames";
+import {urlJoin} from "../../../service/helperService";
 import propTypes from 'prop-types';
 
 
@@ -70,8 +73,18 @@ class Sidebar extends PureComponent{
     }
 
     render(){
-        let {isMaximized} = this.state;
+        const {isMaximized} = this.state;
+        const {match} = this.props;
         const {t} = this.context;
+
+        const app = match.url;
+        const closeFieldLoadMap = urlJoin(app, closeFieldLoadMapUrl);
+        const closeFieldLoadProcess = urlJoin(app, closeFieldLoadProcessUrl);
+
+        const comparisonPreviewToTable = urlJoin(app, comparisonPreviewModalToTable);
+        const comparisonPreviewToCompare = urlJoin(app, comparisonPreviewModalToComparison);
+        const comparisonCompare = urlJoin(app, layerComparisonUrl, layerComparisonCompareUrl);
+        const comparisonTable = urlJoin(app, layerComparisonUrl, layerComparisonTableUrl);
 
         return(
             <div className="sidebar" style={{width:isMaximized?'48px':'260px'}}>
@@ -85,14 +98,19 @@ class Sidebar extends PureComponent{
                 }
                 <ul style={{paddingTop:isMaximized?'15px':'30px'}}>
                     {isMaximized ? <li className="with-border" onClick={()=>{this.resize()}}><ArrowForward/></li>:''}
-                    <CommonListItem url={ROUTES.BASE} icon={<Home/>} text={t("Home")} isMaximized={isMaximized}/>
+                    <CommonListItem url={app} icon={<Home/>} text={t("Home")} isMaximized={isMaximized}/>
                     {/*<CommonListItem url={ROUTES.MONITORING} icon={<LocationOn/>} text="Monitoring" isMaximized={isMaximized}/>*/}
                     <CommonList isMaximized={isMaximized} icon={<FormatShapes/>} text={t("Close Field")} isOpen={false}>
-                        <CommonListItem url={urlJoin(ROUTES.CLOSE_FIELD, CLOSE_FIELD_MAP_KEY)} icon={<LocationOn/>} text={t("Map")} isMaximized={isMaximized}/>
-                        <CommonListItem url={urlJoin(ROUTES.CLOSE_FIELD, CLOSE_FIELD_PROCESS_KEY)} icon={<LineStyle/>} text={t("Process")} isMaximized={isMaximized}/>
+                        <CommonListItem url={closeFieldLoadMap} icon={<LocationOn/>} text={t("Map")} isMaximized={isMaximized}/>
+                        <CommonListItem url={closeFieldLoadProcess} icon={<LineStyle/>} text={t("Process")} isMaximized={isMaximized}/>
                     </CommonList>
-                    {/*<CommonListItem url={ROUTES.CHART_TEST} icon={<MultilineChart/>} text="Test Chart" isMaximized={isMaximized}/>*/}
-                    {/*<CommonListItem url={ROUTES.FORM_TEST} icon={<MultilineChart/>} text="Form Test" isMaximized={isMaximized}/>*/}
+
+                    <CommonList isMaximized={isMaximized} icon={<FormatShapes/>} text={t("Layer Comparison")} isOpen={false}>
+                        <CommonListItem url={comparisonPreviewToTable} icon={<LineStyle/>} text={t("Load Field")} isMaximized={isMaximized}/>
+                        <CommonListItem url={comparisonPreviewToCompare} icon={<LocationOn/>} text={t("View available information")} isMaximized={isMaximized}/>
+                        <CommonListItem url={comparisonCompare} icon={<LocationOn/>} text={t("TEST - preview table")} isMaximized={isMaximized}/>
+                        <CommonListItem url={comparisonTable} icon={<LocationOn/>} text={t("TEST - layer comparison")} isMaximized={isMaximized}/>
+                    </CommonList>
                 </ul>
             </div>
         )

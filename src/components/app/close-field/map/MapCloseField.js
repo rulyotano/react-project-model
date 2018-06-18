@@ -2,11 +2,11 @@ import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import { withStyles } from '@material-ui/core'
 import { Redirect } from "react-router-dom";
-import urlJoin from "url-join";
+import {urlJoin} from "../../../../service/helperService";
 import EmptySegment from "../../../common/segment/EmptySegment";
 import MapCloseFieldMenu from "./MapCloseFieldMenu";
 import routesNames from "../routesNames";
-import MAP_KEY from "./KEY";
+import { PreloadKey as MAP_KEY} from "./routesNames";
 
 //maps
 import mapboxgl from 'mapbox-gl';
@@ -94,7 +94,7 @@ export class MapCloseField extends PureComponent {
     const {showCloseFieldModal, wArea} = this.state;
     
     if (!loaded)
-      return <Redirect to={urlJoin(routesNames.BASE, MAP_KEY)}/>
+      return <Redirect to={urlJoin("/", routesNames, MAP_KEY)}/>
 
     //TODO: redirect to load from map if data not loaded
     const map = <div className={classes.fullHeight}>

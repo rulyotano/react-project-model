@@ -1,4 +1,4 @@
-import config from '../config/config'
+import settings from '../config/config'
 import loginAuthDataService from './login/loginAuthDataService'
 import loginService from './login/loginService'
 import axios from 'axios'
@@ -19,16 +19,16 @@ class GenericHttpRequest {
             return this.axios.get(uri, {params, ...config}).then(this.success)
         }
     
-        post(uri, data)
+        post(uri, data, config = {})
         {
             return this.axios.post(uri, data, {...config}).then(this.success)
         }
     
-        put(uri, data) {
+        put(uri, data, config = {}) {
             return this.axios.put(uri, data, {...config}).then(this.success)
         }
     
-        delete(uri, params) {
+        delete(uri, params, config = {}) {
             return this.axios.delete(uri, {params, ...config}).then(this.success)
         }
 
@@ -112,7 +112,7 @@ class HttpService extends GenericHttpRequest {
     useSgpaApiUrl = () =>{
         if(!this.SGPA_API_HTTP_SERVICE)
         {
-            this.SGPA_API_HTTP_SERVICE = new GenericHttpRequest(createAxiosInstance(config.SGPA_API_URL));
+            this.SGPA_API_HTTP_SERVICE = new GenericHttpRequest(createAxiosInstance(settings.SGPA_API_URL));
         }
         return this.SGPA_API_HTTP_SERVICE;
     };
@@ -120,7 +120,7 @@ class HttpService extends GenericHttpRequest {
     useSgpaMapApiUrl = () =>{
         if(!this.SGPA_MAP_API_URL_HTTP_SERVICE)
         {
-            this.SGPA_MAP_API_URL_HTTP_SERVICE = new GenericHttpRequest(createAxiosInstance(config.SGPA_MAP_API_URL));
+            this.SGPA_MAP_API_URL_HTTP_SERVICE = new GenericHttpRequest(createAxiosInstance(settings.SGPA_MAP_API_URL));
         }
         return this.SGPA_MAP_API_URL_HTTP_SERVICE;
     };
@@ -129,7 +129,7 @@ class HttpService extends GenericHttpRequest {
 
         if(!this.SGPA_JOURNEY_SERVICE_URL_HTTP_SERVICE)
         {
-            this.SGPA_JOURNEY_SERVICE_URL_HTTP_SERVICE = new GenericHttpRequest(createAxiosInstance(config.SGPA_JOURNEY_SERVICE_URL));
+            this.SGPA_JOURNEY_SERVICE_URL_HTTP_SERVICE = new GenericHttpRequest(createAxiosInstance(settings.SGPA_JOURNEY_SERVICE_URL));
         }
         return this.SGPA_JOURNEY_SERVICE_URL_HTTP_SERVICE;
     };
@@ -137,7 +137,7 @@ class HttpService extends GenericHttpRequest {
     useSgpaIntegrationServiceUrl = () =>{
         if(!this.SGPA_INTEGRATION_SERVICE_URL_HTTP_SERVICE)
         {
-            this.SGPA_INTEGRATION_SERVICE_URL_HTTP_SERVICE = new GenericHttpRequest(createAxiosInstance(config.SGPA_INTEGRATION_SERVICE_URL));
+            this.SGPA_INTEGRATION_SERVICE_URL_HTTP_SERVICE = new GenericHttpRequest(createAxiosInstance(settings.SGPA_INTEGRATION_SERVICE_URL));
         }
         return this.SGPA_INTEGRATION_SERVICE_URL_HTTP_SERVICE;
     };
@@ -151,5 +151,4 @@ class HttpService extends GenericHttpRequest {
     }
 
 }
-export default new HttpService(createAxiosInstance(config.SGPA_API_URL));
-
+export default new HttpService(createAxiosInstance(settings.SGPA_API_URL));

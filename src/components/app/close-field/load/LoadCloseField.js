@@ -21,8 +21,8 @@ import componentToReduxForm from '../../../../service/redux-form/componentToRedu
 import {load, show, clear} from './_duck/actions';
 import {getLoading, getShow} from './_duck/selectors';
 import {getProcess} from '../_duck/selectors';
-import MAP_KEY from '../map/KEY';
-import PROCESS_KEY from '../process/KEY';
+import { PreloadKey as MAP_KEY} from '../map/routesNames';
+import { PreloadKey as PROCESS_KEY} from '../process/routesNames';
 
 const styles = theme => ({
     heading: {

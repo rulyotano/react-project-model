@@ -23,6 +23,8 @@ import BottomNotificationComponent from './common/dialog/BottomNotificationCompo
 import translations from '../i18n'
 import defaultTheme from './defaultTheme'
 import I18n from "redux-i18n"
+import loginUrl from "./login/routeNames"
+import {urlJoin} from "../service/helperService"
 
 const AppAsync = Loadable({   
     loader: () => import('./app'),
@@ -45,6 +47,8 @@ class AppRouter extends Component {
     }
 
     render(){
+        const base = "/";
+        const login = urlJoin(base, loginUrl);
         return (<Provider store={store}>
             <I18n translations={translations} initialLang={config.DEFAULT_LANGUAGE} fallbackLang="en-us">                
                 <MuiThemeProvider theme={themeV1}>
@@ -53,8 +57,8 @@ class AppRouter extends Component {
                             {/* Common all app things here        */}
 
                             <Switch>
-                                <Route exact path="/login" component={LoginAsync}/>
-                                <PrivateRoute path="/" component={AppAsync}/>
+                                <Route exact path={login} component={LoginAsync}/>
+                                <PrivateRoute path={base} component={AppAsync}/>
                             </Switch>
                             <DialogComponent/>
                             <BottomNotificationComponent/>
