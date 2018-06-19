@@ -1,5 +1,6 @@
-// import { SOME_ACTION_NAME } from './types'
+import { CHANGE_NUMBER_OF_MAPS } from './types'
 
-// export const SOME_ACTION = ()=>({
-//     type: SOME_ACTION_NAME
-// })
+export const changeNumberOfMaps = (numberOfMaps)=>({
+    type: CHANGE_NUMBER_OF_MAPS,
+    numberOfMaps
+})

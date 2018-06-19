@@ -1,7 +1,7 @@
 import { CHANGE_NUMBER_OF_MAPS } from "./types";
 
 const initialState = {
-  numberOfMaps: 1
+  numberOfMaps: 1  
 }
 
 export default (state = initialState, action) => {
