@@ -1,9 +1,11 @@
-// import { SOME_ACTION_NAME } from "./types";
+import {combineReducers} from "redux";
+import layersComparison from "../layers-comparison/_duck/reducers";
+
 const initialState = {
 
 }
 
-export default (state = initialState, action) => {
+const reducer = (state = initialState, action) => {
   switch (action.type) {
 
 //   case SOME_ACTION_NAME:
@@ -13,3 +15,8 @@ export default (state = initialState, action) => {
     return state
   }
 }
+
+export default combineReducers({
+  _: reducer,
+  layersComparison,
+})

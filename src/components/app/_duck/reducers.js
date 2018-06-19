@@ -1,6 +1,7 @@
 import {SET_SIZE_TO_MAX, SET_SIZE_TO_MIN} from "./types";
 import {combineReducers} from 'redux'
 import closeField from '../close-field/_duck/reducers';
+import layersComparison from '../field-layers-comparison/_duck/reducers';
 
 export const defaultSegmentState = { maximized: false };
 
@@ -21,5 +22,6 @@ const appReducer = (state = defaultSegmentState, action)=>{
 
 export default combineReducers({
     _: appReducer,
-    closeField
+    closeField,
+    layersComparison
 });

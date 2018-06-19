@@ -1,13 +1,14 @@
-// import { SOME_ACTION_NAME } from "./types";
-const initialState = {
+import { CHANGE_NUMBER_OF_MAPS } from "./types";
 
+const initialState = {
+  numberOfMaps: 1
 }
 
 export default (state = initialState, action) => {
   switch (action.type) {
 
-//   case SOME_ACTION_NAME:
-//     return { ...state }
+  case CHANGE_NUMBER_OF_MAPS:
+    return { ...state, numberOfMaps: action.numberOfMaps }
 
   default:
     return state

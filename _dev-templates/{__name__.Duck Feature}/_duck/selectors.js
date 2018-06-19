@@ -1,6 +1,8 @@
 // import { createSelector } from "reselect";
 
-export const getNumberOfMaps = (state)=>state.app.layersComparison.layersComparison.numberOfMaps
+// export const getA = (state)=>state.placestofind.aValue
+
+// export const getB = (state)=>state.placestofind.bValue
 
 //export const createSomeReselectSelector = () =>
 //     createSelector([
