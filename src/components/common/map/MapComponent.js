@@ -6,6 +6,10 @@ import {connect} from 'react-redux';
 import Map from '../../../service/maps/classes/Map';
 
 class MapComponent extends Component{
+    static propsTypes = {
+        onCreateMap: PropTypes.func,
+        refreshMapCounter: PropTypes.number
+    }
     componentDidMount(){
         this.map = new Map(findDOMNode(this.mapNode));
         this.map.on('load', ()=>{
@@ -16,7 +20,8 @@ class MapComponent extends Component{
 
     shouldComponentUpdate(nextProps){
         //needed for update the chart when the side bar collapse or open
-        if (nextProps.isMaximized !== this.props.isMaximized){
+        if (nextProps.isMaximized !== this.props.isMaximized 
+            || nextProps.refreshMapCounter !== this.props.isMaximized){
             setTimeout(()=>this.map.map.resize(),200);            
         }
         return false;
@@ -24,10 +29,6 @@ class MapComponent extends Component{
     render(){
         return <div ref={domNode => this.mapNode = domNode} style={{height: "100%", width: "100%"}}></div>
     }
-}
-
-MapComponent.propsTypes = {
-    onCreateMap: PropTypes.func
 }
 
 export default connect(state=>({
