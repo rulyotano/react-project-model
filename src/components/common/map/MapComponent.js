@@ -17,6 +17,9 @@ class MapComponent extends Component{
                 this.props.onCreateMap(this.map);
         })
     }
+    componentWillUnmount(){
+        this.map.remove();
+    }
 
     shouldComponentUpdate(nextProps){
         //needed for update the chart when the side bar collapse or open

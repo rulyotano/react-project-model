@@ -2,6 +2,7 @@ import {CLEAR, SET_VARIABLE, SET_VARIABLE_RANGE, SET_VARIABLES,
     PAINT_MAP} from './types'
 import TimeRangeVariable from '../../../../../service/maps/variables/vars/TimeRangeVariable'
 import FleetVariable from '../../../../../service/maps/variables/vars/FleetVariable'
+import {getSelectedVariableRange} from './selectors'
 
 export const clear = ()=>({type: CLEAR}) 
 
@@ -12,8 +13,8 @@ export const setVariableRange = (range)=>({type: SET_VARIABLE_RANGE, range})
 export const initializeVariables = () => (dispatch, getState)=>{
     var data = getState().app.closeField.map.data;
     const variables = [
-        new TimeRangeVariable(data, setVariableRange, "app.closeField.map.selected.variableRange"),
-        new FleetVariable(data, setVariableRange, "app.closeField.map.selected.variableRange")
+        new TimeRangeVariable(data, setVariableRange, getSelectedVariableRange),
+        new FleetVariable(data, setVariableRange, getSelectedVariableRange)
     ];      
     dispatch({
         type: SET_VARIABLES,

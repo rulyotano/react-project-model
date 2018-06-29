@@ -6,19 +6,19 @@ import store from '../../../../components/store'
 export default class Variable {
     /**
      * @param {Array} items - Items list that will be used for range calculation
-     * @param {Function} setRageGroupAction - Action for setting the variable range group at state
-     * @param {Function} stateRangeGroupPath - Path to the state selected range group, for instance "app.analyticMap.variable1.rangeGroup"
+     * @param {Function} setRangeGroupAction - Action for setting the variable range group at state
+     * @param {Function} rangeGroupSelector - Range group selector
      * @constructor
      */
-    constructor(items, setRageGroupAction = (rangeGroup)=>{}, stateRangeGroupPath = "") {
+    constructor(items, setRangeGroupAction = (rangeGroup)=>{}, rangeGroupSelector = state=>null) {
         this._name = "";
         this._rangeGroups = [];
         this._rangeView = null;
         this._items = items;
         this._displayInMapItemDetails = true;
         this._isDate = false;
-        this._setRageGroupAction = setRageGroupAction;
-        this._stateRangeGroupPath = stateRangeGroupPath;
+        this._setRangeGroupAction = setRangeGroupAction;
+        this._rangeGroupSelector = rangeGroupSelector;
 
         //declare this function in children implementations
         this._valueFn = item=>"";
@@ -40,16 +40,16 @@ export default class Variable {
      * @return {RangeGroup}
      * */
     get selectedRangeGroup(){
-        if (!this._stateRangeGroupPath || this._stateRangeGroupPath === "")
+        if (!this._rangeGroupSelector)
             return null;
-        return get(store.getState(), this._stateRangeGroupPath);
+        return this._rangeGroupSelector(store.getState());
     }
 
     /**set the selected range group
      * @param {RangeGroup} value - value to set
      * */
     set selectedRangeGroup(value){
-        this._setRageGroupAction(value);
+        this._setRangeGroupAction(value);
     }
 
     get ranges(){

@@ -23,7 +23,8 @@ class MapsLayoutComponent extends PureComponent {
             {
                 maps.map((it, i)=>
                 <Grid key={i} 
-                    item md={numberOfMaps === 1 ? 12 : 6}
+                    item md={numberOfMaps === 1 ? 12 :
+                                numberOfMaps === 3 ? 4 : 6}
                     className={classes.component}>
                     {it}
                 </Grid>)

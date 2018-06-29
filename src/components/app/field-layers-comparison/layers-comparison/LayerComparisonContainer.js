@@ -2,16 +2,14 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import EmptySegment from '../../../common/segment/EmptySegment'
+import LoadingComponent from '../../../common/_LoadingComponent'
 import HoverWindowContainer from './HoverWindowContainer'
-import {getNumberOfMaps} from './_duck/selectors'
-import {withStyles, Grid} from '@material-ui/core'
+import {getNumberOfMaps, getLoadingData, getData} from './_duck/selectors'
+import {loadData, clear} from './_duck/actions'
 import {range} from 'lodash'
-import MapComponent from '../../../common/map/MapComponent'
+import LayerComparisonMapContainer from './LayerComparisonMapContainer'
 import MapsLayoutComponent from './MapsLayoutComponent'
-import {addMap} from './_duck/actions'
 
-const styles = (theme)=>({
-})
 
 export class LayerComparisonContainer extends PureComponent {
   static propTypes = {
@@ -20,27 +18,41 @@ export class LayerComparisonContainer extends PureComponent {
   static contextTypes = {
     t: PropTypes.func.isRequired
   }
+  componentWillMount(){
+    const {onLoadData} = this.props;
+    onLoadData()
+  }
+  componentWillUnmount(){
+    this.props.onClear();
+  }
   render() {
-    const {t} = this.context;
-    const {numberOfMaps, onMapAdd} = this.props;
+    const {numberOfMaps, loadingData, data} = this.props;
+    
     const maps = range(numberOfMaps).map(i=> 
-      (<MapComponent refreshMapCounter={numberOfMaps} onCreateMap={(map)=>onMapAdd(map, i)}/>))
+      (<LayerComparisonMapContainer mapIndex={i} numberOfMaps={numberOfMaps}/>))
     return (
-      <EmptySegment  useScroll={false}>
-          <MapsLayoutComponent maps={maps}/>
-          <HoverWindowContainer/>
+      <EmptySegment useScroll={false}>
+        { loadingData ? <LoadingComponent/> : null}
+        { !data & !loadingData ? "TODO: Error Loading Data" : null}
+        { !!data ? <React.Fragment>
+            <MapsLayoutComponent maps={maps}/>
+            <HoverWindowContainer/>
+          </React.Fragment> : null
+        }
       </EmptySegment>
     )
   }
 }
 
 const mapStateToProps = (state) => ({
-  numberOfMaps: getNumberOfMaps(state)  
+  numberOfMaps: getNumberOfMaps(state),
+  loadingData: getLoadingData(state),
+  data: getData(state)
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  onMapAdd: (map, index) => dispatch(addMap(map, index))
+  onLoadData: ()=>dispatch(loadData()),
+  onClear: ()=>dispatch(clear())
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(
-  withStyles(styles)(LayerComparisonContainer))
+export default connect(mapStateToProps, mapDispatchToProps)(LayerComparisonContainer)
