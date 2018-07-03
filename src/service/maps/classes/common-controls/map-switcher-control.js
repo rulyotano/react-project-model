@@ -4,6 +4,7 @@ import {Button} from '@material-ui/core';
 import Map from '../Map';
 import translations from '../../../../i18n';
 import store from '../../../../components/store';
+import {getLang} from '../../../../components/common/lang/_duck/selectors';
 import {getTranslateFunction} from 'redux-i18n';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
@@ -34,7 +35,7 @@ class ButtonsView extends React.PureComponent{
 }
 
 ButtonsView = connect(state=>({
-    lang: state.i18nState.lang     
+    lang: getLang(state)
 }))(ButtonsView)
 
 export default class MapSwitcherControl {

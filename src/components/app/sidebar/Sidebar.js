@@ -108,8 +108,8 @@ class Sidebar extends PureComponent{
                     <CommonList isMaximized={isMaximized} icon={<FormatShapes/>} text={t("Layer Comparison")} isOpen={false}>
                         <CommonListItem url={comparisonPreviewToTable} icon={<LineStyle/>} text={t("Load Field")} isMaximized={isMaximized}/>
                         <CommonListItem url={comparisonPreviewToCompare} icon={<LocationOn/>} text={t("View available information")} isMaximized={isMaximized}/>
-                        <CommonListItem url={comparisonCompare} icon={<LocationOn/>} text={t("TEST - preview table")} isMaximized={isMaximized}/>
-                        <CommonListItem url={comparisonTable} icon={<LocationOn/>} text={t("TEST - layer comparison")} isMaximized={isMaximized}/>
+                        <CommonListItem url={comparisonCompare} icon={<LocationOn/>} text={t("TEST - layer comparison")} isMaximized={isMaximized}/>
+                        <CommonListItem url={comparisonTable} icon={<LocationOn/>} text={t("TEST - preview table")} isMaximized={isMaximized}/>
                     </CommonList>
                 </ul>
             </div>

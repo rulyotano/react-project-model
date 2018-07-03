@@ -2,6 +2,9 @@ import React from "react";
 import {render} from 'react-dom';
 import store from "../../../../../store";
 import LegendInMaps from "../LegendInMaps";
+import translations from '../../../../../../i18n';
+import {getLang} from '../../../../../common/lang/_duck/selectors';
+import {getTranslateFunction} from 'redux-i18n';
 
 export default class LegendControl {
     constructor(map, mapIndex) {
@@ -14,8 +17,11 @@ export default class LegendControl {
         containerMapBoxDiv.classList.add('mapboxgl-ctrl',
             'mapboxgl-ctrl-group',
             'map-control-container');
+            
+        const lang = getLang(store.getState());
+        const t = getTranslateFunction(translations, lang);
         
-        render(<LegendInMaps store={store}
+        render(<LegendInMaps store={store} t={t}
                     mapIndex={this._mapIndex}/>, containerMapBoxDiv)
 
         return containerMapBoxDiv;

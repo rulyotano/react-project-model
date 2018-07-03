@@ -9,7 +9,7 @@ import {initializeVariables, paintMap} from './_duck/actions'
 import {getSelectedVariable} from './_duck/selectors'
 import {getSelectedProperties, getMappedGeoJson} from '../../../common/map/_duck/selectors'
 import MapCloseFieldVariableDropdown from './MapCloseFieldVariableDropdown'
-import MapCloseFieldRangeTable from './MapCloseFieldRangeTable'
+import MapCloseFieldRangeTableContainer from './MapCloseFieldRangeTable'
 import WorkAreaSelector from '../../../common/work-area-selector/WorkAreaSelector'
 import CollapsePanel from '../../../common/collapse-panel/CollapsePanel'
 import Panel from '../../../common/collapse-panel/Panel'
@@ -84,7 +84,7 @@ export class MapCloseFieldMenu extends PureComponent {
 
           {/* TODO: i18n */}
           <CollapsePanel title={"Ranges"} expanded={rangesExpanded}>
-            <MapCloseFieldRangeTable/>
+            <MapCloseFieldRangeTableContainer/>
           </CollapsePanel>
           
           {/* TODO: i18n */}

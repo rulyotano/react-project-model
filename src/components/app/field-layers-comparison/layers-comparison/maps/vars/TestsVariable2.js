@@ -1,5 +1,5 @@
 import Variable from '../../../../../../service/maps/variables/vars/Variable'
-import {find} from 'lodash'
+import {find, round} from 'lodash'
 import EquallySplitRangeGroup from '../../../../../../service/maps/variables/groups/EquallySplitRangeGroup'
 import RangeView from '../../../../../../service/maps/variables/RangeView'
 
@@ -21,7 +21,7 @@ export default class TestsVariable extends Variable {
             find(ranges, r=>r.minRaw <= item.properties.VL_VALOR_VARIAVEL*random() && item.properties.VL_VALOR_VARIAVEL*random() <= r.maxRaw);
 
         this._valueFn = item=>item.properties.VL_VALOR_VARIAVEL*random();
-        this._displayFn = val=>val;
+        this._displayFn = val=>round(val, 2);
         this._rangeGroups = [
             new EquallySplitRangeGroup(`test2-range-default-${key}`, 'Automatic', rangeFn, true, false, items, this._valueFn, 0, 100, this._displayFn),
             new EquallySplitRangeGroup(`test2-range-user-config-${key}`, 'Configurable', rangeFn, false, true, items, this._valueFn, 0, 100, this._displayFn),
