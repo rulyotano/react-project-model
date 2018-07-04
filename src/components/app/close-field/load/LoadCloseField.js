@@ -12,7 +12,7 @@ import { withRouter } from 'react-router-dom'
 import Panel from '../../../common/collapse-panel/Panel';
 import {WorkAreaSelector} from '../../../common/work-area-selector/WorkAreaSelector';
 import wAreaSelValidate from '../../../common/work-area-selector/workAreaSelector.validate';
-import DateTimeRangeSelector from '../../../common/date-time-range-selector/DateTimeRangeSelector';
+import DateTimeRangeSelector from '../../../common/pickers/date-time-range';
 import {SelectRF} from '../../../common/select/Select';
 import {OperationSelect} from '../../../common/select/common/OperationSelect';
 import LoadingButton from '../../../common/loading-button/LoadingButton';

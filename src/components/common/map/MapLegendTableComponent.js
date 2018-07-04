@@ -20,7 +20,7 @@ const styles = theme => ({
         padding: "4px"
     },
     tableRow: {
-        height: "32px"
+        height: "20px"
     }
   });
 

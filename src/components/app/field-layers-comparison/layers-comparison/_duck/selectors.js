@@ -19,6 +19,11 @@ export const createVariablesSelector =
         const mVars = state.app.layersComparison.layersComparison.mapVariables[index];
         return mVars && mVars.variables;
     };
+export const createOpacitySelector =
+    (index) => (state)=> {
+        const mVars = state.app.layersComparison.layersComparison.mapVariables[index];
+        return mVars && mVars.opacity;
+    };
 
 //export const createSomeReselectSelector = () =>
 //     createSelector([

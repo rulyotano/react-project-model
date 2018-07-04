@@ -2,12 +2,10 @@ import React, { Component }  from 'react'
 import PropTypes  from 'prop-types'
 import { withRouter } from 'react-router-dom'
 import '../../styles/css/login.css';
-// import TextField from 'material-ui/TextField';
 import loginService from "../../service/login/loginService";
 import textFieldToReduxForm from "../../service/redux-form/textFieldToReduxForm";
-import LanguagePicker from "../common/_LanguagePicker";
+import LanguagePicker from "../common/pickers/language";
 import { Field, reduxForm } from 'redux-form'
-// import { TextField } from 'redux-form-material-ui'
 import { TextField } from '@material-ui/core';
 import LoadingButton from '../common/loading-button/LoadingButton';
 

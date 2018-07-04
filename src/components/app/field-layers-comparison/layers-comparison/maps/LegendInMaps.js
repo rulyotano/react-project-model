@@ -3,10 +3,11 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { createVariablesSelector, 
     createSelectedVariableSelector, 
-    createSelectedVariableRangeSelector  } from '../_duck/selectors'
-import { setVariable } from "../_duck/actions";
+    createSelectedVariableRangeSelector, createOpacitySelector  } from '../_duck/selectors'
+import { setVariable, setOpacity } from "../_duck/actions";
 import VariableDropDownComponent from './VariableDropDownComponent'
 import MapLegendTableComponent from '../../../../common/map/MapLegendTableComponent'
+import Slider from '../../../../common/pickers/slider'
 
 class LegendInMaps extends PureComponent {
   static propTypes = {
@@ -16,7 +17,7 @@ class LegendInMaps extends PureComponent {
 
   render() {
         const {mapIndex, variables, selectedVariable, selectedVariableRange,
-            onVariableSelected, t} = this.props;
+            onVariableSelected, t, opacity, onOpacityChange} = this.props;
         if (!variables)
             return null;
         return (
@@ -29,6 +30,8 @@ class LegendInMaps extends PureComponent {
                     <br/>
                     <MapLegendTableComponent t={t} variable={selectedVariable}
                         selectedRangeGroup={selectedVariableRange}/>
+                    <br/>
+                    <Slider value={opacity} min={0} max={1} step={0.1} onChange={(value)=>onOpacityChange(value, mapIndex)} label={t("Opacity")}/>
             </div>
         )
   }
@@ -38,10 +41,12 @@ const mapStateToProps = (state, props) => ({
     variables: createVariablesSelector(props.mapIndex)(state),
     selectedVariable: createSelectedVariableSelector(props.mapIndex)(state),
     selectedVariableRange: createSelectedVariableRangeSelector(props.mapIndex)(state),
+    opacity: createOpacitySelector(props.mapIndex)(state),
 })
 
 const mapDispatchToProps = dispatch => ({
-    onVariableSelected: (variable, index) => dispatch(setVariable(variable, index))
+    onVariableSelected: (variable, index) => dispatch(setVariable(variable, index)),
+    onOpacityChange: (opacity, index) => dispatch(setOpacity(opacity, index)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(LegendInMaps)

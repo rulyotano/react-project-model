@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import {addMap} from './_duck/actions'
-import {getData} from './_duck/selectors'
+import {getData, createOpacitySelector} from './_duck/selectors'
 import LoadingComponent from "../../../common/_LoadingComponent";
 import {createSelectedVariableRangeSelector} from "./_duck/selectors";
 
@@ -36,6 +36,9 @@ export class LayerComparisonMapContainer extends PureComponent {
     if (this._interpolationLayer && newProps.selectedRangeGroup !== this.props.selectedRangeGroup){
       this._interpolationLayer.updateLayerData(this.props.data, newProps.selectedRangeGroup);
     }
+    if (this._interpolationLayer && newProps.opacity !== this.props.opacity){
+      this._interpolationLayer.updateOpacity(newProps.opacity);
+    }
   }
 
   buildMap(map){
@@ -57,6 +60,7 @@ export class LayerComparisonMapContainer extends PureComponent {
         this._interpolationLayer = new InterpolationLayer();
         this.map.addLayer(this._interpolationLayer);
         this._interpolationLayer.updateLayerData(this.props.data, this.props.selectedRangeGroup)
+        this._interpolationLayer.updateOpacity(this.props.opacity);
     });
   }
 
@@ -80,7 +84,8 @@ const mapStateToProps = (state, props) => ({
   mapGeoJson: getMapGeoJson(state),
   fieldSelected: getSelected(state),
   data: getData(state),
-  selectedRangeGroup: createSelectedVariableRangeSelector(props.mapIndex)(state)
+  selectedRangeGroup: createSelectedVariableRangeSelector(props.mapIndex)(state),
+  opacity: createOpacitySelector(props.mapIndex)(state)
 })
 
 const mapDispatchToProps = (dispatch) => ({  

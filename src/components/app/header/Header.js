@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import LanguagePicker from '../../common/_LanguagePicker';
+import LanguagePicker from '../../common/pickers/language';
 import loginService from '../../../service/login/loginService';
 import {AccountCircle, ExitToApp} from '@material-ui/icons';
 import { withStyles, IconButton, Menu, MenuItem, Avatar, ListItemIcon, ListItemText} from '@material-ui/core';

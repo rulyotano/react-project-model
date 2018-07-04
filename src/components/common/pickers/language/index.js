@@ -3,8 +3,8 @@ import PropTypes from 'prop-types'
 
 import { InputLabel, MenuItem, Select, FormControl } from '@material-ui/core';
 
-import languageService from '../../service/language/languageService'
-import {changeLanguage} from './config/_duck/actions'
+import languageService from '../../../../service/language/languageService'
+import {changeLanguage} from '../../config/_duck/actions'
 import { connect } from 'react-redux'
 import classNames from 'classnames'
 

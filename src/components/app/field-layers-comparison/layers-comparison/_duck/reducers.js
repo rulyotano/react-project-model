@@ -1,6 +1,6 @@
 import { CHANGE_NUMBER_OF_MAPS, ADD_MAP,
   START_LOADING_DATA, DATA_LOADED, ERROR_LOADING_DATA,
-  SET_VARIABLE, SET_VARIABLE_RANGE, CLEAR } from "./types";
+  SET_VARIABLE, SET_VARIABLE_RANGE, CLEAR, SET_OPACITY } from "./types";
 import getAllVariables from "../maps/getAllVariables";
 
 const initialState = {
@@ -15,6 +15,7 @@ const createMapVariable = (items, index)=>({
   variables: getAllVariables(items, index),
   selected: null,
   selectedRange: null,
+  opacity: 1
 })
 
 export default (state = initialState, action) => {
@@ -50,6 +51,10 @@ export default (state = initialState, action) => {
   case SET_VARIABLE_RANGE:
     mapVariables = [...state.mapVariables];
     mapVariables[action.index].selectedRange = action.range;
+    return {...state, mapVariables}
+  case SET_OPACITY: 
+    mapVariables = [...state.mapVariables];
+    mapVariables[action.index].opacity = action.opacity;
     return {...state, mapVariables}
   case CLEAR:
     return initialState;

@@ -10,7 +10,7 @@ import { Field, reduxForm } from 'redux-form';
 import { SelectRF } from '../../../common/select/Select';
 import config, {CLIENT_TYPE_CANE, CLIENT_TYPE_GRAIN } from '../../../../config/config';
 import LoadingButton from '../../../common/loading-button/LoadingButton';
-import {DateTimePicker} from '../../../common/date-time-picker/DateTimePicker';
+import DateTimePicker from '../../../common/pickers/date-time';
 import WorkAreaSelector from '../../../common/work-area-selector/WorkAreaSelector';
 import * as processTypes from '../../../../service/close-field/processTypes'
 import {get, find} from "lodash";

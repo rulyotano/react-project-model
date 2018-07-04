@@ -111,6 +111,10 @@ class AnalyticMapVariablesLayer extends MapCommonLayer {
         this._updateSources(this._map, this._data);
     }
 
+    updateOpacity(opacity){
+        this._map.map.setPaintProperty(this.key, 'fill-opacity', opacity);
+    }
+
     /**Clear the layer's data */
     clearLayerData(){
         this.initializeCollections();        

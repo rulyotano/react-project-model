@@ -1,6 +1,6 @@
 import React, {PureComponent} from "react";
-import "../../../styles/css/date-time-range-selector.css";
-import DateTimePicker from '../date-time-picker/DateTimePicker';
+import "../../../../styles/css/date-time-range-selector.css";
+import DateTimePicker from '../date-time';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 
