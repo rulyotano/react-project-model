@@ -78,7 +78,7 @@ export default class MapTalhaoesLayer extends MapCommonLayer {
 
         return `<div>
                     <h4>${t('maps.Map of Field')}</h4>
-                    <p><h5>${t("maps.Farm's Name")}:<small> ${(nameFazenda && nameFazenda != "null") ? nameFazenda : t('maps.NOT REGISTERED')}</small></h5></p>
+                    <p><h5>${t("maps.Farm's Name")}:<small> ${(nameFazenda && nameFazenda !== "null") ? nameFazenda : t('maps.NOT REGISTERED')}</small></h5></p>
                     <p><h5>${t("maps.Farm")}:<small> ${fazenda}</small></h5></p>
                     <p><h5>${t('maps.Sector')}:<small> ${setor}</small></h5></p>
                     <p><h5>${t('maps.Field')}:<small> ${cdTalhao}</small></h5></p>

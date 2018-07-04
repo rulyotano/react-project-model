@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {
-    BrowserRouter as Router,
+    // BrowserRouter as Router,
     Route, Switch
 } from 'react-router-dom'
 import { ConnectedRouter } from "react-router-redux";

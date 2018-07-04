@@ -29,6 +29,7 @@ const styles = theme => ({
         height: '100%'
     },
     tableRow:{
+        height:'48px !important',
         maxHeight:'48px !important'
     },
     selectedRow:{
@@ -54,9 +55,6 @@ const styles = theme => ({
     },
     numberCell:{
         textAlign: "right !important"
-    },
-    tableRow:{
-        height: "48px"
     },
     tDataCell: {
         fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',

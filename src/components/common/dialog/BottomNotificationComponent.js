@@ -6,7 +6,6 @@ import {withStyles, Snackbar, IconButton} from '@material-ui/core';
 import {Close} from '@material-ui/icons';
 import config from '../../../config/config';
 import {removePassBottomNotifications} from './_store/actions/bottomNotificationActions';
-import {NotificationTypesDefaults, NotificationTypes} from './classes/Notification';
 
 const styles = theme => ({
   // [`snackbar${NotificationTypes.ALERT}`]: {
@@ -81,12 +80,12 @@ export class BottomNotificationComponent extends Component {
     let timeNotification = config.TIME_BOTTOM_NOTIFICATION
     let botNot = this.state.bottomNotification
     let message = botNot ? botNot.Description : ""
-    let snackbarClass = botNot ? `snackbar${botNot.Type}` : ""
+    // let snackbarClass = botNot ? `snackbar${botNot.Type}` : ""
     const {classes} = this.props;
     const {t} = this.context;
-    const snackBarClasses = {
-      anchorOriginBottomCenter: classes[snackbarClass]
-    }
+    // const snackBarClasses = {
+    //   anchorOriginBottomCenter: classes[snackbarClass]
+    // }
 
     return (
       <div>

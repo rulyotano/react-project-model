@@ -1,13 +1,12 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { get } from 'lodash'
 import EmptySegment from "../../../common/segment/EmptySegment";
 import { Field, reduxForm } from 'redux-form';
 
-import {withStyles, Button, TextField, Dialog, DialogActions,
-        DialogContentText, DialogTitle,
-        Typography, Grid} from '@material-ui/core';
+import {withStyles, Button, Dialog, DialogActions,
+        DialogTitle,
+        Grid} from '@material-ui/core';
 import DialogContent from '@material-ui/core/DialogContent';
 import { withRouter } from 'react-router-dom'
 import Panel from '../../../common/collapse-panel/Panel';
@@ -80,7 +79,7 @@ export class LoadCloseField extends PureComponent {
   }
 
   render() {
-    const {classes, process, isLoading, open, show, hide,
+    const {classes, process, isLoading, open, show,
             match } = this.props;
     const loadText = match.params.source === MAP_KEY ? "Load Close Field from Map" : /* TODO: i18n */
                        match.params.source === PROCESS_KEY ? "Load Close Field from Process" : /* TODO: i18n */

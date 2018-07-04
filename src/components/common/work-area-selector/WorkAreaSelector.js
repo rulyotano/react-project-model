@@ -1,10 +1,9 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { Field, reduxForm } from 'redux-form';
 import { withStyles } from '@material-ui/core/styles';
 import { TextField, Grid, FormHelperText, FormControl } from '@material-ui/core';
 import { connect } from 'react-redux';
-import { get, filter, isFunction, isString } from 'lodash';
+import { filter, isFunction, isString } from 'lodash';
 import componentToReduxForm from '../../../service/redux-form/componentToReduxForm';
 import Loading from '../../../components/common/_LoadingComponent';
 import {loadMapGeoJson} from '../../common/map/_duck/actions';

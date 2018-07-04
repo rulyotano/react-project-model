@@ -1,8 +1,8 @@
 import MapCommonLayer from '../../../../../service/maps/classes/layers/MapCommonLayer'
 import * as helpers from '@turf/helpers'
-import bbox from '@turf/bbox'
+// import bbox from '@turf/bbox'
 import midpoint from '@turf/midpoint'
-import {every, isFunction, some} from 'lodash'
+import {isFunction, some} from 'lodash'
 
 const LINES_SOURCE_ID = 'close-field-map-lines-source-key';
 const LINES_HOVER_SOURCE_ID = 'close-field-map-hover-line-source-key';
@@ -14,11 +14,11 @@ const ARROW_LAYER_ID = 'analytic-layer-arrow-key';
 const stoppedStateFilter = (isEqual = false) => 
                             [ isEqual ? "==" : "!=", "isStopped", true];
 
-const mapFitBounds = (map, features)=>{                    
-    let bBox = bbox(features);
-    if (every(bBox, v => v != Infinity && v != -Infinity))
-        map.fitBounds(bBox, { padding: 20 });  
-};
+// const mapFitBounds = (map, features)=>{                    
+//     let bBox = bbox(features);
+//     if (every(bBox, v => v !== Infinity && v !== -Infinity))
+//         map.fitBounds(bBox, { padding: 20 });  
+// };
 
 // const stoppedStateFilter = (isEqual = false) => 
 //                             [ isEqual ? "==" : "!=", "isStopped", true];

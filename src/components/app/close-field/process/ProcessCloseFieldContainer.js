@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react'
-import PropTypes from 'prop-types'
+// import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import EmptySegment from "../../../common/segment/EmptySegment";
 import {clear} from "./_duck/actions";

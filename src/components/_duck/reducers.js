@@ -1,4 +1,3 @@
-import {combineReducers} from 'redux'
 import auth from '../common/auth/_duck/reducers'
 import config from '../common/config/_duck/reducers'
 import user from '../common/user/_duck/reducers'

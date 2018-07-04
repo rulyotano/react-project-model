@@ -44,10 +44,10 @@ class MapLegendTableComponent extends PureComponent {
                 <TableHead>
                 <TableRow classes={rowClasses}>
                     {rw.color ? <TableCell padding="checkbox"></TableCell> : null}
-                    {rw.min /*TODO: i18n*/ ? <TableCell padding="checkbox">Start</TableCell> : null}
+                    {rw.min ? <TableCell padding="checkbox">{t("mapLegend.Start")}</TableCell> : null}
                     {rw.min && rw.max ? <TableCell padding="checkbox"></TableCell> : null}
-                    {rw.max /*TODO: i18n*/ ? <TableCell padding="checkbox">End</TableCell> : null}
-                    {rw.description /*TODO: i18n*/ ? <TableCell padding="checkbox">Name</TableCell> : null}
+                    {rw.max ? <TableCell padding="checkbox">{t("mapLegend.End")}</TableCell> : null}
+                    {rw.description ? <TableCell padding="checkbox">{t("mapLegend.Name")}</TableCell> : null}
                     {rw.value ? <TableCell padding="checkbox"></TableCell> : null}
                     {rw.suffix ? <TableCell padding="checkbox"></TableCell> : null}
                     {rw.extra1 ? <TableCell padding="checkbox"></TableCell> : null}

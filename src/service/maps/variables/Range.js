@@ -1,5 +1,3 @@
-import {get} from 'lodash'
-
 /**Class representing each individual item in a RangeGroup, in other words, is each line in the ranges
  * table that appears when selected a map variable.
  * @author Raul Otano <rulyotano@gmail.com>*/

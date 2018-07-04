@@ -64,7 +64,7 @@ export const load = (data, source)=> (dispatch, getState)=>{
         return;
     dispatch({type: START_LOADING});
 
-    const {dateRange, farm, sector, field, ...restData} = data;
+    const {dateRange, farm, sector, field} = data;
     const params = {
         parametrosPaginacao:{paginaAtual: 1},
         tipoDeMapa: 1,

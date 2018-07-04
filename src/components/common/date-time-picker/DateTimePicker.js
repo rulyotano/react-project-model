@@ -1,12 +1,12 @@
 import React,{PureComponent} from 'react';
-import { withStyles, TextField } from '@material-ui/core';
+import { withStyles } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import {isDate} from 'lodash';
 import {isString, debounce} from 'lodash';
 import TetheredDateTime from './TetheredDateTime';
 import componentToReduxForm from '../../../service/redux-form/componentToReduxForm';
 
-import moment from 'moment';
+// import moment from 'moment';
 import 'moment/locale/pt-br';
 import 'moment/locale/en-ca';
 import 'moment/locale/es';

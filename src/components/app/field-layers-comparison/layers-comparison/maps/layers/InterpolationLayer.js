@@ -5,7 +5,7 @@ import {every, find} from "lodash";
 
 const mapFitBounds = (map, features)=>{                    
     const bbox = turfBbox(features);
-    if (every(bbox, v => v != Infinity && v != -Infinity))
+    if (every(bbox, v => v !== Infinity && v !== -Infinity))
         map.fitBounds(bbox, { padding: 20 });  
 };
 
@@ -64,9 +64,6 @@ class AnalyticMapVariablesLayer extends MapCommonLayer {
     }                
 
     updateLayerData(data, selectedRangeGroup){
-        console.log('====================================');
-        console.log("Making render");
-        console.log('====================================');
         this._data = turfHelpers.featureCollection([]);
 
         if (!selectedRangeGroup){

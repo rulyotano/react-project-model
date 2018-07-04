@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types';
-import { FormControl, InputLabel, Select, NativeSelect, FormHelperText,
+import { FormControl, InputLabel, Select,
         withStyles } from "@material-ui/core";
 import Variable from '../../../../../service/maps/variables/vars/Variable'
 

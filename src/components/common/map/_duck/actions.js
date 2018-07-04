@@ -2,7 +2,7 @@
 import Pbf from "pbf"
 import {decode} from "geobuf"
 import helperService from "../../../../service/httpService"
-import {mappedGeoJson, calculateCentroid, calculateArea, convertArea} from "../../../../service/maps/geoCalculationService"
+import {calculateCentroid, calculateArea, convertArea} from "../../../../service/maps/geoCalculationService"
 import config from "../../../../config/config"
 import {MAP_JSON_LOADED, SELECT_MAP_FIELD, START_MAP_LOADING} from "./types"
 import {isNaN, get, toLower} from "lodash"

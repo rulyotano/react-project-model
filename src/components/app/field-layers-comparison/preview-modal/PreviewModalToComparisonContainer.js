@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react'
-import PropTypes from 'prop-types'
+// import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import PreviewModalComponent from './PreviewModalComponent'
 import {PreloadKey as KEY} from '../layers-comparison/routesNames'

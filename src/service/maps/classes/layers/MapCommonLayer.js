@@ -2,16 +2,6 @@ import MapLayerBase from './MapLayerBase'
 import q from "q";
 
 export default class MapCommonLayer extends MapLayerBase {
-    /**@param title {string} title or description of the layer
-     * @param key {string} key of the map layer
-     * @param index {number} index or z-index of the map, represents the priority
-     * @param userCanChange {boolean} true, if user can change the visibility in the menu, if false, isn't
-     * showed in the menu
-     * @param initialShow {boolean} true if initially is showed*/
-    constructor(title, key, index, userCanChange, initialShow) {
-        super(title, key, index, userCanChange, initialShow);
-    }
-
     /**Get the layer definition object, in this case, mabbox layer. This could be a promise, or the object itself*/
     getLayer(){
         //implement in children

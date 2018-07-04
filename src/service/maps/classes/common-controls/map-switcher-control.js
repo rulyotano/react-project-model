@@ -7,7 +7,7 @@ import store from '../../../../components/store';
 import {getLang} from '../../../../components/common/lang/_duck/selectors';
 import {getTranslateFunction} from 'redux-i18n';
 import {connect} from 'react-redux';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 
 class ButtonsView extends React.PureComponent{
     state = {

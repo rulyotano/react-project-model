@@ -8,6 +8,7 @@ import dates from './dates'
 import closeField from './closeField'
 import pagination from './pagination'
 import dataGrid from './dataGrid'
+import mapLegend from './mapLegend'
 
 export default {
     dialog,
@@ -20,6 +21,7 @@ export default {
     closeField,
     pagination,
     dataGrid,
+    mapLegend,
     "Operation": "Operación",
     "Filter operations": "Filtrar operaciones",
     "None":"Ningún",

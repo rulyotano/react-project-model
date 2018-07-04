@@ -1,5 +1,4 @@
 import moment from 'moment';
-import _ from 'lodash';
 import store from '../components/store';
 import i18n from '../i18n';
 import {getTranslateFunction} from 'redux-i18n';

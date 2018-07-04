@@ -6,7 +6,6 @@ import {ArrowDropDown, ArrowDropUp} from '@material-ui/icons';
 import Draggable from 'react-draggable';
 import Scrollbar from 'perfect-scrollbar-react';
 import classNames from 'classnames';
-import 'perfect-scrollbar-react/dist/style.min.css';
 
 const styles = theme =>({
     "@global":{

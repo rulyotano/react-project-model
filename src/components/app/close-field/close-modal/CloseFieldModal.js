@@ -66,8 +66,7 @@ static contextTypes = {
 
   render() {
     const {classes, open, process, cultures,
-        initialProcess, isCane, formProcess,
-        farm, sector, field, closeModal = ()=>{} } = this.props;
+        formProcess, farm, sector, field, closeModal = ()=>{} } = this.props;
     const {t} = this.context;
     let isClosing = false;  //TODO:
     return (

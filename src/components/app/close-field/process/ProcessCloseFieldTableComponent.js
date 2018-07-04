@@ -40,9 +40,7 @@ class ProcessCloseFieldTable extends PureComponent{
     }
 
     render(){
-        const { classes, data=[] } = this.props;
-        const { t } = this.context;
-
+        const { data=[] } = this.props;
         return(
             <DataTable headerConfig={this._getHeaderConfig()} 
                         data={data} 

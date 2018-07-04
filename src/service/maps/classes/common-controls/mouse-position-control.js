@@ -1,13 +1,12 @@
 import {round} from 'lodash';
 import React from 'react';
 import {render} from 'react-dom';
-import Map from '../Map';
 import translations from '../../../../i18n';
 import store from '../../../../components/store';
 import {getTranslateFunction} from 'redux-i18n';
 import {connect} from 'react-redux';
-import PropTypes from 'prop-types';
-import classNames from 'classnames';
+// import PropTypes from 'prop-types';
+// import classNames from 'classnames';
 
 const styles = {
     textOpen: {

@@ -64,8 +64,6 @@ const configureAxios = (axiosInstance)=> {
         
     // Add a request interceptor
     axiosInstance.interceptors.request.use(config => {
-        console.log("req")
-
         let authData = loginAuthDataService.getAuthData()
         if (authData && authData.token)
             config.headers['X-Auth-Token'] = authData.token;  
@@ -79,8 +77,6 @@ const configureAxios = (axiosInstance)=> {
 
     // Add a response interceptor
     axiosInstance.interceptors.response.use(response => {
-        console.log("res")
-
         switch (response.status){
             case 401:
                 loginService.logout(true)

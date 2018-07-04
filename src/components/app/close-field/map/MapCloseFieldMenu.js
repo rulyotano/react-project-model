@@ -48,7 +48,7 @@ export class MapCloseFieldMenu extends PureComponent {
   /**On Field selection changed, for controlling the selected field in the map */
   onFieldChange(value){
     this.setState({workAreaValue: value}, ()=>{
-      const {mapMapped, onCloseFieldClick} = this.props;
+      const {mapMapped} = this.props;
       if (mapMapped && value){
         const feature = get(mapMapped, `${value.farm}.${value.sector}.${value.field}`)
         mapService.setSelectedField(feature)
@@ -64,7 +64,7 @@ export class MapCloseFieldMenu extends PureComponent {
 
   render() {
     const {isOpen, workAreaValue} = this.state;
-    const {classes, canPaintMap, fieldSelected: fs,
+    const {canPaintMap, fieldSelected: fs,
             onCloseFieldClick, selectedVariable} = this.props;
     const {t} = this.context;
     const rangesExpanded = !!selectedVariable;

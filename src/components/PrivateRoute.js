@@ -6,7 +6,6 @@ import {
 import {setRedirect, clearRedirect} from './common/auth/_duck/actions'
 
 import { connect } from 'react-redux'
-import { get } from 'lodash'
 import { withRouter } from 'react-router-dom'
 
 class PrivateRoute extends React.PureComponent{

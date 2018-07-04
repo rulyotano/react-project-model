@@ -5,7 +5,6 @@ import { routerMiddleware } from "react-router-redux";
 import { composeWithDevTools } from 'redux-devtools-extension';
 import createHistory from "history/createBrowserHistory";
 import reducerRegistry from "../service/redux/reducerRegistry";
-import {setWith} from "lodash";
 import "./_duck/reducers";
 
 /**This function is just for creating the store. It is good to be a function cos can be used for instance in tests*/

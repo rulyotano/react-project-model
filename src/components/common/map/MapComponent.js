@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import mapboxgl from 'mapbox-gl';
 import {findDOMNode} from 'react-dom';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
