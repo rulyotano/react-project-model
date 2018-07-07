@@ -1,14 +1,11 @@
 import React, { PureComponent } from 'react'
-import PropTypes from 'prop-types'
+// import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import EmptySegment from "../../../common/segment/EmptySegment";
 import { Field, reduxForm } from 'redux-form';
 
-import {withStyles, Button, Dialog, DialogActions,
-        DialogTitle,
-        Grid} from '@material-ui/core';
-import DialogContent from '@material-ui/core/DialogContent';
-import { withRouter } from 'react-router-dom'
+import {Button, Grid} from '@material-ui/core';
+import {withRouter} from 'react-router-dom';
 import Panel from '../../../common/collapse-panel/Panel';
 import {WorkAreaSelector} from '../../../common/work-area-selector/WorkAreaSelector';
 import wAreaSelValidate from '../../../common/work-area-selector/workAreaSelector.validate';
@@ -22,32 +19,13 @@ import {getLoading, getShow} from './_duck/selectors';
 import {getProcess} from '../_duck/selectors';
 import { PreloadKey as MAP_KEY} from '../map/routesNames';
 import { PreloadKey as PROCESS_KEY} from '../process/routesNames';
-
-const styles = theme => ({
-    heading: {
-        fontSize: theme.typography.pxToRem(15),
-        fontWeight: theme.typography.fontWeightRegular,
-        background:'linear-gradient( to bottom, #fff 92%, #ddd 100%)'
-    },
-    content: {
-        paddingTop:'15px',
-        // backgroundColor:'#f5f5f5',
-
-
-    },
-    footer:{
-        background:'linear-gradient( to top, #fff 88%, #ddd 100%)',
-        margin:'0',
-        padding:'8px'
-    }
-});
+import Dlg from "../../../common/dialog-component/DialogComponent";
 
 const DateTimeRangeSelectorRf = componentToReduxForm(DateTimeRangeSelector);
 
 /** Load modal for closing a field */
 export class LoadCloseField extends PureComponent {
   static propTypes = {
-    classes: PropTypes.object.isRequired,
     // prop: PropTypes
   }
 
@@ -79,7 +57,7 @@ export class LoadCloseField extends PureComponent {
   }
 
   render() {
-    const {classes, process, isLoading, open, show,
+    const {process, isLoading, open, show,
             match } = this.props;
     const loadText = match.params.source === MAP_KEY ? "Load Close Field from Map" : /* TODO: i18n */
                        match.params.source === PROCESS_KEY ? "Load Close Field from Process" : /* TODO: i18n */
@@ -91,15 +69,15 @@ export class LoadCloseField extends PureComponent {
             {loadText}
         </Button>
 
-        <Dialog
+        <Dlg
             open={open}
             fullWidth={true}
             maxWidth='md'
             // onClose={this.handleClose}
-            aria-labelledby="form-dialog-title">
+            >
 
-            <DialogTitle className={classes.heading} id="form-dialog-title">{loadText}</DialogTitle>  {/* TODO: i18n */}
-            <DialogContent className={classes.content}>
+            <Dlg.Header id="form-dialog-title">{loadText}</Dlg.Header>  {/* TODO: i18n */}
+            <Dlg.Body>
                 <div >
                     <form onSubmit={()=>this.load()}>
                         <Panel title="Select Time Range">   {/* TODO: i18n */}
@@ -141,16 +119,16 @@ export class LoadCloseField extends PureComponent {
                         </div>
                     </form>
                 </div>
-            </DialogContent>
-            <DialogActions className={classes.footer}>
+            </Dlg.Body>
+            <Dlg.Footer>
                 <LoadingButton isLoading={isLoading} color="primary" onClick={()=>this.load()}>
                 Load        {/* TODO: i18n */}
                 </LoadingButton>
                 <Button color="primary" onClick={()=>this.closeModal()}>
                 Cancel          {/* TODO: i18n */}
                 </Button>
-            </DialogActions>
-        </Dialog>
+            </Dlg.Footer>
+        </Dlg>
       </EmptySegment>
     )
   }
@@ -173,4 +151,4 @@ LoadCloseField = reduxForm({
     form: "load-close-field-form"
 })(LoadCloseField);
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(LoadCloseField)))
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(LoadCloseField))

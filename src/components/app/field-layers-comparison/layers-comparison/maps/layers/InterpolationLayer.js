@@ -93,6 +93,8 @@ class AnalyticMapVariablesLayer extends MapCommonLayer {
                     minDist = dist;
             }           
         }
+
+        //group by colors
         let radius = minDist/2;
         for (let i = 0; i < data.features.length; i++) {
             const feature = data.features[i];
@@ -104,10 +106,9 @@ class AnalyticMapVariablesLayer extends MapCommonLayer {
                   y1 =coords[1] - radius,
                   x2 =coords[0] + radius, 
                   y2 = coords[1] + radius;
-            const rectangle = turfHelpers.polygon([[[x1, y1], [x2, y1], [x2, y2], [x1, y2], [x1, y1]]], {color});            
+            const rectangle = turfHelpers.polygon([[[x1, y1], [x2, y1], [x2, y2], [x1, y2], [x1, y1]]], {color});
             this._data.features.push(rectangle);
         }
-
         this._updateSources(this._map, this._data);
     }
 

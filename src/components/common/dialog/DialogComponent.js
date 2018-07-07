@@ -2,9 +2,8 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { map, isString } from 'lodash'
-import {Dialog, DialogTitle, DialogActions, Button,
-        DialogContentText} from '@material-ui/core'
-import DialogContent from '@material-ui/core/DialogContent'
+import Dlg from '../dialog-component/DialogComponent'
+import {Button, DialogContentText} from '@material-ui/core'
 import {removeDialog} from './_store/actions/dialogActions'
 // import { localize } from 'redux-i18n'
 
@@ -30,30 +29,30 @@ export class DialogComponent extends Component {
       <div>
           {
               map(dialogs, dialog=>
-                <Dialog key={dialog.Id}
+                <Dlg key={dialog.Id}
                         disableBackdropClick={dialog.Modal}
                         onExiting={()=>this.onDialogClose(dialog.Id)}
                         open={true}
                         fullWidth={true}
                         maxWidth='md'
                         aria-labelledby={`dialog-title-${dialog.Id}`}>
-                    <DialogTitle id={`dialog-title-${dialog.Id}`}>
+                    <Dlg.Header>
                       {isString(dialog.Title) ? t(dialog.Title) : dialog.Title}
-                    </DialogTitle>
+                    </Dlg.Header>
                     
-                    <DialogContent>
+                    <Dlg.Body>
                       {isString(dialog.Body) ? 
                         <DialogContentText>{t(dialog.Body)}</DialogContentText> 
                         : dialog.Body}
-                    </DialogContent>
-                    <DialogActions>
-                      {map(dialog.Buttons, btn =>(<Button
-                            key={btn.Key}                            
-                            // keyboardFocused={btn.Focused}
-                            onClick={()=>this.onActionButton(dialog.Id, btn)}
-                        >{isString(btn.Label) ? t(btn.Label) : btn.Label}</Button>))}
-                    </DialogActions>
-                  </Dialog>)
+                    </Dlg.Body>
+                    <Dlg.Footer>
+                        {map(dialog.Buttons, btn =>(<Button
+                              key={btn.Key}                            
+                              // keyboardFocused={btn.Focused}
+                              onClick={()=>this.onActionButton(dialog.Id, btn)}
+                          >{isString(btn.Label) ? t(btn.Label) : btn.Label}</Button>))}
+                    </Dlg.Footer>
+                  </Dlg>)
           }        
       </div>
     )

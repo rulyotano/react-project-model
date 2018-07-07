@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
 import {getSelectedVariable, getSelectedVariableRange} from './_duck/selectors';
-import MapLegendTableComponent from '../../../common/map/MapLegendTableComponent';
+import MapLegendTableComponent from '../../../common/map/legend/MapLegendTableComponent';
 
 
 class MapCloseFieldRangeTableContainer extends PureComponent {

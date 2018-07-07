@@ -6,7 +6,7 @@ import { createVariablesSelector,
     createSelectedVariableRangeSelector, createOpacitySelector  } from '../_duck/selectors'
 import { setVariable, setOpacity } from "../_duck/actions";
 import VariableDropDownComponent from './VariableDropDownComponent'
-import MapLegendTableComponent from '../../../../common/map/MapLegendTableComponent'
+import MapLegendTableComponent from '../../../../common/map/legend/MapLegendTableComponent'
 import Slider from '../../../../common/pickers/slider'
 
 class LegendInMaps extends PureComponent {

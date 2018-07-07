@@ -2,39 +2,21 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { createSelector } from 'reselect'
-import {withStyles, Button, TextField, Dialog, DialogActions,
-        DialogContent,
-        DialogTitle,
-        Grid} from '@material-ui/core';
+import {Button, TextField, Grid} from '@material-ui/core';
 import { Field, reduxForm } from 'redux-form';
 import { SelectRF } from '../../../common/select/Select';
 import config, {CLIENT_TYPE_CANE, CLIENT_TYPE_GRAIN } from '../../../../config/config';
 import LoadingButton from '../../../common/loading-button/LoadingButton';
-import DateTimePicker from '../../../common/pickers/date-time';
+import {DateTimePicker} from '../../../common/pickers/date-time';
 import WorkAreaSelector from '../../../common/work-area-selector/WorkAreaSelector';
 import * as processTypes from '../../../../service/close-field/processTypes'
 import {get, find} from "lodash";
 import {presence} from "redux-form-validators";
 import {getLoadedProcess, getCultures, getProcess} from "../_duck/selectors";
+import Dlg from "../../../common/dialog-component/DialogComponent";
 
 const FORM_NAME = "close-field-form";
         
-
-const styles = theme => ({
-    heading: {
-        fontSize: theme.typography.pxToRem(15),
-        fontWeight: theme.typography.fontWeightRegular,
-        background:'linear-gradient( to bottom, #fff 92%, #ddd 100%)'
-    },
-    content: {
-        paddingTop:'15px',
-    },
-    footer:{
-        background:'linear-gradient( to top, #fff 88%, #ddd 100%)',
-        margin:'0',
-        padding:'8px'
-    }
-});
 
 const PlantingDate = ({t})=><Field name="plantingDate" 
                                 id="plantingDate" 
@@ -45,7 +27,6 @@ const PlantingDate = ({t})=><Field name="plantingDate"
 
 export class CloseFieldModal extends PureComponent {
   static propTypes = {
-    classes: PropTypes.object.isRequired,
     open: PropTypes.bool,
     farm: PropTypes.string.isRequired,
     sector: PropTypes.string.isRequired,
@@ -65,17 +46,16 @@ static contextTypes = {
   }  
 
   render() {
-    const {classes, open, process, cultures,
+    const {open, process, cultures,
         formProcess, farm, sector, field, closeModal = ()=>{} } = this.props;
     const {t} = this.context;
     let isClosing = false;  //TODO:
     return (
-      <Dialog open={open}
+      <Dlg open={open}
               fullWidth={true}
-              maxWidth='md'
-              aria-labelledby="close-dialog-title">
-        <DialogTitle className={classes.heading} id="form-dialog-title">{"Close Field"}</DialogTitle>  {/* TODO: i18n */}
-        <DialogContent className={classes.content}>
+              maxWidth='md'>
+        <Dlg.Header>{"Close Field"}</Dlg.Header>  {/* TODO: i18n */}
+        <Dlg.Body>
             <form onSubmit={()=>this.submit()}>
                 <Grid container spacing={8}>
                     <Grid item md={6} xs={12}>                    
@@ -167,16 +147,16 @@ static contextTypes = {
                     }
                 </Grid>  
             </form>
-        </DialogContent>
-        <DialogActions className={classes.footer}>
+        </Dlg.Body>
+        <Dlg.Footer>
             <LoadingButton isLoading={isClosing} color="primary" onClick={()=>this.submit()}>
                 Close        {/* TODO: i18n */}
             </LoadingButton>
             <Button color="primary" onClick={()=>closeModal()}>
                 Cancel          {/* TODO: i18n */}
             </Button>
-        </DialogActions>
-      </Dialog>
+        </Dlg.Footer>
+      </Dlg>
     )
   }
 }
@@ -234,4 +214,4 @@ CloseFieldModal = reduxForm({
     form: FORM_NAME
 })(CloseFieldModal);
 
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(CloseFieldModal))
+export default connect(mapStateToProps, mapDispatchToProps)(CloseFieldModal)
