@@ -1,6 +1,16 @@
 import Range from '../Range';
 import {sumBy, groupBy, forEach, round} from 'lodash';
 
+const NONE = "none";
+const DATE_TIME = "date-time";
+const NUMBER = "number";
+
+export const VariableTypes = {
+    none: NONE,
+    date: DATE_TIME,
+    number: NUMBER
+}
+
 /**Class representing how each Range item is going to be showed in the table. Each
  * @author Raul Otano <rulyotano@gmail.com>*/
 export default class RangeGroup {
@@ -27,12 +37,17 @@ export default class RangeGroup {
         this._hasRangePicker = hasRangePicker;
         this._canEdit = canEdit;
         this._ranges = [];
+        this._variableType = VariableTypes.NONE;
     }
 
     /**Get ranges
      * @return {Array.<Range>} Ranges*/
     get ranges(){
         return this._ranges;
+    }
+
+    set ranges(value){
+        this._ranges = value;
     }
 
     /**Get grouped elements
@@ -51,6 +66,8 @@ export default class RangeGroup {
     get name() {return this._name;}
     get hasRangePicker() {return this._hasRangePicker;}
     get canEdit() {return this._canEdit;}
+    get variableType() {return this._variableType;}
+    set variableType(value) {this._variableType = value;}
 
     /**Update the Range Group*/
     update(data){
@@ -97,5 +114,12 @@ export default class RangeGroup {
         let list = JSON.parse(str);
         this._ranges = list.map(strItem => Range.createFromString(strItem, suffix, displayFn));
         return this._ranges;
+    }
+
+    clone(){
+        var result = new RangeGroup(this._id, this._name, this._rangeFn, this._hasRangePicker, this._canEdit);
+        result.ranges = [...this._ranges.map(it=>it.clone())];
+        result.variableType = this._variableType;
+        return result;
     }
 }

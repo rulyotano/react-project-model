@@ -3,6 +3,7 @@ import Range from '../Range'
 import {getColors, colors as allColors} from '../../../../service/colorService'
 import localStorageService from '../../../../service/localStorageService'
 import {isEmpty} from 'lodash'
+import {VariableTypes} from './RangeGroup'
 
 /**Class representing an 'equi' Range Group. Receive a group function or key that will be used to
  * group the items. Also will receive an optional color function, for getting the color of each item.
@@ -49,6 +50,7 @@ export default class EquallySplitRangeGroup extends RangeGroup {
         this._calculatedMin = Number.MIN_VALUE;
         this._calculatedMax = Number.MAX_VALUE;
         this._ranges = this._createRanges();
+        this.variableType = VariableTypes.number;
     }
 
     /** Create the ranges for this range group

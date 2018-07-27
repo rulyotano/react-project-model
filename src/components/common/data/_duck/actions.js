@@ -1,7 +1,5 @@
-import createDataActions from '../createDataActions'
-import {FLEET} from './types'
-import {OPERATION} from './types'
-import {STATE} from './types'
+import createDataActions from '../createDataActions';
+import {FLEET, OPERATION, STATE} from './types';
 
 export const stateActions = createDataActions(STATE, "/estado")
 export const operationActions = createDataActions(OPERATION, "/operacao")
