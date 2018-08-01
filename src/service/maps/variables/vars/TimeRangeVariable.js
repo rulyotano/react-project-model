@@ -3,6 +3,7 @@ import moment from 'moment'
 import Variable from './Variable'
 import RangeView from '../RangeView'
 import EquallySplitRangeGroup from '../groups/EquallySplitRangeGroup'
+import {VariableTypes} from '../groups/RangeGroup'
 import {DATE_FORMATS_KEYS, getFormat} from '../../../dateService'
 
 /**Class representing an Variable
@@ -20,10 +21,14 @@ export default class TimeRangeVariable extends Variable {
                find(ranges, r=>r.minRaw <= item.dtHrLocalInicial && item.dtHrLocalInicial <= r.maxRaw);
         this._valueFn = item=>item.dtHrLocalInicial;
         this._displayFn = val=>moment(val).format(dateFormat);
-        this._rangeGroups = [
-            new EquallySplitRangeGroup('time-range-default', 'Automatic', rangeFn, true, false, items, this._valueFn, 0, 100, this._displayFn),
-            new EquallySplitRangeGroup('time-range-user-config', 'Configurable', rangeFn, false, true, items, this._valueFn, 0, 100, this._displayFn),
-        ];
+
+        const def = new EquallySplitRangeGroup('time-range-default', 'Automatic', rangeFn, true, false, items, this._valueFn, 0, 100, this._displayFn);
+        const userConfig = new EquallySplitRangeGroup('time-range-user-config', 'Configurable', rangeFn, false, true, items, this._valueFn, 0, 100, this._displayFn);
+
+        def.variableType = VariableTypes.date;
+        userConfig.variableType = VariableTypes.date;
+        
+        this._rangeGroups = [def, userConfig];
         this._selectedRangeGroup = this._rangeGroups[0];
         this._isDate = true;
         this._rangeView = new RangeView(true, false, false, true, true);

@@ -36,6 +36,10 @@ export default class Variable {
         return this._rangeGroups;
     }
 
+    set rangeGroups(value){
+        this._rangeGroups = value;
+    }
+
     /**Currently selected range group
      * @return {RangeGroup}
      * */

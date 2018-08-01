@@ -4,7 +4,7 @@ import "../../../styles/css/tool-hover-window.css";
 import {withStyles} from '@material-ui/core';
 import {ArrowDropDown, ArrowDropUp} from '@material-ui/icons';
 import Draggable from 'react-draggable';
-import Scrollbar from 'perfect-scrollbar-react';
+import Scrollbar from 'react-perfect-scrollbar';
 import classNames from 'classnames';
 
 const styles = theme =>({

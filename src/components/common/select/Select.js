@@ -61,7 +61,8 @@ class Select extends PureComponent{
         helperText: propTypes.string,  //text error
         suggestions:propTypes.arrayOf(propTypes.object).isRequired,
         onChange:propTypes.func,
-        value: propTypes.any
+        value: propTypes.any,
+        t: propTypes.func,  //only if not defined in context
     };
 
     handleChange = event => {
@@ -72,7 +73,9 @@ class Select extends PureComponent{
     };
     getDescription = item =>{
         const {attrId ="id", attrLabel="label", joinIdLabel = false} = this.props;
-        const {t} = this.context;
+        let {t} = this.context;
+        if (!t)
+            t = this.props.t;
         const text = t(item[attrLabel]); 
         return joinIdLabel ? item[attrId] + ' - ' + text:text;
     };
@@ -90,7 +93,9 @@ class Select extends PureComponent{
                 isLoading=false, error = false, helperText = "", 
                 hasSearchInput = false, multiple =false,
                 isRequired = false, value} = this.props;
-        const {t} = this.context;
+        let {t} = this.context;
+        if (!t)
+            t = this.props.t;
 
         let renderValue = value !== undefined ? value : (multiple ? [] : "")
         if (multiple && !isArray(renderValue))

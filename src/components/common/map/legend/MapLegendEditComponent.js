@@ -1,87 +1,90 @@
 import React, { PureComponent } from 'react'
-
-const styles = theme => ({
-    heading: {
-        fontSize: theme.typography.pxToRem(15),
-        fontWeight: theme.typography.fontWeightRegular,
-        background:'linear-gradient( to bottom, #fff 92%, #ddd 100%)'
-    },
-    content: {
-        paddingTop:'15px',
-        // backgroundColor:'#f5f5f5',
-
-
-    },
-    footer:{
-        background:'linear-gradient( to top, #fff 88%, #ddd 100%)',
-        margin:'0',
-        padding:'8px'
-    }
-});
+import PropTypes from 'prop-types';
+import {Button} from '@material-ui/core'
+import Dlg from '../../dialog-component/DialogComponent'
+import Select from "../../select/Select";
+import {find, forEach} from "lodash";
+import EditableTableComponent from "./table/EditableTableComponent";
+import ReadTableComponent from "./table/ReadTableComponent";
 
 export default class MapLegendEditComponent extends PureComponent {
-  render() {
-      const {open} = this.props;
-    return (
-        <Dialog
-        open={open}
-        fullWidth={true}
-        maxWidth='md'
-        aria-labelledby="edit-legend-modal">
+    static propTypes = {
+        open: PropTypes.bool.isRequired,
+        onClose: PropTypes.func.isRequired,
+        variable: PropTypes.object.isRequired,
+        t: PropTypes.func.isRequired,
+        selectedVariableRange: PropTypes.object.isRequired,
+        onChangeSelectedVariableRange: PropTypes.func.isRequired,
+    }
+    state = {
+        selectedVariableRange: this.props.selectedVariableRange,
+        editing: false
+    }
+    componentWillReceiveProps(newProps){
+        if (newProps.selectedVariableRange 
+            && this.props.selectedVariableRange !== newProps.selectedVariableRange)
+        {
+            this.setState({selectedVariableRange: newProps.selectedVariableRange})
+        }
+    }
+    onSelectedVariableRangeChange(variableRangeId){
+        var variableRange = variableRangeId ? 
+            find(this.props.variable.rangeGroups, it=>it.id === variableRangeId) : null;
+        this.setState({selectedVariableRange: variableRange && variableRange.clone() });
+    }
+    renderTable(variable, selectedVariableRange, t){
+        if (selectedVariableRange.canEdit){
+            return <EditableTableComponent variable={variable} selectedRangeGroup={selectedVariableRange} t={t} 
+                        onEditingChange={val=>this.onEditingChange(val)} 
+                        onUpdateSelectedRangeGroup={selRangeGroup=>this.setState({ selectedVariableRange: selRangeGroup })}/>
+        } else {
+            return <ReadTableComponent variable={variable} selectedRangeGroup={selectedVariableRange} t={t}/>
+        }
+    }
+    onEditingChange(editing){
+        this.setState({editing})
+    }
+    accept(){
+        const {onClose, onChangeSelectedVariableRange} = this.props;
+        const {variable} = this.props;
+        forEach(variable.rangeGroups, rg=>rg.save());
+        onChangeSelectedVariableRange(this.state.selectedVariableRange.clone());
+        onClose();
+    }
+    cancel(){
+        const {onClose} = this.props;
+        onClose();
+    }
+    render() {
+        const {open, t, variable} = this.props;
+        const {selectedVariableRange, editing} = this.state;
+        var variableRanges = variable.rangeGroups;
+        return (
+            <Dlg open={open}
+                fullWidth={true}>
+                <Dlg.Header>
+                    <p>Ranges Configuration</p>
+                </Dlg.Header>
+                <Dlg.Body>
+                    <Select id="variable-ranges" name="variable-ranges" label={t("map.Variable Ranges")}
+                        attrId="id" attrLabel="name" isRequired={true} suggestions={variableRanges}
+                        value={selectedVariableRange&&selectedVariableRange.id} onChange={(val)=>this.onSelectedVariableRangeChange(val)}
+                        t={t}/>
 
-        <DialogTitle className={classes.heading} id="edit-legend-modal">{loadText}</DialogTitle>  {/* TODO: i18n */}
-        <DialogContent className={classes.content}>
-            <div >
-                <form onSubmit={()=>this.load()}>
-                    <Panel title="Select Time Range">   {/* TODO: i18n */}
-                        <Field component={DateTimeRangeSelectorRf}
-                                id="dateRange"
-                                name="dateRange"/>
-                    </Panel>
+                    <br/>
+                    <br/>
 
-                    <Panel title="Production Place">   {/* TODO: i18n */}
-                        <Field component={WorkAreaSelector}
-                                id="productionPlace"
-                                name="productionPlace"
-                                validate={wAreaSelValidate}/>
-                    </Panel>
-
-                    <div>
-                        <Grid container spacing={8}>
-                            <Grid item xs={12} sm={6}>                                
-                                <Panel>   {/* TODO: i18n */}
-                                   <Field component={SelectRF}
-                                          suggestions={process}
-                                          label="closeField.Process"
-                                          id="process-input"
-                                          name="process"
-                                          attrId="id"
-                                          attrLabel="desc"/>
-                                </Panel>
-                            </Grid>
-                            <Grid item xs={12} sm={6}>                                
-                                <Panel>   {/* TODO: i18n */}
-                                    <Field component={OperationSelect}
-                                        id="operation"
-                                        label="Operation"
-                                        name="operation"
-                                        joinIdLabel={true}/>
-                                </Panel>
-                            </Grid>
-                        </Grid>
-                    </div>
-                </form>
-            </div>
-        </DialogContent>
-        <DialogActions className={classes.footer}>
-            <LoadingButton isLoading={isLoading} color="primary" onClick={()=>this.load()}>
-            Load        {/* TODO: i18n */}
-            </LoadingButton>
-            <Button color="primary" onClick={()=>this.closeModal()}>
-            Cancel          {/* TODO: i18n */}
-            </Button>
-        </DialogActions>
-    </Dialog>
-    )
-  }
+                    {!!selectedVariableRange ? this.renderTable(variable, selectedVariableRange, t) : null}
+                </Dlg.Body>
+                <Dlg.Footer>
+                    <Button color="primary" onClick={()=>this.accept()} disabled={editing}>
+                        <p>Accept</p>
+                    </Button>
+                    <Button color="primary" onClick={()=>this.cancel()} disabled={editing}>
+                        <p>Cancel</p>
+                    </Button>
+                </Dlg.Footer>
+        </Dlg>
+        )
+    }
 }

@@ -1,6 +1,7 @@
 import Variable from '../../../../../../service/maps/variables/vars/Variable'
 import {find, round} from 'lodash'
 import EquallySplitRangeGroup from '../../../../../../service/maps/variables/groups/EquallySplitRangeGroup'
+import ColorsRangeGroup from '../../../../../../service/maps/variables/groups/ColorsRangeGroup'
 import RangeView from '../../../../../../service/maps/variables/RangeView'
 
 /**Class representing Fleet Variable*/
@@ -23,6 +24,9 @@ export default class TestsVariable extends Variable {
         this._rangeGroups = [
             new EquallySplitRangeGroup(`test-range-default-${key}`, 'Automatic', rangeFn, true, false, items, this._valueFn, 0, 100, this._displayFn),
             new EquallySplitRangeGroup(`test-range-user-config-${key}`, 'Configurable', rangeFn, false, true, items, this._valueFn, 0, 100, this._displayFn),
+            new ColorsRangeGroup(`test-range-color-1-${key}`, 'Range Color 1', rangeFn, items, this._valueFn, this._displayFn, 8, ["green", "yellow", "red"]),
+            new ColorsRangeGroup(`test-range-color-2-${key}`, 'Range Color 2', rangeFn, items, this._valueFn, this._displayFn, 8, ["red", "yellow", "blue"]),
+            new ColorsRangeGroup(`test-range-color-3-${key}`, 'Range Color 3', rangeFn, items, this._valueFn, this._displayFn, 8, ["white", "blue"]),
         ];
         this._selectedRangeGroup = this._rangeGroups[0];
         this._rangeView = new RangeView(true, false, false, true, true);

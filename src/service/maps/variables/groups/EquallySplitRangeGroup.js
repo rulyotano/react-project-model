@@ -3,6 +3,7 @@ import Range from '../Range'
 import {getColors, colors as allColors} from '../../../../service/colorService'
 import localStorageService from '../../../../service/localStorageService'
 import {isEmpty} from 'lodash'
+import {VariableTypes} from './RangeGroup'
 
 /**Class representing an 'equi' Range Group. Receive a group function or key that will be used to
  * group the items. Also will receive an optional color function, for getting the color of each item.
@@ -49,6 +50,7 @@ export default class EquallySplitRangeGroup extends RangeGroup {
         this._calculatedMin = Number.MIN_VALUE;
         this._calculatedMax = Number.MAX_VALUE;
         this._ranges = this._createRanges();
+        this.variableType = VariableTypes.number;
     }
 
     /** Create the ranges for this range group
@@ -99,13 +101,13 @@ export default class EquallySplitRangeGroup extends RangeGroup {
         for (let i = 0; i < count; i++){
             let color = colors.next().value;
             var intervalStart = start + (i * intervalSize);
-            result.push(new Range(`range-${i}`, color, null, null, intervalStart, intervalStart + intervalSize, this._rangeSuffix, this._displayFn));
+            result.push(new Range(i, color, null, null, intervalStart, intervalStart + intervalSize, this._rangeSuffix, this._displayFn));
         }
         if (isStartShift)
-            result.unshift(new Range(`range-${-1}`, allColors.gray, null, null, min, start-0.0001, this._rangeSuffix, this._displayFn));
+            result.unshift(new Range(-1, allColors.gray, null, null, min, start-0.0001, this._rangeSuffix, this._displayFn));
 
         if (isEndShift)
-            result.push(new Range(`range-${count}`, allColors.black, null, null, end+0.0001, max, this._rangeSuffix, this._displayFn));
+            result.push(new Range(count, allColors.black, null, null, end+0.0001, max, this._rangeSuffix, this._displayFn));
         return result;
     }
 
@@ -135,11 +137,14 @@ export default class EquallySplitRangeGroup extends RangeGroup {
                 this._rangeEnd = data.max;
             this._ranges = this._createRanges();
         }
-        if (data.ranges) {
+        if (data.ranges){
             this._ranges = data.ranges;
-            if (this._canEdit)
-                localStorageService.save(this._storageKey, this.toString())
         }
+    }
+
+    save(){        
+        if (this._canEdit)
+            localStorageService.save(this._storageKey, this.toString())
     }
 
     clear(){

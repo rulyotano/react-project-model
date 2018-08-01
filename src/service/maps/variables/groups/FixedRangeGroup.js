@@ -35,4 +35,8 @@ export default class FixedRangeGroup extends RangeGroup {
         if (data.ranges)
             this._ranges = data.ranges;
     }
+
+    // clone(){
+    //     return FixedRangeGroup(this._id, this._name, this._rangeFn, this._canEdit, [...this._ranges.map(it=>it.clone())]);
+    // }
 }
