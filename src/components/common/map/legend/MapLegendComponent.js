@@ -2,6 +2,7 @@ import React, {PureComponent} from 'react'
 import PropTypes from 'prop-types'
 import MapLegendEditComponent from './MapLegendEditComponent';
 import ReadTableComponent from './table/ReadTableComponent';
+import Scrollbar from 'react-perfect-scrollbar';
 
 class MapLegendComponent extends PureComponent {
     static propTypes = {
@@ -19,6 +20,16 @@ class MapLegendComponent extends PureComponent {
         this.setState({openedLegendEdit: opened});
     }
 
+    componentDidUpdate(){
+        if (!this._scrollbarContainer || !this._scrollbar)
+            return;
+        this._scrollbarContainer.removeAttribute("style");
+        if (this._scrollbarContainer.clientHeight > 150){
+            this._scrollbarContainer.setAttribute("style","height:150px");
+        }
+        this._scrollbar.updateScroll();
+    }
+
     render(){
         const {variable, selectedRangeGroup, t, onSelectedRangeGroup} = this.props;
         const {openedLegendEdit} = this.state;
@@ -26,11 +37,16 @@ class MapLegendComponent extends PureComponent {
             return null;
         return (
             <React.Fragment>
-                <ReadTableComponent t={t} variable={variable} selectedRangeGroup={selectedRangeGroup}
-                    onBodyClick={()=>this.setLegendEdit(true)}/>                                
+                <div ref={ref=>this._scrollbarContainer = ref}>
+                    <Scrollbar ref={ref=>this._scrollbar = ref}>                        
+                        <ReadTableComponent t={t} variable={variable} selectedRangeGroup={selectedRangeGroup}
+                            onBodyClick={()=>this.setLegendEdit(true)}/>
+                    </Scrollbar>
+                </div>
+                
                 <MapLegendEditComponent open={openedLegendEdit} onClose={()=>this.setLegendEdit(false)} t={t}
-                    variable={variable} selectedVariableRange={selectedRangeGroup}
-                    onChangeSelectedVariableRange={onSelectedRangeGroup}/>
+                            variable={variable} selectedVariableRange={selectedRangeGroup}
+                            onChangeSelectedVariableRange={onSelectedRangeGroup}/>
             </React.Fragment>)
     }
 }

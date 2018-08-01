@@ -1,5 +1,5 @@
 import Range from '../Range';
-import {sumBy, groupBy, forEach, round} from 'lodash';
+import {sumBy, groupBy, forEach, round, cloneDeep} from 'lodash';
 
 const NONE = "none";
 const DATE_TIME = "date-time";
@@ -74,6 +74,11 @@ export default class RangeGroup {
         //implement in children
     }
 
+    /**Save range group to some storage */
+    save(){
+        //implement in children
+    }
+
     /**Get a default data for rendering the chart, that works with most eq. split range groups
      * @param filterElements {Array} - Array of filtered elements for generating the chart
      * @param rangeDescriptionFn {Function} - Function that given the range and the suffix returns the range pie description
@@ -117,9 +122,10 @@ export default class RangeGroup {
     }
 
     clone(){
-        var result = new RangeGroup(this._id, this._name, this._rangeFn, this._hasRangePicker, this._canEdit);
-        result.ranges = [...this._ranges.map(it=>it.clone())];
-        result.variableType = this._variableType;
-        return result;
+        return cloneDeep(this);
+        // var result = new RangeGroup(this._id, this._name, this._rangeFn, this._hasRangePicker, this._canEdit);
+        // result.ranges = [...this._ranges.map(it=>it.clone())];
+        // result.variableType = this._variableType;
+        // return result;
     }
 }

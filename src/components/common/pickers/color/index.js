@@ -30,9 +30,9 @@ class ColorPicker extends React.PureComponent {
         const { classes, show, onChange, onClose, color, children } = this.props;
 
         return (
-            <div>
+            <React.Fragment>
                 {show ?
-                    <div>
+                    <React.Fragment>
                         <div className={classes.cover} onClick={onClose} />
                         <TetherComponent attachment="top left"
                                             targetAttachment="bottom left"
@@ -51,10 +51,10 @@ class ColorPicker extends React.PureComponent {
                                     onChange={color => onChange(color.hex)}
                                     disableAlpha={true} />      
                         </TetherComponent>             
-                    </div>
+                    </React.Fragment>
                     : children
                 }
-            </div>
+            </React.Fragment>
         )
     }
 }

@@ -1,3 +1,5 @@
+import { get as lGet, cloneDeep } from "lodash";
+
 /**Class representing each individual item in a RangeGroup, in other words, is each line in the ranges
  * table that appears when selected a map variable.
  * @author Raul Otano <rulyotano@gmail.com>*/
@@ -145,9 +147,10 @@ export default class Range {
         this._extra2 = value;
     }
 
-    clone(){
-        return new Range(this._id, this._color, this._description, this._value, this._min, this._max,
-            this._suffix, this._displayFn, this._extra1, this._extra2);
+    clone(){        
+        return cloneDeep(this);
+        // return new Range(this._id, this._color, this._description, this._value, this._min, this._max,
+        //     this._suffix, this._displayFn, this._extra1, this._extra2);
     }
 
     /**
@@ -166,7 +169,7 @@ export default class Range {
     static createFromString(str, suffix, displayFn){
         let splitted = str.split(';');
         const get = index=>{
-            let val = get(splitted, `[${index}]`);
+            let val = lGet(splitted, `[${index}]`);
             if (val === 'null' || val === 'undefined')
                 return null;
             return val;

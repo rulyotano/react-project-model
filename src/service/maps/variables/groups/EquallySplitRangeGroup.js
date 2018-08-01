@@ -101,13 +101,13 @@ export default class EquallySplitRangeGroup extends RangeGroup {
         for (let i = 0; i < count; i++){
             let color = colors.next().value;
             var intervalStart = start + (i * intervalSize);
-            result.push(new Range(`range-${i}`, color, null, null, intervalStart, intervalStart + intervalSize, this._rangeSuffix, this._displayFn));
+            result.push(new Range(i, color, null, null, intervalStart, intervalStart + intervalSize, this._rangeSuffix, this._displayFn));
         }
         if (isStartShift)
-            result.unshift(new Range(`range-${-1}`, allColors.gray, null, null, min, start-0.0001, this._rangeSuffix, this._displayFn));
+            result.unshift(new Range(-1, allColors.gray, null, null, min, start-0.0001, this._rangeSuffix, this._displayFn));
 
         if (isEndShift)
-            result.push(new Range(`range-${count}`, allColors.black, null, null, end+0.0001, max, this._rangeSuffix, this._displayFn));
+            result.push(new Range(count, allColors.black, null, null, end+0.0001, max, this._rangeSuffix, this._displayFn));
         return result;
     }
 
@@ -137,11 +137,14 @@ export default class EquallySplitRangeGroup extends RangeGroup {
                 this._rangeEnd = data.max;
             this._ranges = this._createRanges();
         }
-        if (data.ranges) {
+        if (data.ranges){
             this._ranges = data.ranges;
-            if (this._canEdit)
-                localStorageService.save(this._storageKey, this.toString())
         }
+    }
+
+    save(){        
+        if (this._canEdit)
+            localStorageService.save(this._storageKey, this.toString())
     }
 
     clear(){

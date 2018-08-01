@@ -55,8 +55,10 @@ class EditTableComponent extends PureComponent {
         if (editingRangeGroup.ranges.length === 1)
             return;
         dialogService.confirmYesNo(t("confirm delete row"), t("confirm delete row body")).then(res=>{
-            if (res === DialogButtonTypes.YES) {
-                editingRangeGroup.ranges = editingRangeGroup.ranges.filter(r=>r !== row);
+            if (res === DialogButtonTypes.YES) {                
+                editingRangeGroup.update({
+                    ranges: editingRangeGroup.ranges.filter(r=>r !== row)
+                })
                 this.forceUpdate();
             }
         })
@@ -75,7 +77,9 @@ class EditTableComponent extends PureComponent {
     addInsertingRow(){
         const {editingRangeGroup} = this.props;
         const {insertingRange} = this.state;
-        editingRangeGroup.ranges = orderBy([...editingRangeGroup.ranges, insertingRange], r=>r.minRaw || r.valueRaw || 0)
+        editingRangeGroup.update({
+            ranges: orderBy([...editingRangeGroup.ranges, insertingRange], r=>r.minRaw || r.valueRaw || 0)
+        })
         this.setState({inserting: false, insertingRange: null });        
     }
 

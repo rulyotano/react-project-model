@@ -4,13 +4,16 @@ import Button from '@material-ui/core/Button';
 import {findIndex, orderBy} from 'lodash';
 import ReadTable from './ReadTableComponent';
 import EditTable from './EditTableComponent';
+import EditColorTableComponent from './EditColorTableComponent';
+import ColorsRangeGroup from '../../../../../service/maps/variables/groups/ColorsRangeGroup';
 
 class EditableTableComponent extends PureComponent {
     static propTypes = {
         variable: PropTypes.any,
         selectedRangeGroup: PropTypes.object,
         t: PropTypes.func.isRequired,
-        onEditingChange: PropTypes.func
+        onEditingChange: PropTypes.func,
+        onUpdateSelectedRangeGroup: PropTypes.func
     }
 
     state = {
@@ -27,17 +30,18 @@ class EditableTableComponent extends PureComponent {
     }
 
     saveEditing(){
-        const {selectedRangeGroup = ()=>{}, variable, onEditingChange = ()=>{}} = this.props;
+        const {variable, onEditingChange = ()=>{}, onUpdateSelectedRangeGroup= ()=>{}} = this.props;
         const {editingRangeGroup} = this.state;
-        selectedRangeGroup.ranges = orderBy(editingRangeGroup.ranges, it=>it.minRaw || it.valueRaw || 0);
-        const index = findIndex(variable.rangeGroups, it=>it.id === selectedRangeGroup.id);
+        editingRangeGroup.update({ranges: orderBy(editingRangeGroup.ranges, it=>it.minRaw || it.valueRaw || 0)});
+        const index = findIndex(variable.rangeGroups, it=>it.id === editingRangeGroup.id);
         variable.rangeGroups = [
             ...variable.rangeGroups.slice(0, index), 
-            selectedRangeGroup, 
+            editingRangeGroup, 
             ...variable.rangeGroups.slice(index+1, variable.rangeGroups.length)
         ];
         this.setState({isEditing: false, editingRangeGroup: null});
         onEditingChange(false);
+        onUpdateSelectedRangeGroup(editingRangeGroup);
     }
 
     cancelEditing(){
@@ -46,11 +50,26 @@ class EditableTableComponent extends PureComponent {
         onEditingChange(false);
     }
 
+    onColorsChange(values={}){
+        const {editingRangeGroup} = this.state;
+        editingRangeGroup.update(values);
+        this.forceUpdate();
+    }
+
     render(){
         const {variable, selectedRangeGroup, t} = this.props;
         const {isEditing, editingRangeGroup} = this.state;
         if (!variable)
             return null;
+        let table = (<ReadTable variable={variable} selectedRangeGroup={selectedRangeGroup} t={t}/>);
+        if (isEditing && selectedRangeGroup instanceof ColorsRangeGroup){
+            table = (<EditColorTableComponent colors={selectedRangeGroup.colors} 
+                        size={selectedRangeGroup.size} 
+                        onChange={values=>this.onColorsChange(values)} t={t}/>);
+        }
+        else if (isEditing){
+            table = (<EditTable variable={variable} editingRangeGroup={editingRangeGroup} t={t}/>);
+        }
         return (
             <div>                
                 <React.Fragment>
@@ -65,9 +84,7 @@ class EditableTableComponent extends PureComponent {
                     <br/>
                 </React.Fragment>
 
-                {isEditing ? 
-                    <EditTable variable={variable} editingRangeGroup={editingRangeGroup} t={t}/> : 
-                    <ReadTable variable={variable} selectedRangeGroup={selectedRangeGroup} t={t}/>}                
+                {table}                
             </div>)
     }
 }

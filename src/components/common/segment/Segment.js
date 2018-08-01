@@ -7,7 +7,7 @@ import {connect} from 'react-redux';
 import {setSizeToMax, setSizeToMin} from "../../app/_duck/actions";
 import { getIsMaximized } from "../../app/_duck/selectors";
 import { withRouter } from 'react-router-dom'
-import Scrollbar from 'perfect-scrollbar-react';
+import Scrollbar from 'react-perfect-scrollbar';
 
 class Segment extends PureComponent{
     handleSizeWindow(toMaximize){

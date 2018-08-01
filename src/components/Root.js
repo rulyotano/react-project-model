@@ -9,7 +9,8 @@ import { MuiThemeProvider, createMuiTheme } from '@material-ui/core';
 import { Provider } from 'react-redux'
 
 import '../styles/css/font-solinftec.css';
-import '../styles/css/font-awesome.css';
+import '../styles/css/font-awesome.css'; 
+import 'react-perfect-scrollbar/dist/css/styles.css';
 
 import Loadable from 'react-loadable';
 import LoadingComponent from './common/_LoadingComponent';

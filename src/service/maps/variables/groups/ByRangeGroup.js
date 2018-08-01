@@ -53,4 +53,10 @@ export default class ByRangeGroup extends RangeGroup {
     getDefaultChartData(filterElements, rangeDescriptionFn = (range, suffix)=> range.value){
         return super.getDefaultChartData(filterElements, rangeDescriptionFn);
     }
+
+    // clone(){
+    //     var result = new ByRangeGroup(this._id, this._name, this._rangeFn, [], this._byFn, this._colorFn);
+    //     result.ranges = [...this._ranges.map(it=>it.clone())];
+    //     return result;
+    // }
 }

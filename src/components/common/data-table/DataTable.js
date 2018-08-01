@@ -5,7 +5,7 @@ import { withStyles } from '@material-ui/core/styles';
 import ReactTable from "react-table";
 import 'react-table/react-table.css';
 import {isFunction} from 'lodash';
-import Scrollbar from 'perfect-scrollbar-react';
+import Scrollbar from 'react-perfect-scrollbar';
 import classNames from 'classnames';
 import {TablePagination} from '@material-ui/core';
 import moment from 'moment';

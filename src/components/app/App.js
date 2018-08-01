@@ -12,7 +12,6 @@ import '../../styles/css/app.css'
 import '../../styles/css/sidebar.css'
 import Header from "./header/Header";
 import Sidebar from "./sidebar/Sidebar";
-import 'perfect-scrollbar-react/dist/style.min.css';
 import {urlJoin} from '../../service/helperService';
 // import ROUTES from './routeNames';
 import loadable from '../common/loadable'

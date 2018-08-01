@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {Button} from '@material-ui/core'
 import Dlg from '../../dialog-component/DialogComponent'
 import Select from "../../select/Select";
-import {find} from "lodash";
+import {find, forEach} from "lodash";
 import EditableTableComponent from "./table/EditableTableComponent";
 import ReadTableComponent from "./table/ReadTableComponent";
 
@@ -34,7 +34,9 @@ export default class MapLegendEditComponent extends PureComponent {
     }
     renderTable(variable, selectedVariableRange, t){
         if (selectedVariableRange.canEdit){
-            return <EditableTableComponent variable={variable} selectedRangeGroup={selectedVariableRange} t={t} onEditingChange={val=>this.onEditingChange(val)}/>
+            return <EditableTableComponent variable={variable} selectedRangeGroup={selectedVariableRange} t={t} 
+                        onEditingChange={val=>this.onEditingChange(val)} 
+                        onUpdateSelectedRangeGroup={selRangeGroup=>this.setState({ selectedVariableRange: selRangeGroup })}/>
         } else {
             return <ReadTableComponent variable={variable} selectedRangeGroup={selectedVariableRange} t={t}/>
         }
@@ -44,6 +46,8 @@ export default class MapLegendEditComponent extends PureComponent {
     }
     accept(){
         const {onClose, onChangeSelectedVariableRange} = this.props;
+        const {variable} = this.props;
+        forEach(variable.rangeGroups, rg=>rg.save());
         onChangeSelectedVariableRange(this.state.selectedVariableRange.clone());
         onClose();
     }
