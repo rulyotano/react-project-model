@@ -7,7 +7,6 @@ import { createVariablesSelector,
 import { setVariable, setOpacity, setVariableRange } from "../_duck/actions";
 import VariableDropDownComponent from './VariableDropDownComponent'
 import MapLegendComponent from '../../../../common/map/legend/MapLegendComponent'
-import Slider from '../../../../common/pickers/slider'
 
 class LegendInMaps extends PureComponent {
   static propTypes = {
@@ -30,9 +29,8 @@ class LegendInMaps extends PureComponent {
                     <br/>
                     <MapLegendComponent t={t} variable={selectedVariable}
                         selectedRangeGroup={selectedVariableRange}
-                        onSelectedRangeGroup={(selectedRange)=>onSelectedRangeChange(selectedRange, mapIndex)}/>
-                    <br/>
-                    <Slider value={opacity} min={0} max={1} step={0.1} onChange={(value)=>onOpacityChange(value, mapIndex)} label={t("Opacity")}/>
+                        onSelectedRangeGroup={(selectedRange)=>onSelectedRangeChange(selectedRange, mapIndex)}
+                        opacity={opacity} onOpacityChange={value=>onOpacityChange(value, mapIndex)}/>
             </div>
         )
   }

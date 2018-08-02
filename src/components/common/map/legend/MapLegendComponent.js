@@ -9,7 +9,9 @@ class MapLegendComponent extends PureComponent {
         variable: PropTypes.any,
         selectedRangeGroup: PropTypes.object,
         t: PropTypes.func.isRequired,
-        onSelectedRangeGroup: PropTypes.func.isRequired
+        onSelectedRangeGroup: PropTypes.func.isRequired,
+        onOpacityChange: PropTypes.func,
+        opacity: PropTypes.number
     }
 
     state = {
@@ -24,14 +26,15 @@ class MapLegendComponent extends PureComponent {
         if (!this._scrollbarContainer || !this._scrollbar)
             return;
         this._scrollbarContainer.removeAttribute("style");
-        if (this._scrollbarContainer.clientHeight > 150){
-            this._scrollbarContainer.setAttribute("style","height:150px");
+        if (this._scrollbarContainer.clientHeight > 200){
+            this._scrollbarContainer.setAttribute("style","height:200px");
         }
         this._scrollbar.updateScroll();
     }
 
     render(){
-        const {variable, selectedRangeGroup, t, onSelectedRangeGroup} = this.props;
+        const {variable, selectedRangeGroup, t, onSelectedRangeGroup, 
+            opacity, onOpacityChange} = this.props;
         const {openedLegendEdit} = this.state;
         if (!variable)
             return null;
@@ -46,7 +49,8 @@ class MapLegendComponent extends PureComponent {
                 
                 <MapLegendEditComponent open={openedLegendEdit} onClose={()=>this.setLegendEdit(false)} t={t}
                             variable={variable} selectedVariableRange={selectedRangeGroup}
-                            onChangeSelectedVariableRange={onSelectedRangeGroup}/>
+                            onChangeSelectedVariableRange={onSelectedRangeGroup}
+                            opacity={opacity} onOpacityChange={onOpacityChange}/>
             </React.Fragment>)
     }
 }

@@ -6,6 +6,7 @@ import Select from "../../select/Select";
 import {find, forEach} from "lodash";
 import EditableTableComponent from "./table/EditableTableComponent";
 import ReadTableComponent from "./table/ReadTableComponent";
+import Slider from '../../pickers/slider'
 
 export default class MapLegendEditComponent extends PureComponent {
     static propTypes = {
@@ -15,9 +16,13 @@ export default class MapLegendEditComponent extends PureComponent {
         t: PropTypes.func.isRequired,
         selectedVariableRange: PropTypes.object.isRequired,
         onChangeSelectedVariableRange: PropTypes.func.isRequired,
+        hasOpacity: PropTypes.bool,
+        onOpacityChange: PropTypes.func,
+        opacity: PropTypes.number
     }
     state = {
         selectedVariableRange: this.props.selectedVariableRange,
+        opacity: this.props.opacity,
         editing: false
     }
     componentWillReceiveProps(newProps){
@@ -44,11 +49,15 @@ export default class MapLegendEditComponent extends PureComponent {
     onEditingChange(editing){
         this.setState({editing})
     }
+    onOpacityChange(newOpacity){
+        this.setState({opacity: newOpacity})
+    }
     accept(){
-        const {onClose, onChangeSelectedVariableRange} = this.props;
-        const {variable} = this.props;
+        const {onClose, onChangeSelectedVariableRange, onOpacityChange, variable} = this.props;
         forEach(variable.rangeGroups, rg=>rg.save());
         onChangeSelectedVariableRange(this.state.selectedVariableRange.clone());
+        if (onOpacityChange)
+            onOpacityChange(this.state.opacity);
         onClose();
     }
     cancel(){
@@ -57,7 +66,7 @@ export default class MapLegendEditComponent extends PureComponent {
     }
     render() {
         const {open, t, variable} = this.props;
-        const {selectedVariableRange, editing} = this.state;
+        const {selectedVariableRange, editing, opacity} = this.state;
         var variableRanges = variable.rangeGroups;
         return (
             <Dlg open={open}
@@ -65,7 +74,12 @@ export default class MapLegendEditComponent extends PureComponent {
                 <Dlg.Header>
                     <p>Ranges Configuration</p>
                 </Dlg.Header>
-                <Dlg.Body>
+                <Dlg.Body>                    
+                    {opacity === undefined ? null : 
+                    <Slider value={opacity} min={0} max={1} step={0.1} onChange={(value)=>this.onOpacityChange(value)} label={t("Opacity")}/>}
+
+                    <br/>
+
                     <Select id="variable-ranges" name="variable-ranges" label={t("map.Variable Ranges")}
                         attrId="id" attrLabel="name" isRequired={true} suggestions={variableRanges}
                         value={selectedVariableRange&&selectedVariableRange.id} onChange={(val)=>this.onSelectedVariableRangeChange(val)}
