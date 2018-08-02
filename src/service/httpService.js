@@ -88,13 +88,15 @@ const configureAxios = (axiosInstance)=> {
         return response;
     }, error => {
         // Do something with response error
-        switch (error.response.status){
-            case 401:
-                loginService.logout(true)
-                break
-            default:
-                break
-            }
+        if (error.response){            
+            switch (error.response.status){
+                case 401:
+                    loginService.logout(true)
+                    break
+                default:
+                    break
+                }
+        }
         return Promise.reject(error);
     });
 }
