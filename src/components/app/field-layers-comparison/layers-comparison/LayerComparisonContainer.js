@@ -7,8 +7,8 @@ import HoverWindowContainer from './HoverWindowContainer'
 import {getNumberOfMaps, getLoadingData, getData} from './_duck/selectors'
 import {loadData, clear} from './_duck/actions'
 import {range} from 'lodash'
-import LayerComparisonMapContainer from './LayerComparisonMapContainer'
-import MapsLayoutComponent from './MapsLayoutComponent'
+import LayerComparisonMapContainer from './many-maps-comparison/LayerComparisonMapContainer'
+import MapsLayoutComponent from './many-maps-comparison/MapsLayoutComponent'
 
 
 export class LayerComparisonContainer extends PureComponent {

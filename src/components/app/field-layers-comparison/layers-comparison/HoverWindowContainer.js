@@ -5,7 +5,7 @@ import ToolHoverWindow from '../../../common/tool-hover-window/ToolHoverWindow'
 import Select from '../../../common/select/Select'
 import {getNumberOfMaps} from './_duck/selectors'
 import {changeNumberOfMaps} from './_duck/actions'
-import layerLayouts from './layerLayouts'
+import layerLayouts from './many-maps-comparison/layerLayouts'
 
 class HoverWindowContainer extends PureComponent {
   static contextTypes = {

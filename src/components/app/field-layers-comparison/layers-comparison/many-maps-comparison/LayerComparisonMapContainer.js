@@ -1,24 +1,24 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import {addMap} from './_duck/actions'
-import {getData, createOpacitySelector} from './_duck/selectors'
-import LoadingComponent from "../../../common/_LoadingComponent";
-import {createSelectedVariableRangeSelector} from "./_duck/selectors";
+import {addMap} from '../_duck/actions'
+import {getData, createOpacitySelector} from '../_duck/selectors'
+import LoadingComponent from "../../../../common/_LoadingComponent";
+import {createSelectedVariableRangeSelector} from "../_duck/selectors";
 
 //maps
 import mapboxgl from 'mapbox-gl';
-import {loadMapGeoJson} from "../../../common/map/_duck/actions";
-import {getMapGeoJson, getSelected} from "../../../common/map/_duck/selectors";
-import MapComponent from '../../../common/map/MapComponent'
-import MapSwitcherControl from '../../../../service/maps/classes/common-controls/map-switcher-control';
-import MousePositionControl from '../../../../service/maps/classes/common-controls/mouse-position-control';
-import MeasureDistanceControl from '../../../../service/maps/classes/common-controls/measure-distance-control';
-import MapTalhaoesLayer from '../../../../service/maps/classes/layers/common-layers/map-talhaoes-layer';
-import MapNumbersLayer from '../../../../service/maps/classes/layers/common-layers/map-numbers-layer';
-import MapSelectedTalhaoLayer from '../../../../service/maps/classes/layers/common-layers/map-selected-talhao-layer';
-import InterpolationLayer from './maps/layers/InterpolationLayer';
-import LegendControl from './maps/controls/legend-control';
+import {loadMapGeoJson} from "../../../../common/map/_duck/actions";
+import {getMapGeoJson, getSelected} from "../../../../common/map/_duck/selectors";
+import MapComponent from '../../../../common/map/MapComponent'
+import MapSwitcherControl from '../../../../../service/maps/classes/common-controls/map-switcher-control';
+import MousePositionControl from '../../../../../service/maps/classes/common-controls/mouse-position-control';
+import MeasureDistanceControl from '../../../../../service/maps/classes/common-controls/measure-distance-control';
+import MapTalhaoesLayer from '../../../../../service/maps/classes/layers/common-layers/map-talhaoes-layer';
+import MapNumbersLayer from '../../../../../service/maps/classes/layers/common-layers/map-numbers-layer';
+import MapSelectedTalhaoLayer from '../../../../../service/maps/classes/layers/common-layers/map-selected-talhao-layer';
+import InterpolationLayer from '../maps/layers/InterpolationLayer';
+import LegendControl from '../maps/controls/legend-control';
 
 export class LayerComparisonMapContainer extends PureComponent {
   static propTypes = {
