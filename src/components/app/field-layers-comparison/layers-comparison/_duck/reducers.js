@@ -1,10 +1,13 @@
 import { CHANGE_NUMBER_OF_MAPS, ADD_MAP,
   START_LOADING_DATA, DATA_LOADED, ERROR_LOADING_DATA,
-  SET_VARIABLE, SET_VARIABLE_RANGE, CLEAR, SET_OPACITY } from "./types";
+  SET_VARIABLE, SET_VARIABLE_RANGE, CLEAR, SET_OPACITY,
+  CHANGE_MAP_TYPE } from "./types";
+import { MANY_MAPS_COMPARISON } from "../mapComparisonTypes";
 import getAllVariables from "../maps/getAllVariables";
 
 const initialState = {
   numberOfMaps: 1,
+  selectedMapType: MANY_MAPS_COMPARISON,
   loading: false,
   data: null,
   maps: [],
@@ -55,7 +58,9 @@ export default (state = initialState, action) => {
   case SET_OPACITY: 
     mapVariables = [...state.mapVariables];
     mapVariables[action.index].opacity = action.opacity;
-    return {...state, mapVariables}
+    return {...state, mapVariables} 
+  case CHANGE_MAP_TYPE:
+    return {...state, selectedMapType: action.mapType}
   case CLEAR:
     return initialState;
   default:

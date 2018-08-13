@@ -9,6 +9,7 @@ import closeField from './closeField'
 import pagination from './pagination'
 import dataGrid from './dataGrid'
 import mapLegend from './mapLegend'
+import layerComparison from './layerComparison'
 
 export default {
     dialog,
@@ -22,6 +23,7 @@ export default {
     pagination,
     dataGrid,
     mapLegend,
+    layerComparison,
     "Operation": "Operation",
     "Filter operations": "Filter operations",
     "None":"None",

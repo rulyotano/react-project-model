@@ -1,6 +1,7 @@
 // import { createSelector } from "reselect";
 
 export const getNumberOfMaps = (state)=>state.app.layersComparison.layersComparison.numberOfMaps
+export const getSelectedMapType = (state)=>state.app.layersComparison.layersComparison.selectedMapType
 export const getMaps = (state)=>state.app.layersComparison.layersComparison.maps
 export const getLoadingData = (state)=>state.app.layersComparison.layersComparison.loading
 export const getData = (state)=>state.app.layersComparison.layersComparison.data

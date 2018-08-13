@@ -3,9 +3,10 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types'
 import ToolHoverWindow from '../../../common/tool-hover-window/ToolHoverWindow'
 import Select from '../../../common/select/Select'
-import {getNumberOfMaps} from './_duck/selectors'
-import {changeNumberOfMaps} from './_duck/actions'
+import {getNumberOfMaps, getSelectedMapType} from './_duck/selectors'
+import {changeNumberOfMaps, setMapType} from './_duck/actions'
 import layerLayouts from './many-maps-comparison/layerLayouts'
+import mapComparisonTypes, {MANY_MAPS_COMPARISON} from './mapComparisonTypes'
 
 class HoverWindowContainer extends PureComponent {
   static contextTypes = {
@@ -15,19 +16,35 @@ class HoverWindowContainer extends PureComponent {
     // t: PropTypes.func
   }
   render() {
-    const {numberOfMaps, onChangeNumberOfMaps} = this.props;
+    const {numberOfMaps, onChangeNumberOfMaps, mapTypes, onMapTypeChange, selectedMapType} = this.props;
     const {t} = this.context;
     return (
-      <ToolHoverWindow labelHeader={t("layer-comparison.Tool Window")}>
-        <Select id="numberOfMapSelector" 
-            name="numberOfMapSelector" 
-            label={t("layer-comparison.Number of Maps")}
+      <ToolHoverWindow labelHeader={t("layerComparison.ToolWindow")}>
+
+        <Select id="mapTypes"
+            name="mapTypes"
+            label={t("layerComparison.MapType")}
             attrId="id"
-            attrLabel="label"
+            attrLabel="textKey"
             isRequired={true}
-            suggestions={layerLayouts}
-            onChange={onChangeNumberOfMaps}
-            value={numberOfMaps}/>
+            suggestions={mapTypes}
+            onChange={onMapTypeChange}
+            value={selectedMapType}/>
+
+        <br/>
+        <br/>
+
+        { selectedMapType === MANY_MAPS_COMPARISON ? <div>
+          <Select id="numberOfMapSelector" 
+              name="numberOfMapSelector" 
+              label={t("layerComparison.NumberOfMaps")}
+              attrId="id"
+              attrLabel="label"
+              isRequired={true}
+              suggestions={layerLayouts}
+              onChange={onChangeNumberOfMaps}
+              value={numberOfMaps}/>
+        </div> : null}
 
       </ToolHoverWindow>
     )
@@ -35,11 +52,14 @@ class HoverWindowContainer extends PureComponent {
 }
 
 const mapStateToProps = (state) => ({
-  numberOfMaps: getNumberOfMaps(state)    
+  numberOfMaps: getNumberOfMaps(state),
+  selectedMapType: getSelectedMapType(state),
+  mapTypes: mapComparisonTypes,
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  onChangeNumberOfMaps: (number)=>dispatch(changeNumberOfMaps(number))
+  onChangeNumberOfMaps: (number)=>dispatch(changeNumberOfMaps(number)),
+  onMapTypeChange: (mapType)=>dispatch(setMapType(mapType)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(HoverWindowContainer)
