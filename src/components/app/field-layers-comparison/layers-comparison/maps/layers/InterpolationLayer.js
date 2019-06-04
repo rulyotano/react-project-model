@@ -1,126 +1,126 @@
-import MapCommonLayer from "../../../../../../service/maps/classes/layers/MapCommonLayer";
 import * as turfHelpers from "@turf/helpers";
 import turfBbox from "@turf/bbox";
 import {every, find} from "lodash";
+import MapCommonLayer from "../../../../../../service/maps/classes/layers/MapCommonLayer";
 
 const mapFitBounds = (map, features)=>{                    
-    const bbox = turfBbox(features);
-    if (every(bbox, v => v !== Infinity && v !== -Infinity))
-        map.fitBounds(bbox, { padding: 20 });  
+  const bbox = turfBbox(features);
+  if (every(bbox, v => v !== Infinity && v !== -Infinity))
+    map.fitBounds(bbox, { padding: 20 });  
 };
 
-const INTERPOLATION_SOURCE_ID = "INTERPOLATION_SOURCE_ID"
+const INTERPOLATION_SOURCE_ID = "INTERPOLATION_SOURCE_ID";
 
 class AnalyticMapVariablesLayer extends MapCommonLayer {
-    constructor(key) {
-        super("Interpolation Layer", `interpolation-layer-${key}`, 2, true, true);
-        this.initializeCollections();
-    }
+  constructor(key) {
+    super("Interpolation Layer", `interpolation-layer-${key}`, 2, true, true);
+    this.initializeCollections();
+  }
 
-    initializeCollections(){
-        this._items = [];
-        this._data = turfHelpers.featureCollection([]);
-    }
+  initializeCollections(){
+    this._items = [];
+    this._data = turfHelpers.featureCollection([]);
+  }
 
-    /**Get the layer definition object, in this case, mabbox layer*/
-    getLayer(){
-        return {
-            id: this.key,
-            type: 'fill',
-            source: INTERPOLATION_SOURCE_ID,
-            paint: {
-                'fill-color': ['get', 'color'],
-                'fill-opacity': ['get', 'opacity'],
-            }
-        };
-    }    
+  /** Get the layer definition object, in this case, mabbox layer */
+  getLayer(){
+    return {
+      id: this.key,
+      type: 'fill',
+      source: INTERPOLATION_SOURCE_ID,
+      paint: {
+        'fill-color': ['get', 'color'],
+        'fill-opacity': ['get', 'opacity'],
+      }
+    };
+  }    
 
-    /**On map Add
+  /** On map Add
      * @param map {Map} map class instance
-     * @return {Promise}*/
-    mapAdd(map){
-        let mapObj = map.map;
-        this._map = map;
+     * @return {Promise} */
+  mapAdd(map){
+    const mapObj = map.map;
+    this._map = map;
 
-        mapObj.addSource(INTERPOLATION_SOURCE_ID, {
-            type: 'geojson',
-            data: this._data
-        });
-        return super.mapAdd(map).then(()=>{            
-            let prevCursor = '';
-            mapObj.on("mouseenter", this.key, e =>  {  
-                prevCursor = mapObj.getCanvas().style.cursor;
-                mapObj.getCanvas().style.cursor = 'pointer';
-            });                
-            mapObj.on("mouseleave", this.key, e =>                
-                mapObj.getCanvas().style.cursor = prevCursor
-            );    
-        });
-    }    
+    mapObj.addSource(INTERPOLATION_SOURCE_ID, {
+      type: 'geojson',
+      data: this._data
+    });
+    return super.mapAdd(map).then(()=>{            
+      let prevCursor = '';
+      mapObj.on("mouseenter", this.key, e =>  {  
+        prevCursor = mapObj.getCanvas().style.cursor;
+        mapObj.getCanvas().style.cursor = 'pointer';
+      });                
+      mapObj.on("mouseleave", this.key, e =>                
+        mapObj.getCanvas().style.cursor = prevCursor
+      );    
+    });
+  }    
 
-    _updateSources(map, data){
-        map.updateSource(INTERPOLATION_SOURCE_ID, data);
-        mapFitBounds(map.map, data);
-    }                
+  _updateSources(map, data){
+    map.updateSource(INTERPOLATION_SOURCE_ID, data);
+    mapFitBounds(map.map, data);
+  }                
 
-    updateLayerData(data, selectedRangeGroup){
-        this._data = turfHelpers.featureCollection([]);
+  updateLayerData(data, selectedRangeGroup){
+    this._data = turfHelpers.featureCollection([]);
 
-        if (!selectedRangeGroup){
-            this.clearLayerData();
-            return;
-        }
-        let ranges = selectedRangeGroup.ranges;
-        const findColor = (value) => {
-            let range = find(ranges, r=>r.minRaw <= value && value <= r.maxRaw);
-            return range ? range.color : 'black';
-        };
+    if (!selectedRangeGroup){
+      this.clearLayerData();
+      return;
+    }
+    const {ranges} = selectedRangeGroup;
+    const findColor = (value) => {
+      const range = find(ranges, r=>r.minRaw <= value && value <= r.maxRaw);
+      return range ? range.color : 'black';
+    };
         
-        //calculate min dist
-        let refPoint = null;
-        let minDist = Number.MAX_VALUE;
-        const count = data.features.length;
-        for (let i = 0; i < count; i++) {
-            const f = data.features[i];
-            if (refPoint == null)
-                refPoint = f.geometry.coordinates;
-            else {
-                const coords = f.geometry.coordinates;
-                const f1 = coords[0] - refPoint[0];
-                const f2 = coords[1] - refPoint[1];
-                const dist = Math.sqrt(f1*f1 + f2*f2);
-                if (dist < minDist)
-                    minDist = dist;
-            }           
-        }
-
-        //group by colors
-        let radius = minDist/2;
-        for (let i = 0; i < data.features.length; i++) {
-            const feature = data.features[i];
-
-            let coords = feature.geometry.coordinates;
-            let color = findColor(feature.properties.VL_VALOR_VARIAVEL);
-
-            const x1 =coords[0] - radius,
-                  y1 =coords[1] - radius,
-                  x2 =coords[0] + radius, 
-                  y2 = coords[1] + radius;
-            const rectangle = turfHelpers.polygon([[[x1, y1], [x2, y1], [x2, y2], [x1, y2], [x1, y1]]], {color});
-            this._data.features.push(rectangle);
-        }
-        this._updateSources(this._map, this._data);
+    // calculate min dist
+    let refPoint = null;
+    let minDist = Number.MAX_VALUE;
+    const count = data.features.length;
+    for (let i = 0; i < count; i++) {
+      const f = data.features[i];
+      if (refPoint == null)
+        refPoint = f.geometry.coordinates;
+      else {
+        const coords = f.geometry.coordinates;
+        const f1 = coords[0] - refPoint[0];
+        const f2 = coords[1] - refPoint[1];
+        const dist = Math.sqrt(f1*f1 + f2*f2);
+        if (dist < minDist)
+          minDist = dist;
+      }           
     }
 
-    updateOpacity(opacity){
-        this._map.map.setPaintProperty(this.key, 'fill-opacity', opacity);
-    }
+    // group by colors
+    const radius = minDist/2;
+    for (let i = 0; i < data.features.length; i++) {
+      const feature = data.features[i];
 
-    /**Clear the layer's data */
-    clearLayerData(){
-        this.initializeCollections();        
-        this._updateSources(this._map, this._data);
+      const coords = feature.geometry.coordinates;
+      const color = findColor(feature.properties.VL_VALOR_VARIAVEL);
+
+      const x1 =coords[0] - radius;
+      const y1 =coords[1] - radius;
+      const x2 =coords[0] + radius; 
+      const y2 = coords[1] + radius;
+      const rectangle = turfHelpers.polygon([[[x1, y1], [x2, y1], [x2, y2], [x1, y2], [x1, y1]]], {color});
+      this._data.features.push(rectangle);
     }
+    this._updateSources(this._map, this._data);
+  }
+
+  updateOpacity(opacity){
+    this._map.map.setPaintProperty(this.key, 'fill-opacity', opacity);
+  }
+
+  /** Clear the layer's data */
+  clearLayerData(){
+    this.initializeCollections();        
+    this._updateSources(this._map, this._data);
+  }
 }
 
 export default AnalyticMapVariablesLayer;

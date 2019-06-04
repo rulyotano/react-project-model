@@ -1,2 +1,3 @@
-import dialog from './reducers/dialogReducer'
-export default dialog
+import dialog from './reducers/dialogReducer';
+
+export default dialog;

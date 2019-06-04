@@ -1,15 +1,15 @@
-import React, { PureComponent } from 'react'
-import { connect } from 'react-redux'
-import { withStyles } from '@material-ui/core'
+import React, { PureComponent } from 'react';
+import { connect } from 'react-redux';
+import { withStyles } from '@material-ui/core';
 import { Redirect } from "react-router-dom";
+import mapboxgl from 'mapbox-gl';
 import {urlJoin} from "../../../../service/helperService";
 import EmptySegment from "../../../common/segment/EmptySegment";
 import MapCloseFieldMenu from "./MapCloseFieldMenu";
 import routesNames from "../routesNames";
 import { PreloadKey as MAP_KEY} from "./routesNames";
 
-//maps
-import mapboxgl from 'mapbox-gl';
+// maps
 import LoadingComponent from "../../../common/_LoadingComponent";
 import MapComponent from "../../../common/map/MapComponent";
 import {loadMapGeoJson} from "../../../common/map/_duck/actions";
@@ -29,20 +29,23 @@ const styles = theme => ({
   fullHeight: {
     height: "100%"
   }
-})
+});
 
-/**Close a field but from maps */
+/** Close a field but from maps */
 export class MapCloseField extends PureComponent {
   static propTypes = {
     // prop: PropTypes
   }
+
   state = {
     showCloseFieldModal: false,
     wArea: null
   }
+
   componentDidMount(){
-      this.props.loadMap();
+    this.props.loadMap();
   }
+
   componentWillUnmount(){
     this.props.clear();
   }
@@ -50,7 +53,7 @@ export class MapCloseField extends PureComponent {
   componentWillReceiveProps(newProps){
     if (newProps.mapData !== this.props.mapData)
     {
-      //repaint the map variables
+      // repaint the map variables
       this.onMapDataUpdated(newProps.mapData);
     }
     if (newProps.fieldSelected !== undefined && this.selectedField){
@@ -65,28 +68,28 @@ export class MapCloseField extends PureComponent {
   onCreateMap(map){
     this.map = map;
     
-    this.map.map.addControl(new MapSwitcherControl(this.map), "top-left")
-    this.map.map.addControl(new MousePositionControl(this.map), "top-left")
-    this.map.map.addControl(new MeasureDistanceControl(this.map), "top-left")
-    this.map.map.addControl(new mapboxgl.ScaleControl(), 'bottom-right')
-    this.map.map.addControl(new mapboxgl.NavigationControl(), 'bottom-right')
+    this.map.map.addControl(new MapSwitcherControl(this.map), "top-left");
+    this.map.map.addControl(new MousePositionControl(this.map), "top-left");
+    this.map.map.addControl(new MeasureDistanceControl(this.map), "top-left");
+    this.map.map.addControl(new mapboxgl.ScaleControl(), 'bottom-right');
+    this.map.map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
 
     const talhoes = new MapTalhaoesLayer();
     this.map.addLayer(talhoes).then(()=>{
-        this.map.addLayer(new MapNumbersLayer(talhoes))
-        this.selectedField = new MapSelectedTalhaoLayer(talhoes);
-        this.map.addLayer(this.selectedField);
-        this.linesLayer = new CloseTalhaoMapVariable(talhoes);
-        this.map.addLayer(this.linesLayer);
+      this.map.addLayer(new MapNumbersLayer(talhoes));
+      this.selectedField = new MapSelectedTalhaoLayer(talhoes);
+      this.map.addLayer(this.selectedField);
+      this.linesLayer = new CloseTalhaoMapVariable(talhoes);
+      this.map.addLayer(this.linesLayer);
     });
   }
 
   onCloseFieldClick(wArea){
-    this.setState({wArea, showCloseFieldModal: true})
+    this.setState({wArea, showCloseFieldModal: true});
   }
 
   onCloseFieldModalClose(){
-    this.setState({showCloseFieldModal: false})
+    this.setState({showCloseFieldModal: false});
   }
 
   render() {
@@ -94,26 +97,26 @@ export class MapCloseField extends PureComponent {
     const {showCloseFieldModal, wArea} = this.state;
     
     if (!loaded)
-      return <Redirect to={urlJoin("/", routesNames, MAP_KEY)}/>
+      return <Redirect to={urlJoin("/", routesNames, MAP_KEY)}/>;
 
-    //TODO: redirect to load from map if data not loaded
+    // TODO: redirect to load from map if data not loaded
     const map = <div className={classes.fullHeight}>
       <MapComponent onCreateMap={map=>this.onCreateMap(map)} />
       <MapCloseFieldMenu onCloseFieldClick={(wArea)=>this.onCloseFieldClick(wArea)}/>      
-      {!!wArea ? <CloseFieldModal 
-                    open={showCloseFieldModal} 
-                    farm={wArea.farm}
-                    sector={wArea.sector}
-                    field={wArea.field}
-                    closeModal={()=>this.onCloseFieldModalClose()}/> : null}
-    </div>
+      {wArea ? <CloseFieldModal 
+        open={showCloseFieldModal} 
+        farm={wArea.farm}
+        sector={wArea.sector}
+        field={wArea.field}
+        closeModal={()=>this.onCloseFieldModalClose()}/> : null}
+    </div>;
 
     return (
       <EmptySegment useScroll={false}>
         <LoadingComponent className={classes.fullHeight} isLoading={!mapGeoJson}/>
-                { !!mapGeoJson ? map : null}                
+        { mapGeoJson ? map : null}                
       </EmptySegment>
-    )
+    );
   }
 }
 
@@ -124,11 +127,11 @@ const mapStateToProps = (state) => ({
   loaded: getMapIsLoaded(state),
   mapData: getMapData(state),
   fieldSelected: getSelected(state)
-})
+});
 
 const mapDispatchToProps = (dispatch) => ({
   loadMap: ()=>dispatch(loadMapGeoJson()),
   clear: ()=>dispatch(clear())
-})
+});
 
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(MapCloseField))
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(MapCloseField));

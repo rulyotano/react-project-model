@@ -4,7 +4,7 @@
 
 // export const getB = (state)=>state.placestofind.bValue
 
-//export const createSomeReselectSelector = () =>
+// export const createSomeReselectSelector = () =>
 //     createSelector([
 //         getA, getB
 //     ], 

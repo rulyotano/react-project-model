@@ -1,16 +1,16 @@
-import React, { PureComponent } from 'react'
-import PropTypes from 'prop-types'
+import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
 import { withStyles, ExpansionPanel, ExpansionPanelSummary, 
-         ExpansionPanelDetails, Typography } from '@material-ui/core';
+  ExpansionPanelDetails, Typography } from '@material-ui/core';
 
 const styles = theme => ({
-    heading: {
-        fontSize: theme.typography.pxToRem(15),
-        fontWeight: theme.typography.fontWeightRegular,
-    },
-    panel:{
-        border:'1px solid #ddd'
-    }
+  heading: {
+    fontSize: theme.typography.pxToRem(15),
+    fontWeight: theme.typography.fontWeightRegular,
+  },
+  panel:{
+    border:'1px solid #ddd'
+  }
 });
 
 export class Panel extends PureComponent {
@@ -22,14 +22,14 @@ export class Panel extends PureComponent {
   render() {
     const { classes, title = null, children } = this.props;
     return (
-        <ExpansionPanel className={classes.panel} expanded={true}>
-            {title ? <ExpansionPanelSummary>
-                <Typography className={classes.heading}>{title}</Typography>
-            </ExpansionPanelSummary> : null}
-            <ExpansionPanelDetails children={children}>
-            </ExpansionPanelDetails>
-        </ExpansionPanel>
-    )
+      <ExpansionPanel className={classes.panel} expanded>
+        {title ? <ExpansionPanelSummary>
+          <Typography className={classes.heading}>{title}</Typography>
+        </ExpansionPanelSummary> : null}
+        <ExpansionPanelDetails children={children}>
+        </ExpansionPanelDetails>
+      </ExpansionPanel>
+    );
   }
 }
 

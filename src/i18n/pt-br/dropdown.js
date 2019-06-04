@@ -1,3 +1,3 @@
 export default {
-    "No results found": "Nenhum resultado encontrado"
-}
+  "No results found": "Nenhum resultado encontrado"
+};

@@ -1,24 +1,24 @@
 export class ReducerRegistry {
-    constructor() {
-      this._emitChange = null;
-      this._reducers = {};
-    }
+  constructor() {
+    this.emitChange = null;
+    this.reducers = {};
+  }
   
-    getReducers() {
-      return { ...this._reducers };
-    }
+  getReducers() {
+    return { ...this.reducers };
+  }
   
-    register(name, reducer) {
-      this._reducers = { ...this._reducers, [name]: reducer };
-      if (this._emitChange) {
-        this._emitChange(this.getReducers());
-      }
-    }
-  
-    setChangeListener(listener) {
-      this._emitChange = listener;
+  register(name, reducer) {
+    this.reducers = { ...this.reducers, [name]: reducer };
+    if (this.emitChange) {
+      this.emitChange(this.getReducers());
     }
   }
   
-  const reducerRegistry = new ReducerRegistry();
-  export default reducerRegistry;
+  setChangeListener(listener) {
+    this.emitChange = listener;
+  }
+}
+  
+const reducerRegistry = new ReducerRegistry();
+export default reducerRegistry;

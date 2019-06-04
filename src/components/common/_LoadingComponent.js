@@ -1,7 +1,7 @@
-import React from 'react'
-import { CircularProgress } from '@material-ui/core';
+import React from 'react';
+import { CircularProgress , Typography } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
-import { Typography } from '@material-ui/core';
+
 import PropTypes from 'prop-types';
 
 
@@ -24,20 +24,20 @@ const LoadingComponent = ({isLoading, error, classes, pastDelay, timedOut, retry
     </div>;
   }
   // Handle the error state
-  else if (error) {
+  if (error) {
     console.log(error);
     return <div {...restProps}><Typography>Sorry, there was a problem loading the page.</Typography></div>;
   }
-  else {
-    return null;
-  }
+  
+  return null;
+  
 };
 
 LoadingComponent.propTypes = {
-    classes: PropTypes.object.isRequired,
-    isLoading: PropTypes.bool,
-    error: PropTypes.any,
-    size: PropTypes.number
+  classes: PropTypes.object.isRequired,
+  isLoading: PropTypes.bool,
+  error: PropTypes.any,
+  size: PropTypes.number
 };
 
-export default withStyles(styles)(LoadingComponent)
+export default withStyles(styles)(LoadingComponent);

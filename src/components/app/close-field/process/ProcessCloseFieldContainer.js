@@ -1,17 +1,17 @@
-import React, { PureComponent } from 'react'
+import React, { PureComponent } from 'react';
 // import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
+import { withStyles, Button, Toolbar } from '@material-ui/core';
+import { Redirect } from "react-router-dom";
+import {keys, values} from "lodash";
 import EmptySegment from "../../../common/segment/EmptySegment";
 import {clear} from "./_duck/actions";
 import {getData, createGetIsLoaded} from "./_duck/selectors";
-import { withStyles, Button, Toolbar } from '@material-ui/core'
-import { Redirect } from "react-router-dom";
 import {urlJoin} from "../../../../service/helperService";
 import routesNames from "../routesNames";
 import {PreloadKey as PROCESS_KEY} from "./routesNames";
 import CloseFieldModal from "../close-modal/CloseFieldModal";
 import ProcessCloseFieldTable from "./ProcessCloseFieldTableComponent";
-import {keys, values} from "lodash";
 
 const styles = theme => ({
   tableContainer: {
@@ -20,13 +20,14 @@ const styles = theme => ({
   footerContainer: {
     height: "64px"
   }
-})
+});
 
-/**Close a field but from process */
+/** Close a field but from process */
 export class ProcessCloseField extends PureComponent {
   static propTypes = {
     // prop: PropTypes
   }
+
   state = {
     showCloseFieldModal: false,
     selected: null,
@@ -37,25 +38,27 @@ export class ProcessCloseField extends PureComponent {
   }
 
   closeField(){
-    this.setState({showCloseFieldModal: true})
+    this.setState({showCloseFieldModal: true});
   }
 
   onCloseFieldModalClose(){
-    this.setState({showCloseFieldModal: false})
+    this.setState({showCloseFieldModal: false});
   }
+
   onSelectionChange(selection){
     if (selection && keys(selection).length > 0){
-      this.setState({selected: values(selection)[0]})
+      this.setState({selected: values(selection)[0]});
     } else {
-      this.setState({selected: null})
+      this.setState({selected: null});
     }
   }
+
   render() {
     const {classes, data, loaded} = this.props;
     const {showCloseFieldModal, selected} = this.state;
     
     if (!loaded)
-      return <Redirect to={urlJoin("/", routesNames, PROCESS_KEY)}/>
+      return <Redirect to={urlJoin("/", routesNames, PROCESS_KEY)}/>;
 
     return (
       <EmptySegment useScroll={false}>
@@ -65,29 +68,29 @@ export class ProcessCloseField extends PureComponent {
         </div>
         <div className={classes.footerContainer}>         
           <Toolbar>
-            <Button disabled={!selected} onClick={()=>this.closeField()}>Close Field</Button>  {/*TODO: translate*/}
+            <Button disabled={!selected} onClick={()=>this.closeField()}>Close Field</Button>  {/* TODO: translate */}
           </Toolbar> 
         </div>
 
         <CloseFieldModal open={showCloseFieldModal}
-                        farm={selected ? selected.farm + "" : ""}
-                        sector={selected ? selected.sector + "" : ""}
-                        field={selected ? selected.field + "" : ""}
-                        closeModal={()=>this.onCloseFieldModalClose()}/>
+          farm={selected ? `${selected.farm  }` : ""}
+          sector={selected ? `${selected.sector  }` : ""}
+          field={selected ? `${selected.field  }` : ""}
+          closeModal={()=>this.onCloseFieldModalClose()}/>
       </EmptySegment>
-    )
+    );
   }
 }
 
-const getIsLoaded = createGetIsLoaded()
+const getIsLoaded = createGetIsLoaded();
 
 const mapStateToProps = (state) => ({
   loaded: getIsLoaded(state),
   data: getData(state),
-})
+});
 
 const mapDispatchToProps = (dispatch) => ({
   clear: ()=>dispatch(clear())
-})
+});
 
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(ProcessCloseField))
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(ProcessCloseField));

@@ -11,8 +11,8 @@ export const getSelectedVariableRange = (state)=>state.app.closeField.map.select
 export const getMapData = (state)=>state.app.closeField.map.mapData;
 
 export const createGetMapIsLoaded = () =>
-    createSelector([
-        getData
-    ], 
-    (data) => data.length > 0
-)
+  createSelector([
+    getData
+  ], 
+  (data) => data.length > 0
+  );

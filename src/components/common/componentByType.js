@@ -1,4 +1,5 @@
 import React from 'react';
+
 const findByType = (children, component) => {
   const result = [];
   /* This is the array of result since Article can have multiple times the same sub-component */

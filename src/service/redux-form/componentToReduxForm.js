@@ -1,6 +1,6 @@
-import React from 'react'
-import mapError from './mapError'
+import React from 'react';
+import mapError from './mapError';
 
 export default (Component) => (props) =>{
-    return <Component {...mapError(props)}/>
-}
+  return <Component {...mapError(props)}/>;
+};

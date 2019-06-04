@@ -5,11 +5,11 @@ import DateTimeRangeSelector from "../date-time-range-selector/DateTimeRangeSele
 
 class DateTimeRangeSelectorTest extends Component{
 
-    render(){
-        return(
-            <DateTimeRangeSelector useAs={this.props.useAs} labelInitial="Inicial" labelFinal="Final" onChange={(interval)=>{console.log(interval)}}/>
-        )
-    }
+  render(){
+    return(
+      <DateTimeRangeSelector useAs={this.props.useAs} labelInitial="Inicial" labelFinal="Final" onChange={(interval)=>{console.log(interval);}}/>
+    );
+  }
 }
 
 export default DateTimeRangeSelectorTest;

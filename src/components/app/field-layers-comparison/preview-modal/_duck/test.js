@@ -1,6 +1,6 @@
 describe("preview-modal",()=>{        
-    //TODO: tests
-    test(()=>{
+  // TODO: tests
+  test(()=>{
 
-    })
-})
+  });
+});

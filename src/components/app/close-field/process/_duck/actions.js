@@ -1,3 +1,3 @@
-import {CLEAR} from './types'
+import {CLEAR} from './types';
 
-export const clear = ()=>({type: CLEAR}) 
+export const clear = ()=>({type: CLEAR}); 

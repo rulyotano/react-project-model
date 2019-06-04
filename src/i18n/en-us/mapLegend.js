@@ -1,5 +1,5 @@
 export default {
-    "Start":"Start",
-    "End":"End",
-    "Name":"Name",
-}
+  "Start":"Start",
+  "End":"End",
+  "Name":"Name",
+};

@@ -4,11 +4,11 @@ import DateTimePicker from "../date-time-picker/DateTimePicker";
 
 class DateTimePickerTest extends Component{
 
-    render(){
-        return(
-            <DateTimePicker id="date-time-to-test" label="Date e Hora" onChange={(s)=>{console.log(s)}}/>
-        )
-    }
+  render(){
+    return(
+      <DateTimePicker id="date-time-to-test" label="Date e Hora" onChange={(s)=>{console.log(s);}}/>
+    );
+  }
 }
 
 

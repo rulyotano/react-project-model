@@ -1,64 +1,68 @@
 import
-    React, {PureComponent} from 'react';
+React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import Select from "./Select";
 import {isEmpty} from "lodash";
+import Select from "./Select";
 import componentToReduxForm from "../../../service/redux-form/componentToReduxForm";
-import {getAction} from "../../common/data/_duck/actions";
+import {getAction} from "../data/_duck/actions";
 
 
 class SelectDataComponent extends PureComponent{
     static propTypes = {
-        id:PropTypes.string.isRequired,
-        name:PropTypes.string.isRequired,
-        targetKey:PropTypes.string.isRequired,
-        attrId:PropTypes.string.isRequired,
-        attrLabel:PropTypes.string.isRequired,
-        isLoading: PropTypes.bool,
-        label:PropTypes.string
+      id:PropTypes.string.isRequired,
+      name:PropTypes.string.isRequired,
+      targetKey:PropTypes.string.isRequired,
+      attrId:PropTypes.string.isRequired,
+      attrLabel:PropTypes.string.isRequired,
+      isLoading: PropTypes.bool,
+      label:PropTypes.string
     };
-    constructor(props){
-        super(props);
-        const {attrId} = props;
 
-        this.state = {
-            [attrId]:null
-        }
+    constructor(props){
+      super(props);
+      const {attrId} = props;
+
+      this.state = {
+        [attrId]:null
+      };
     }
+
     componentWillMount(){
-        let {targetKey, data, isLoading} = this.props;
-        if (!isLoading && isEmpty(data))
-            this.props.load(targetKey);
+      const {targetKey, data, isLoading} = this.props;
+      if (!isLoading && isEmpty(data))
+        this.props.load(targetKey);
     }
+
     handleChange = value =>{
-        this.props.onChange(value);
+      this.props.onChange(value);
     };
+
     render(){
-        const { data, ...otherProps } = this.props;
-        return (
-            <Select suggestions={data} onChange={this.handleChange} {...otherProps}/>
-        );
+      const { data, ...otherProps } = this.props;
+      return (
+        <Select suggestions={data} onChange={this.handleChange} {...otherProps}/>
+      );
     }
 }
 
 const mapStateToProps = (state,props) => {
-    const {d} = state;
-    const {targetKey} = props;
+  const {d} = state;
+  const {targetKey} = props;
 
-    return {
-        data:d[targetKey].data?d[targetKey].data:[],
-        isLoading:d[targetKey].loading
-    };
+  return {
+    data:d[targetKey].data?d[targetKey].data:[],
+    isLoading:d[targetKey].loading
+  };
 };
 const mapDispatchToProps = (dispatch) => ({
-    load(targetKey){
-        let {load} = getAction(targetKey);
-        dispatch(load());
-    }
+  load(targetKey){
+    const {load} = getAction(targetKey);
+    dispatch(load());
+  }
 });
 
 SelectDataComponent = connect(mapStateToProps, mapDispatchToProps)(SelectDataComponent);
 
-export const SelectDataRF = componentToReduxForm(SelectDataComponent);  //export redux form
-export default SelectDataComponent; //export default without redux form
+export const SelectDataRF = componentToReduxForm(SelectDataComponent);  // export redux form
+export default SelectDataComponent; // export default without redux form

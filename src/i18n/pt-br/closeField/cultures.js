@@ -1,6 +1,6 @@
 export default {
-    "Cane": "Cana",
-    "Soy": "Soja",
-    "Corn": "Milho",
-    "Cotton": "Algodão"
-}
+  "Cane": "Cana",
+  "Soy": "Soja",
+  "Corn": "Milho",
+  "Cotton": "Algodão"
+};

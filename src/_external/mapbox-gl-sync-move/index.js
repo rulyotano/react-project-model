@@ -1,15 +1,15 @@
 function moveToMapPosition (master, clones) {
-  var center = master.getCenter();
-  var zoom = master.getZoom();
-  var bearing = master.getBearing();
-  var pitch = master.getPitch();
+  const center = master.getCenter();
+  const zoom = master.getZoom();
+  const bearing = master.getBearing();
+  const pitch = master.getPitch();
 
   clones.forEach(function (clone) {
     clone.jumpTo({
-      center: center,
-      zoom: zoom,
-      bearing: bearing,
-      pitch: pitch
+      center,
+      zoom,
+      bearing,
+      pitch
     });
   });
 }
@@ -24,20 +24,20 @@ function moveToMapPosition (master, clones) {
 // - prematurely halts prolonged movements like
 //   double-click zooming, box-zooming, and flying
 function syncMaps () {
-  var maps;
-  var argLen = arguments.length;
+  let maps;
+  const argLen = arguments.length;
   if (argLen === 1) {
     maps = arguments[0];
   } else {
     maps = [];
-    for (var i = 0; i < argLen; i++) {
+    for (let i = 0; i < argLen; i++) {
       maps.push(arguments[i]);
     }
   }
 
   // Create all the movement functions, because if they're created every time
   // they wouldn't be the same and couldn't be removed.
-  var fns = [];
+  let fns = [];
   maps.forEach(function (map, index) {
     fns[index] = sync.bind(null, map, maps.filter(function (o, i) { return i !== index; }));
   });

@@ -1,6 +1,6 @@
 export default {
-    "Language": "Language",
-    "Portuguese": "Portuguese",
-    "English": "English",
-    "Spanish": "Spanish"
-}
+  "Language": "Language",
+  "Portuguese": "Portuguese",
+  "English": "English",
+  "Spanish": "Spanish"
+};

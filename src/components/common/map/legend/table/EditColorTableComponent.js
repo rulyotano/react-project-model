@@ -1,12 +1,12 @@
-import React, { PureComponent } from 'react'
-import PropTypes from 'prop-types'
+import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
 import {withStyles} from '@material-ui/core';
-import ColorPicker from '../../../pickers/color';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import StopIcon from '@material-ui/icons/Stop';
+import ColorPicker from '../../../pickers/color';
 
 const styles = theme => ({  
   colorContainer:{
@@ -54,7 +54,7 @@ export class EditColorTableComponent extends PureComponent {
   }
 
   onAddColor(index){
-    let colors = [...this.state.colors];
+    const colors = [...this.state.colors];
     
     colors.splice(index,0, "black");
     this.setState({colors});
@@ -69,15 +69,15 @@ export class EditColorTableComponent extends PureComponent {
     return (
       <div>
         <TextField id="color-picker-label" label={t("Size")} value={size}
-                  onChange={e=>this.onSizeChange(1*e.target.value)}
-                  inputProps={{type:"number", style:{width: "100px"}, min: colors.length, max: 20}}/>
+          onChange={e=>this.onSizeChange(1*e.target.value)}
+          inputProps={{type:"number", style:{width: "100px"}, min: colors.length, max: 20}}/>
 
         <div className={classes.colorsContainer}>        
           {colors.map((c, i)=> <div className={classes.colorContainer} key={i}>
             <Color color={c} canAddColors={canAddColors} canRemoveColors={canRemoveColors} 
-                onChange={newColor=>this.onColorChange(newColor, i)} 
-                onDelete={()=>this.onColorDelete(i)}
-                onAddColor={()=>this.onAddColor(i)}/>
+              onChange={newColor=>this.onColorChange(newColor, i)} 
+              onDelete={()=>this.onColorDelete(i)}
+              onAddColor={()=>this.onAddColor(i)}/>
           </div>)}
         </div>
         
@@ -86,11 +86,11 @@ export class EditColorTableComponent extends PureComponent {
         <Button onClick={()=>onFinishEdit({colors: this.state.colors, size: 1*this.state.size})}><CheckIcon/></Button>
         <Button onClick={()=>onCancelEdit()}><CloseIcon/></Button> */}
       </div>
-    )
+    );
   }
 }
 
-export default withStyles(styles)(EditColorTableComponent)
+export default withStyles(styles)(EditColorTableComponent);
 
 export class Color extends PureComponent {
   static propTypes = {
@@ -120,26 +120,26 @@ export class Color extends PureComponent {
     const {open} = this.state;
     return (
       <React.Fragment>
-          <div className={classes.colorsButtons}>
-            <ColorPicker show={open} color={color}
-                  onChange={onChange}
-                  onClose={()=>this.onClose()}>
-              <Button variant="outlined" onClick={()=>this.onOpen()}>
-                <StopIcon style={{color: color}}/>
-                {/* <div className={classes.color} style={{backgroundColor: color}}></div> */}
-              </Button>
-            </ColorPicker>            
-          </div>
+        <div className={classes.colorsButtons}>
+          <ColorPicker show={open} color={color}
+            onChange={onChange}
+            onClose={()=>this.onClose()}>
+            <Button variant="outlined" onClick={()=>this.onOpen()}>
+              <StopIcon style={{color}}/>
+              {/* <div className={classes.color} style={{backgroundColor: color}}></div> */}
+            </Button>
+          </ColorPicker>            
+        </div>
         
-          <div className={classes.colorsButtons}>
-            <Button disabled={!canRemoveColors} variant="outlined" onClick={onDelete}><DeleteOutlineIcon/></Button>
-          </div>
+        <div className={classes.colorsButtons}>
+          <Button disabled={!canRemoveColors} variant="outlined" onClick={onDelete}><DeleteOutlineIcon/></Button>
+        </div>
 
-          <div className={classes.colorsButtons}>
-            <Button disabled={!canAddColors} onClick={onAddColor}><AddIcon/></Button>
-          </div>
+        <div className={classes.colorsButtons}>
+          <Button disabled={!canAddColors} onClick={onAddColor}><AddIcon/></Button>
+        </div>
       </React.Fragment>
-    )
+    );
   }
 }
 

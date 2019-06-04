@@ -1,6 +1,6 @@
 export default {
-    "ok": "Ok",
-    "cancel": "Cancel",
-    "yes": "Sim",
-    "no": "Não",
-}
+  "ok": "Ok",
+  "cancel": "Cancel",
+  "yes": "Sim",
+  "no": "Não",
+};

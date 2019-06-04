@@ -1,184 +1,184 @@
-import configureStore from '../../components/configureStore'
-import {DialogService} from './dialogService'
-import Dialog from '../../components/common/dialog/classes/Dialog'
-import {NotificationTypes} from '../../components/common/dialog/classes/Notification'
-import BottomNotification from '../../components/common/dialog/classes/BottomNotification'
-import {DialogButtonTypes} from '../../components/common/dialog/classes/DialogButton'
-import {forEach, filter} from 'lodash'
+import {forEach, filter} from 'lodash';
+import configureStore from '../../components/configureStore';
+import {DialogService} from './dialogService';
+import Dialog from '../../components/common/dialog/classes/Dialog';
+import {NotificationTypes} from '../../components/common/dialog/classes/Notification';
+import BottomNotification from '../../components/common/dialog/classes/BottomNotification';
+import {DialogButtonTypes} from '../../components/common/dialog/classes/DialogButton';
 
-let store = null
-let dialogService = null
+let store = null;
+let dialogService = null;
 beforeEach(()=>{
-    store = configureStore()
-    dialogService = new DialogService(store)    
-})
+  store = configureStore();
+  dialogService = new DialogService(store);    
+});
 
-//#region common
+// #region common
 const testMethodDefined = (methodName)=>{    
-    test(`should have method '${methodName}'`, () => {
-        expect(dialogService[methodName]).toBeDefined()      
-    })
-}
+  test(`should have method '${methodName}'`, () => {
+    expect(dialogService[methodName]).toBeDefined();      
+  });
+};
 
 const testAddNewDialogToStore = (methodName)=>{
-    test(`method '${methodName}'should add to store a new dialog`, () => {
-        dialogService[methodName]("title 1", "desc 1")
-        let state = store.getState()
-        expect(state.dialog.dialogs.length).toBe(1)
-        expect(state.dialog.dialogs[0] instanceof Dialog).toBe(true)
-    })
-}
+  test(`method '${methodName}'should add to store a new dialog`, () => {
+    dialogService[methodName]("title 1", "desc 1");
+    const state = store.getState();
+    expect(state.dialog.dialogs.length).toBe(1);
+    expect(state.dialog.dialogs[0] instanceof Dialog).toBe(true);
+  });
+};
 
 const testSameTitleAndBody = (methodName)=>{
-    test(`method '${methodName}'should add dialog with same title and body`, () => {
-        dialogService[methodName]("title 2", "desc 2")
-        let state = store.getState()
-        expect(state.dialog.dialogs[0].Title).toBe("title 2")
-        expect(state.dialog.dialogs[0].Body).toBe("desc 2")
-    })
-}
+  test(`method '${methodName}'should add dialog with same title and body`, () => {
+    dialogService[methodName]("title 2", "desc 2");
+    const state = store.getState();
+    expect(state.dialog.dialogs[0].Title).toBe("title 2");
+    expect(state.dialog.dialogs[0].Body).toBe("desc 2");
+  });
+};
 
 const testAddDialogModal = (methodName)=>{
-    test(`method '${methodName}'should add dialog modal`, () => {
-        dialogService[methodName]()
-        let state = store.getState()
-        expect(state.dialog.dialogs[0].Modal).toBe(true)
-    })
-}
+  test(`method '${methodName}'should add dialog modal`, () => {
+    dialogService[methodName]();
+    const state = store.getState();
+    expect(state.dialog.dialogs[0].Modal).toBe(true);
+  });
+};
 
 const testHaveButtons = (methodName, buttonTypes)=>{
-    test(`method '${methodName}' should have buttons`, () => {
-        dialogService[methodName]()
-        let state = store.getState()
-        let buttons = state.dialog.dialogs[0].Buttons
-        expect(buttons.length).toBe(buttonTypes.length)
-        forEach(buttons, (btn, index) => expect(btn.Type).toBe(buttonTypes[index]));
-    })
-}
+  test(`method '${methodName}' should have buttons`, () => {
+    dialogService[methodName]();
+    const state = store.getState();
+    const buttons = state.dialog.dialogs[0].Buttons;
+    expect(buttons.length).toBe(buttonTypes.length);
+    forEach(buttons, (btn, index) => expect(btn.Type).toBe(buttonTypes[index]));
+  });
+};
 
 const testSamePromiseResult = (methodName, buttonTypes)=>{
-    test(`method '${methodName}' should return same promise that dialog`, () => {
-        let response = dialogService[methodName]()
-        let state = store.getState()
-        expect(response).toBe(state.dialog.dialogs[0].Promise)
-    })
-}
+  test(`method '${methodName}' should return same promise that dialog`, () => {
+    const response = dialogService[methodName]();
+    const state = store.getState();
+    expect(response).toBe(state.dialog.dialogs[0].Promise);
+  });
+};
 
 const testButtonShouldBeFocused = (methodName, buttonTypeToFocus)=>{
-    test(`method '${methodName}' should have right button focused`, () => {        
-        dialogService[methodName]()
-        let state = store.getState()
-        let buttons = state.dialog.dialogs[0].Buttons
-        let focusedButtons = filter(buttons, btn=>btn.Focused)
-        expect(focusedButtons.length).toBe(1)
-        expect(focusedButtons[0].Key).toBe(buttonTypeToFocus)
-    })
-}
+  test(`method '${methodName}' should have right button focused`, () => {        
+    dialogService[methodName]();
+    const state = store.getState();
+    const buttons = state.dialog.dialogs[0].Buttons;
+    const focusedButtons = filter(buttons, btn=>btn.Focused);
+    expect(focusedButtons.length).toBe(1);
+    expect(focusedButtons[0].Key).toBe(buttonTypeToFocus);
+  });
+};
 
 const testShouldAddBottomNotificationToStore = (methodName)=>{
-    test(`method '${methodName}'should add bottom notification to store`, () => {
-        dialogService[methodName]("title 1", "desc 1")
-        let state = store.getState()
-        expect(state.dialog.bottomNotifications.length).toBe(1)
-        expect(state.dialog.bottomNotifications[0] instanceof BottomNotification).toBe(true)
-    })
-}
+  test(`method '${methodName}'should add bottom notification to store`, () => {
+    dialogService[methodName]("title 1", "desc 1");
+    const state = store.getState();
+    expect(state.dialog.bottomNotifications.length).toBe(1);
+    expect(state.dialog.bottomNotifications[0] instanceof BottomNotification).toBe(true);
+  });
+};
 
 const testBottomNotificationSameTitleDescAndType = (methodName, type)=>{
-    test(`method '${methodName}'should add bottom notification with same title and desc`, () => {
-        dialogService[methodName]("title 2", "desc 2")
-        let state = store.getState()
-        expect(state.dialog.bottomNotifications[0].Title).toBe("title 2")
-        expect(state.dialog.bottomNotifications[0].Description).toBe("desc 2")
-        expect(state.dialog.bottomNotifications[0].Type).toBe(type)
-    })
-}
+  test(`method '${methodName}'should add bottom notification with same title and desc`, () => {
+    dialogService[methodName]("title 2", "desc 2");
+    const state = store.getState();
+    expect(state.dialog.bottomNotifications[0].Title).toBe("title 2");
+    expect(state.dialog.bottomNotifications[0].Description).toBe("desc 2");
+    expect(state.dialog.bottomNotifications[0].Type).toBe(type);
+  });
+};
 
-//#endregion
+// #endregion
 
-//#region 'confirmYesNo'
-testMethodDefined('confirmYesNo')
+// #region 'confirmYesNo'
+testMethodDefined('confirmYesNo');
 
-//with 'title', 'desc', and yes no buttons
-testAddNewDialogToStore('confirmYesNo')
+// with 'title', 'desc', and yes no buttons
+testAddNewDialogToStore('confirmYesNo');
 
-testSameTitleAndBody('confirmYesNo')
+testSameTitleAndBody('confirmYesNo');
 
-testAddDialogModal('confirmYesNo')
+testAddDialogModal('confirmYesNo');
 
-testHaveButtons('confirmYesNo', [DialogButtonTypes.YES, DialogButtonTypes.NO])
+testHaveButtons('confirmYesNo', [DialogButtonTypes.YES, DialogButtonTypes.NO]);
 
-testButtonShouldBeFocused('confirmYesNo', DialogButtonTypes.NO)
+testButtonShouldBeFocused('confirmYesNo', DialogButtonTypes.NO);
 
-testSamePromiseResult('confirmYesNo')
-//#endregion
+testSamePromiseResult('confirmYesNo');
+// #endregion
 
-//#region confirmYesNoCancel
-testMethodDefined('confirmYesNoCancel')
+// #region confirmYesNoCancel
+testMethodDefined('confirmYesNoCancel');
 
-testAddNewDialogToStore('confirmYesNoCancel')
+testAddNewDialogToStore('confirmYesNoCancel');
 
-testSameTitleAndBody('confirmYesNoCancel')
+testSameTitleAndBody('confirmYesNoCancel');
 
-testAddDialogModal('confirmYesNoCancel')
+testAddDialogModal('confirmYesNoCancel');
 
-testHaveButtons('confirmYesNoCancel', [DialogButtonTypes.YES, DialogButtonTypes.NO, DialogButtonTypes.CANCEL])
+testHaveButtons('confirmYesNoCancel', [DialogButtonTypes.YES, DialogButtonTypes.NO, DialogButtonTypes.CANCEL]);
 
-testButtonShouldBeFocused('confirmYesNoCancel', DialogButtonTypes.CANCEL)
+testButtonShouldBeFocused('confirmYesNoCancel', DialogButtonTypes.CANCEL);
 
-testSamePromiseResult('confirmYesNoCancel')
-//#endregion
+testSamePromiseResult('confirmYesNoCancel');
+// #endregion
 
-//#region confirmOk
-testMethodDefined('confirmOk')
+// #region confirmOk
+testMethodDefined('confirmOk');
 
-testAddNewDialogToStore('confirmOk')
+testAddNewDialogToStore('confirmOk');
 
-testSameTitleAndBody('confirmOk')
+testSameTitleAndBody('confirmOk');
 
-testAddDialogModal('confirmOk')
+testAddDialogModal('confirmOk');
 
-testHaveButtons('confirmOk', [DialogButtonTypes.OK])
+testHaveButtons('confirmOk', [DialogButtonTypes.OK]);
 
-testButtonShouldBeFocused('confirmOk', DialogButtonTypes.OK)
+testButtonShouldBeFocused('confirmOk', DialogButtonTypes.OK);
 
-testSamePromiseResult('confirmOk')
-//#endregion
+testSamePromiseResult('confirmOk');
+// #endregion
 
-//#region error
-testMethodDefined('error')
+// #region error
+testMethodDefined('error');
 
-testShouldAddBottomNotificationToStore('error')
+testShouldAddBottomNotificationToStore('error');
 
-testBottomNotificationSameTitleDescAndType('error', NotificationTypes.ERROR)
-//#endregion
+testBottomNotificationSameTitleDescAndType('error', NotificationTypes.ERROR);
+// #endregion
 
-//#region notification
+// #region notification
 
-testMethodDefined('notification')
+testMethodDefined('notification');
 
-testShouldAddBottomNotificationToStore('notification')
+testShouldAddBottomNotificationToStore('notification');
 
-testBottomNotificationSameTitleDescAndType('notification', NotificationTypes.NOTIFICATION)
+testBottomNotificationSameTitleDescAndType('notification', NotificationTypes.NOTIFICATION);
 
-//#endregion
+// #endregion
 
-//#region alert
+// #region alert
 
-testMethodDefined('alert')
+testMethodDefined('alert');
 
-testShouldAddBottomNotificationToStore('alert')
+testShouldAddBottomNotificationToStore('alert');
 
-testBottomNotificationSameTitleDescAndType('alert', NotificationTypes.ALERT)
+testBottomNotificationSameTitleDescAndType('alert', NotificationTypes.ALERT);
 
-//#endregion
+// #endregion
 
-//#region success
+// #region success
 
-testMethodDefined('success')
+testMethodDefined('success');
 
-testShouldAddBottomNotificationToStore('success')
+testShouldAddBottomNotificationToStore('success');
 
-testBottomNotificationSameTitleDescAndType('success', NotificationTypes.SUCCESS)
+testBottomNotificationSameTitleDescAndType('success', NotificationTypes.SUCCESS);
 
-//#endregion
+// #endregion

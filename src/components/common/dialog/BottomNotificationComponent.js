@@ -1,7 +1,7 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
-import { get, head } from 'lodash'
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { get, head } from 'lodash';
 import {withStyles, Snackbar, IconButton} from '@material-ui/core';
 import {Close} from '@material-ui/icons';
 import config from '../../../config/config';
@@ -38,48 +38,48 @@ export class BottomNotificationComponent extends Component {
   }
 
   constructor(){
-      super()
-      this.state = {
-        bottomNotification: null,
-        wasClosed: false
-      }
+    super();
+    this.state = {
+      bottomNotification: null,
+      wasClosed: false
+    };
   }
 
   componentDidMount(){
-      this._intervalId = setInterval(()=>{
-          this.props.closePastNotificationBottom()
-      }, 1000)      
-    this.setStateFromProps(this.props)
+    this._intervalId = setInterval(()=>{
+      this.props.closePastNotificationBottom();
+    }, 1000);      
+    this.setStateFromProps(this.props);
   }
 
   componentWillUnmount(){
-      if (this._intervalId)
-        clearInterval(this._intervalId)
+    if (this._intervalId)
+      clearInterval(this._intervalId);
   }
 
   componentWillReceiveProps(newProps){
-    this.setStateFromProps(newProps)
+    this.setStateFromProps(newProps);
   }
 
   setStateFromProps(props){
-    let newBotNot = head(props.bottomNotifications)
+    const newBotNot = head(props.bottomNotifications);
     if (newBotNot !== this.state.bottomNotification)
       this.setState({
-          bottomNotification: newBotNot,
-          wasClosed: false
-      })
+        bottomNotification: newBotNot,
+        wasClosed: false
+      });
   }
 
   handleRequestClose(){
     this.setState({
-        wasClosed: true
-    })
+      wasClosed: true
+    });
   }
 
   render() {
-    let timeNotification = config.TIME_BOTTOM_NOTIFICATION
-    let botNot = this.state.bottomNotification
-    let message = botNot ? botNot.Description : ""
+    const timeNotification = config.TIME_BOTTOM_NOTIFICATION;
+    const botNot = this.state.bottomNotification;
+    const message = botNot ? botNot.Description : "";
     // let snackbarClass = botNot ? `snackbar${botNot.Type}` : ""
     const {classes} = this.props;
     const {t} = this.context;
@@ -89,40 +89,40 @@ export class BottomNotificationComponent extends Component {
 
     return (
       <div>
-          <Snackbar open={!this.state.wasClosed && !!botNot}
-                    autoHideDuration={timeNotification-500}
-                    message={t(message)}
-                    onClose={()=>this.handleRequestClose()}
-                    // classes={snackBarClasses}
-                    // style={{ backgroundColor: backColor }}
-                    // contentStyle={{ color: fontColor }}
-                    action={[
-                      <IconButton
-                        key="close"
-                        color="inherit"
-                        className={classes.close}
-                        onClick={()=>this.handleRequestClose()}>
-                        <Close />
-                      </IconButton>,
-                    ]}
-                    />       
+        <Snackbar open={!this.state.wasClosed && !!botNot}
+          autoHideDuration={timeNotification-500}
+          message={t(message)}
+          onClose={()=>this.handleRequestClose()}
+          // classes={snackBarClasses}
+          // style={{ backgroundColor: backColor }}
+          // contentStyle={{ color: fontColor }}
+          action={[
+            <IconButton
+              key="close"
+              color="inherit"
+              className={classes.close}
+              onClick={()=>this.handleRequestClose()}>
+              <Close />
+            </IconButton>,
+          ]}
+        />       
       </div>
-    )
+    );
   }
 }
 
 const mapStateToProps = (state) => ({
-    bottomNotifications: get(state, 'dialog.bottomNotifications')  
-})
+  bottomNotifications: get(state, 'dialog.bottomNotifications')  
+});
 
 const mapDispatchToProps = dispatch => ({
-    closePastNotificationBottom(){
-        dispatch(removePassBottomNotifications())
-    }  
-})
+  closePastNotificationBottom(){
+    dispatch(removePassBottomNotifications());
+  }  
+});
 
 BottomNotificationComponent.contextTypes = {
   t: PropTypes.func.isRequired
-}
+};
 
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(BottomNotificationComponent))
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(BottomNotificationComponent));

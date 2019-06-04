@@ -1,16 +1,16 @@
-import React, { PureComponent } from 'react'
-import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
-import {addMap} from '../_duck/actions'
-import {getData, createOpacitySelector} from '../_duck/selectors'
-import LoadingComponent from "../../../../common/_LoadingComponent";
-import {createSelectedVariableRangeSelector} from "../_duck/selectors";
-
-//maps
+import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import mapboxgl from 'mapbox-gl';
+import {addMap} from '../_duck/actions';
+import {getData, createOpacitySelector,createSelectedVariableRangeSelector} from '../_duck/selectors';
+import LoadingComponent from "../../../../common/_LoadingComponent";
+
+
+// maps
 import {loadMapGeoJson} from "../../../../common/map/_duck/actions";
 import {getMapGeoJson, getSelected} from "../../../../common/map/_duck/selectors";
-import MapComponent from '../../../../common/map/MapComponent'
+import MapComponent from '../../../../common/map/MapComponent';
 import MapSwitcherControl from '../../../../../service/maps/classes/common-controls/map-switcher-control';
 import MousePositionControl from '../../../../../service/maps/classes/common-controls/mouse-position-control';
 import MeasureDistanceControl from '../../../../../service/maps/classes/common-controls/measure-distance-control';
@@ -25,8 +25,9 @@ export class LayerComparisonMapContainer extends PureComponent {
     mapIndex: PropTypes.number,
     numberOfMaps: PropTypes.number
   }
+
   componentDidMount(){
-      this.props.loadMap();
+    this.props.loadMap();
   }
 
   componentWillReceiveProps(newProps){
@@ -45,22 +46,22 @@ export class LayerComparisonMapContainer extends PureComponent {
     this.map = map;
     const {mapIndex} = this.props; 
     
-    this.map.map.addControl(new MapSwitcherControl(this.map), "top-left")
-    this.map.map.addControl(new MousePositionControl(this.map), "top-left")
-    this.map.map.addControl(new MeasureDistanceControl(this.map), "top-left")
-    this.map.map.addControl(new mapboxgl.ScaleControl(), 'bottom-left')
-    this.map.map.addControl(new mapboxgl.NavigationControl(), 'bottom-left')
-    this.map.map.addControl(new LegendControl(this.map, mapIndex), 'bottom-right')
+    this.map.map.addControl(new MapSwitcherControl(this.map), "top-left");
+    this.map.map.addControl(new MousePositionControl(this.map), "top-left");
+    this.map.map.addControl(new MeasureDistanceControl(this.map), "top-left");
+    this.map.map.addControl(new mapboxgl.ScaleControl(), 'bottom-left');
+    this.map.map.addControl(new mapboxgl.NavigationControl(), 'bottom-left');
+    this.map.map.addControl(new LegendControl(this.map, mapIndex), 'bottom-right');
 
     const talhoes = new MapTalhaoesLayer();
     this.map.addLayer(talhoes).then(()=>{
-        this.map.addLayer(new MapNumbersLayer(talhoes))
-        this.selectedField = new MapSelectedTalhaoLayer(talhoes);
-        this.map.addLayer(this.selectedField);
-        this._interpolationLayer = new InterpolationLayer();
-        this.map.addLayer(this._interpolationLayer);
-        this._interpolationLayer.updateLayerData(this.props.data, this.props.selectedRangeGroup)
-        this._interpolationLayer.updateOpacity(this.props.opacity);
+      this.map.addLayer(new MapNumbersLayer(talhoes));
+      this.selectedField = new MapSelectedTalhaoLayer(talhoes);
+      this.map.addLayer(this.selectedField);
+      this._interpolationLayer = new InterpolationLayer();
+      this.map.addLayer(this._interpolationLayer);
+      this._interpolationLayer.updateLayerData(this.props.data, this.props.selectedRangeGroup);
+      this._interpolationLayer.updateOpacity(this.props.opacity);
     });
   }
 
@@ -70,13 +71,14 @@ export class LayerComparisonMapContainer extends PureComponent {
     const {mapIndex, onMapAdd} = this.props; 
     onMapAdd(map, mapIndex);
   }
+
   render() {
     const {numberOfMaps, mapGeoJson} = this.props;
     if (!mapGeoJson)
-      return <LoadingComponent isLoading={true}/>
+      return <LoadingComponent isLoading/>;
     return (
-        <MapComponent refreshMapCounter={numberOfMaps} onCreateMap={(map)=>this.onMapAdd(map)}/>
-    )
+      <MapComponent refreshMapCounter={numberOfMaps} onCreateMap={(map)=>this.onMapAdd(map)}/>
+    );
   }
 }
 
@@ -86,11 +88,11 @@ const mapStateToProps = (state, props) => ({
   data: getData(state),
   selectedRangeGroup: createSelectedVariableRangeSelector(props.mapIndex)(state),
   opacity: createOpacitySelector(props.mapIndex)(state)
-})
+});
 
 const mapDispatchToProps = (dispatch) => ({  
-    loadMap: ()=>dispatch(loadMapGeoJson()),
-    onMapAdd: (map, index) => dispatch(addMap(map, index))
-})
+  loadMap: ()=>dispatch(loadMapGeoJson()),
+  onMapAdd: (map, index) => dispatch(addMap(map, index))
+});
 
-export default connect(mapStateToProps, mapDispatchToProps)(LayerComparisonMapContainer)
+export default connect(mapStateToProps, mapDispatchToProps)(LayerComparisonMapContainer);

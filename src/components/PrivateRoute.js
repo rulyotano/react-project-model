@@ -1,12 +1,12 @@
-import React from 'react'
+import React from 'react';
 import {
   Route,
   Redirect
-} from 'react-router-dom'
-import {setRedirect, clearRedirect} from './common/auth/_duck/actions'
+  , withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import {setRedirect, clearRedirect} from './common/auth/_duck/actions';
 
-import { connect } from 'react-redux'
-import { withRouter } from 'react-router-dom'
+
 
 class PrivateRoute extends React.PureComponent{
   componentWillMount(){
@@ -15,28 +15,30 @@ class PrivateRoute extends React.PureComponent{
       this.props.history.push(this.props.redirect);
       this.props.clearRedirect();
     } else if (!this.props.logged){
-      this.props.setRedirect(this.props.location.pathname + this.props.location.search)
+      this.props.setRedirect(this.props.location.pathname + this.props.location.search);
     }
   }
+
   componentWillReceiveProps(nextProps){
     if (!nextProps.logged && this.props.logged){
-      this.props.setRedirect(this.props.location.pathname + this.props.location.search)
+      this.props.setRedirect(this.props.location.pathname + this.props.location.search);
     } else if (nextProps.logged && !this.props.logged && nextProps.redirect){
       this.props.history.push(nextProps.redirect);
       this.props.clearRedirect();
     }
   }
+
   render(){
     const { logged, component: Component, location, ...rest } = this.props;
     return (
       <Route {...rest} render={props => (logged ? (<Component {...props}/>) :(
-          <Redirect to={{
-            pathname: '/login',
-            state: { from: props.location }
-          }}/>
-        )
+        <Redirect to={{
+          pathname: '/login',
+          state: { from: props.location }
+        }}/>
+      )
       )}/>
-    )
+    );
   }
 }
 
