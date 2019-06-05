@@ -3,9 +3,7 @@ import {SET_USER_TYPE, CLEAR_USER_TYPE} from './types';
 export const userInitialState = {
   id: null,
   username: "",
-  name: "",
-  state: "",
-  userGroup: null
+  name: ""
 };
 
 export default (state = userInitialState, action) => {

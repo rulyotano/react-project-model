@@ -1,4 +1,3 @@
-import isEmpty from "lodash/isEmpty";
 import httpService from "../httpService";
 import loginAuthDataService from "./loginAuthDataService";
 import store from "../../components/store";
@@ -7,7 +6,6 @@ import {
   clearUserLogged
 } from "../../components/common/auth/_duck/actions";
 import dialogService from "../dialog/dialogService";
-import configService from "../config/configService";
 import { DialogButtonTypes } from "../../components/common/dialog/classes/DialogButton";
 
 /** Login service */
@@ -17,7 +15,7 @@ export class LoginService {
     this.store = store;
   }
 
-  _loginError(message) {
+  loginError(message = "login.Your credentials are invalid") {
     dialogService.error("", message);
   }
 
@@ -29,55 +27,47 @@ export class LoginService {
     promise.then(
       response => {
         if (response.token) {
-          if (isEmpty(response.listaDeOpcoesDoUsuario)) {
-            this._loginError("login.Your user profile is not created yet");
-          } else {
-            loginAuthDataService.setAuthData({
-              username: user,
-              token: response.token
-            });
-            configService.setGeneralParameters(
-              response.listaDeParametrosGerais
-            );
-            configService.setUserUnits(response.listaDeUnidadesDoUsuario);
-            configService.setUserProfile(response.listaDeOpcoesDoUsuario);
+          loginAuthDataService.setAuthData({
+            username: user,
+            token: response.token
+          });
 
-            // Change store state to logued for making the redirect
-            this.store.dispatch(setUserLogged(response.token, user)); // makes the redirect
-          }
+          this.store.dispatch(setUserLogged(response.token, user));
         } else {
-          this._loginError("login.Your credentials are invalid");
+          this.loginError();
         }
       },
       response => {
-        this._loginError("login.Your credentials are invalid");
+        this.loginError();
       }
     );
     return promise;
   }
 
+  exit() {
+    loginAuthDataService.clearAuthData();
+    this.store.dispatch(clearUserLogged());
+  }
+
   logout(force = false) {
-    const exit = () => {
-      // TODO: clear data storage -> configService.clearConfigurations();
-      // Change store state to not logued for making the redirect
-      loginAuthDataService.clearAuthData();
-      this.store.dispatch(clearUserLogged());
-    };
     if (force) {
-      exit();
+      this.exit();
       return new Promise(resolve => resolve(true));
     }
 
     return dialogService
       .confirmYesNo("login.confirm_logout_title", "login.confirm_logout_body")
       .then(btnResult => {
-        if (btnResult === DialogButtonTypes.YES) {
+        if (isButtonYes(btnResult)) {
           return httpService.post("/auth/logout", {}).then(() => {
-            exit();
+            this.exit();
           });
         }
+        return Promise.reject();
       });
   }
 }
+
+const isButtonYes = btnResult => btnResult === DialogButtonTypes.YES;
 
 export default new LoginService(store);

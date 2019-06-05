@@ -1,23 +1,22 @@
-import {get} from 'lodash';
-import {SET_USER_TYPE, CLEAR_USER_TYPE} from './types';
-import httpService from '../../../../service/httpService';
+import { SET_USER_TYPE, CLEAR_USER_TYPE } from "./types";
+import httpService from "../../../../service/httpService";
+import { getUserLogin } from "../../auth/_duck/selectors";
 
-const USER_REQUEST_URL = (userLogin)=>`/user/byUsername/${userLogin}`;;
+const USER_REQUEST_URL = userLogin => `/user/details/${userLogin}`;
 
 export const loadUser = () => (dispatch, getState) => {
-  const userLogin = get(getState(), "auth.user.username");
-  if (!userLogin)
-    return;
-  return httpService.get(USER_REQUEST_URL(userLogin)).then(response=>{
-    dispatch(setUser(response.id, response.cdUsuario, response.descNome, response.fgEstado, { id: response.cdGrupo, name: response.descGrupo}));
+  const userLogin = getUserLogin(getState());
+  if (!userLogin) return;
+  httpService.get(USER_REQUEST_URL(userLogin)).then(response => {
+    dispatch(setUser(response.id, response.userName, response.name));
   });
 };
 
-export const setUser = (id, username, name, state, userGroup)=>({
+export const setUser = (id, username, name) => ({
   type: SET_USER_TYPE,
-  payload: { id, username, name, state, userGroup }
+  payload: { id, username, name }
 });
 
-export const clearUser = ()=>({
+export const clearUser = () => ({
   type: CLEAR_USER_TYPE
 });

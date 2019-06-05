@@ -1,9 +1,10 @@
-import urljoin from "url-join";
+import importedUrlJoin from "url-join";
 
-export const urlJoin = (...parts)=>{
-  let result = urljoin(...parts);
-  // if parts start with / and result doesn't start with / add it
-  if (parts.length > 0 && parts[0] && parts[0].startsWith("/") && !result.startsWith("/"))
-    result = `/${result}`;
-  return result;
+export const urlJoin = (...urlParts)=>{
+  let joinedUrl = importedUrlJoin(...urlParts);
+  if (firstPartStartWithSlash(urlParts) && !joinedUrl.startsWith("/"))
+    joinedUrl = `/${joinedUrl}`;
+  return joinedUrl;
 };
+
+const firstPartStartWithSlash = (parts) => parts.length > 0 && parts[0] && parts[0].startsWith("/");

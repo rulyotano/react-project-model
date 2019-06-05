@@ -19,6 +19,7 @@ import loginUrl from "./login/routeNames";
 import { urlJoin } from "../service/helperService";
 import "../styles/css/font-awesome.css";
 import "react-perfect-scrollbar/dist/css/styles.css";
+import '../styles/css/app.css';
 
 const AppAsync = Loadable({
   loader: () => import("./app"),

@@ -6,9 +6,7 @@ import {
 import { connect } from 'react-redux';
 
 import LoadingComponent from '../common/_LoadingComponent';
-import configService from '../../service/config/configService';
 import * as userActions from '../common/user/_duck/actions';
-import '../../styles/css/app.css';
 import Header from "./header/Header";
 import Sidebar from "./sidebar/Sidebar";
 import {urlJoin} from '../../service/helperService';
@@ -26,10 +24,6 @@ export class App extends Component {
   state = {  };
 
   componentWillMount(){
-    // load initial app config
-    configService.loadGeneralParameters();      
-    configService.loadUserProfile();      
-    configService.loadUserUnits();
     this.props.loadUser();  
   }
   
