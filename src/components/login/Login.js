@@ -1,6 +1,6 @@
 import React, { Component }  from 'react';
 import PropTypes  from 'prop-types';
-import { withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router';
 import '../../styles/css/login.css';
 import { Field, reduxForm } from 'redux-form';
 import { TextField } from '@material-ui/core';

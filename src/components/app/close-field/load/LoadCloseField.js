@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 
 import {Button, Grid} from '@material-ui/core';
-import {withRouter} from 'react-router-dom';
+import {withRouter} from 'react-router';
 import EmptySegment from "../../../common/segment/EmptySegment";
 import Panel from '../../../common/collapse-panel/Panel';
 import {WorkAreaSelector} from '../../../common/work-area-selector/WorkAreaSelector';

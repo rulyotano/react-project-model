@@ -1,6 +1,6 @@
 import moment from "moment";
 import { isEmpty, random, chain, round } from "lodash";
-import { routerActions } from "react-router-redux";
+import { push } from "connected-react-router";
 import { START_LOADING, LOAD_ERROR, SHOW, CLEAR } from "./types";
 import httpService from "../../../../../service/httpService";
 import {
@@ -150,7 +150,7 @@ export const loadMap = (params, data, dispatch) => {
 
         // redirect to route
         dispatch(
-          routerActions.push(urlJoin("/", closeFieldUrl, closeFieldMapUrl))
+          push(urlJoin("/", closeFieldUrl, closeFieldMapUrl))
         );
       },
       e => dispatch({ type: LOAD_ERROR })
@@ -180,7 +180,7 @@ export const loadProcess = (params, data, dispatch) => {
     );
 
     dispatch(
-      routerActions.push(urlJoin("/", closeFieldUrl, closeFieldProcessUrl))
+      push(urlJoin("/", closeFieldUrl, closeFieldProcessUrl))
     );
   }, 1000);
 };

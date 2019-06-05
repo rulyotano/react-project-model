@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import '../../../styles/css/segment.css';
 import {Fullscreen, FullscreenExit} from '@material-ui/icons';
 import {connect} from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router';
 import Scrollbar from 'react-perfect-scrollbar';
 import {setSizeToMax, setSizeToMin} from "../../app/_duck/actions";
 import { getIsMaximized } from "../../app/_duck/selectors";
