@@ -17,7 +17,6 @@ import translations from "../i18n";
 import defaultTheme from "./defaultTheme";
 import loginUrl from "./login/routeNames";
 import { urlJoin } from "../service/helperService";
-import "../styles/css/font-solinftec.css";
 import "../styles/css/font-awesome.css";
 import "react-perfect-scrollbar/dist/css/styles.css";
 

@@ -1,7 +1,6 @@
 import React, { Component }  from 'react';
 import PropTypes  from 'prop-types';
 import { withRouter } from 'react-router';
-import '../../styles/css/login.css';
 import { Field, reduxForm } from 'redux-form';
 import { TextField } from '@material-ui/core';
 import loginService from "../../service/login/loginService";
@@ -10,15 +9,8 @@ import LanguagePicker from "../common/pickers/language";
 import LoadingButton from '../common/loading-button/LoadingButton';
 
 const TextFieldRf = textFieldToReduxForm(TextField);
-// caique
+
 const style = {
-  input:{color:'white', height:'80%'},
-  hint: {color:'white', height:'50%'},
-  floatingLabel:{top:'5px'},
-  btnAcessar:{backgroundColor:'inherited', height:'45px', borderRadius:'5px'},
-  languagePicker: {
-        
-  }
 };
 
 let LoginForm = ({t, handleSubmit, submitLogin, isLoading})=>
@@ -36,8 +28,6 @@ let LoginForm = ({t, handleSubmit, submitLogin, isLoading})=>
                 floatingLabelText={t("login.username")}
                 id="usernameID"
                 fullWidth
-                inputStyle={style.input}
-                hintStyle={style.hint}
                 floatingLabelStyle={style.floatingLabel} 
                 component={TextFieldRf}/>                            
             </section>
@@ -51,9 +41,6 @@ let LoginForm = ({t, handleSubmit, submitLogin, isLoading})=>
                 floatingLabelText={t("login.password")}
                 type="password"
                 fullWidth
-                inputStyle={style.input}
-                hintStyle={style.hint}
-                floatingLabelStyle={style.floatingLabel} 
                 component={TextFieldRf}/>
             </section>
           </div>
@@ -61,8 +48,6 @@ let LoginForm = ({t, handleSubmit, submitLogin, isLoading})=>
             <LoadingButton
               variant="raised"
               color="primary"
-              // buttonStyle={{ height:'45px', backgroundColor:'#0774b4', borderRadius:'5px', width:'100%'}}
-              style={style.btnAcessar}
               type="submit"
               isLoading={isLoading}>
               {t("login.access")}

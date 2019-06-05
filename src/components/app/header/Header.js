@@ -6,9 +6,6 @@ import { withStyles, IconButton, Menu, MenuItem, Avatar, ListItemIcon, ListItemT
 import LanguagePicker from '../../common/pickers/language';
 import loginService from '../../../service/login/loginService';
 
-import '../../../styles/css/header.css';
-
-
 const styles = theme => ({
   avatar: {
     height: 30,

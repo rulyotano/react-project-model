@@ -1,39 +1,34 @@
-import React ,{Component} from 'react';
-import { Field, reduxForm } from 'redux-form';
-import Segment from "../../common/segment/Segment";
-import {SelectRF} from "../../common/select/Select";
-import {SelectDataRF} from "../../common/select/SelectData";
+import React, { PureComponent } from "react";
+import { Field, reduxForm } from "redux-form";
+import Segment from "../../../common/segment/Segment";
+import { SelectRF } from "../../../common/select/Select";
+import { SelectDataRF } from "../../../common/select/SelectData";
 
 let nextId = 1;
 const suggestions = [
-  { label: 'Afghanistan' },
-  { label: 'Algeria' },
-  { label: 'Brazil' },
-  { label: 'British Indian Ocean Territory' },
-  { label: 'Brunei Darussalam' },
-  { label: 'Brunei Darussalam' },
-  { label: 'Brunei Darussalam' },
-  { label: 'Brunei Darussalam' },
-  { label: 'Brunei Darussalam' },
-  { label: 'Brunei Darussalam' },
-  { label: 'Brunei Darussalam' },
-  { label: 'Brunei Darussalam' },
-  { label: 'Brunei Darussalam' },
-  { label: 'Brunei Darussalam' },
+  { label: "Afghanistan" },
+  { label: "Algeria" },
+  { label: "Brazil" },
+  { label: "British Indian Ocean Territory" },
+  { label: "Brunei Darussalam" },
+  { label: "Brunei Darussalam" },
+  { label: "Brunei Darussalam" },
+  { label: "Brunei Darussalam" },
+  { label: "Brunei Darussalam" },
+  { label: "Brunei Darussalam" },
+  { label: "Brunei Darussalam" },
+  { label: "Brunei Darussalam" },
+  { label: "Brunei Darussalam" },
+  { label: "Brunei Darussalam" }
 ].map(suggestion => ({
   id: nextId++,
-  desc: suggestion.label,
+  desc: suggestion.label
 }));
 
-
-
-
-class FormTest extends Component{
-
-  render(){
+class FormTest extends PureComponent {
+  render() {
     const { handleSubmit, pristine, reset, submitting } = this.props;
-    return(
-
+    return (
       <Segment title="Redux Form Test">
         <form onSubmit={handleSubmit}>
           <Field
@@ -45,9 +40,10 @@ class FormTest extends Component{
             suggestions={suggestions}
             label="Options"
             error
-            helperText="Operation Error"/>
-          <br/>
-          <br/>
+            helperText="Operation Error"
+          />
+          <br />
+          <br />
           <Field
             component={SelectDataRF}
             attrId="cdEquipamento"
@@ -57,15 +53,15 @@ class FormTest extends Component{
             targetKey="fleet"
             label="Options"
             hasSearchInput
-            joinIdLabel/>
-
+            joinIdLabel
+          />
         </form>
       </Segment>
     );
   }
 }
 FormTest = reduxForm({
-  form: 'form-redux-selectF'  // a unique identifier for this form
+  form: "form-redux-selectF" // a unique identifier for this form
 })(FormTest);
 
 export default FormTest;

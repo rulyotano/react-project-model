@@ -5,7 +5,6 @@ import { combineReducers } from "redux";
 import auth from "../common/auth/_duck/reducers";
 import config from "../common/config/_duck/reducers";
 import user from "../common/user/_duck/reducers";
-import map from "../common/map/_duck/reducers";
 import data from "../common/data/_duck/reducers";
 import dialog from "../common/dialog/_store";
 import app from "../app/_duck/reducers";
@@ -15,7 +14,6 @@ const createMainReducer = history =>
     auth,
     config,
     user,
-    map,
     d: data,
     dialog,
     i18nState,

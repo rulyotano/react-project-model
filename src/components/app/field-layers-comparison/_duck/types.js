@@ -1,1 +1,0 @@
-// export const SOME_ACTION_NAME = "SOME_NAME";

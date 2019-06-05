@@ -1,16 +1,15 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import {Typography} from '@material-ui/core';
-import Segment from "../../common/segment/Segment";
-import CollapsePanel from "../../common/collapse-panel/CollapsePanel";
-import LoadingComponent from "../../common/_LoadingComponent";
-import ToolHoverWindowTest from "../../common/components-to-test/ToolHoverWindowTest";
-import ColorPickerTest from '../../common/components-to-test/ColorPickerTest';
-import DateTimePickerTest from "../../common/components-to-test/DateTimePickerTest";
-import DateTimeRangeSelectorTest from "../../common/components-to-test/DateTimeRangeSelectorTest";
-import LoadingButtonTest from '../../common/components-to-test/LoadingButtonTest';
-import WorkAreaSelectorTest from "../../common/components-to-test/WorkAreaSelectorTest";
+import Segment from "../../../common/segment/Segment";
+import CollapsePanel from "../../../common/collapse-panel/CollapsePanel";
+import LoadingComponent from "../../../common/_LoadingComponent";
+import ToolHoverWindowTest from "../../../common/components-to-test/ToolHoverWindowTest";
+import ColorPickerTest from '../../../common/components-to-test/ColorPickerTest';
+import DateTimePickerTest from "../../../common/components-to-test/DateTimePickerTest";
+import DateTimeRangeSelectorTest from "../../../common/components-to-test/DateTimeRangeSelectorTest";
+import LoadingButtonTest from '../../../common/components-to-test/LoadingButtonTest';
 
-class Monitoring extends Component {
+class Monitoring extends PureComponent {
 
   render(){
     return(
@@ -79,10 +78,6 @@ class Monitoring extends Component {
           </div>
           <div style={{width: '25%'}}>
             <DateTimePickerTest/>
-          </div>
-
-          <div style={{width: '25%'}}>
-            <WorkAreaSelectorTest />
           </div>
         </Segment>
         <ToolHoverWindowTest />

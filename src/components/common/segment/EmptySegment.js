@@ -1,7 +1,6 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
 
-import "../../../styles/css/segment.css";
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
 import Scrollbar from "react-perfect-scrollbar";
