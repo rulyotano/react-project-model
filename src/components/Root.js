@@ -14,7 +14,7 @@ import { setUserLogged } from "./common/auth/_duck/actions";
 import DialogComponent from "./common/dialog/DialogComponent";
 import BottomNotificationComponent from "./common/dialog/BottomNotificationComponent";
 import translations from "../i18n";
-import defaultTheme from "./defaultTheme";
+import defaultTheme from "./themes/defaultTheme";
 import loginUrl from "./login/routeNames";
 import { urlJoin } from "../service/helperService";
 import "../styles/css/font-awesome.css";
@@ -27,7 +27,7 @@ const AppAsync = Loadable({
 });
 
 const LoginAsync = Loadable({
-  loader: () => import("./login/Login"),
+  loader: () => import("./login/LoginDark"),
   loading: LoadingComponent
 });
 
