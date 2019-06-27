@@ -23,7 +23,7 @@ class LoadingButtonTest extends Component {
     render() {
       return (
         <LoadingButton
-          variant="raised"
+          variant="contained"
           color="primary"
           onClick={this.onClickLoadingButton}
           isLoading={this.state.isLoading}>

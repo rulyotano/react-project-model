@@ -10,7 +10,7 @@ let store = null;
 let dialogService = null;
 beforeEach(()=>{
   store = configureStore();
-  dialogService = new DialogService(store);    
+  dialogService = new DialogService(store.dispatch);    
 });
 
 // #region common

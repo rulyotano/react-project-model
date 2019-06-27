@@ -26,7 +26,7 @@ class ToolHoverWindowTest extends Component{
     render(){
       const footer = (<div>
         <LoadingButton
-          variant="raised"
+          variant="contained"
           color="primary"
           onClick={this.onClickLoadingButton}
           isLoading={this.state.isLoading}>
@@ -40,42 +40,36 @@ class ToolHoverWindowTest extends Component{
           <CollapsePanel title="Weather Map"/>
           <LoadingComponent isLoading/>
           <LoadingButton
-            variant="raised"
             color="primary"
             onClick={this.onClickLoadingButton}
             isLoading={this.state.isLoading}>
                     Login
           </LoadingButton>
           <LoadingButton
-            variant="raised"
             color="primary"
             onClick={this.onClickLoadingButton}
             isLoading={this.state.isLoading}>
                     Login
           </LoadingButton>
           <LoadingButton
-            variant="raised"
             color="primary"
             onClick={this.onClickLoadingButton}
             isLoading={this.state.isLoading}>
                     Login
           </LoadingButton>
           <LoadingButton
-            variant="raised"
             color="primary"
             onClick={this.onClickLoadingButton}
             isLoading={this.state.isLoading}>
                     Login
           </LoadingButton>
           <LoadingButton
-            variant="raised"
             color="primary"
             onClick={this.onClickLoadingButton}
             isLoading={this.state.isLoading}>
                     Login
           </LoadingButton>
           <LoadingButton
-            variant="raised"
             color="primary"
             onClick={this.onClickLoadingButton}
             isLoading={this.state.isLoading}>

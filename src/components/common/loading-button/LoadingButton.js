@@ -8,7 +8,7 @@ const styles = theme => ({
     alignItems: "center"
   },
   wrapper: {
-    margin: theme.spacing.unit,
+    margin: theme.spacing(1),
     position: "relative",
     marginLeft: "auto",
     marginRight: "auto"
@@ -26,11 +26,13 @@ const styles = theme => ({
 class LoadingButton extends PureComponent {
   static propTypes = {
     classes: PropTypes.object.isRequired,
-    isLoading: PropTypes.bool
+    isLoading: PropTypes.bool,
+    variant: PropTypes.string
   };
 
   static defaultProps = {
-    isLoading: false
+    isLoading: false,
+    variant: null
   };
 
   render() {
@@ -39,13 +41,18 @@ class LoadingButton extends PureComponent {
       isLoading = false,
       disabled,
       children,
+      variant,
       ...restProps
     } = this.props;
 
     return (
       <div className={classes.root}>
         <div className={classes.wrapper}>
-          <Button {...restProps} disabled={isLoading || disabled}>
+          <Button
+            variant={variant}
+            {...restProps}
+            disabled={isLoading || disabled}
+          >
             {children}
           </Button>
           {isLoading && (

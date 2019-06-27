@@ -90,7 +90,6 @@ let LoginForm = ({ t, handleSubmit, submitLogin, isLoading, classes }) => (
           </div>
           <div style={{ textAlign: "center", paddingTop: "30px" }}>
             <LoadingButton
-              variant="raised"
               color="primary"
               type="submit"
               isLoading={isLoading}
